@@ -1,0 +1,452 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		AABF3CB3198636C0001C8DCA /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AABF3CB2198636C0001C8DCA /* Foundation.framework */; };
+		AABF3CB5198636C0001C8DCA /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AABF3CB4198636C0001C8DCA /* CoreGraphics.framework */; };
+		AABF3CB7198636C0001C8DCA /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AABF3CB6198636C0001C8DCA /* UIKit.framework */; };
+		AABF3CBD198636C0001C8DCA /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = AABF3CBB198636C0001C8DCA /* InfoPlist.strings */; };
+		AABF3CBF198636C0001C8DCA /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = AABF3CBE198636C0001C8DCA /* main.m */; };
+		AABF3CC3198636C0001C8DCA /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = AABF3CC2198636C0001C8DCA /* AppDelegate.m */; };
+		AABF3CC5198636C0001C8DCA /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AABF3CC4198636C0001C8DCA /* Images.xcassets */; };
+		AABF3CCC198636C0001C8DCA /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AABF3CCB198636C0001C8DCA /* XCTest.framework */; };
+		AABF3CCD198636C0001C8DCA /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AABF3CB2198636C0001C8DCA /* Foundation.framework */; };
+		AABF3CCE198636C0001C8DCA /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AABF3CB6198636C0001C8DCA /* UIKit.framework */; };
+		AABF3CD6198636C0001C8DCA /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = AABF3CD4198636C0001C8DCA /* InfoPlist.strings */; };
+		AABF3CD8198636C0001C8DCA /* ETImClientTests.m in Sources */ = {isa = PBXBuildFile; fileRef = AABF3CD7198636C0001C8DCA /* ETImClientTests.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		AABF3CCF198636C0001C8DCA /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = AABF3CA7198636C0001C8DCA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = AABF3CAE198636C0001C8DCA;
+			remoteInfo = ETImClient;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		AABF3CAF198636C0001C8DCA /* ETImClient.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ETImClient.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		AABF3CB2198636C0001C8DCA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		AABF3CB4198636C0001C8DCA /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		AABF3CB6198636C0001C8DCA /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		AABF3CBA198636C0001C8DCA /* ETImClient-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "ETImClient-Info.plist"; sourceTree = "<group>"; };
+		AABF3CBC198636C0001C8DCA /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		AABF3CBE198636C0001C8DCA /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		AABF3CC0198636C0001C8DCA /* ETImClient-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ETImClient-Prefix.pch"; sourceTree = "<group>"; };
+		AABF3CC1198636C0001C8DCA /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		AABF3CC2198636C0001C8DCA /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		AABF3CC4198636C0001C8DCA /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		AABF3CCA198636C0001C8DCA /* ETImClientTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ETImClientTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		AABF3CCB198636C0001C8DCA /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
+		AABF3CD3198636C0001C8DCA /* ETImClientTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "ETImClientTests-Info.plist"; sourceTree = "<group>"; };
+		AABF3CD5198636C0001C8DCA /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		AABF3CD7198636C0001C8DCA /* ETImClientTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ETImClientTests.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		AABF3CAC198636C0001C8DCA /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AABF3CB5198636C0001C8DCA /* CoreGraphics.framework in Frameworks */,
+				AABF3CB7198636C0001C8DCA /* UIKit.framework in Frameworks */,
+				AABF3CB3198636C0001C8DCA /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AABF3CC7198636C0001C8DCA /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AABF3CCC198636C0001C8DCA /* XCTest.framework in Frameworks */,
+				AABF3CCE198636C0001C8DCA /* UIKit.framework in Frameworks */,
+				AABF3CCD198636C0001C8DCA /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		AABF3CA6198636C0001C8DCA = {
+			isa = PBXGroup;
+			children = (
+				AABF3CB8198636C0001C8DCA /* ETImClient */,
+				AABF3CD1198636C0001C8DCA /* ETImClientTests */,
+				AABF3CB1198636C0001C8DCA /* Frameworks */,
+				AABF3CB0198636C0001C8DCA /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		AABF3CB0198636C0001C8DCA /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				AABF3CAF198636C0001C8DCA /* ETImClient.app */,
+				AABF3CCA198636C0001C8DCA /* ETImClientTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		AABF3CB1198636C0001C8DCA /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				AABF3CB2198636C0001C8DCA /* Foundation.framework */,
+				AABF3CB4198636C0001C8DCA /* CoreGraphics.framework */,
+				AABF3CB6198636C0001C8DCA /* UIKit.framework */,
+				AABF3CCB198636C0001C8DCA /* XCTest.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		AABF3CB8198636C0001C8DCA /* ETImClient */ = {
+			isa = PBXGroup;
+			children = (
+				AABF3CC1198636C0001C8DCA /* AppDelegate.h */,
+				AABF3CC2198636C0001C8DCA /* AppDelegate.m */,
+				AABF3CC4198636C0001C8DCA /* Images.xcassets */,
+				AABF3CB9198636C0001C8DCA /* Supporting Files */,
+			);
+			path = ETImClient;
+			sourceTree = "<group>";
+		};
+		AABF3CB9198636C0001C8DCA /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				AABF3CBA198636C0001C8DCA /* ETImClient-Info.plist */,
+				AABF3CBB198636C0001C8DCA /* InfoPlist.strings */,
+				AABF3CBE198636C0001C8DCA /* main.m */,
+				AABF3CC0198636C0001C8DCA /* ETImClient-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		AABF3CD1198636C0001C8DCA /* ETImClientTests */ = {
+			isa = PBXGroup;
+			children = (
+				AABF3CD7198636C0001C8DCA /* ETImClientTests.m */,
+				AABF3CD2198636C0001C8DCA /* Supporting Files */,
+			);
+			path = ETImClientTests;
+			sourceTree = "<group>";
+		};
+		AABF3CD2198636C0001C8DCA /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				AABF3CD3198636C0001C8DCA /* ETImClientTests-Info.plist */,
+				AABF3CD4198636C0001C8DCA /* InfoPlist.strings */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		AABF3CAE198636C0001C8DCA /* ETImClient */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = AABF3CDB198636C0001C8DCA /* Build configuration list for PBXNativeTarget "ETImClient" */;
+			buildPhases = (
+				AABF3CAB198636C0001C8DCA /* Sources */,
+				AABF3CAC198636C0001C8DCA /* Frameworks */,
+				AABF3CAD198636C0001C8DCA /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = ETImClient;
+			productName = ETImClient;
+			productReference = AABF3CAF198636C0001C8DCA /* ETImClient.app */;
+			productType = "com.apple.product-type.application";
+		};
+		AABF3CC9198636C0001C8DCA /* ETImClientTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = AABF3CDE198636C0001C8DCA /* Build configuration list for PBXNativeTarget "ETImClientTests" */;
+			buildPhases = (
+				AABF3CC6198636C0001C8DCA /* Sources */,
+				AABF3CC7198636C0001C8DCA /* Frameworks */,
+				AABF3CC8198636C0001C8DCA /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				AABF3CD0198636C0001C8DCA /* PBXTargetDependency */,
+			);
+			name = ETImClientTests;
+			productName = ETImClientTests;
+			productReference = AABF3CCA198636C0001C8DCA /* ETImClientTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		AABF3CA7198636C0001C8DCA /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0510;
+				ORGANIZATIONNAME = Pingan;
+				TargetAttributes = {
+					AABF3CC9198636C0001C8DCA = {
+						TestTargetID = AABF3CAE198636C0001C8DCA;
+					};
+				};
+			};
+			buildConfigurationList = AABF3CAA198636C0001C8DCA /* Build configuration list for PBXProject "ETImClient" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = AABF3CA6198636C0001C8DCA;
+			productRefGroup = AABF3CB0198636C0001C8DCA /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				AABF3CAE198636C0001C8DCA /* ETImClient */,
+				AABF3CC9198636C0001C8DCA /* ETImClientTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		AABF3CAD198636C0001C8DCA /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AABF3CBD198636C0001C8DCA /* InfoPlist.strings in Resources */,
+				AABF3CC5198636C0001C8DCA /* Images.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AABF3CC8198636C0001C8DCA /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AABF3CD6198636C0001C8DCA /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		AABF3CAB198636C0001C8DCA /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AABF3CC3198636C0001C8DCA /* AppDelegate.m in Sources */,
+				AABF3CBF198636C0001C8DCA /* main.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AABF3CC6198636C0001C8DCA /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AABF3CD8198636C0001C8DCA /* ETImClientTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		AABF3CD0198636C0001C8DCA /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = AABF3CAE198636C0001C8DCA /* ETImClient */;
+			targetProxy = AABF3CCF198636C0001C8DCA /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		AABF3CBB198636C0001C8DCA /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				AABF3CBC198636C0001C8DCA /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		AABF3CD4198636C0001C8DCA /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				AABF3CD5198636C0001C8DCA /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		AABF3CD9198636C0001C8DCA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		AABF3CDA198636C0001C8DCA /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		AABF3CDC198636C0001C8DCA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "ETImClient/ETImClient-Prefix.pch";
+				INFOPLIST_FILE = "ETImClient/ETImClient-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		AABF3CDD198636C0001C8DCA /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "ETImClient/ETImClient-Prefix.pch";
+				INFOPLIST_FILE = "ETImClient/ETImClient-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+		AABF3CDF198636C0001C8DCA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/ETImClient.app/ETImClient";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "ETImClient/ETImClient-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "ETImClientTests/ETImClientTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Debug;
+		};
+		AABF3CE0198636C0001C8DCA /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/ETImClient.app/ETImClient";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "ETImClient/ETImClient-Prefix.pch";
+				INFOPLIST_FILE = "ETImClientTests/ETImClientTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		AABF3CAA198636C0001C8DCA /* Build configuration list for PBXProject "ETImClient" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AABF3CD9198636C0001C8DCA /* Debug */,
+				AABF3CDA198636C0001C8DCA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		AABF3CDB198636C0001C8DCA /* Build configuration list for PBXNativeTarget "ETImClient" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AABF3CDC198636C0001C8DCA /* Debug */,
+				AABF3CDD198636C0001C8DCA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		AABF3CDE198636C0001C8DCA /* Build configuration list for PBXNativeTarget "ETImClientTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AABF3CDF198636C0001C8DCA /* Debug */,
+				AABF3CE0198636C0001C8DCA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = AABF3CA7198636C0001C8DCA /* Project object */;
+}
