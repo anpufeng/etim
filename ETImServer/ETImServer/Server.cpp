@@ -9,7 +9,12 @@
 #include "Server.h"
 
 namespace etim {
-    void Server::Start() {
+    
+    int Server::Start() {
         
+        while (1) {
+            
+        }
+        return 0;
     }
 }   //end namespace etim

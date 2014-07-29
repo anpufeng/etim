@@ -11,4 +11,32 @@
 
 #include <iostream>
 
+namespace etim {
+    
+class Socket {
+private:
+    Socket(const Socket &rhs);
+    void operator=(const Socket &rhs);
+public:
+    Socket();
+    ~Socket();
+    bool Create();
+    bool Bind(char *ip);
+    bool Listen();
+    int Accept();
+    bool Connect(char *ip, unsigned short port);
+    void Close();
+    int Send();
+    int Recv();
+    int SendN();
+    int RecvN();
+    
+    bool IsValid() const { return fd_ == -1; }
+private:
+    int fd_;
+    int port_;
+};
+    
+}   //end namespace etim
+
 #endif /* defined(__ETImServer__Socket__) */

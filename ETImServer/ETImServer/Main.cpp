@@ -8,16 +8,16 @@
 
 #include <iostream>
 #include "Server.h"
+#include "Singleton.h"
 
 using namespace etim;
+using namespace etim::pub;
 
 int main(int argc, const char * argv[])
 {
 
     // insert code here...
-    Server im;
-    im.Start();
-    
-    return 0;
+    return Singleton<Server>::Instance().Start();
+
 }
 

@@ -9,6 +9,23 @@
 #ifndef ETImServer_Singleton_h
 #define ETImServer_Singleton_h
 
+namespace etim {
 
+namespace pub {
+        
+template <typename T>
+class Singleton {
+public:
+    static T& Instance() {
+        static T instance;
+        return instance;
+    }
+private:
+    Singleton();
+    ~Singleton();
+};
+    
+}   //end namespace pub
+}   //end namespace etim
 
 #endif

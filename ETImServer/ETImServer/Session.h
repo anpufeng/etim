@@ -11,4 +11,15 @@
 
 #include <iostream>
 
+namespace etim {
+    class Session {
+        Session();
+        ~Session();
+        
+    public:
+        int fd_;
+        
+    };
+}   //end etim
+
 #endif /* defined(__ETImServer__Session__) */

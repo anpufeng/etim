@@ -10,18 +10,25 @@
 #define __ETImServer__Server__
 
 #include <iostream>
+#include <vector>
 
 namespace etim {
 
+class Session;
+    
 ///主服务
 class Server {
+private:
     
 public:
     
     Server() {};
     ~Server() {};
 
-    void Start();
+    int Start();
+public:
+    static fd_set fdSet_;
+    std::vector<Session> sessions_;
 };
 
 }   //end namespace etim
