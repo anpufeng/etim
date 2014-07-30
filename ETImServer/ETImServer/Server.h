@@ -24,7 +24,7 @@ namespace etim {
         
     public:
         
-        Server() {};
+        Server();
         ~Server() {};
 
         int Start();
@@ -33,7 +33,9 @@ namespace etim {
         //解析
         void ParsePacket();
     public:
-        static fd_set fdSet_;
+        static fd_set readFds_;
+        
+        int fdMax_;
         std::vector<Session> sessions_;
     };
 
