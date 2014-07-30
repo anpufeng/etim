@@ -1,7 +1,7 @@
 #include "Idea.h"
 
-namespace PUBLIC
-{
+using namespace etim;
+using namespace etim::pub;
 
 static unsigned short MulInv(unsigned short x)
 {
@@ -128,10 +128,10 @@ static void IdeaInvertKey(unsigned short const *EK, unsigned short DK[IDEAKEYLEN
 static void IdeaCipher(unsigned char const inbuf[8], unsigned char outbuf[8],
 					   unsigned short const *key)
 {
-	register unsigned short x1, x2, x3, x4, s2, s3;
+    unsigned short x1, x2, x3, x4, s2, s3;
 	unsigned short *in, *out;
-	register unsigned short t16;	/* Temporaries needed by MUL macro */
-	register word32 t32;
+    unsigned short t16;	/* Temporaries needed by MUL macro */
+    word32 t32;
 	int r = IDEAROUNDS;
 
 	in = (unsigned short *) inbuf;
@@ -345,6 +345,4 @@ void Idea::Crypt(unsigned char const key[16],
 	{
 		IdeaCfbDecrypt(&cfb, src, dest, count);
 	}
-}
-
 }

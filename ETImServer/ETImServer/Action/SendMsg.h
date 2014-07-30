@@ -11,4 +11,16 @@
 
 #include <iostream>
 
+#include "Action.h"
+
+namespace etim {
+    namespace action {
+        
+        class SendMsg : public Action {
+        public:
+            virtual void Execute(Session& s);
+        };
+    } //end action
+} //end etim
+
 #endif /* defined(__ETImServer__SendMsg__) */

@@ -1,8 +1,10 @@
-#include "JUtil.h"
+#include "Endian.h"
 
 #include <iomanip>
 #include <sstream>
-using namespace PUBLIC;
+
+using namespace etim;
+using namespace etim::pub;
 using namespace std;
 
 int Convert::StringToInt(const string& str)

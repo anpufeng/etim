@@ -2,20 +2,22 @@
 #define _JUTIL_H_
 
 #include <string>
-using namespace std;
 
-namespace PUBLIC
+namespace etim
 {
+    namespace pub {
+        
 typedef char int8;
-typedef short int16;
-typedef int int32;
-typedef __int64 int64;
+typedef int16_t int16;
+typedef int32_t int32;
+typedef int64_t int64;
 
 typedef unsigned char uint8;
 typedef unsigned short uint16;
 typedef unsigned int uint32;
-typedef unsigned __int64 uint64;
+typedef unsigned long uint64;
 
+///网络与主机字节序的转换
 class Endian
 {
 public:
@@ -80,7 +82,7 @@ private:
 
 	static uint16 Swap16(uint16 s)
 	{
-		return (s & 0xff) << 8 | (s >> 8) & 0xff;
+		return (s & 0xff) << 8 | ((s >> 8) & 0xff);
 	}
 
 	static uint32 Swap32(uint32 l)
@@ -107,12 +109,14 @@ private:
 class Convert
 {
 public:
-	static int StringToInt(const string& str);
-	static string IntToString(int x);
-	static double StringToDouble(const string& str);
-	static string DoubleToString(double x);
+	static int StringToInt(const std::string& str);
+	static std::string IntToString(int x);
+	static double StringToDouble(const std::string& str);
+	static std::string DoubleToString(double x);
 };
 
-}
+        
+    }//end pub
+}   //end etim
 
 #endif /* _JUTIL_H_ */

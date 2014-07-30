@@ -10,5 +10,16 @@
 #define __ETImServer__Register__
 
 #include <iostream>
+#include "Action.h"
+
+namespace etim {
+    namespace action {
+        
+        class Register : public Action {
+        public:
+            virtual void Execute(Session& s);
+        };
+    } //end action
+} //end etim
 
 #endif /* defined(__ETImServer__Register__) */

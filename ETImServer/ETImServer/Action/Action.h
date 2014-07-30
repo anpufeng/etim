@@ -10,5 +10,22 @@
 #define __ETImServer__Action__
 
 #include <iostream>
+#include "Session.h"
+
+
+namespace etim {
+    namespace action {
+    
+    ///所有操作的基类
+    class Action {
+        
+    public:
+        virtual void Execute(Session& s) = 0;
+        virtual ~Action() {};
+        
+    };
+        
+    }   //end action
+}   //end etim
 
 #endif /* defined(__ETImServer__Action__) */

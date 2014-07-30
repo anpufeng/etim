@@ -10,5 +10,16 @@
 #define __ETImServer__AddBuddy__
 
 #include <iostream>
+#include "Action.h"
+
+namespace etim {
+    namespace action {
+        
+        class AddBuddy : public Action {
+        public:
+            virtual void Execute(Session& s);
+        };
+    } //end action
+} //end etim
 
 #endif /* defined(__ETImServer__AddBuddy__) */

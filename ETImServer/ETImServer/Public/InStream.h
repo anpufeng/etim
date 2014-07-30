@@ -1,33 +1,35 @@
 #ifndef _JIN_STREAM_H_
 #define _JIN_STREAM_H_
 
-#include "JUtil.h"
+#include "Endian.h"
 
 #include <string>
 #include <vector>
 
 #include <assert.h>
 
-namespace PUBLIC
+namespace etim
 {
+    namespace pub {
 
-class JInStream
+        ///解包 摘自C++教程网
+class InStream
 {
 public:
-	JInStream();
-	JInStream(const char* data, size_t len);
+	InStream();
+	InStream(const char* data, size_t len);
 
 	void SetData(const char* data, size_t len);
 
-	JInStream& operator>>(uint8& x);
-	JInStream& operator>>(uint16& x);
-	JInStream& operator>>(uint32& x);
+	InStream& operator>>(uint8& x);
+	InStream& operator>>(uint16& x);
+	InStream& operator>>(uint32& x);
 
-	JInStream& operator>>(int8& x);
-	JInStream& operator>>(int16& x);
-	JInStream& operator>>(int32& x);
+	InStream& operator>>(int8& x);
+	InStream& operator>>(int16& x);
+	InStream& operator>>(int32& x);
 
-	JInStream& operator>>(std::string& str);
+	InStream& operator>>(std::string& str);
 	
 	void Reposition(size_t pos)
 	{
@@ -57,6 +59,7 @@ private:
 	size_t currIndex_;
 };
 
-}
+    }//end pub
+}   //end etim
 
 #endif /* _JIN_STREAM_H_ */

@@ -1,8 +1,7 @@
 #include <string.h>
 #include "md5.h"
 
-namespace PUBLIC
-{
+using namespace etim::pub;
 
 #ifndef WORDS_BIGENDIAN
 #define byteReverse(buf, len)	/* Nothing */
@@ -45,7 +44,7 @@ void MD5::MD5Init(struct MD5Context *ctx)
 */
 void MD5::MD5Update(struct MD5Context *ctx, unsigned char const *buf, unsigned len)
 {
-	register word32 t;
+    word32 t;
 
 	/* Update bitcount */
 
@@ -129,7 +128,7 @@ void MD5::MD5Final(unsigned char digest[16], struct MD5Context *ctx)
 	MD5Transform(ctx->buf, (word32 *) ctx->in);
 	byteReverse((unsigned char *) ctx->buf, 4);
 	memmove(digest, ctx->buf, 16);
-	memset(ctx, 0, sizeof(ctx));	/* In case it's sensitive */
+	memset(static_cast<void *>(ctx), 0, sizeof(ctx));	/* In case it's sensitive */
 }
 
 /* The four core functions - F1 is optimized somewhat */
@@ -151,7 +150,7 @@ void MD5::MD5Final(unsigned char digest[16], struct MD5Context *ctx)
 */
 void MD5::MD5Transform(word32 buf[4], word32 const in[16])
 {
-	register word32 a, b, c, d;
+    word32 a, b, c, d;
 
 	a = buf[0];
 	b = buf[1];
@@ -239,6 +238,4 @@ void MD5::MD5Make(unsigned char digest[16], unsigned char const *buf,
 	MD5Init(&ctx);
 	MD5Update(&ctx,(unsigned char*)buf, len);
 	MD5Final(digest, &ctx);
-}
-
 }

@@ -8,13 +8,22 @@
 
 #include "Server.h"
 
-namespace etim {
+using namespace etim;
+
+
+int Server::Start() {
     
-    int Server::Start() {
-        
-        while (1) {
-            
-        }
-        return 0;
+    while (1) {
+        RecvSend();
+        ParsePacket();
     }
-}   //end namespace etim
+    return 0;
+}
+
+void Server::RecvSend() {
+    
+}
+
+void Server::ParsePacket() {
+    
+}

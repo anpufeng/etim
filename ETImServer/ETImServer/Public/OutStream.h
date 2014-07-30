@@ -1,30 +1,32 @@
 #ifndef _JOUT_STREAM_H_
 #define _JOUT_STREAM_H_
 
-#include "JUtil.h"
+#include "Endian.h"
 #include <string>
 #include <vector>
 #include <algorithm>
 
-namespace PUBLIC
+namespace etim
 {
+    namespace pub {
 
-class JOutStream
+        ///打包 摘自C++教程网 
+class OutStream
 {
 public:
 	static const size_t kInitialSize;
 
-	JOutStream();
+	OutStream();
 
-	JOutStream& operator<<(uint8 x);
-	JOutStream& operator<<(uint16 x);
-	JOutStream& operator<<(uint32 x);
+	OutStream& operator<<(uint8 x);
+	OutStream& operator<<(uint16 x);
+	OutStream& operator<<(uint32 x);
 
-	JOutStream& operator<<(int8 x);
-	JOutStream& operator<<(int16 x);
-	JOutStream& operator<<(int32 x);
+	OutStream& operator<<(int8 x);
+	OutStream& operator<<(int16 x);
+	OutStream& operator<<(int32 x);
 
-	JOutStream& operator<<(const std::string& str);
+	OutStream& operator<<(const std::string& str);
 	
 	void WriteBytes(const void* data, size_t len);
 	
@@ -78,5 +80,7 @@ private:
 	size_t currIndex_;
 };
 
-}
+}//end pub
+}   //end etim
+
 #endif /* _JOUT_STREAM_H_ */

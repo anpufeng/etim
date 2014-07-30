@@ -3,9 +3,8 @@
 
 #include <string.h>
 
-namespace PUBLIC
-{
-
+namespace etim {
+    namespace pub {
 typedef unsigned int word32;
 #define fill0(buffer,count)	memset(buffer, 0, count)
 #define burn(x) fill0((void *)&(x),sizeof(x))
@@ -39,6 +38,7 @@ public:
 	void Crypt(unsigned char const key[16],
 		unsigned char const *src, unsigned char *dest, int count,bool encrypt);
 };
+    }   //end pub
 
-}
+}   //end etim
 #endif // _IDEA_H_

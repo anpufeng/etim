@@ -9,7 +9,21 @@
 /* Begin PBXBuildFile section */
 		AA420BAC19863F4200D1117F /* Server.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AA420BAA19863F4200D1117F /* Server.cpp */; };
 		AA420BAF198642F300D1117F /* Socket.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AA420BAD198642F300D1117F /* Socket.cpp */; };
+		AA59F01D1988BD23009FD449 /* MD5.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AA59F01B1988BD23009FD449 /* MD5.cpp */; };
+		AA59F0201988BFF8009FD449 /* Idea.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AA59F01E1988BFF8009FD449 /* Idea.cpp */; };
+		AA59F0231988C4CC009FD449 /* Endian.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AA59F0211988C4CC009FD449 /* Endian.cpp */; };
+		AA59F0281988C9BB009FD449 /* InStream.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AA59F0241988C9BB009FD449 /* InStream.cpp */; };
+		AA59F0291988C9BB009FD449 /* OutStream.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AA59F0261988C9BB009FD449 /* OutStream.cpp */; };
 		AA7004C319879911005D5FC1 /* Session.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AA7004C119879911005D5FC1 /* Session.cpp */; };
+		AA7004C719889628005D5FC1 /* Action.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AA7004C519889628005D5FC1 /* Action.cpp */; };
+		AA7004CA198897B3005D5FC1 /* Register.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AA7004C8198897B3005D5FC1 /* Register.cpp */; };
+		AA7004CD19889872005D5FC1 /* Login.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AA7004CB19889872005D5FC1 /* Login.cpp */; };
+		AA7004D019889AF4005D5FC1 /* ActionManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AA7004CE19889AF4005D5FC1 /* ActionManager.cpp */; };
+		AA7004D319889C9B005D5FC1 /* HeartBeat.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AA7004D119889C9B005D5FC1 /* HeartBeat.cpp */; };
+		AA7004D619889CEB005D5FC1 /* SendMsg.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AA7004D419889CEB005D5FC1 /* SendMsg.cpp */; };
+		AA7004DC19889D3C005D5FC1 /* AddBuddy.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AA7004DA19889D3C005D5FC1 /* AddBuddy.cpp */; };
+		AA7004DF19889D8D005D5FC1 /* SwitchStatus.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AA7004DD19889D8D005D5FC1 /* SwitchStatus.cpp */; };
+		AA7004E219889E2E005D5FC1 /* RetriveBuddy.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AA7004E019889E2E005D5FC1 /* RetriveBuddy.cpp */; };
 		AABF3C9E19863690001C8DCA /* Main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AABF3C9D19863690001C8DCA /* Main.cpp */; };
 		AABF3CA019863690001C8DCA /* ETImServer.1 in CopyFiles */ = {isa = PBXBuildFile; fileRef = AABF3C9F19863690001C8DCA /* ETImServer.1 */; };
 /* End PBXBuildFile section */
@@ -34,8 +48,36 @@
 		AA420BAE198642F300D1117F /* Socket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Socket.h; sourceTree = "<group>"; };
 		AA420BB219872FFF00D1117F /* Noncopyable.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Noncopyable.h; sourceTree = "<group>"; };
 		AA420BB3198730AB00D1117F /* Singleton.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Singleton.h; sourceTree = "<group>"; };
+		AA59F01B1988BD23009FD449 /* MD5.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MD5.cpp; sourceTree = "<group>"; };
+		AA59F01C1988BD23009FD449 /* MD5.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MD5.h; sourceTree = "<group>"; };
+		AA59F01E1988BFF8009FD449 /* Idea.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Idea.cpp; sourceTree = "<group>"; };
+		AA59F01F1988BFF8009FD449 /* Idea.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Idea.h; sourceTree = "<group>"; };
+		AA59F0211988C4CC009FD449 /* Endian.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Endian.cpp; sourceTree = "<group>"; };
+		AA59F0221988C4CC009FD449 /* Endian.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Endian.h; sourceTree = "<group>"; };
+		AA59F0241988C9BB009FD449 /* InStream.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = InStream.cpp; sourceTree = "<group>"; };
+		AA59F0251988C9BB009FD449 /* InStream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InStream.h; sourceTree = "<group>"; };
+		AA59F0261988C9BB009FD449 /* OutStream.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = OutStream.cpp; sourceTree = "<group>"; };
+		AA59F0271988C9BB009FD449 /* OutStream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OutStream.h; sourceTree = "<group>"; };
 		AA7004C119879911005D5FC1 /* Session.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Session.cpp; sourceTree = "<group>"; };
 		AA7004C219879911005D5FC1 /* Session.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Session.h; sourceTree = "<group>"; };
+		AA7004C519889628005D5FC1 /* Action.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Action.cpp; sourceTree = "<group>"; };
+		AA7004C619889628005D5FC1 /* Action.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Action.h; sourceTree = "<group>"; };
+		AA7004C8198897B3005D5FC1 /* Register.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Register.cpp; sourceTree = "<group>"; };
+		AA7004C9198897B3005D5FC1 /* Register.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Register.h; sourceTree = "<group>"; };
+		AA7004CB19889872005D5FC1 /* Login.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Login.cpp; sourceTree = "<group>"; };
+		AA7004CC19889872005D5FC1 /* Login.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Login.h; sourceTree = "<group>"; };
+		AA7004CE19889AF4005D5FC1 /* ActionManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ActionManager.cpp; sourceTree = "<group>"; };
+		AA7004CF19889AF4005D5FC1 /* ActionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActionManager.h; sourceTree = "<group>"; };
+		AA7004D119889C9B005D5FC1 /* HeartBeat.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = HeartBeat.cpp; sourceTree = "<group>"; };
+		AA7004D219889C9B005D5FC1 /* HeartBeat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HeartBeat.h; sourceTree = "<group>"; };
+		AA7004D419889CEB005D5FC1 /* SendMsg.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SendMsg.cpp; sourceTree = "<group>"; };
+		AA7004D519889CEB005D5FC1 /* SendMsg.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SendMsg.h; sourceTree = "<group>"; };
+		AA7004DA19889D3C005D5FC1 /* AddBuddy.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AddBuddy.cpp; sourceTree = "<group>"; };
+		AA7004DB19889D3C005D5FC1 /* AddBuddy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddBuddy.h; sourceTree = "<group>"; };
+		AA7004DD19889D8D005D5FC1 /* SwitchStatus.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SwitchStatus.cpp; sourceTree = "<group>"; };
+		AA7004DE19889D8D005D5FC1 /* SwitchStatus.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SwitchStatus.h; sourceTree = "<group>"; };
+		AA7004E019889E2E005D5FC1 /* RetriveBuddy.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = RetriveBuddy.cpp; sourceTree = "<group>"; };
+		AA7004E119889E2E005D5FC1 /* RetriveBuddy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RetriveBuddy.h; sourceTree = "<group>"; };
 		AABF3C9A19863690001C8DCA /* ETImServer */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = ETImServer; sourceTree = BUILT_PRODUCTS_DIR; };
 		AABF3C9D19863690001C8DCA /* Main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Main.cpp; sourceTree = "<group>"; };
 		AABF3C9F19863690001C8DCA /* ETImServer.1 */ = {isa = PBXFileReference; lastKnownFileType = text.man; path = ETImServer.1; sourceTree = "<group>"; };
@@ -55,10 +97,43 @@
 		AA420BB0198648BE00D1117F /* Public */ = {
 			isa = PBXGroup;
 			children = (
+				AA59F0241988C9BB009FD449 /* InStream.cpp */,
+				AA59F0251988C9BB009FD449 /* InStream.h */,
+				AA59F0261988C9BB009FD449 /* OutStream.cpp */,
+				AA59F0271988C9BB009FD449 /* OutStream.h */,
+				AA59F0211988C4CC009FD449 /* Endian.cpp */,
+				AA59F0221988C4CC009FD449 /* Endian.h */,
+				AA59F01E1988BFF8009FD449 /* Idea.cpp */,
+				AA59F01F1988BFF8009FD449 /* Idea.h */,
+				AA59F01B1988BD23009FD449 /* MD5.cpp */,
+				AA59F01C1988BD23009FD449 /* MD5.h */,
 				AA420BB219872FFF00D1117F /* Noncopyable.h */,
 				AA420BB3198730AB00D1117F /* Singleton.h */,
 			);
 			path = Public;
+			sourceTree = "<group>";
+		};
+		AA7004C41988961C005D5FC1 /* Action */ = {
+			isa = PBXGroup;
+			children = (
+				AA7004C519889628005D5FC1 /* Action.cpp */,
+				AA7004C619889628005D5FC1 /* Action.h */,
+				AA7004C8198897B3005D5FC1 /* Register.cpp */,
+				AA7004C9198897B3005D5FC1 /* Register.h */,
+				AA7004CB19889872005D5FC1 /* Login.cpp */,
+				AA7004CC19889872005D5FC1 /* Login.h */,
+				AA7004D119889C9B005D5FC1 /* HeartBeat.cpp */,
+				AA7004D219889C9B005D5FC1 /* HeartBeat.h */,
+				AA7004D419889CEB005D5FC1 /* SendMsg.cpp */,
+				AA7004D519889CEB005D5FC1 /* SendMsg.h */,
+				AA7004DA19889D3C005D5FC1 /* AddBuddy.cpp */,
+				AA7004DB19889D3C005D5FC1 /* AddBuddy.h */,
+				AA7004DD19889D8D005D5FC1 /* SwitchStatus.cpp */,
+				AA7004DE19889D8D005D5FC1 /* SwitchStatus.h */,
+				AA7004E019889E2E005D5FC1 /* RetriveBuddy.cpp */,
+				AA7004E119889E2E005D5FC1 /* RetriveBuddy.h */,
+			);
+			path = Action;
 			sourceTree = "<group>";
 		};
 		AABF3C9119863690001C8DCA = {
@@ -80,6 +155,7 @@
 		AABF3C9C19863690001C8DCA /* ETImServer */ = {
 			isa = PBXGroup;
 			children = (
+				AA7004C41988961C005D5FC1 /* Action */,
 				AA420BB0198648BE00D1117F /* Public */,
 				AABF3C9D19863690001C8DCA /* Main.cpp */,
 				AABF3C9F19863690001C8DCA /* ETImServer.1 */,
@@ -89,6 +165,8 @@
 				AA420BAE198642F300D1117F /* Socket.h */,
 				AA7004C119879911005D5FC1 /* Session.cpp */,
 				AA7004C219879911005D5FC1 /* Session.h */,
+				AA7004CE19889AF4005D5FC1 /* ActionManager.cpp */,
+				AA7004CF19889AF4005D5FC1 /* ActionManager.h */,
 			);
 			path = ETImServer;
 			sourceTree = "<group>";
@@ -144,10 +222,24 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AA7004CA198897B3005D5FC1 /* Register.cpp in Sources */,
 				AA7004C319879911005D5FC1 /* Session.cpp in Sources */,
+				AA59F0231988C4CC009FD449 /* Endian.cpp in Sources */,
+				AA7004E219889E2E005D5FC1 /* RetriveBuddy.cpp in Sources */,
 				AA420BAC19863F4200D1117F /* Server.cpp in Sources */,
+				AA7004D019889AF4005D5FC1 /* ActionManager.cpp in Sources */,
+				AA7004DC19889D3C005D5FC1 /* AddBuddy.cpp in Sources */,
+				AA59F01D1988BD23009FD449 /* MD5.cpp in Sources */,
 				AA420BAF198642F300D1117F /* Socket.cpp in Sources */,
+				AA59F0291988C9BB009FD449 /* OutStream.cpp in Sources */,
 				AABF3C9E19863690001C8DCA /* Main.cpp in Sources */,
+				AA59F0201988BFF8009FD449 /* Idea.cpp in Sources */,
+				AA7004DF19889D8D005D5FC1 /* SwitchStatus.cpp in Sources */,
+				AA7004C719889628005D5FC1 /* Action.cpp in Sources */,
+				AA7004CD19889872005D5FC1 /* Login.cpp in Sources */,
+				AA7004D319889C9B005D5FC1 /* HeartBeat.cpp in Sources */,
+				AA59F0281988C9BB009FD449 /* InStream.cpp in Sources */,
+				AA7004D619889CEB005D5FC1 /* SendMsg.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

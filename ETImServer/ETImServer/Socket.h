@@ -13,6 +13,7 @@
 
 namespace etim {
     
+///一些socket功能和基本封装
 class Socket {
 private:
     Socket(const Socket &rhs);

@@ -10,5 +10,16 @@
 #define __ETImServer__Login__
 
 #include <iostream>
+#include "Action.h"
+
+namespace etim {
+    namespace action {
+        
+        class Login : public Action {
+        public:
+            virtual void Execute(Session& s);
+        };
+    } //end action
+} //end etim
 
 #endif /* defined(__ETImServer__Login__) */

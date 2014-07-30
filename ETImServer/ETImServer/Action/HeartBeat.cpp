@@ -7,3 +7,11 @@
 //
 
 #include "HeartBeat.h"
+
+using namespace etim;
+using namespace etim::action;
+
+
+void HeartBeat::Execute(Session& s) {
+    
+}

@@ -10,5 +10,17 @@
 #define __ETImServer__SwitchStatus__
 
 #include <iostream>
+#include "Action.h"
+
+namespace etim {
+    namespace action {
+        
+        class SwitchStatus : public Action {
+        public:
+            virtual void Execute(Session& s);
+        };
+    } //end action
+} //end etim
+
 
 #endif /* defined(__ETImServer__SwitchStatus__) */

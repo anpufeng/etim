@@ -7,3 +7,10 @@
 //
 
 #include "SwitchStatus.h"
+
+using namespace etim;
+using namespace etim::action;
+
+void SwitchStatus::Execute(Session& s) {
+    
+}

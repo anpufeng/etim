@@ -7,3 +7,11 @@
 //
 
 #include "AddBuddy.h"
+
+
+using namespace etim;
+using namespace etim::action;
+
+void AddBuddy::Execute(Session& s) {
+    
+}

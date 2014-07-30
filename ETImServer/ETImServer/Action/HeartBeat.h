@@ -10,5 +10,16 @@
 #define __ETImServer__HeartBeat__
 
 #include <iostream>
+#include "Action.h"
+
+namespace etim {
+    namespace action {
+        
+        class HeartBeat : public Action {
+        public:
+            virtual void Execute(Session& s);
+        };
+    } //end action
+} //end etim
 
 #endif /* defined(__ETImServer__HeartBeat__) */

@@ -1,3 +1,4 @@
+
 //
 //  Login.cpp
 //  ETImServer
@@ -7,3 +8,10 @@
 //
 
 #include "Login.h"
+
+using namespace etim;
+using namespace etim::action;
+
+void Login::Execute(Session& s) {
+    
+}

@@ -10,5 +10,15 @@
 #define __ETImServer__RetriveBuddy__
 
 #include <iostream>
+#include "Action.h"
 
+namespace etim {
+    namespace action {
+        
+        class RetriveBuddy : public Action {
+        public:
+            virtual void Execute(Session& s);
+        };
+    } //end action
+} //end etim
 #endif /* defined(__ETImServer__RetriveBuddy__) */

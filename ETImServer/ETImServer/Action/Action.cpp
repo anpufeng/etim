@@ -7,3 +7,6 @@
 //
 
 #include "Action.h"
+
+using namespace etim;
+using namespace etim::action;

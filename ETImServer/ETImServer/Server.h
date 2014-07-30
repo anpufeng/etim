@@ -9,29 +9,35 @@
 #ifndef __ETImServer__Server__
 #define __ETImServer__Server__
 
+#include "Singleton.h"
+#include "Session.h"
 #include <iostream>
 #include <vector>
 
 namespace etim {
 
-class Session;
     
-///主服务
-class Server {
-private:
-    
-public:
-    
-    Server() {};
-    ~Server() {};
+    ///主服务
+    class Server {
+        friend class pub::Singleton<Server>;
+    private:
+        
+    public:
+        
+        Server() {};
+        ~Server() {};
 
-    int Start();
-public:
-    static fd_set fdSet_;
-    std::vector<Session> sessions_;
-};
+        int Start();
+        ///收发工作
+        void RecvSend();
+        //解析
+        void ParsePacket();
+    public:
+        static fd_set fdSet_;
+        std::vector<Session> sessions_;
+    };
 
-}   //end namespace etim
+}   //end etim
 
 
 #endif /* defined(__ETImServer__Server__) */

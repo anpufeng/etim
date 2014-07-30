@@ -1,3 +1,4 @@
+
 //
 //  RetriveBuddy.cpp
 //  ETImServer
@@ -7,3 +8,10 @@
 //
 
 #include "RetriveBuddy.h"
+
+using namespace etim;
+using namespace etim::action;
+
+void RetriveBuddy::Execute(Session& s) {
+    
+}
