@@ -10,25 +10,32 @@
 #define __ETImServer__Session__
 
 #include <iostream>
+#include "Socket.h"
 
 namespace etim {
 
 #define CMD_REGISTER                            0x0001      //注册
 #define CMD_LOGIN                               0x0002      //登录
-#define CMD_HEART_BEAT                          0x0003      //心跳
-#define CMD_SEND_MSG                            0x0004      //发消息
-#define CMD_ADD_BUDDY                           0x0005      //添加好友
-#define CMD_SWITCH_STATUS                       0x0006      //切换登录状态
-#define CMD_RETRIVE_BUDDY                       0x0007      //获取好友列表
+#define CMD_LOGOUT                              0x0003      //登出
+#define CMD_HEART_BEAT                          0x0004      //心跳
+#define CMD_SEND_MSG                            0x0005      //发消息
+#define CMD_ADD_BUDDY                           0x0006      //添加好友
+#define CMD_SWITCH_STATUS                       0x0007      //切换登录状态
+#define CMD_RETRIVE_BUDDY                       0x0008      //获取好友列表
+    
+    
 
 ///每个会话
     class Session {
     public:
-        Session() {};
-        ~Session() {};
-        
+        Session(std::auto_ptr<Socket> &socket);
+        ~Session() {}
+
+    
     public:
-        int fd_;
+        int GetFd() const { return socket_->GetFd(); }
+    public:
+        std::auto_ptr<Socket> socket_;
         uint16_t cmd_;
         
     };

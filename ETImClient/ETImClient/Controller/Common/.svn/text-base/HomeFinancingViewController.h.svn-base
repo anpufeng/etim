@@ -1,0 +1,16 @@
+//
+//  HomeFinancingViewController.h
+//  HM-HEALTH
+//
+//  Created by apple on 14-5-26.
+//  Copyright (c) 2014年 PingAn. All rights reserved.
+//
+
+#import "BaseViewController.h"
+
+@interface HomeFinancingViewController : BaseViewController
+
+@property (weak, nonatomic) IBOutlet UITableView *listMenu;
+@property (weak, nonatomic) IBOutlet UIImageView *bgImage;
+
+@end

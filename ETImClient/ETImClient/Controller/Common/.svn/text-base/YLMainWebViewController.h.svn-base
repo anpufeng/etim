@@ -1,0 +1,35 @@
+//
+//  YLMainWebViewController.h
+//  HM-HEALTH
+//
+//  Created by hujiwei on 14-5-8.
+//  Copyright (c) 2014年 PingAn. All rights reserved.
+//
+
+#import <UIKit/UIKit.h>
+#import "CDVViewController.h"
+//#import "BaseViewController.h"
+#import "YLUpdateUser.h"
+
+typedef enum _DragDirection
+{
+    Drag_Up,
+    Drag_Down
+}DragDirection;
+
+@interface YLMainWebViewController : CDVViewController<YLUpdateUserDelegate>
+
+@property (nonatomic, strong) UIWebView *webView;
+
+@property (nonatomic, strong) NSString *javascriptString;
+///开始加载web的设置
+- (void)startLoadWebViewWithUrlString:(NSString*)urlStr;
+
+///支付成功之后跳转
+- (void)backWhenPaySuccess;
+
+- (void)createCenterView;
+
+- (void)delayLoadWebView;
+
+@end

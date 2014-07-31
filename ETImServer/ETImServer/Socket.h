@@ -20,6 +20,7 @@ private:
     void operator=(const Socket &rhs);
 public:
     Socket();
+    Socket(int fd, short port);
     ~Socket();
     bool Create();
     bool Bind(char *ip);
@@ -31,11 +32,12 @@ public:
     int Recv();
     int SendN();
     int RecvN();
+    int GetFd() const { return fd_; }
     
     bool IsValid() const { return fd_ == -1; }
 private:
     int fd_;
-    int port_;
+    short port_;
 };
     
 }   //end namespace etim

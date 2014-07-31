@@ -1,0 +1,28 @@
+//
+//  PALeftViewController.h
+//  HM-HEALTH
+//
+//  Created by apple on 14-5-30.
+//  Copyright (c) 2014年 PingAn. All rights reserved.
+//
+
+#import "BackViewController.h"
+
+@protocol PALeftDelegate<NSObject>
+
+- (void)leftTableViewSelectRow:(int)row;
+
+@end
+
+@interface PALeftViewController : BackViewController
+@property (weak, nonatomic) IBOutlet UIImageView *userPhotoView;
+@property (weak, nonatomic) IBOutlet UILabel *userNo;
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (weak, nonatomic) IBOutlet UILabel *userLocation;
+@property (weak, nonatomic) IBOutlet UIImageView *headImageView;
+
+@property (nonatomic, assign) id<PALeftDelegate> delegate;
+
+- (void)uploadUserName;
+
+@end

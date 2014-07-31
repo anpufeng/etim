@@ -1,0 +1,710 @@
+//
+//  YLMainWebViewController.m
+//  HM-HEALTH
+//
+//  Created by hujiwei on 14-5-8.
+//  Copyright (c) 2014年 PingAn. All rights reserved.
+//
+
+#import "YLMainWebViewController.h"
+#import "NavWebTitle.h"
+#import "YLReadPdfViewController.h"
+#import "YLImagelibViewController.h"
+#import "YLProBankViewController.h"
+#import "YLWebViewController.h"
+#import "NSHTTPCookieStorage+Web.h"
+#import "YLRELoginViewController.h"
+#import "NSString+Base64_ext.h"
+
+#import "YLUpdateUserInfoViewController.h"
+
+#import "JKHCOrderDetailViewController.h"
+
+#define HTTPURLPREFIX @"index.html"
+
+@interface YLMainWebViewController ()<UIWebViewDelegate, UIAlertViewDelegate, loginSucessDelegate, YLProBankDelegate, YLUpdateUserDelegate,YLUpdateUserInfoViewControllerDelegate>
+{
+    NSString *isHome;
+    UIButton *backBtn;
+    NSString *refreash_login_url;
+    NSDictionary *autoPayDic;
+    
+    UIImageView*            _centerView;
+    UIImageView*            _titleView;
+    YLMainWebViewController * _ylMainVC;
+    DragDirection           _dragDirection;
+    CGPoint                 _origionPoint;
+
+}
+
+@property (nonatomic, strong) UIBarButtonItem *leftItem;
+
+@property (nonatomic, strong) UIBarButtonItem *rightItem;
+
+@end
+
+@implementation YLMainWebViewController
+@synthesize webView = _webView;
+
+- (void)startLoadWebViewWithUrlString:(NSString*)urlStr
+{
+    if (urlStr && urlStr.length) {
+        self.startPage = urlStr;
+    }
+
+    //@"http://iqsh-d8123/index.html#guaranteeSlip/guaranteeSlip/testHome";//HTTPURLPREFIX;//@"http://health.pingan.com/cshi-smts/index.html";//
+}
+
+- (void)delayLoadWebView
+{
+    [self performSelector:@selector(delayLoadOrder)
+               withObject:nil
+               afterDelay:.5];
+}
+
+- (void)delayLoadOrder
+{
+    NSString *htmlPath = [[NSBundle mainBundle] pathForResource:@"list" ofType:@"html" inDirectory:@"wwww/assets/html"];
+    NSURL *htmlUrl = [NSURL fileURLWithPath:htmlPath];
+    [self.webView loadRequest:[NSURLRequest requestWithURL:htmlUrl]];
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    NSRange range  = [self.javascriptString rangeOfString:@"#"];
+    NSArray *array = [[self.javascriptString substringFromIndex:range.length + range.location] componentsSeparatedByString:@"/"];
+    
+    NSLog(@"界面开始记录 %@", array[0]);
+
+    [TalkingData trackPageBegin:array[0]];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    NSLog(@"self.view.tag = %d",self.view.tag);
+    if (1 == self.navigationController.viewControllers.count) {
+        [self removeSubViews];
+    }
+}
+- (void)viewDidDisappear:(BOOL)animated
+{
+    NSRange range  = [self.javascriptString rangeOfString:@"#"];
+    NSArray *array = [[self.javascriptString substringFromIndex:range.length + range.location] componentsSeparatedByString:@"/"];
+    
+    NSLog(@"界面开始记录 %@", array[0]);
+    
+    [TalkingData trackPageEnd:array[0]];
+    
+}
+
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+	// Do any additional setup after loading the view, typically from a nib.
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(backWhenPaySuccess)
+                                                 name:@"kKuaiQIanPaySuccess"
+                                               object:nil];
+    isHome = @"1";
+    
+    [self.navigationController.navigationBar
+     setBackgroundImage:IMAGE(@"nav-bg-7@2x.png")
+     forBarMetrics:UIBarMetricsDefault];
+    
+    [self navigationItemsInit];
+    [self installTitleChange];
+    
+}
+
+- (void)navigationItemsInit
+{
+    backBtn = [[UIButton alloc] init];
+    [backBtn addTarget:self action:@selector(navWebBack) forControlEvents:UIControlEventTouchUpInside];
+    [backBtn setImage:IMAGE(@"Activity_back@2x.png") forState:UIControlStateNormal];
+    [backBtn setImage:IMAGE(@"Activity_back@2x.png") forState:UIControlStateHighlighted];
+    backBtn.contentMode = UIViewContentModeCenter;
+    backBtn.frame = CGRectMake(3, 0, 31, 31);
+    
+    UIBarButtonItem *negativeSpacerR = [[UIBarButtonItem alloc]
+                                        initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace
+                                        target:nil action:nil];
+    
+    UIButton *closeBtn = [[UIButton alloc] init];
+    [closeBtn addTarget:self action:@selector(navWebClose) forControlEvents:UIControlEventTouchUpInside];
+    [closeBtn setImage:[UIImage imageNamed:@"mainWeb_rclose"] forState:UIControlStateNormal];
+    [closeBtn setImage:[UIImage imageNamed:@"mainWeb_rclose"] forState:UIControlStateHighlighted];
+    closeBtn.contentMode = UIViewContentModeCenter;
+    closeBtn.frame = CGRectMake(3, 0, 31, 31);
+    
+    if (IOS7) {
+        negativeSpacerR.width = -10;
+    }else{
+        negativeSpacerR.width = 3;
+    }
+    
+    self.navigationItem.leftBarButtonItems = @[negativeSpacerR, [[UIBarButtonItem alloc] initWithCustomView:backBtn]];
+    
+    self.navigationItem.rightBarButtonItems = @[negativeSpacerR, [[UIBarButtonItem alloc] initWithCustomView:closeBtn]];
+}
+
+- (void)hideLeftAndRightButton
+{
+    _ylMainVC.navigationItem.rightBarButtonItems = nil;
+    _ylMainVC.navigationItem.leftBarButtonItems = nil;
+    _ylMainVC.navigationItem.hidesBackButton = YES;
+}
+
+
+- (void)createCenterView
+{
+    _titleView =[[UIImageView alloc] initWithImage:IMAGE(@"ylmove_bg@2x.png")];
+    _titleView.frame = CGRectMake(0, (SizeHeight(self.view) - 31), SizeWidth(self.view), 31);
+    [Window addSubview:_titleView];
+
+    _centerView = [[UIImageView alloc] initWithImage:IMAGE(@"ylmove_center@2x.png")];
+    _centerView.userInteractionEnabled = YES;
+    _centerView.frame = CGRectMake((320 - 62)/2, (SizeHeight(self.view) - 62), 62, 61);
+    [Window addSubview:_centerView];
+    
+    _origionPoint = _centerView.center;
+
+    
+    UIPanGestureRecognizer* recognize = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(centerViewMove:)];
+    [_centerView addGestureRecognizer:recognize];
+    
+    UISwipeGestureRecognizer* swipeRec = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(centerViewDirection:)];
+    [_centerView addGestureRecognizer:swipeRec];
+    
+    if (!_ylMainVC) {
+        _ylMainVC = [[YLMainWebViewController alloc] init];
+        _ylMainVC.view.tag = 1001;
+        
+        _ylMainVC.hidesBottomBarWhenPushed = YES;
+        [_ylMainVC startLoadWebViewWithUrlString:[NSString stringWithFormat:@"%@/m/insurance/index.html", CSSP_HOST_URL]];
+        _ylMainVC.javascriptString = @"javascript:forward('#insurance/financialMarket/insuranceHome/all')";
+        _ylMainVC.view.frame = CGRectMake(0, SizeHeight(self.view) - 64, SizeWidth(self.view), SizeHeight(self.view));
+        [self.view addSubview:_ylMainVC.view];
+    }
+}
+
+- (void)removeSubViews
+{
+    [_titleView removeFromSuperview];
+    [_centerView removeFromSuperview];
+    [_ylMainVC.view removeFromSuperview];
+}
+
+- (void)centerViewMove:(UIPanGestureRecognizer*)rec
+{
+    NSLog(@"xxoo---xxoo---xxoo");
+    CGPoint point = [rec translationInView:self.view];
+    NSLog(@"%f,%f",point.x,point.y);
+    rec.view.center = CGPointMake(rec.view.center.x, rec.view.center.y + point.y);
+    _titleView.center = CGPointMake(_titleView.center.x, _titleView.center.y + point.y);
+    _ylMainVC.view.center = CGPointMake(_ylMainVC.view.center.x, _ylMainVC.view.center.y + point.y);
+    [rec setTranslation:CGPointMake(0, 0) inView:self.view];
+    
+    if (_dragDirection == Drag_Down) {
+        if ([self.navigationController.viewControllers containsObject:_ylMainVC]) {
+            _ylMainVC.view.frame = CGRectMake(0, 0, SizeWidth(self.view), SizeHeight(self.view));
+            [self.view addSubview:_ylMainVC.view];
+            [self.navigationController popViewControllerAnimated:NO];
+        }
+    }
+    
+    switch (rec.state) {
+        case UIGestureRecognizerStateBegan:
+            
+            NSLog(@"point.y = %f  origion.y = %f",point.y,_origionPoint.y);
+            if (point.y >= 0) {
+                _dragDirection = Drag_Down;
+            }else{
+                _dragDirection = Drag_Up;
+            }
+
+            NSLog(@"_dragDirection = %d",_dragDirection);
+            
+            break;
+        case UIGestureRecognizerStateEnded:
+        {
+            if (_dragDirection == Drag_Up) {
+
+                [UIView animateWithDuration:.4
+                                 animations:^{
+                                     _titleView.frame = CGRectMake(0, 33, SizeWidth(self.view), 31);
+                                     
+                                     _centerView.frame = CGRectMake((SizeWidth(self.view) - 62)/2, 0, 62, 61);
+                                     _ylMainVC.view.frame = CGRectMake(0, 0, SizeWidth(self.view), SizeHeight(self.view));
+
+                                 } completion:^(BOOL finished) {
+                                     if (![self.navigationController.viewControllers containsObject:_ylMainVC]) {
+                                         [self.navigationController pushViewController:_ylMainVC animated:NO];
+                                     }
+                                     [self hideLeftAndRightButton];
+                                 }];
+            }else {
+                [UIView animateWithDuration:.4
+                                 animations:^{
+                                     _titleView.frame = CGRectMake(0, (SizeHeight(Window) - 31), SizeWidth(self.view), 31);
+                                     
+                                     _centerView.frame = CGRectMake((320 - 62)/2, (SizeHeight(Window) - 62), 62, 61);
+                                     _ylMainVC.view.frame = CGRectMake(0, SizeHeight(Window) - 64, SizeWidth(self.view), SizeHeight(self.view));
+                                 }];
+            }
+
+            _origionPoint = _centerView.center;
+
+        }
+            break;
+            
+        default:
+            break;
+    }
+}
+
+- (void)centerViewDirection:(UISwipeGestureRecognizer*)rec
+{
+    switch (rec.direction) {
+        case UISwipeGestureRecognizerDirectionUp:
+            _dragDirection = Drag_Up;
+            break;
+        case UISwipeGestureRecognizerDirectionDown:
+            _dragDirection = Drag_Down;
+            break;
+        default:
+            break;
+    }
+}
+
+
+
+
+#pragma mark - 导航栏标题控制
+- (void)installTitleChange
+{
+    [[NavWebTitle sharedNavWebTitle] addObserver:self forKeyPath:@"webTitleName" options:NSKeyValueObservingOptionNew context:nil];
+    [[NavWebTitle sharedNavWebTitle] addObserver:self forKeyPath:@"webLeft" options:NSKeyValueObservingOptionNew context:nil];
+    [[NavWebTitle sharedNavWebTitle] addObserver:self forKeyPath:@"webRight" options:NSKeyValueObservingOptionNew context:nil];
+}
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
+    
+    if ([keyPath isEqualToString:@"webTitleName"]) {
+        if ([@"订单管理" isEqualToString:[change objectForKey:@"new"]] || [@"保险" isEqualToString:[change objectForKey:@"new"]]) {
+            [UIView animateWithDuration:.3 animations:^{
+                _centerView.hidden = NO;
+                _titleView.hidden = NO;
+            } completion:^(BOOL finished) {
+                
+            }];
+
+        }else{
+            if (!_centerView.hidden) {
+                [UIView animateWithDuration:.3 animations:^{
+                    _centerView.hidden = YES;
+                    _titleView.hidden = YES;
+                } completion:^(BOOL finished) {
+                    
+                }];
+            }
+        }
+        
+        if ([@"保险" isEqualToString:[change objectForKey:@"new"]]) {
+            [self hideLeftAndRightButton];
+        }else{
+            if (!_ylMainVC.navigationItem.rightBarButtonItems.count) {
+                [self navigationItemsInit];
+            }
+        }
+
+        self.title = [change objectForKey:@"new"];
+    }
+    else if ([keyPath isEqualToString:@"webLeft"]){
+        [self addLeftItemWithTitle:[change objectForKey:@"new"]];
+    }
+    else if ([keyPath isEqualToString:@"webRight"])
+    {
+        [self addRightItemWithTitle:[change objectForKey:@"new"]];
+    }
+}
+
+- (void)addLeftItemWithTitle:(NSString *)title
+{
+    if (title != nil) {
+        
+        if (!self.leftItem) {
+            
+            self.leftItem = [[UIBarButtonItem alloc] initWithTitle:title style:UIBarButtonItemStylePlain target:self action:@selector(navWebBack)];
+            
+        }
+        
+        self.navigationItem.leftBarButtonItem = self.leftItem;
+    }
+}
+
+- (void)navWebBack
+{
+    if ([isHome isEqualToString:@"1"]) {
+        [self navExit];
+    }
+    else
+    {
+        [self.webView stringByEvaluatingJavaScriptFromString:@"javascript:back()"];
+    }
+}
+
+- (void)navWebClose
+{
+    [self.navigationController popViewControllerAnimated:YES];
+//    [self.navigationController popToRootViewControllerAnimated:YES];
+}
+
+- (void)addRightItemWithTitle:(NSString *)title
+{
+    if (title != nil) {
+        
+        if (!self.rightItem) {
+            
+            self.rightItem = [[UIBarButtonItem alloc] initWithTitle:title style:UIBarButtonItemStylePlain target:self action:@selector(navExit)];
+            
+        }
+        
+        self.navigationItem.rightBarButtonItem = self.rightItem;
+    }
+}
+
+- (void)navExit
+{
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
+- (void)didReceiveMemoryWarning
+{
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
+#pragma UIWebDelegate implementation
+
+- (void) webViewDidFinishLoad:(UIWebView*) theWebView
+{
+    // Black base color for background matches the native apps
+    theWebView.backgroundColor = [UIColor whiteColor];
+    return [super webViewDidFinishLoad:theWebView];
+}
+
+- (void)JS{
+    [self.webView stringByEvaluatingJavaScriptFromString:self.javascriptString];
+}
+
+- (void) webViewDidStartLoad:(UIWebView*)theWebView
+{
+    return [super webViewDidStartLoad:theWebView];
+}
+
+- (void) webView:(UIWebView*)theWebView didFailLoadWithError:(NSError*)error
+{
+    return [super webView:theWebView didFailLoadWithError:error];
+}
+
+- (BOOL) webView:(UIWebView*)theWebView shouldStartLoadWithRequest:(NSURLRequest*)request navigationType:(UIWebViewNavigationType)navigationType
+{
+    NSString *urlString = [request.URL absoluteString];
+    
+    urlString = [urlString stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    
+    NSLog(@"----->>>> shouldStartLoad:   %@", urlString);
+    
+//    if ([urlString containsString:@"#financialMarket/insuranceOrder/index"]) {
+//        [self.navigationController popViewControllerAnimated:YES];
+//        [self backWhenPaySuccess];
+//        return NO;
+//    }
+
+    if ([urlString hasPrefix:@"http://paerror/?"]) {
+        
+        NSRange range=[urlString rangeOfString:@"http://paerror/?"];
+        NSString *string = [urlString substringFromIndex:range.length + range.location];
+    
+        NSLog(@"%@", [string componentsSeparatedByString:@"&"]);
+        
+        NSArray *arry = [string componentsSeparatedByString:@"&"];
+        
+        NSMutableDictionary *paerrorDic = [[NSMutableDictionary alloc] init];
+        
+        
+        ///winUrl编码中有能包含有=
+        if ([string containsString:@"winUrl="] && ![string containsString:@"newWinUrl"]) {
+            NSRange winRange=[string rangeOfString:@"winUrl="];
+            NSString *winString = [string substringFromIndex:winRange.length + winRange.location];
+
+            NSString* str = [NSString decodeBase64:winString];
+                        
+            YLWebViewController *ylWebVC = [[YLWebViewController alloc] init];
+            //[ylWebVC loadWebWithURLString:[paerrorDic valueForKey:@"winUrl"]];
+            ylWebVC.bPushView = YES;
+            [self.navigationController pushViewController:ylWebVC animated:YES];
+            [ylWebVC postByDictionary:str];
+        }
+
+        
+        for (NSString *string in arry) {
+            
+            if (string.length > 0) {
+                NSArray* subArray = [string componentsSeparatedByString:@"="];
+                
+                if (!subArray[1]) {
+                    continue;
+                }
+                
+                [paerrorDic setValue:subArray[1] forKey:subArray[0]];
+            }
+        }
+        
+        NSArray *keyArry = [paerrorDic allKeys];
+        
+        if ([keyArry containsObject:@"status"] && [keyArry count] == 1) {
+        //status
+            if ([paerrorDic valueForKey:@"status"]) {
+                
+                [self JS];
+            }
+        }
+        
+        if ([keyArry containsObject:@"isHome"]) {
+        //ishome
+            isHome = [paerrorDic valueForKey:@"isHome"];
+        //根据 ishome 判断界面跳转
+            [self selectFunctionInPaerrorDic:paerrorDic];
+        }
+        
+        if ([keyArry containsObject:@"title"]) {
+        //title
+            [NavWebTitle sharedNavWebTitle].webTitleName = [paerrorDic valueForKey:@"title"];
+        }
+        
+        if ([keyArry containsObject:@"left"]) {
+        //left
+            [NavWebTitle sharedNavWebTitle].webLeft = [paerrorDic valueForKey:@"left"];
+        }
+        
+        if ([keyArry containsObject:@"right"]) {
+        //right
+            [NavWebTitle sharedNavWebTitle].webRight = [paerrorDic valueForKey:@"right"];
+        }
+        
+        if ([keyArry containsObject:@"newWinUrl"]) {
+            //http://shop.pingan.com/upload/file/yanglaoxianzhiyeleibiebiao.xls
+            //http://baoxian.pingan.com/upload/file/\U804c\U4e1a\U5206\U7c7b\U8868.xls
+            
+            NSString* xlsUrl =  [paerrorDic valueForKey:@"newWinUrl"];
+            if ([xlsUrl hasSuffix:@".xls"]) {
+                YLWebViewController *ylWebVC = [[YLWebViewController alloc] init];
+                [ylWebVC loadWebWithURLString:xlsUrl];
+                ylWebVC.bPushView = YES;
+                [self.navigationController pushViewController:ylWebVC animated:YES];
+            }else{
+                NSRange newWinRange=[string rangeOfString:@"newWinUrl="];
+                NSString *newWinString = [string substringFromIndex:newWinRange.length + newWinRange.location];
+
+                [[UIApplication sharedApplication] openURL:[NSURL URLWithString:newWinString]];
+            }
+        }
+
+        if ([keyArry containsObject:@"isLogin"] && ![[paerrorDic valueForKey:@"currentUrl"] isEqualToString:@"#insurance/home/home/index"]) {
+            
+            if ([keyArry containsObject:@"currentUrl"]) {
+                refreash_login_url = [paerrorDic valueForKey:@"currentUrl"] ;
+            
+                [self.webView stringByEvaluatingJavaScriptFromString:@"javascript:forward('#insurance/home/home/index')"];
+            }
+            
+            if ([[paerrorDic valueForKey:@"isLogin"] isEqualToString:@"1"]) {
+                
+                double delayInSeconds = 0.3;
+                dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
+                dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+                    YLRELoginViewController *ylReLoginVC = [[YLRELoginViewController alloc] initWithNibName:@"YLLoginViewController" bundle:nil];
+                    ylReLoginVC.delegate = self;
+                    
+                    [ylReLoginVC.view makeToast:@"登录超时，请重新登录！" duration:1.5f position:[NSValue valueWithCGPoint:CGPointMake(RECT_WIDTH(ylReLoginVC.view)/2, 150) ]];
+
+                    
+                    [self.navigationController pushViewController:ylReLoginVC animated:YES];
+                });
+                
+            }
+        }
+        
+        if ([keyArry containsObject:@"isUpDate"])
+        {
+            if ([[paerrorDic valueForKey:@"isUpDate"] isEqualToString:@"1"]) {
+                
+                YLUpdateUserInfoViewController *ylupdateVC = [[YLUpdateUserInfoViewController alloc] initWithNibName:@"YLUpdateUserInfoViewController" bundle:nil];
+//                UINavigationController* nav = [[UINavigationController alloc] initWithRootViewController:ylupdateVC];
+                ylupdateVC.delegate = self;
+                [self.navigationController pushViewController:ylupdateVC animated:YES];
+            
+            }
+
+        }
+        
+        if ([keyArry containsObject:@"isPhysicalexamination"]) {
+             if ([[paerrorDic valueForKey:@"isPhysicalexamination"] isEqualToString:@"1"])
+             {
+                 [self tijianVCWithNo:[paerrorDic valueForKey:@"idCsspOrder"]];
+             }
+        }
+        
+        return NO;
+    }
+    
+    return [super webView:theWebView shouldStartLoadWithRequest:request navigationType:navigationType];
+}
+
+- (void)tijianVCWithNo:(NSString *)orderNo
+{
+    JKHCOrderDetailViewController *vc = [[JKHCOrderDetailViewController alloc] initWithIdCsspOrder:orderNo];
+    vc.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:vc animated:YES];
+}
+
+- (void)selectFunctionInPaerrorDic:(NSDictionary *)paerrorDic
+{
+ 
+    if ([@[@"4",@"5",@"6"] containsObject:isHome]) {
+        autoPayDic = paerrorDic;
+        [[YLUpdateUser shareInstance] checkUserLevelWithDelegate:self];
+    }
+    
+    return;
+
+    if ([isHome isEqualToString:@"4"]) {
+        //影像查询
+        YLImagelibViewController *ylImageVC = [[YLImagelibViewController alloc] initWithNibName:@"YLImagelibViewController" bundle:nil];
+        [ylImageVC getImageListWithidApply:[paerrorDic valueForKey:@"idApply"]];
+        [self.navigationController pushViewController:ylImageVC animated:YES];
+    }
+    else if ([isHome isEqualToString:@"6"]) {
+        //银行信息修改
+        YLProBankViewController *ylProBankVC = [[YLProBankViewController alloc] initWithNibName:@"YLBankInfoViewController" bundle:nil];
+        ylProBankVC.delegate = self;
+        [ylProBankVC loadaccountNo:[paerrorDic valueForKey:@"accountNo"] withAccountName:[paerrorDic valueForKey:@"accountName"] withChsId:[paerrorDic valueForKey:@"chsId"] withIdApply:[paerrorDic valueForKey:@"idApply"]];
+        
+        [self.navigationController pushViewController:ylProBankVC animated:YES];
+    }
+    
+    if ([isHome isEqualToString:@"5"]) {
+        //pdf
+        YLReadPdfViewController* pdfCon = [[YLReadPdfViewController alloc] init];
+        [pdfCon loadWithChsNo:[paerrorDic valueForKey:@"chsNo"]];
+        [self.navigationController pushViewController:pdfCon animated:YES];
+    }
+}
+
+///登录成功
+- (void)reLoginSucess
+{
+    if (refreash_login_url.length > 0) {
+        
+        [self.webView stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:@"javascript:forward('%@')", refreash_login_url]];
+    }
+    else
+    {
+        [self JS];
+    }
+}
+
+- (void)changeBankSucess
+{
+    [self.webView stringByEvaluatingJavaScriptFromString:@"javascript:forward('#claimApplyStsQuery/claimApplyStsQuery/fresh')"];
+}
+
+#pragma mark -YLUpdateUserDelegate
+///流程结束
+- (void)checkUserLeveLAndRelationFinish
+{
+    [HMLoadingView hideLoading:self.view];
+    
+    if ([isHome isEqualToString:@"4"]) {
+        //影像查询
+        YLImagelibViewController *ylImageVC = [[YLImagelibViewController alloc] initWithNibName:@"YLImagelibViewController" bundle:nil];
+        [ylImageVC getImageListWithidApply:[autoPayDic valueForKey:@"idApply"]];
+        [self.navigationController pushViewController:ylImageVC animated:YES];
+    }
+    else if ([isHome isEqualToString:@"6"]) {
+        //银行信息修改
+        YLProBankViewController *ylProBankVC = [[YLProBankViewController alloc] initWithNibName:@"YLBankInfoViewController" bundle:nil];
+        ylProBankVC.delegate = self;
+        [ylProBankVC loadaccountNo:[autoPayDic valueForKey:@"accountNo"] withAccountName:[autoPayDic valueForKey:@"accountName"] withChsId:[autoPayDic valueForKey:@"chsId"] withIdApply:[autoPayDic valueForKey:@"idApply"]];
+        
+        [self.navigationController pushViewController:ylProBankVC animated:YES];
+    }else if ([isHome isEqualToString:@"5"]) {
+        //pdf
+        YLReadPdfViewController* pdfCon = [[YLReadPdfViewController alloc] init];
+        [pdfCon loadWithChsNo:[autoPayDic valueForKey:@"chsNo"]];
+        [self.navigationController pushViewController:pdfCon animated:YES];
+    }
+}
+
+#pragma mark - 
+- (void)updateUserInfoSuccess
+{
+    //升级成功之后在登录
+    [Window makeToast:@"会员升级成功,请重新登录"
+             duration:2.0
+             position:@"center"];
+
+    [self performSelector:@selector(delayReLogin)
+               withObject:nil
+               afterDelay:1.0];
+}
+
+- (void)delayReLogin
+{
+    YLRELoginViewController* loginVC = [[YLRELoginViewController alloc] initWithNibName:@"YLLoginViewController" bundle:nil];
+    
+    [loginVC.view makeToast:@"登录超时，请重新登录！" duration:1.5f position:[NSValue valueWithCGPoint:CGPointMake(RECT_WIDTH(loginVC.view)/2, 150) ]];
+
+    loginVC.delegate = self;
+    [self.navigationController pushViewController:loginVC animated:YES];
+}
+
+
+- (void)checkUserLevelSuccess
+{
+    [self.webView reload];
+    [self JS];
+}
+
+- (void)backWhenPaySuccess
+{
+    [self performSelector:@selector(delayLoadPaySuccessPage)
+               withObject:nil
+               afterDelay:1.5];
+}
+
+- (void)delayLoadPaySuccessPage
+{
+//    [self.webView reload];
+    [self.webView stringByEvaluatingJavaScriptFromString:@"javascript:forward('#service/orderManager/insuranceOrder/index/3')"];
+
+}
+
+
+
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+{
+    return NO;
+}
+
+- (void)dealloc
+{
+    _webView.delegate = nil;
+    [[NavWebTitle sharedNavWebTitle] removeObserver:self forKeyPath:@"webTitleName"];
+    [[NavWebTitle sharedNavWebTitle] removeObserver:self forKeyPath:@"webLeft"];
+    [[NavWebTitle sharedNavWebTitle] removeObserver:self forKeyPath:@"webRight"];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+@end

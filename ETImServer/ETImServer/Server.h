@@ -11,6 +11,7 @@
 
 #include "Singleton.h"
 #include "Session.h"
+#include "Socket.h"
 #include <iostream>
 #include <vector>
 
@@ -25,18 +26,14 @@ namespace etim {
     public:
         
         Server();
-        ~Server() {};
+        ~Server();
 
         int Start();
-        ///收发工作
-        void RecvSend();
-        //解析
-        void ParsePacket();
     public:
         static fd_set readFds_;
         
         int fdMax_;
-        std::vector<Session> sessions_;
+        std::vector<Session *> sessions_;
     };
 
 }   //end etim

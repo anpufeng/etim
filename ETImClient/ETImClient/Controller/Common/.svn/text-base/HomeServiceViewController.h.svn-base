@@ -1,0 +1,27 @@
+//
+//  HomeServiceViewController.h
+//  HM-HEALTH
+//
+//  Created by apple on 14-5-26.
+//  Copyright (c) 2014年 PingAn. All rights reserved.
+//
+
+#import "BaseViewController.h"
+
+@interface HomeServiceViewController : BaseViewController
+@property (weak, nonatomic) IBOutlet UITableView *listMenu;
+@property (weak, nonatomic) IBOutlet UIImageView *bgImage;
+
+///个人保单查询
+- (IBAction)guaranteeSlipClick:(id)sender;
+///投保保单查询
+- (IBAction)claimPolQueryClick:(id)sender;
+///理赔信息查询
+- (IBAction)guaranteeQuery:(id)sender;
+///理赔状态查询
+- (IBAction)claimApplyStsQueryClick:(id)sender;
+///自助理赔申请
+- (IBAction)PayAuto:(id)sender;
+///问题件处理
+- (IBAction)ProblemClaim:(id)sender;
+@end

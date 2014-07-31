@@ -1,0 +1,197 @@
+//
+//  PALeftViewController.m
+//  HM-HEALTH
+//
+//  Created by apple on 14-5-30.
+//  Copyright (c) 2014年 PingAn. All rights reserved.
+//
+
+#import "PALeftViewController.h"
+#import "YLUserLogin.h"
+#import "JKCompanyCodeViewController.h"
+//#import "ADLivelyTableView.h"
+//#import <QuartzCore/QuartzCore.h>
+
+#define CELL_IMG_TAG 1000
+
+@interface PALeftViewController ()<UITableViewDataSource, UITableViewDelegate>
+
+@end
+
+@implementation PALeftViewController
+
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+{
+    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    if (self) {
+        // Custom initialization
+    }
+    return self;
+}
+
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    [self removeBgImageView];
+    self.view.backgroundColor = [UIColor colorWithRed:75.0 / 255.0 green:45.0 / 255.0 blue:63.0 / 255.0 alpha:1.0];
+    
+    self.userLocation.textColor = [UIColor colorWithRed:103.0 / 255.0 green:113.0 / 255.0 blue:122.0 / 255.0 alpha:1.0f];
+    
+    self.userNo.text = [[NSUserDefaults standardUserDefaults] valueForKey:@"kUserLoginName"];
+    
+    
+#ifndef __NEW_VERSION__
+    [self setExtraCellLineHidden:self.tableView];
+#else
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(uploadUserName) name:@"kUpdateUserInfo" object:nil];
+#endif
+
+    NSURL *tmpImageUrl = [NSURL URLWithString:[[JKUserUtil currentUser] thumb]];
+    [self.userPhotoView setImageWithURL:tmpImageUrl placeholderImage:[UIImage imageNamed:@"jk_activity_defaultHeadImage60x60"]];
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(userPhotoViewTapped:)];
+    [self.userPhotoView addGestureRecognizer:tap];
+    self.userPhotoView.userInteractionEnabled = YES;
+    self.userPhotoView.layer.cornerRadius = RECT_WIDTH(self.userPhotoView) / 2;
+    self.userPhotoView.layer.masksToBounds = YES;
+    
+    if ([self.tableView respondsToSelector:@selector(setSeparatorInset:)]) {
+        [self.tableView setSeparatorInset:UIEdgeInsetsZero];
+    }
+}
+
+- (void)uploadUserName
+{
+    self.userNo.text = [[NSUserDefaults standardUserDefaults] valueForKey:@"kUserLoginName"];
+    NSURL *tmpImageUrl = [NSURL URLWithString:[[JKUserUtil currentUser] thumb]];
+    [self.userPhotoView setImageWithURL:tmpImageUrl placeholderImage:[UIImage imageNamed:@"jk_activity_defaultHeadImage60x60"]];
+}
+
+- (void)setExtraCellLineHidden: (UITableView *)tableView{
+    UIView *view =[ [UIView alloc]init];
+    view.backgroundColor = [UIColor clearColor];
+    [tableView setTableFooterView:view];
+    [tableView setTableHeaderView:view];
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    return 4;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+
+    static NSString *identify = @"identify";
+    
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identify];
+    
+    if (cell == nil) {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:identify];
+        
+#ifndef __NEW_VERSION__
+        cell.backgroundColor        = [UIColor clearColor];
+        cell.textLabel.textColor    = [UIColor whiteColor];
+#endif
+        
+        cell.selectionStyle         = UITableViewCellSelectionStyleNone;
+        cell.accessoryType          = UITableViewCellAccessoryDisclosureIndicator;
+        
+        UIImageView *cellBagImgView = [[UIImageView alloc] init];
+        cellBagImgView.frame = CGRectMake(0, 0, cell.bounds.size.width, 60);
+        cellBagImgView.tag   = CELL_IMG_TAG;
+        
+        [cell.contentView addSubview:cellBagImgView];
+    }
+    
+    if (indexPath.row == 0) {
+#ifndef __NEW_VERSION__
+        cell.imageView.image = [UIImage imageNamed:@"ch_sliding_menu_icon_order.png"];
+#else
+        cell.imageView.image = [UIImage imageNamed:@"my_center_order.png"];
+#endif
+        cell.textLabel.text  = @"我的订单";
+    }
+    else if(indexPath.row == 1)
+    {
+#ifndef __NEW_VERSION__
+        cell.imageView.image = [UIImage imageNamed:@"ch_sliding_menu_icon_business.png"];
+#else
+        cell.imageView.image = [UIImage imageNamed:@"my_center_company.png"];
+#endif
+        cell.textLabel.text  = @"我的企业";
+    }
+    else if(indexPath.row == 2)
+    {
+#ifndef __NEW_VERSION__
+        cell.imageView.image = [UIImage imageNamed:@"ch_sliding_menu_icon_setting.png"];
+#else
+        cell.imageView.image = [UIImage imageNamed:@"my_center_set.png"];
+#endif
+        cell.textLabel.text  = @"设置";
+    }
+    else if(indexPath.row == 3)
+    {
+#ifndef __NEW_VERSION__
+        cell.imageView.image = [UIImage imageNamed:@"ch_sliding_menu_icon_logout.png"];
+#else
+        cell.imageView.image = [UIImage imageNamed:@"my_center_out.png"];
+#endif
+        cell.textLabel.text  = @"安全退出";
+    }
+    else if(indexPath.row == 4)
+    {
+        cell.imageView.image = [UIImage imageNamed:@"ch_sliding_menu_icon_logout.png"];
+        cell.textLabel.text  = @"银行卡";
+    }
+
+    return cell;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 60;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    UITableViewCell *cell  = [tableView cellForRowAtIndexPath:indexPath];
+    UIImageView *imageView = (UIImageView *)[cell viewWithTag:CELL_IMG_TAG];
+    imageView.image        = [UIImage imageNamed:@"cell_select"];
+
+    if (self.delegate && [(id)self.delegate respondsToSelector:@selector(leftTableViewSelectRow:)]) {
+        
+        [self.delegate leftTableViewSelectRow:indexPath.row];
+        
+        [self performSelector:@selector(hiddenBgWithCell:) withObject:cell afterDelay:0.3];
+    }
+}
+
+- (void)hiddenBgWithCell:(UITableViewCell *)cell
+{
+    UIImageView *imageView = (UIImageView *)[cell viewWithTag:CELL_IMG_TAG];
+    imageView.image        = [UIImage imageNamed:nil];
+}
+
+- (void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+
+    
+}
+
+- (void)didReceiveMemoryWarning
+{
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
+- (void)changeHeadImage:(UITapGestureRecognizer *)ges
+{
+ 
+    
+}
+
+- (void)userPhotoViewTapped:(id)gesture {
+    if (self.delegate && [(id)self.delegate respondsToSelector:@selector(leftTableViewSelectRow:)]) {
+        [self.delegate leftTableViewSelectRow:1000];
+    }
+}
+
+@end

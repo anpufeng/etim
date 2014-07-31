@@ -7,6 +7,7 @@
 //
 
 #include "ActionManager.h"
+#include "Session.h"
 #include "Register.h"
 #include "Login.h"
 #include "HeartBeat.h"

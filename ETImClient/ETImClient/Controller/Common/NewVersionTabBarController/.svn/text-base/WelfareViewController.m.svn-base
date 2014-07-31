@@ -1,0 +1,93 @@
+//
+//  WelfareViewController.m
+//  HM-HEALTH
+//
+//  Created by hujiwei on 14/7/16.
+//  Copyright (c) 2014年 PingAn. All rights reserved.
+//
+
+#import "WelfareViewController.h"
+#import "JKHealthCheckHomeViewController.h"
+#import "JKHCProductViewController.h"
+
+@interface WelfareViewController ()
+
+@end
+
+@implementation WelfareViewController
+
+- (void)dealloc
+{
+    CARELEASE(_bgScrollView);
+    CARELEASE(_btnIdx1);
+    CARELEASE(_btnIdx2);
+    [super dealloc];
+}
+
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+{
+    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    if (self) {
+        // Custom initialization
+        self.title = @"享福利";
+        [self.tabBarItem setFinishedSelectedImage:[UIImage imageNamed:@"tab_newWelfare_selected.png"] withFinishedUnselectedImage:[UIImage imageNamed:@"tab_newWelfare_unselected.png"]];
+    }
+    return self;
+}
+
+- (id)init
+{
+    if (self = [super init]) {
+     }
+    return self;
+}
+
+
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    // Do any additional setup after loading the view.
+    [self removeBgImageView];
+    
+    if (!IPHONE5) {
+        [_bgScrollView setContentSize:CGSizeMake(self.view.frame.size.width, 478)];
+    }
+}
+
+- (IBAction)btnIdx1Event:(id)sender
+{
+    YLMainWebViewController *ylMainVC = [[[YLMainWebViewController alloc] init] autorelease];
+    
+    ylMainVC.hidesBottomBarWhenPushed = YES;
+    
+    [ylMainVC startLoadWebViewWithUrlString:[NSString stringWithFormat:@"%@/m/insurance/index.html", CSSP_HOST_URL]];
+    
+    ylMainVC.javascriptString = @"javascript:forward('#insurance/financialMarket/insuranceHome/index')";
+    
+    [self.navigationController pushViewController:ylMainVC animated:YES];
+}
+- (IBAction)btnIdx2Event:(id)sender
+{
+    JKHCProductViewController *vc = [[[JKHCProductViewController alloc] init] autorelease];
+    [self.navigationController pushViewController:vc animated:YES];
+}
+
+
+- (void)didReceiveMemoryWarning
+{
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
+/*
+#pragma mark - Navigation
+
+// In a storyboard-based application, you will often want to do a little preparation before navigation
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    // Get the new view controller using [segue destinationViewController].
+    // Pass the selected object to the new view controller.
+}
+*/
+
+@end

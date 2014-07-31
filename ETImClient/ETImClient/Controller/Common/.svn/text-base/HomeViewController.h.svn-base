@@ -1,0 +1,14 @@
+//
+//  HomeViewController.h
+//  HM-HEALTH
+//
+//  Created by xingyongdan on 14-5-6.
+//  Copyright (c) 2014年 PingAn. All rights reserved.
+//
+
+#import "BaseViewController.h"
+#import "YLMainWebViewController.h"
+
+@interface HomeViewController : BaseViewController
+
+@end

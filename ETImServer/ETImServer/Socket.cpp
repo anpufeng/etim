@@ -18,6 +18,10 @@ Socket::Socket() : fd_(-1), port_(8888) {
     
 }
 
+Socket::Socket(int fd, short port) : fd_(fd), port_(port) {
+    
+}
+
 Socket::~Socket() {
     if (IsValid()) {
         ::close(fd_);
@@ -48,8 +52,7 @@ bool Socket::Bind(char *ip) {
     addr.sin_addr.s_addr = INADDR_ANY;
     
     
-    if (::bind(fd_, (struct sockaddr*) &addr, sizeof(addr)))
-    {
+    if (::bind(fd_, (struct sockaddr*) &addr, sizeof(addr))) {
         printf("bind error %s", strerror(errno));
         return false;
     }
@@ -65,6 +68,11 @@ bool Socket::Listen() {
     return true;
 }
 
+
+/**
+ 接收连接
+@return -1错误 其它为连接的fd
+ */
 int Socket::Accept() {
     struct sockaddr_in clientAddr;
     int len = sizeof(struct sockaddr_in);

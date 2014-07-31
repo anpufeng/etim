@@ -1,0 +1,63 @@
+//
+//  BaseNavigationController.m
+//  hm-health
+//
+//  Created by ethan on 14-4-1.
+//  Copyright (c) 2014年 ethan. All rights reserved.
+//
+
+#import "BaseNavigationController.h"
+#import "UIImage+Color.h"
+
+@interface BaseNavigationController ()
+
+@end
+
+@implementation BaseNavigationController
+
+- (void)dealloc {
+    
+    [super dealloc];
+}
+
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    
+    if (!IOS7) {
+        [self.navigationBar.layer setMasksToBounds:YES];
+        self.navigationBar.shadowImage = [[[UIImage alloc]init] autorelease];
+        
+        //去除6中的圆角
+         [[UIBarButtonItem appearance] setBackgroundImage:[[UIImage new] autorelease] forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
+        
+//        [[UIApplication sharedApplication] setStatusBarStyle: UIStatusBarStyleBlackTranslucent];
+//        self.navigationBar.barStyle = UIBarStyleBlackTranslucent;
+//        self.toolbar.barStyle = UIBarStyleBlackTranslucent;
+        
+        
+        [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"clear_head"] forBarMetrics:UIBarMetricsDefault];
+        self.navigationController.navigationBar.barStyle = UIBarStyleBlackTranslucent;
+    }
+
+    // Do any additional setup after loading the view.
+}
+
+- (void)didReceiveMemoryWarning
+{
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
+/*
+#pragma mark - Navigation
+
+// In a storyboard-based application, you will often want to do a little preparation before navigation
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    // Get the new view controller using [segue destinationViewController].
+    // Pass the selected object to the new view controller.
+}
+*/
+
+@end

@@ -9,9 +9,15 @@
 
 #include "Login.h"
 
+
 using namespace etim;
 using namespace etim::action;
 
 void Login::Execute(Session& s) {
     
 }
+
+void Logout::Execute(Session& s) {
+    
+}
+

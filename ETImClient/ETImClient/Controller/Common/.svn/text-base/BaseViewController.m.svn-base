@@ -1,0 +1,167 @@
+//
+//  BaseViewController.m
+//  hm-health
+//
+//  Created by ethan on 14-4-1.
+//  Copyright (c) 2014年 ethan. All rights reserved.
+//
+
+#import "BaseViewController.h"
+#import "ASIHTTPRequest.h"
+#import "UINavigationItem+margin.h"
+
+
+@interface BaseViewController () 
+
+@property (nonatomic, retain, readwrite) JKTokenController *tokenController;
+
+@end
+
+@implementation BaseViewController
+
+- (void)dealloc {
+    self.tokenController.tokenDelegate = nil;
+    [self.tokenController clearAndCancel];
+    
+    [super dealloc];
+}
+
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    // /Users/ethan/软件/Navicat-Premium-9-0-4.dmgDo any additional setup after loading the view.
+    
+//    if ([self respondsToSelector:@selector(setAutomaticallyAdjustsScrollViewInsets:)]) {
+//        self.automaticallyAdjustsScrollViewInsets = NO;
+//    }
+    
+    UIImageView *bg = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"base_bg_iphone5"]] autorelease];
+    bg.tag = 1111;
+    [self.view addSubview:bg];
+    
+    if ([self.navigationController.navigationBar respondsToSelector:@selector(setBackgroundImage:forBarMetrics:)]){  
+        NSString *navImageName = nil;
+        if (IOS7) {
+            navImageName = @"nav-bg-7@2x.png";
+        }else {
+            navImageName = @"nav-bg@2x.png";
+        }
+        [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:navImageName] forBarMetrics:UIBarMetricsDefault];
+    }
+    
+    NSDictionary *titleAttribute = [NSDictionary dictionaryWithObjectsAndKeys:
+                                    [UIColor whiteColor], UITextAttributeTextColor,
+                                    [UIFont systemFontOfSize:20], UITextAttributeFont,
+                                    nil];
+//    NSDictionary *titleAttribute = [NSDictionary dictionaryWithObjectsAndKeys:
+//                                    [UIColor colorWithRed:0 green:0.7 blue:0.8 alpha:1], UITextAttributeTextColor,
+//                                    [UIColor colorWithRed:0 green:0.7 blue:0.8 alpha:1], UITextAttributeTextShadowColor,
+//                                    [NSValue valueWithUIOffset:UIOffsetMake(0, 0)], UITextAttributeTextShadowOffset,
+//                                    [UIFont fontWithName:@"Arial-Bold" size:0.0], UITextAttributeFont,
+//                                    nil];
+    [self.navigationController.navigationBar setTitleTextAttributes:titleAttribute];
+    
+}
+
+///获取TABLEVIEW无数据时的背景
+
+- (UIView *)nodataTableGackgroundView {
+    UIImageView *nodataImgView = [[[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 254/2.0f, 165/2.0f)] autorelease];
+    nodataImgView.contentMode = UIViewContentModeCenter;
+    nodataImgView.image = [UIImage imageNamed:@"nodata"];
+
+    
+    return nodataImgView;
+}
+
+
+#pragma mark -
+#pragma mark token
+
+- (JKTokenController *)tokenController {
+    JKTokenController *con = [JKTokenController shareTokenContrller];
+    
+    return con;
+}
+
+//ignore warning
+
+- (void)tokenDidUpdateSuccess {
+    
+}
+- (void)tokenDidUpdateFailure:(JKTokenStatusCode)status {
+    
+}
+
+- (void)didReceiveMemoryWarning
+{
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+    
+    
+    PALOG(@"###########################################################receive memory warning : %@", [NSDate date]);
+    [self writeLog:[NSString stringWithFormat:@"receive memory warning: %@", [NSDate date]]];
+    
+}
+
+- (void)writeLog:(NSString *)log
+{
+    NSFileManager * filemangage =[NSFileManager defaultManager];
+    NSArray *paths= NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsDir = [paths objectAtIndex:0];
+    
+    [filemangage changeCurrentDirectoryPath:[documentsDir stringByExpandingTildeInPath]];
+    
+    if(![filemangage fileExistsAtPath:@"memoryLog.txt"])
+    {
+        [filemangage createFileAtPath:@"memoryLog.txt" contents:nil attributes:nil];
+    }
+    NSString * fullfilename=[documentsDir stringByAppendingPathComponent:@"memoryLog.txt"];
+    const  char* pcpath = [fullfilename cStringUsingEncoding:NSASCIIStringEncoding];
+    
+    FILE* filelog=fopen(pcpath, "a+");
+    
+    fprintf(filelog,"%s\n", [log cStringUsingEncoding:NSUTF8StringEncoding]);
+    
+    fclose(filelog);
+}
+
+- (void)removeBgImageView
+{
+    [[self.view viewWithTag:1111] removeFromSuperview];
+}
+
+/*
+#pragma mark - Navigation
+
+// In a storyboard-based application, you will often want to do a little preparation before navigation
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    // Get the new view controller using [segue destinationViewController].
+    // Pass the selected object to the new view controller.
+}
+*/
+
+@end
+
+@implementation RedBtn
+
+- (id)initWithFrame:(CGRect)frame {
+    if (self = [super initWithFrame:frame]) {
+        _redImgView = [[UIImageView alloc] initWithFrame:CGRectMake(23, 0, 7.5, 7.5)];
+        _redImgView.image = [UIImage imageNamed:@"reddot"];
+        
+        [self addSubview:_redImgView];
+    }
+    
+    return self;
+}
+
+- (void)dealloc {
+    [_redImgView release];
+    
+    [super dealloc];
+}
+
+
+@end

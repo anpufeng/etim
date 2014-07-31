@@ -1,0 +1,86 @@
+//
+//  BackViewController.m
+//  hm-health
+//
+//  Created by ethan on 14-4-1.
+//  Copyright (c) 2014年 ethan. All rights reserved.
+//
+
+#import "BackViewController.h"
+
+@interface BackViewController ()
+
+@end
+
+@implementation BackViewController
+
+- (void)dealloc {
+    
+    [super dealloc];
+}
+
+- (id)init {
+    if (self = [super init]) {
+        self.hidesBottomBarWhenPushed = YES;
+    }
+    
+    return self;
+}
+
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    // Do any additional setup after loading the view.
+    
+    /*
+    UIButton* backBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [backBtn setBackgroundImage:IMAGE(@"ylBack@2x.png") forState:UIControlStateNormal];
+    
+
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:backBtn];
+    //[[UIBarButtonItem alloc] initWithTitle:@"返回" style:UIBarButtonItemStylePlain target:self action:@selector(backEvent)];
+     */
+    
+    UIButton* backBtn = [[[UIButton alloc] init] autorelease];
+    [backBtn addTarget:self action:@selector(backEvent) forControlEvents:UIControlEventTouchUpInside];
+    [backBtn setImage:IMAGE(@"Activity_back@2x.png") forState:UIControlStateNormal];
+    [backBtn setImage:IMAGE(@"Activity_back2@2x.png") forState:UIControlStateHighlighted];
+    backBtn.contentMode = UIViewContentModeCenter;
+    backBtn.frame = CGRectMake(3, 0, 31, 31);
+    
+    UIBarButtonItem *negativeSpacerR = [[[UIBarButtonItem alloc]
+                                         initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace
+                                         target:nil action:nil] autorelease];
+    if (IOS7) {
+        negativeSpacerR.width = -10;
+    }else{
+        negativeSpacerR.width = 3;
+    }
+    
+    self.navigationItem.leftBarButtonItems = @[negativeSpacerR, [[[UIBarButtonItem alloc] initWithCustomView:backBtn] autorelease]];
+
+}
+
+- (void)backEvent
+{
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
+- (void)didReceiveMemoryWarning
+{
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
+/*
+#pragma mark - Navigation
+
+// In a storyboard-based application, you will often want to do a little preparation before navigation
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    // Get the new view controller using [segue destinationViewController].
+    // Pass the selected object to the new view controller.
+}
+*/
+
+@end

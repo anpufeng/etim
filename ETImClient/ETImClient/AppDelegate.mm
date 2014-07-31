@@ -7,6 +7,8 @@
 //
 
 #import "AppDelegate.h"
+#import "BaseNavigationController.h"
+#import "LoginViewController.h"
 
 @implementation AppDelegate
 
@@ -15,6 +17,12 @@
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
     self.window.backgroundColor = [UIColor whiteColor];
+    
+    LoginViewController *vc = [[LoginViewController alloc] init];
+    UINavigationController *root = [[BaseNavigationController alloc] initWithRootViewController:vc];
+//    root.navigationBarHidden = YES;
+    self.window.rootViewController = root;
+    
     [self.window makeKeyAndVisible];
     return YES;
 }

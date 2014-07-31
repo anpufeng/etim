@@ -1,0 +1,301 @@
+//
+//  NewHomeViewController.m
+//  HM-HEALTH
+//
+//  Created by hujiwei on 14/7/16.
+//  Copyright (c) 2014年 PingAn. All rights reserved.
+//
+
+#import "NewHomeViewController.h"
+#import "YLInsuranceService.h"
+#import "YLAdvertisementControl.h"
+#import "JKMsgMainViewController.h"
+#import "JKChooseAreaViewController.h"
+#import "JKOrderDoctorViewController.h"
+#import "JKHomeActivityViewController.h"
+#import "YLInsuranceService.h"
+<<<<<<< .mine
+#import "JKBusinessInputView.h"
+#import "IndividualInfoViewController.h"
+=======
+#import "JKHCProductViewController.h"
+>>>>>>> .r2285
+
+#import "PayAutoViewController.h"
+
+@interface NewHomeViewController ()
+{
+    YLAdvertisementControl*  _advertiseCon;
+}
+@end
+
+@implementation NewHomeViewController
+
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    [_advertiseCon adverTimerInvalidate];
+    CARELEASE(_tableView);
+    CARELEASE(_advertiseCon);
+    [super dealloc];
+}
+
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+{
+    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    if (self) {
+        // Custom initialization
+    }
+    return self;
+}
+- (id)init
+{
+    if (self = [super init]) {
+        self.title = @"企业屋";
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showRedMsgBtn) name:@"HAVE_MSG" object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showNoMsgBtn) name:@"HAVE_NO_MSG" object:nil];
+
+        [self.tabBarItem setFinishedSelectedImage:[UIImage imageNamed:@"tab_newHome_selected.png"] withFinishedUnselectedImage:[UIImage imageNamed:@"tab_newHome_unselect.png"]];
+
+    }
+    return self;
+}
+
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    
+    [self removeBgImageView];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(paySuccessNotif:) name:@"kJKHCKuaiQIanPaySuccess" object:nil];
+    // Do any additional setup after loading the view.
+    ///advertisement
+    _advertiseCon = [[YLAdvertisementControl alloc] initWithFrame:CGRectMake(0, 0, RECT_WIDTH(self.view), 115)];
+    [_advertiseCon setImageNames:@[@"yladvertisement@2x.png",@"yladvertisement@2x.png"]];
+    [self.view addSubview:_advertiseCon];
+
+    YLQuickControl* quickCon = [[[YLQuickControl alloc] initWithFrame:CGRectMake(0, OriginY(_advertiseCon) + SizeHeight(_advertiseCon), SizeWidth(self.view), 75) ] autorelease];
+    quickCon.delegate = self;
+    quickCon.backgroundColor = [UIColor whiteColor];
+    quickCon.titleColor = [UIColor darkGrayColor];
+    [quickCon imageName:@[@"ylorder_query_nor@2x.png",@"ylpay_query_nor@2x.png",@"ylyu_gua_nor@2x.png",@"qyhd@2x.png",@"ylmore_nor@2x.png"] titles:@[@"个人保单查询",@"理赔信息查询",@"预约挂号",@"企业活动",@"更多服务"]];
+    [self.view addSubview:quickCon];
+    
+    _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, OriginY(quickCon) + SizeHeight(quickCon), SizeWidth(self.view), (IPHONE5 ? 270 : 182))];
+    _tableView.separatorStyle = UITableViewCellAccessoryNone;
+    _tableView.delegate = self;
+    _tableView.dataSource = self;
+    [self.view addSubview:_tableView];
+
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"nav_bar_message.png"] style:UIBarButtonItemStyleBordered target:self action:@selector(showMsg)];
+}
+
+-(void) showMsg{
+    JKMsgMainViewController *msg  = [[JKMsgMainViewController alloc] init];
+    msg.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:msg animated:YES];
+}
+
+
+
+-(void)showRedMsgBtn{
+    RedBtn *btn = [[RedBtn alloc] initWithFrame:CGRectMake(0, 0, 57/2.0f, 57/2.0f)];
+    [btn setBackgroundImage:[UIImage imageNamed:@"nav_bar_message.png"] forState:UIControlStateNormal];
+    [btn addTarget:self action:@selector(showMsg) forControlEvents:UIControlEventTouchUpInside];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:btn];
+}
+
+-(void)showNoMsgBtn{
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"nav_bar_message.png"] style:UIBarButtonItemStyleBordered target:self action:@selector(showMsg)];
+    [self.navigationItem.rightBarButtonItem setTintColor:[UIColor whiteColor]];
+}
+
+#pragma mark - YLQuickControlDelegate
+- (void)quickClickAtIndex:(NSUInteger)index
+{
+    NSLog(@"quick click at index = %d",index);
+    
+    switch (index) {
+        case 0:
+        {
+            YLMainWebViewController *ylWebVC = [[YLMainWebViewController alloc] init];
+            ylWebVC.hidesBottomBarWhenPushed = YES;
+            [ylWebVC startLoadWebViewWithUrlString:[NSString stringWithFormat:@"%@/m/insurance/index.html", CSSP_HOST_URL]];
+            ylWebVC.javascriptString = @"javascript:forward('#service/guaranteeSlip/guaranteeSlip/initIndex')";
+            
+            [self.navigationController pushViewController:ylWebVC animated:YES];
+        }
+            break;
+        case 1:
+        {
+            YLMainWebViewController *ylWebVC = [[YLMainWebViewController alloc] init];
+            ylWebVC.hidesBottomBarWhenPushed = YES;
+            [ylWebVC startLoadWebViewWithUrlString:[NSString stringWithFormat:@"%@/m/insurance/index.html", CSSP_HOST_URL]];
+            ylWebVC.javascriptString = @"javascript:forward('#service/claimPolQuery/claimPolQuery/initIndex')";
+            [self.navigationController pushViewController:ylWebVC animated:YES];
+        }
+            break;
+        case 2:
+        {
+            if (![[JKUserUtil currentUser] profileFull]) {
+                IndividualInfoViewController *vc = [[[IndividualInfoViewController alloc] init] autorelease];
+                vc.hidesBottomBarWhenPushed = YES;
+                vc.viewController = @"JKChooseAreaViewController";
+                [self.navigationController pushViewController:vc animated:YES];
+            }
+            else {
+                if ([[NSUserDefaults standardUserDefaults] objectForKey:@"JKYUYUEGUAHAOCITYDIC"]) {
+                    JKChooseAreaViewController* choose = [[[JKChooseAreaViewController alloc] init] autorelease];
+                    choose.hidesBottomBarWhenPushed = YES;
+                    [self.navigationController pushViewController:choose animated:NO];
+                    
+                    JKOrderDoctorViewController* order = [[[JKOrderDoctorViewController alloc] init] autorelease];
+                    [self.navigationController pushViewController:order animated:YES];
+                }else{
+                    JKChooseAreaViewController* choose = [[[JKChooseAreaViewController alloc] init] autorelease];
+                    choose.hidesBottomBarWhenPushed = YES;
+                    [self.navigationController pushViewController:choose animated:YES];
+                }
+            }
+        }
+            
+            break;
+        case 3:
+        {
+           
+            if ([[[JKUserUtil currentUser] businessId] length]) {
+                if (![[JKUserUtil currentUser] profileFull]) {
+                    IndividualInfoViewController *vc = [[[IndividualInfoViewController alloc] init] autorelease];
+                    vc.hidesBottomBarWhenPushed = YES;
+                    vc.viewController = @"JKHomeActivityViewController";
+                    [self.navigationController pushViewController:vc animated:YES];
+                    return;
+                }
+                JKHomeActivityViewController *vc = [[[JKHomeActivityViewController alloc] init] autorelease];
+                vc.hidesBottomBarWhenPushed = YES;
+                [self.navigationController pushViewController:vc animated:YES];
+            } else {
+                JKBusinessInputView *input = [[[JKBusinessInputView alloc] initWithFrame:CGRectMake(0, 0, RECT_WIDTH(self.view), RECT_HEIGHT(self.view))] autorelease];
+                [self.view addSubview:input];
+            }
+        }
+            break;
+        case 4:
+        {
+            FunctionViewController* funVC = [[[FunctionViewController alloc] init] autorelease];
+            funVC.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:funVC animated:YES];
+        }
+            break;
+            
+        default:
+            break;
+    }
+}
+
+#pragma mark - Table view data source
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return 1;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return 3;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 80;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    static NSString *CellIdentifier = @"Cell";
+    NewHomeCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    if (nil == cell) {
+        cell = [[[NewHomeCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    }
+    NSString* str = [NSString stringWithFormat:@"home_cell_%02d@2x.png",indexPath.row];
+    cell.subImageView.image = IMAGE(str);
+    cell.tag = indexPath.row;
+    return cell;
+}
+
+#pragma mark - Table view delegate
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    switch (indexPath.row) {
+        case 0:
+        {
+            PayAutoViewController *payAutoVC = [[[PayAutoViewController alloc] init] autorelease];
+            payAutoVC.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:payAutoVC animated:YES];
+
+        }
+            break;
+        case 1:
+        {
+            JKHCProductViewController *vc = [[JKHCProductViewController alloc] init];
+            vc.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:vc animated:YES];
+        }
+            break;
+        case 2:
+        {
+            YLMainWebViewController *ylMainVC = [[YLMainWebViewController alloc] init];
+            
+            ylMainVC.hidesBottomBarWhenPushed = YES;
+            
+            [ylMainVC startLoadWebViewWithUrlString:[NSString stringWithFormat:@"%@/m/insurance/index.html", CSSP_HOST_URL]];
+            
+            ylMainVC.javascriptString = @"javascript:forward('#insurance/financialMarket/insuranceHome/index')";
+            
+            [self.navigationController pushViewController:ylMainVC animated:YES];
+        }
+            break;
+        default:
+            break;
+    }
+}
+
+- (void)didReceiveMemoryWarning
+{
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    NSString *isHavingMsg = [[NSUserDefaults standardUserDefaults] objectForKey:@"isHavingMsg"];
+    if([isHavingMsg isEqualToString:@"Y"]){
+        [self showRedMsgBtn];
+    }else{
+        [self showNoMsgBtn];
+    }
+    //    [self.navigationController.navigationBar setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
+    self.navigationController.navigationBar.shadowImage = [UIImage new];
+}
+
+/*
+#pragma mark - Navigation
+
+// In a storyboard-based application, you will often want to do a little preparation before navigation
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    // Get the new view controller using [segue destinationViewController].
+    // Pass the selected object to the new view controller.
+}
+*/
+- (void)paySuccessNotif:(NSNotification *)notif
+{
+    FunctionViewController* funVC = [[[FunctionViewController alloc] init] autorelease];
+    funVC.isAutoPushHCPreeview = YES;
+    funVC.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:funVC animated:YES];
+}
+@end

@@ -7,3 +7,9 @@
 //
 
 #include "Session.h"
+
+using namespace etim;
+
+Session::Session(std::auto_ptr<Socket> &socket) : socket_(socket) {
+    
+}

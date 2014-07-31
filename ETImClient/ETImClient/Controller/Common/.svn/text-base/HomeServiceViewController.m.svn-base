@@ -1,0 +1,304 @@
+//
+//  HomeServiceViewController.m
+//  HM-HEALTH
+//
+//  Created by apple on 14-5-26.
+//  Copyright (c) 2014年 PingAn. All rights reserved.
+//
+
+#import "HomeServiceViewController.h"
+
+#import "PayAutoViewController.h"
+
+#import "YLImagelibViewController.h"
+
+#import "YLInferiorGoodsListViewController.h"
+
+#import "YLAutoPaySuccessViewController.h"
+
+#import "YLReadPdfViewController.h"
+
+#import "YLListMenuCell.h"
+#import "YLUploadImageViewController.h"
+#import "JKMsgMainViewController.h"
+#import "JKMsgUtil.h"
+
+@interface HomeServiceViewController ()<UITableViewDelegate, UITableViewDataSource>
+{
+    NSArray *nameArry;
+    ///显示底部空白行数量
+    int bottomNum;
+}
+
+@property (nonatomic, strong) NSMutableArray *dataSource;
+
+@end
+
+@implementation HomeServiceViewController
+
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+{
+    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    if (self) {
+        self.title = @"服务宝";
+        self.navigationItem.title = @"";
+        [self.tabBarItem setFinishedSelectedImage:[UIImage imageNamed:@"tab_service_selected.png"] withFinishedUnselectedImage:[UIImage imageNamed:@"tab_service_unselect.png"]];
+    }
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showRedMsgBtn) name:@"HAVE_MSG" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showNoMsgBtn) name:@"HAVE_NO_MSG" object:nil];
+    return self;
+}
+
+//- (void)awakeFromNib
+//{
+//    UIImageView *bg = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"base_bg_iphone5"]];
+//    [self.view addSubview:bg];
+//}
+
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    
+    bottomNum = 1;
+ 
+    if (!IOS7) {
+        CGRect frame = self.listMenu.frame;
+        frame.origin.y -= 40;
+        frame.size.height += 40;
+        [self.listMenu setFrame:frame];
+        
+        self.bgImage.image = [UIImage imageNamed:@"home_back_OS6"];
+        self.bgImage.contentMode = UIViewContentModeBottom;
+        
+        bottomNum = 0;
+    }
+    
+    [self removeBgImageView];
+
+    self.dataSource = [[NSMutableArray alloc] initWithObjects:@"个人保单查询", @"投保保单查询", @"理赔信息查询", @"自助理赔申请", @"理赔问题件", @"理赔状态查询", nil];
+    
+    self.listMenu.backgroundColor = [UIColor clearColor];
+    self.listMenu.backgroundView = nil;
+    self.listMenu.separatorColor = [UIColor clearColor];
+    self.listMenu.showsVerticalScrollIndicator = NO;
+
+    [self setExtraCellLineHidden:self.listMenu];
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"nav_bar_login.png"] style:UIBarButtonItemStyleBordered target:self action:@selector(showLfet)];
+    
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"nav_bar_message.png"] style:UIBarButtonItemStyleBordered target:self action:@selector(showMsg)];
+    
+    [self.navigationItem.leftBarButtonItem setTintColor:[UIColor whiteColor]];
+    [self.navigationItem.rightBarButtonItem setTintColor:[UIColor whiteColor]];
+    // Do any additional setup after loading the view from its nib.
+}
+
+-(void) showMsg{
+    JKMsgMainViewController *msg  = [[JKMsgMainViewController alloc] init];
+    msg.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:msg animated:YES];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    NSString *isHavingMsg = [[NSUserDefaults standardUserDefaults] objectForKey:@"isHavingMsg"];
+    if([isHavingMsg isEqualToString:@"Y"]){
+        [self showRedMsgBtn];
+    }else{
+        [self showNoMsgBtn];
+    }
+    [self.navigationController.navigationBar setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
+    self.navigationController.navigationBar.shadowImage = [UIImage new];
+}
+
+- (void)showLfet
+{
+#ifndef __NEW_VERSION__
+    JKAppDelegate *delegate = (JKAppDelegate *)[UIApplication sharedApplication].delegate;
+    [delegate.rootController showLeftController:YES];
+#endif
+}
+
+- (void)setExtraCellLineHidden: (UITableView *)tableView{
+    UIView *view =[ [UIView alloc]init];
+    view.backgroundColor = [UIColor clearColor];
+    [tableView setTableFooterView:view];
+    [tableView setTableHeaderView:view];
+}
+
+- (void)didReceiveMemoryWarning
+{
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
+//个人保单查询
+- (IBAction)guaranteeSlipClick:(id)sender
+{
+    YLMainWebViewController *ylWebVC = [[YLMainWebViewController alloc] init];
+    ylWebVC.hidesBottomBarWhenPushed = YES;
+    [ylWebVC startLoadWebViewWithUrlString:[NSString stringWithFormat:@"%@/m/insurance/index.html", CSSP_HOST_URL]];
+    ylWebVC.javascriptString = @"javascript:forward('#service/guaranteeSlip/guaranteeSlip/initIndex')";
+
+    [self.navigationController pushViewController:ylWebVC animated:YES];
+}
+
+//理赔信息查询
+- (IBAction)claimPolQueryClick:(id)sender
+{
+    YLMainWebViewController *ylWebVC = [[YLMainWebViewController alloc] init];
+    ylWebVC.hidesBottomBarWhenPushed = YES;
+    [ylWebVC startLoadWebViewWithUrlString:[NSString stringWithFormat:@"%@/m/insurance/index.html", CSSP_HOST_URL]];
+    ylWebVC.javascriptString = @"javascript:forward('#service/claimPolQuery/claimPolQuery/initIndex')";
+    [self.navigationController pushViewController:ylWebVC animated:YES];
+}
+
+//投保保单查询
+- (IBAction)guaranteeQuery:(id)sender
+{
+    YLMainWebViewController *ylWebVC = [[YLMainWebViewController alloc] init];
+    ylWebVC.hidesBottomBarWhenPushed = YES;
+    [ylWebVC startLoadWebViewWithUrlString:[NSString stringWithFormat:@"%@/m/insurance/index.html", CSSP_HOST_URL]];
+    ylWebVC.javascriptString = @"javascript:forward('#service/guaranteeQuery/guaranteeQuery/initIndex')";
+    [self.navigationController pushViewController:ylWebVC animated:YES];
+}
+
+//理赔状态
+- (IBAction)claimApplyStsQueryClick:(id)sender
+{
+    YLMainWebViewController *ylWebVC = [[YLMainWebViewController alloc] init];
+    ylWebVC.hidesBottomBarWhenPushed = YES;
+    [ylWebVC startLoadWebViewWithUrlString:[NSString stringWithFormat:@"%@/m/insurance/index.html", CSSP_HOST_URL]];
+    ylWebVC.javascriptString = @"javascript:forward('#service/claimApplyStsQuery/claimApplyStsQuery/initIndex')";
+    [self.navigationController pushViewController:ylWebVC animated:YES];
+}
+
+//自助理赔
+- (IBAction)PayAuto:(id)sender
+{
+    PayAutoViewController *payAutoVC = [[PayAutoViewController alloc] init];
+    payAutoVC.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:payAutoVC animated:YES];
+    return;
+    
+}
+
+- (IBAction)showImage:(id)sender {
+    
+    YLImagelibViewController *ylShowImageVC = [[YLImagelibViewController alloc] initWithNibName:@"YLImagelibViewController" bundle:nil];
+    ylShowImageVC.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:ylShowImageVC animated:YES];
+}
+
+- (IBAction)ProblemClaim:(id)sender
+{
+    YLInferiorGoodsListViewController* inferiorCon = [[YLInferiorGoodsListViewController alloc] init];
+    inferiorCon.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:inferiorCon animated:YES];
+}
+
+#pragma mark - UITableViewDelegate
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return [self.dataSource count] + bottomNum;
+}
+
+- (float)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 87;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (indexPath.row == [self.dataSource count]) {
+        
+        static NSString *blank = @"blank";
+        
+        UITableViewCell *blankCell = [tableView dequeueReusableCellWithIdentifier:blank];
+        
+        if (blankCell == nil) {
+            
+            blankCell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:blank];
+            
+            blankCell.selectionStyle = UITableViewCellSelectionStyleNone;
+            blankCell.backgroundColor = [UIColor clearColor];
+        }
+        
+        return blankCell;
+    }
+
+    
+    static NSString *identify = @"identify";
+    
+    YLListMenuCell *cell = [tableView dequeueReusableCellWithIdentifier:identify];
+    
+    if (cell == nil) {
+        
+        NSArray *nibsArray=[[NSBundle mainBundle] loadNibNamed:@"YLListMenuCell" owner:self options:nil];
+        
+        cell=(YLListMenuCell*)[nibsArray objectAtIndex:0];
+        
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        
+        cell.backgroundColor = [UIColor clearColor];
+    }
+    
+    cell.functionName.text = [self.dataSource objectAtIndex:indexPath.row];
+    
+    cell.functionImage.image = [UIImage imageNamed:[NSString stringWithFormat:@"%@.png", cell.functionName.text]];
+    
+    return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    //功能点击次数收集
+    [TalkingData trackEvent:@"Service" label:self.dataSource[indexPath.row]];
+    
+    switch (indexPath.row) {
+        case 0:
+            [self guaranteeSlipClick:nil];
+            break;
+        case 1:
+            [self guaranteeQuery:nil];
+            break;
+        case 2:
+            [self claimPolQueryClick:nil];
+            break;
+        case 3:
+            [self PayAuto:nil];
+            break;
+        case 4:
+            [self ProblemClaim:nil];
+            break;
+        case 5:
+            [self claimApplyStsQueryClick:nil];
+            break;
+        default:
+            break;
+    }
+}
+
+
+-(void) viewDidAppear:(BOOL)animated{
+//    NSString *isHavingMsg = [[NSUserDefaults standardUserDefaults] objectForKey:@"isHavingMsg"];
+//    if([isHavingMsg isEqualToString:@"Y"]){
+//        [self showRedMsgBtn];
+//    }else{
+//        [self showNoMsgBtn];
+//    }
+    
+}
+
+-(void)showRedMsgBtn{
+    RedBtn *btn = [[RedBtn alloc] initWithFrame:CGRectMake(0, 0, 57/2.0f, 57/2.0f)];
+    [btn setBackgroundImage:[UIImage imageNamed:@"nav_bar_message.png"] forState:UIControlStateNormal];
+    [btn addTarget:self action:@selector(showMsg) forControlEvents:UIControlEventTouchUpInside];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:btn];
+}
+
+-(void)showNoMsgBtn{
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"nav_bar_message.png"] style:UIBarButtonItemStyleBordered target:self action:@selector(showMsg)];
+    [self.navigationItem.rightBarButtonItem setTintColor:[UIColor whiteColor]];
+}
+
+@end
