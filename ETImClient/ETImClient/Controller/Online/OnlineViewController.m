@@ -19,7 +19,7 @@
     if (self = [super init]) {
         self.title = @"在线列表";
         self.navigationItem.title = @"在线列表";
-        
+         [self.tabBarItem setFinishedSelectedImage:[UIImage imageNamed:@"tab_recent_press"] withFinishedUnselectedImage:[UIImage imageNamed:@"tab_recent_nor"]];
     }
     
     return self;

@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AA11010F198B6556008811E4 /* Logging.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AA11010B198B6556008811E4 /* Logging.cpp */; };
+		AA110110198B6556008811E4 /* LogStream.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AA11010D198B6556008811E4 /* LogStream.cpp */; };
+		AA110113198B6582008811E4 /* Timestamp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AA110111198B6582008811E4 /* Timestamp.cpp */; };
 		AA420BAC19863F4200D1117F /* Server.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AA420BAA19863F4200D1117F /* Server.cpp */; };
 		AA420BAF198642F300D1117F /* Socket.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AA420BAD198642F300D1117F /* Socket.cpp */; };
 		AA59F01D1988BD23009FD449 /* MD5.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AA59F01B1988BD23009FD449 /* MD5.cpp */; };
@@ -42,6 +45,14 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		AA11010B198B6556008811E4 /* Logging.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; lineEnding = 0; path = Logging.cpp; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.cpp; };
+		AA11010C198B6556008811E4 /* Logging.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = Logging.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		AA11010D198B6556008811E4 /* LogStream.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LogStream.cpp; sourceTree = "<group>"; };
+		AA11010E198B6556008811E4 /* LogStream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LogStream.h; sourceTree = "<group>"; };
+		AA110111198B6582008811E4 /* Timestamp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Timestamp.cpp; sourceTree = "<group>"; };
+		AA110112198B6582008811E4 /* Timestamp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Timestamp.h; sourceTree = "<group>"; };
+		AA110117198B6F59008811E4 /* Types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = Types.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		AA110118198B6F94008811E4 /* StringPiece.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StringPiece.h; sourceTree = "<group>"; };
 		AA420BAA19863F4200D1117F /* Server.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Server.cpp; sourceTree = "<group>"; };
 		AA420BAB19863F4200D1117F /* Server.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Server.h; sourceTree = "<group>"; };
 		AA420BAD198642F300D1117F /* Socket.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Socket.cpp; sourceTree = "<group>"; };
@@ -97,6 +108,14 @@
 		AA420BB0198648BE00D1117F /* Public */ = {
 			isa = PBXGroup;
 			children = (
+				AA110118198B6F94008811E4 /* StringPiece.h */,
+				AA110117198B6F59008811E4 /* Types.h */,
+				AA110111198B6582008811E4 /* Timestamp.cpp */,
+				AA110112198B6582008811E4 /* Timestamp.h */,
+				AA11010B198B6556008811E4 /* Logging.cpp */,
+				AA11010C198B6556008811E4 /* Logging.h */,
+				AA11010D198B6556008811E4 /* LogStream.cpp */,
+				AA11010E198B6556008811E4 /* LogStream.h */,
 				AA59F0241988C9BB009FD449 /* InStream.cpp */,
 				AA59F0251988C9BB009FD449 /* InStream.h */,
 				AA59F0261988C9BB009FD449 /* OutStream.cpp */,
@@ -231,14 +250,17 @@
 				AA7004DC19889D3C005D5FC1 /* AddBuddy.cpp in Sources */,
 				AA59F01D1988BD23009FD449 /* MD5.cpp in Sources */,
 				AA420BAF198642F300D1117F /* Socket.cpp in Sources */,
+				AA11010F198B6556008811E4 /* Logging.cpp in Sources */,
 				AA59F0291988C9BB009FD449 /* OutStream.cpp in Sources */,
 				AABF3C9E19863690001C8DCA /* Main.cpp in Sources */,
 				AA59F0201988BFF8009FD449 /* Idea.cpp in Sources */,
+				AA110113198B6582008811E4 /* Timestamp.cpp in Sources */,
 				AA7004DF19889D8D005D5FC1 /* SwitchStatus.cpp in Sources */,
 				AA7004C719889628005D5FC1 /* Action.cpp in Sources */,
 				AA7004CD19889872005D5FC1 /* Login.cpp in Sources */,
 				AA7004D319889C9B005D5FC1 /* HeartBeat.cpp in Sources */,
 				AA59F0281988C9BB009FD449 /* InStream.cpp in Sources */,
+				AA110110198B6556008811E4 /* LogStream.cpp in Sources */,
 				AA7004D619889CEB005D5FC1 /* SendMsg.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

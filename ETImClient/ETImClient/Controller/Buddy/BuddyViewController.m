@@ -19,7 +19,7 @@
     if (self = [super init]) {
         self.title = @"好友列表";
         self.navigationItem.title = @"好友列表";
-        
+         [self.tabBarItem setFinishedSelectedImage:[UIImage imageNamed:@"tab_buddy_press"] withFinishedUnselectedImage:[UIImage imageNamed:@"tab_buddy_nor"]];
     }
     return self;
 }

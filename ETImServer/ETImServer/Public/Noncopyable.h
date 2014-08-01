@@ -16,17 +16,16 @@ namespace pub {
 class Noncopyable
 {
 protected:
-    Noncopyable() {}
-    Noncopyable() {}
+    Noncopyable() {};
+    ~Noncopyable() {}
 private:  // emphasize the following members are private
     Noncopyable( const Noncopyable& );
     const Noncopyable& operator=( const Noncopyable& );
 };
-}
     
     typedef pub::Noncopyable Noncopyable;
-}   //end namespace public
-}   //end namespace etim
+}   //end public
+}   //end etim
 
 
 #endif

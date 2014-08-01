@@ -4,6 +4,7 @@
 namespace etim {
 
     namespace pub {
+        ///MD5加密
         class MD5
         {
             typedef unsigned int word32;

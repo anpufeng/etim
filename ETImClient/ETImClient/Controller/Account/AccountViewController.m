@@ -19,7 +19,7 @@
     if (self = [super init]) {
         self.title = @"帐户信息";
         self.navigationItem.title = @"帐户信息";
-        
+         [self.tabBarItem setFinishedSelectedImage:[UIImage imageNamed:@"tab_me_press"] withFinishedUnselectedImage:[UIImage imageNamed:@"tab_me_nor"]];
     }
     return self;
 }

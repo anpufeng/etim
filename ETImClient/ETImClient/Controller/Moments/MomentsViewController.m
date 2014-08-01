@@ -14,12 +14,15 @@
 
 @implementation MomentsViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+- (id)init
 {
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
+    if (self = [super init]) {
+        
+        self.title = @"朋友圈";
+        self.navigationItem.title = @"朋友圈";
+        [self.tabBarItem setFinishedSelectedImage:[UIImage imageNamed:@"tab_qworld_press"] withFinishedUnselectedImage:[UIImage imageNamed:@"tab_qworld_nor"]];
     }
+    
     return self;
 }
 

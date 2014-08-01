@@ -9,6 +9,7 @@
 #include <iostream>
 #include "Server.h"
 #include "Singleton.h"
+#include "Logging.h"
 
 using namespace etim;
 using namespace etim::pub;
@@ -36,6 +37,13 @@ int main(int argc, const char * argv[])
     printf("unsigned short %d\n", (int)sizeof(unsigned short));
     printf("unsigned int %d\n", (int)sizeof(unsigned int));
     printf("unsigned long %d\n", (int)sizeof(unsigned long));
+    
+    LOG_INFO<<"Log info";
+    LOG_DEBUG<<"Log debug";
+    LOG_ERROR<<"Log error";
+    
+    LOG_FATAL<<"Log fatal";
+    
     return Singleton<Server>::Instance().Start();
 
 }

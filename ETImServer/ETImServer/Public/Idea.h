@@ -15,6 +15,7 @@ typedef unsigned int word32;
 #define low16(x) ((x) & 0xFFFF)
 
 
+        ///Idea加密
 class Idea
 {
 	struct IdeaCfbContext
