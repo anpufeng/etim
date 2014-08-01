@@ -7,8 +7,13 @@
 //
 
 #include "Server.h"
+#include "Logging.h"
 #include "ActionManager.h"
 #include <sys/select.h>
+#include <sys/socket.h>
+#include <sys/types.h>
+#include <netinet/in.h>
+#include <arpa/inet.h>
 
 using namespace etim;
 using namespace etim::pub;
@@ -24,16 +29,18 @@ Server::~Server() {
 }
 
 int Server::Start() {
+    LOG_INFO<<"服务器启动";
     Socket soc;
     soc.Create();
     soc.Bind(nullptr);
     soc.Listen();
+    LOG_INFO<<"开始监听";
     int listenFd = soc.GetFd();
     fdMax_ = listenFd;
     
     ///将监听fd加入到集合中
-    FD_ZERO(&readFds_);
-    FD_SET(listenFd, &readFds_);
+
+    
     
     fd_set writeFds;
     struct timeval timeout;
@@ -41,9 +48,12 @@ int Server::Start() {
     timeout.tv_usec = 0;
     
     while (1) {
-        int ready = select(fdMax_ + 1, &readFds_, &writeFds, nullptr, &timeout);
+        FD_ZERO(&readFds_);
+        FD_SET(listenFd, &readFds_);
+        
+        int ready = select(fdMax_ + 1, &readFds_, nullptr, nullptr, 0);
         if (ready == -1) {
-            printf("select error");
+            LOG_ERROR<<"select error: "<<strerror(errno);
             exit(EXIT_FAILURE);
         }
         
@@ -55,6 +65,7 @@ int Server::Start() {
         ///如果监听端口有可读
         if (FD_ISSET(listenFd, &readFds_)) {
             int connFd = soc.Accept();
+            LOG_INFO<<"有新客户端连接 :";
             if (connFd == -1) {
                 printf("accept error");
                 continue;

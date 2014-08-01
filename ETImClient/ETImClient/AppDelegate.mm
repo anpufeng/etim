@@ -9,6 +9,7 @@
 #import "AppDelegate.h"
 #import "BaseNavigationController.h"
 #import "LoginViewController.h"
+#import "Logging.h"
 
 @implementation AppDelegate
 

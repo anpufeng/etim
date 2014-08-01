@@ -11,6 +11,10 @@
 #import "LeeScrollView.h"
 #import "BaseTabBarViewController.h"
 #import "AppDelegate.h"
+#include "Socket.h"
+
+using namespace etim;
+
 
 @interface LoginViewController ()
 
@@ -93,6 +97,12 @@
 #pragma mark response
 
 - (void)responseToLoginBtn:(UIButton *)sender {
+    Socket sock;
+    sock.Create();
+    if (sock.Connect("127.0.0.1", 8888)) {
+        
+    }
+    
     
 }
 

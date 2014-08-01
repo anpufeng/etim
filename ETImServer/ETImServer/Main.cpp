@@ -19,6 +19,7 @@ int main(int argc, const char * argv[])
 
     // insert code here...
     
+    /*
     typedef char int8;
     typedef int16_t int16;
     typedef int32_t int32;
@@ -40,9 +41,9 @@ int main(int argc, const char * argv[])
     
     LOG_INFO<<"Log info";
     LOG_DEBUG<<"Log debug";
+    LOG_WARN<<"Log warn";
     LOG_ERROR<<"Log error";
-    
-    LOG_FATAL<<"Log fatal";
+    */
     
     return Singleton<Server>::Instance().Start();
 

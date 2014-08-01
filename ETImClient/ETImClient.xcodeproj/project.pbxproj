@@ -32,7 +32,7 @@
 		AA59F074198A1A59009FD449 /* BaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA59F045198A1A59009FD449 /* BaseViewController.m */; };
 		AA59F098198A2250009FD449 /* login_bg_ip5@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = AA59F096198A2250009FD449 /* login_bg_ip5@2x.jpg */; };
 		AA59F099198A2250009FD449 /* login_bg@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = AA59F097198A2250009FD449 /* login_bg@2x.jpg */; };
-		AA59F09C198A25C6009FD449 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA59F09B198A25C6009FD449 /* LoginViewController.m */; };
+		AA59F09C198A25C6009FD449 /* LoginViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = AA59F09B198A25C6009FD449 /* LoginViewController.mm */; };
 		AA59F09F198A25EA009FD449 /* RegViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA59F09E198A25EA009FD449 /* RegViewController.m */; };
 		AA59F0A1198A28CF009FD449 /* login_avatar@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AA59F0A0198A28CF009FD449 /* login_avatar@2x.png */; };
 		AA59F0A3198A2C5D009FD449 /* login_avatar_default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AA59F0A2198A2C5D009FD449 /* login_avatar_default@2x.png */; };
@@ -43,6 +43,15 @@
 		AA59F0B0198A4117009FD449 /* BuddyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA59F0AF198A4117009FD449 /* BuddyViewController.m */; };
 		AA59F0B3198A4121009FD449 /* OnlineViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA59F0B2198A4121009FD449 /* OnlineViewController.m */; };
 		AA59F0B6198A4142009FD449 /* AccountViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA59F0B5198A4142009FD449 /* AccountViewController.m */; };
+		AAA6DCD8198B918100EB948E /* Endian.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AAA6DCC4198B918100EB948E /* Endian.cpp */; };
+		AAA6DCD9198B918100EB948E /* Idea.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AAA6DCC6198B918100EB948E /* Idea.cpp */; };
+		AAA6DCDA198B918100EB948E /* InStream.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AAA6DCC8198B918100EB948E /* InStream.cpp */; };
+		AAA6DCDB198B918100EB948E /* Logging.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AAA6DCCA198B918100EB948E /* Logging.cpp */; };
+		AAA6DCDC198B918100EB948E /* LogStream.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AAA6DCCC198B918100EB948E /* LogStream.cpp */; };
+		AAA6DCDD198B918100EB948E /* MD5.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AAA6DCCE198B918100EB948E /* MD5.cpp */; };
+		AAA6DCDE198B918100EB948E /* OutStream.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AAA6DCD1198B918100EB948E /* OutStream.cpp */; };
+		AAA6DCDF198B918100EB948E /* Timestamp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AAA6DCD5198B918100EB948E /* Timestamp.cpp */; };
+		AAA6DCE2198B962E00EB948E /* Socket.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AAA6DCE0198B962E00EB948E /* Socket.cpp */; };
 		AABF3CB3198636C0001C8DCA /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AABF3CB2198636C0001C8DCA /* Foundation.framework */; };
 		AABF3CB5198636C0001C8DCA /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AABF3CB4198636C0001C8DCA /* CoreGraphics.framework */; };
 		AABF3CB7198636C0001C8DCA /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AABF3CB6198636C0001C8DCA /* UIKit.framework */; };
@@ -104,7 +113,7 @@
 		AA59F096198A2250009FD449 /* login_bg_ip5@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "login_bg_ip5@2x.jpg"; sourceTree = "<group>"; };
 		AA59F097198A2250009FD449 /* login_bg@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "login_bg@2x.jpg"; sourceTree = "<group>"; };
 		AA59F09A198A25C6009FD449 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
-		AA59F09B198A25C6009FD449 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
+		AA59F09B198A25C6009FD449 /* LoginViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = LoginViewController.mm; sourceTree = "<group>"; };
 		AA59F09D198A25EA009FD449 /* RegViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegViewController.h; sourceTree = "<group>"; };
 		AA59F09E198A25EA009FD449 /* RegViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegViewController.m; sourceTree = "<group>"; };
 		AA59F0A0198A28CF009FD449 /* login_avatar@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "login_avatar@2x.png"; sourceTree = "<group>"; };
@@ -120,6 +129,28 @@
 		AA59F0B2198A4121009FD449 /* OnlineViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OnlineViewController.m; sourceTree = "<group>"; };
 		AA59F0B4198A4142009FD449 /* AccountViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AccountViewController.h; sourceTree = "<group>"; };
 		AA59F0B5198A4142009FD449 /* AccountViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AccountViewController.m; sourceTree = "<group>"; };
+		AAA6DCC4198B918100EB948E /* Endian.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Endian.cpp; sourceTree = "<group>"; };
+		AAA6DCC5198B918100EB948E /* Endian.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Endian.h; sourceTree = "<group>"; };
+		AAA6DCC6198B918100EB948E /* Idea.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Idea.cpp; sourceTree = "<group>"; };
+		AAA6DCC7198B918100EB948E /* Idea.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Idea.h; sourceTree = "<group>"; };
+		AAA6DCC8198B918100EB948E /* InStream.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = InStream.cpp; sourceTree = "<group>"; };
+		AAA6DCC9198B918100EB948E /* InStream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InStream.h; sourceTree = "<group>"; };
+		AAA6DCCA198B918100EB948E /* Logging.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Logging.cpp; sourceTree = "<group>"; };
+		AAA6DCCB198B918100EB948E /* Logging.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Logging.h; sourceTree = "<group>"; };
+		AAA6DCCC198B918100EB948E /* LogStream.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LogStream.cpp; sourceTree = "<group>"; };
+		AAA6DCCD198B918100EB948E /* LogStream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LogStream.h; sourceTree = "<group>"; };
+		AAA6DCCE198B918100EB948E /* MD5.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MD5.cpp; sourceTree = "<group>"; };
+		AAA6DCCF198B918100EB948E /* MD5.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MD5.h; sourceTree = "<group>"; };
+		AAA6DCD0198B918100EB948E /* Noncopyable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Noncopyable.h; sourceTree = "<group>"; };
+		AAA6DCD1198B918100EB948E /* OutStream.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = OutStream.cpp; sourceTree = "<group>"; };
+		AAA6DCD2198B918100EB948E /* OutStream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OutStream.h; sourceTree = "<group>"; };
+		AAA6DCD3198B918100EB948E /* Singleton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Singleton.h; sourceTree = "<group>"; };
+		AAA6DCD4198B918100EB948E /* StringPiece.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StringPiece.h; sourceTree = "<group>"; };
+		AAA6DCD5198B918100EB948E /* Timestamp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Timestamp.cpp; sourceTree = "<group>"; };
+		AAA6DCD6198B918100EB948E /* Timestamp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Timestamp.h; sourceTree = "<group>"; };
+		AAA6DCD7198B918100EB948E /* Types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Types.h; sourceTree = "<group>"; };
+		AAA6DCE0198B962E00EB948E /* Socket.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Socket.cpp; sourceTree = "<group>"; };
+		AAA6DCE1198B962E00EB948E /* Socket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Socket.h; sourceTree = "<group>"; };
 		AABF3CAF198636C0001C8DCA /* ETImClient.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ETImClient.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AABF3CB2198636C0001C8DCA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		AABF3CB4198636C0001C8DCA /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -292,7 +323,7 @@
 			isa = PBXGroup;
 			children = (
 				AA59F09A198A25C6009FD449 /* LoginViewController.h */,
-				AA59F09B198A25C6009FD449 /* LoginViewController.m */,
+				AA59F09B198A25C6009FD449 /* LoginViewController.mm */,
 				AA59F09D198A25EA009FD449 /* RegViewController.h */,
 				AA59F09E198A25EA009FD449 /* RegViewController.m */,
 			);
@@ -358,6 +389,35 @@
 			path = Common;
 			sourceTree = "<group>";
 		};
+		AAA6DCC3198B918100EB948E /* Public */ = {
+			isa = PBXGroup;
+			children = (
+				AAA6DCE0198B962E00EB948E /* Socket.cpp */,
+				AAA6DCE1198B962E00EB948E /* Socket.h */,
+				AAA6DCC4198B918100EB948E /* Endian.cpp */,
+				AAA6DCC5198B918100EB948E /* Endian.h */,
+				AAA6DCC6198B918100EB948E /* Idea.cpp */,
+				AAA6DCC7198B918100EB948E /* Idea.h */,
+				AAA6DCC8198B918100EB948E /* InStream.cpp */,
+				AAA6DCC9198B918100EB948E /* InStream.h */,
+				AAA6DCCA198B918100EB948E /* Logging.cpp */,
+				AAA6DCCB198B918100EB948E /* Logging.h */,
+				AAA6DCCC198B918100EB948E /* LogStream.cpp */,
+				AAA6DCCD198B918100EB948E /* LogStream.h */,
+				AAA6DCCE198B918100EB948E /* MD5.cpp */,
+				AAA6DCCF198B918100EB948E /* MD5.h */,
+				AAA6DCD0198B918100EB948E /* Noncopyable.h */,
+				AAA6DCD1198B918100EB948E /* OutStream.cpp */,
+				AAA6DCD2198B918100EB948E /* OutStream.h */,
+				AAA6DCD3198B918100EB948E /* Singleton.h */,
+				AAA6DCD4198B918100EB948E /* StringPiece.h */,
+				AAA6DCD5198B918100EB948E /* Timestamp.cpp */,
+				AAA6DCD6198B918100EB948E /* Timestamp.h */,
+				AAA6DCD7198B918100EB948E /* Types.h */,
+			);
+			path = Public;
+			sourceTree = "<group>";
+		};
 		AABF3CA6198636C0001C8DCA = {
 			isa = PBXGroup;
 			children = (
@@ -391,6 +451,7 @@
 		AABF3CB8198636C0001C8DCA /* ETImClient */ = {
 			isa = PBXGroup;
 			children = (
+				AAA6DCC3198B918100EB948E /* Public */,
 				AA59F031198A1590009FD449 /* Helper */,
 				AA59F030198A1580009FD449 /* Category */,
 				AA59F02F198A156F009FD449 /* Vendor */,
@@ -552,22 +613,31 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AAA6DCDD198B918100EB948E /* MD5.cpp in Sources */,
 				AABF3CC3198636C0001C8DCA /* AppDelegate.mm in Sources */,
+				AAA6DCDE198B918100EB948E /* OutStream.cpp in Sources */,
 				AA59F074198A1A59009FD449 /* BaseViewController.m in Sources */,
 				AA59F0AD198A3732009FD449 /* LeeScrollView.m in Sources */,
 				AA59F0B0198A4117009FD449 /* BuddyViewController.m in Sources */,
+				AAA6DCDA198B918100EB948E /* InStream.cpp in Sources */,
 				AA1100FA198B3F0A008811E4 /* MomentsViewController.m in Sources */,
 				AA59F0B6198A4142009FD449 /* AccountViewController.m in Sources */,
+				AAA6DCD8198B918100EB948E /* Endian.cpp in Sources */,
 				AA1100FE198B61D2008811E4 /* TWMessageBarManager.m in Sources */,
 				AA59F072198A1A59009FD449 /* BaseNavigationController.m in Sources */,
+				AAA6DCDC198B918100EB948E /* LogStream.cpp in Sources */,
 				AA59F0B3198A4121009FD449 /* OnlineViewController.m in Sources */,
 				AA59F03B198A197B009FD449 /* UIColor+Additions.m in Sources */,
-				AA59F09C198A25C6009FD449 /* LoginViewController.m in Sources */,
+				AAA6DCD9198B918100EB948E /* Idea.cpp in Sources */,
+				AAA6DCE2198B962E00EB948E /* Socket.cpp in Sources */,
+				AA59F09C198A25C6009FD449 /* LoginViewController.mm in Sources */,
 				AA59F073198A1A59009FD449 /* BaseTabBarViewController.m in Sources */,
 				AABF3CBF198636C0001C8DCA /* main.m in Sources */,
 				AA59F071198A1A59009FD449 /* BackViewController.m in Sources */,
+				AAA6DCDF198B918100EB948E /* Timestamp.cpp in Sources */,
 				AA59F03C198A197B009FD449 /* UIImage+Additions.m in Sources */,
 				AA59F09F198A25EA009FD449 /* RegViewController.m in Sources */,
+				AAA6DCDB198B918100EB948E /* Logging.cpp in Sources */,
 				AA59F034198A15F0009FD449 /* Constants.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

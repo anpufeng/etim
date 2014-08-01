@@ -55,7 +55,7 @@ bool Socket::Bind(char *ip) {
     addr.sin_addr.s_addr = INADDR_ANY;
     
     
-    if (::bind(fd_, (struct sockaddr*) &addr, sizeof(addr)) < 0) {
+    if (::bind(fd_, (struct sockaddr*) &addr, sizeof(addr))) {
         printf("bind error %s", strerror(errno));
         return false;
     }
@@ -88,6 +88,15 @@ int Socket::Accept() {
 }
 
 bool Socket::Connect(char *ip, unsigned short port) {
-    return true;
+    sockaddr_in addr = {0};
+	addr.sin_family = AF_INET;
+	addr.sin_port = htons(port);
+	addr.sin_addr.s_addr = inet_addr(ip);
+    int ret = ::connect(fd_, (sockaddr*)&addr, sizeof(addr));
+	if (ret < 0) {
+        return false;
+    }
+    
+	return true;
 }
     
