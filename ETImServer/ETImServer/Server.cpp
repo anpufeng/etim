@@ -96,6 +96,8 @@ int Server::Start() {
             Session *s = *it;
             int fd = s->GetFd();
             if (FD_ISSET(fd, &readFds_)) {
+                s->Recv();
+                //根据接收的数据做出相应的操作
                 Singleton<ActionManager>::Instance().DoAction(s);
                 ///取消事件
                 FD_CLR(fd, &readFds_);

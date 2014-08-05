@@ -46,7 +46,7 @@ void Login::Execute(Session *s) {
 	// 解密
 	idea.Crypt(ideaKey, (const unsigned char*)encryptedPass, (unsigned char *)pass, 16, false);
     
-	int16 error_code = 0;
+	int16 error_code = kErrCode002;
 	char error_msg[31] = {0};
     
     
