@@ -13,7 +13,14 @@ namespace etim
     typedef unsigned char uint8;
     typedef unsigned short uint16;
     typedef unsigned int uint32;
+#ifdef __LP64__
+#warning "64位编译"
     typedef unsigned long uint64;
+#else
+#warning "32位编译"
+typedef unsigned long long uint64;
+#endif
+    
     
     namespace pub {
 

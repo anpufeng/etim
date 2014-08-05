@@ -12,6 +12,6 @@ using namespace etim;
 using namespace etim::action;
 
 
-void SendMsg::Execute(Session& s) {
+void SendMsg::Execute(Session *s) {
     
 }

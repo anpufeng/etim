@@ -12,6 +12,6 @@
 using namespace etim;
 using namespace etim::action;
 
-void AddBuddy::Execute(Session& s) {
+void AddBuddy::Execute(Session *s) {
     
 }

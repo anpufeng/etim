@@ -29,7 +29,7 @@ namespace etim {
         ~Server();
 
         int Start();
-    public:
+    private:
         static fd_set readFds_;
         
         int fdMax_;

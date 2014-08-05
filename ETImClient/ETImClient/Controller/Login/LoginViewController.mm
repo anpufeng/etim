@@ -11,9 +11,14 @@
 #import "LeeScrollView.h"
 #import "BaseTabBarViewController.h"
 #import "AppDelegate.h"
-#include "Socket.h"
+
+#include "Client.h"
+#include "Singleton.h"
+#include "Session.h"
+#include "ActionManager.h"
 
 using namespace etim;
+using namespace etim::pub;
 
 
 @interface LoginViewController ()
@@ -97,13 +102,14 @@ using namespace etim;
 #pragma mark response
 
 - (void)responseToLoginBtn:(UIButton *)sender {
-    Socket sock;
-    sock.Create();
-    if (sock.Connect("127.0.0.1", 8888)) {
-        
-    }
-    
-    
+    dispatch_async(dispatch_get_global_queue(0, 0), ^{
+        Session *sess = Singleton<Client>::Instance().GetSession();
+		sess->Clear();
+		sess->SetCmd(CMD_LOGIN);
+		sess->SetAttribute("name", "admin");
+		sess->SetAttribute("pass", "admin");
+        Singleton<ActionManager>::Instance().DoAction(*sess);
+    });
 }
 
 - (void)responseToRegBtn:(UIButton *)sender {

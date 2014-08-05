@@ -34,7 +34,7 @@ Socket::~Socket() {
 bool Socket::Create() {
     fd_ = ::socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
     if (fd_ == -1) {
-        printf("socket error %s", strerror(errno));
+        LOG_ERROR<<"create socket error" << strerror(errno);
         return false;
     }
     
@@ -42,10 +42,10 @@ bool Socket::Create() {
     int val = 1;
     int result = ::setsockopt(fd_, SOL_SOCKET, SO_REUSEADDR, &val, sizeof(val));
     if (result == -1) {
-        printf("setsockopt error %s", strerror(errno));
+        LOG_ERROR<<"setsockopt error" << strerror(errno);
     }
 
-        return true;
+    return true;
 }
 
 bool Socket::Bind(char *ip) {
@@ -94,9 +94,51 @@ bool Socket::Connect(char *ip, unsigned short port) {
 	addr.sin_addr.s_addr = inet_addr(ip);
     int ret = ::connect(fd_, (sockaddr*)&addr, sizeof(addr));
 	if (ret < 0) {
+        LOG_ERROR<<"connect error"<<" ip "<<ip<<" port " << port;
         return false;
     }
     
 	return true;
 }
     
+int Socket::SendN(const char *buf, size_t len) {
+    int nLeft;
+	int nWritten;
+	char* p = (char*)buf;
+	nLeft = len;
+    
+	while (nLeft > 0) {
+		nWritten = ::send(fd_, p, nLeft, 0);
+		if (nWritten == -1) {
+            LOG_ERROR<<"SendN error: "<<strerror(errno);
+			return nWritten;
+        }
+        
+		nLeft -= nWritten;
+		p += nWritten;
+	}
+    
+	return len - nLeft;
+}
+
+int Socket::RecvN(char *buf, size_t len) {
+    int nLeft;
+	int nRead;
+	char* p = buf;
+	nLeft = len;
+    
+	while (nLeft > 0) {
+		nRead = ::recv(fd_, p, nLeft, 0);
+		if (nRead == -1) {
+            LOG_ERROR<<"recvn error: "<<strerror(errno);
+			return nRead;
+		}
+		else if (nRead == 0)
+			return nRead;
+        
+		nLeft -= nRead;
+		p += nRead;
+	}
+    
+	return len - nLeft;
+}

@@ -40,9 +40,9 @@ ActionManager::~ActionManager()
 	}
 }
 
-bool ActionManager::DoAction(Session &s)
+bool ActionManager::DoAction(Session *s)
 {
-	uint16_t cmd;// = session.GetCmd();
+	uint16_t cmd = s->GetCmd();
 	if (actions_.find(cmd) != actions_.end()) {
 		actions_[cmd]->Execute(s);
 		return true;

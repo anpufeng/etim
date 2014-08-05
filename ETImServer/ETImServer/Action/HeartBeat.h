@@ -17,7 +17,7 @@ namespace etim {
         
         class HeartBeat : public Action {
         public:
-            virtual void Execute(Session& s);
+            virtual void Execute(Session *s);
         };
     } //end action
 } //end etim

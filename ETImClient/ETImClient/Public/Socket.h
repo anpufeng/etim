@@ -30,8 +30,8 @@ public:
     void Close();
     int Send();
     int Recv();
-    int SendN();
-    int RecvN();
+    int SendN(const char* buf, size_t len);
+    int RecvN(char* buf, size_t len);
     int GetFd() const { return fd_; }
     
     bool IsValid() const { return fd_ == -1; }

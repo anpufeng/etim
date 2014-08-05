@@ -19,7 +19,7 @@ namespace etim {
     class Action {
         
     public:
-        virtual void Execute(Session& s) = 0;
+        virtual void Execute(Session *s) = 0;
         virtual ~Action() {};
         
     };

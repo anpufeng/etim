@@ -17,12 +17,12 @@ namespace etim {
         
         class Login : public Action {
         public:
-            virtual void Execute(Session *s);
+            virtual void Execute(Session& s);
         };
         
         class Logout : public Action {
         public:
-            virtual void Execute(Session *s);
+            virtual void Execute(Session& s);
         };
     } //end action
 } //end etim

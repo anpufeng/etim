@@ -12,6 +12,6 @@ using namespace etim;
 using namespace etim::action;
 
 
-void Register::Execute(Session *s) {
+void Register::Execute(Session& s) {
     
 }

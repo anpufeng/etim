@@ -25,7 +25,12 @@ Server::Server() : fdMax_(-1) {
 }
 
 Server::~Server() {
-    
+    LOG_INFO<<"~Server析构";
+    typedef std::vector<Session *>::iterator iter;
+    for (iter it = sessions_.begin(); it != sessions_.end(); it++) {
+        Session *ps = *it;
+        delete ps;
+    }
 }
 
 int Server::Start() {
@@ -50,6 +55,13 @@ int Server::Start() {
     while (1) {
         FD_ZERO(&readFds_);
         FD_SET(listenFd, &readFds_);
+        
+        typedef std::vector<Session *>::iterator iter;
+        for (iter it = sessions_.begin(); it != sessions_.end(); ++it) {
+            Session *s = *it;
+            int fd = s->GetFd();
+            FD_SET(fd, &readFds_);
+        }
         
         int ready = select(fdMax_ + 1, &readFds_, nullptr, nullptr, 0);
         if (ready == -1) {
@@ -80,16 +92,16 @@ int Server::Start() {
         }
         
         //检测是否有sesion有可读
-        std::vector<Session *>::iterator iter;
-        for (iter = sessions_.begin(); iter != sessions_.end(); iter++) {
-            Session s = **iter;
-            int fd = s.GetFd();
+        for (iter it = sessions_.begin(); it != sessions_.end(); ++it) {
+            Session *s = *it;
+            int fd = s->GetFd();
             if (FD_ISSET(fd, &readFds_)) {
                 Singleton<ActionManager>::Instance().DoAction(s);
                 ///取消事件
                 FD_CLR(fd, &readFds_);
             }
         }
+        //TODO  session释放问题
         
     } //end while
     

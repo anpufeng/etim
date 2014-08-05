@@ -11,6 +11,6 @@
 using namespace etim;
 using namespace etim::action;
 
-void SwitchStatus::Execute(Session& s) {
+void SwitchStatus::Execute(Session *s) {
     
 }
