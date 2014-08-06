@@ -67,6 +67,8 @@
             continueAfterRunningActions = "No"
             filePath = "ETImClient/Client/Action/Login.cpp"
             timestampString = "428916521.090403"
+            filePath = "ETImClient/Client/Action/Login.cpp"
+            timestampString = "428941076.38885"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "22"
@@ -103,6 +105,12 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "86"
             endingLineNumber = "86"
+            filePath = "ETImClient/Client/Action/Login.cpp"
+            timestampString = "428941098.139342"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "51"
+            endingLineNumber = "51"
             landmarkName = "Login::Execute(Session&amp; s)"
             landmarkType = "5">
          </BreakpointContent>

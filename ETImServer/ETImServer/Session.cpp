@@ -12,12 +12,13 @@
 #include "Exception.h"
 #include "MD5.h"
 #include "Idea.h"
+#include "ActionManager.h"
 
 using namespace etim;
 using namespace etim::pub;
 
 Session::Session(std::auto_ptr<Socket> &socket) : socket_(socket) {
-    
+    requestPack_= (RequestPack*)buffer_;
 }
 
 Session::~Session() {
@@ -30,39 +31,47 @@ void Session::Send(const char *buf, size_t len) {
 
 void Session::Recv() {
     int ret;
-	ret = socket_->RecvN(buffer_, sizeof(ResponseHead));
-	if (ret == 0)
-		throw Exception("服务器断开");
-	else if (ret != sizeof(ResponseHead))
+	// 接收包头
+	ret = socket_->RecvN(buffer_, sizeof(RequestHead));
+	if (ret == 0)	// 客户端关闭TODO 删除SESSION 还有-1的状况
+		throw Exception("客户端关闭");
+	else if (ret != sizeof(RequestHead))
+	{
 		throw Exception("接收数据包出错");
+	}
     
 	uint16 cmd = Endian::NetworkToHost16(requestPack_->head.cmd);
 	uint16 len = Endian::NetworkToHost16(requestPack_->head.len);
-    
 	
     
-	if (len == 0)
-		return;
-    
-	ret = socket_->RecvN(requestPack_->buf, len);
-	if (ret == 0)
-		throw Exception("服务器断开");
+	// 接收包体+包尾
+	ret = socket_->RecvN(/*buffer_+sizeof(RequestHead)*/requestPack_->buf, len);
+	if (ret == 0)	// 客户端关闭
+		throw Exception("客户端关闭");
 	else if (ret != len)
+	{
 		throw Exception("接收数据包出错");
+	}
     
 	// 计算hash
 	unsigned char hash[16];
 	MD5 md5;
-	md5.MD5Make(hash, (unsigned char const *)buffer_, sizeof(ResponseHead)+len-8);
+	md5.MD5Make(hash, (unsigned char const *)buffer_, sizeof(RequestHead)+len-8);
 	for (int i=0; i<8; ++i)
 	{
 		hash[i] = hash[i] ^ hash[i+8];
 		hash[i] = hash[i] ^ ((cmd >> (i%2)) & 0xff);
 	}
     
-	if (memcmp(hash, buffer_+sizeof(ResponseHead)+len-8, 8))
-		throw Exception("数据包错误");
+	if (memcmp(hash, buffer_+sizeof(RequestHead)+len-8, 8))
+		throw Exception("错误的数据包");
     
+    //将包头转换为本机字节序
 	requestPack_->head.cmd = cmd;
 	requestPack_->head.len = len;
+}
+
+
+void Session::DoAction() {
+    Singleton<ActionManager>::Instance().DoAction(this);
 }

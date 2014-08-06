@@ -18,13 +18,14 @@ using namespace etim::pub;
 using namespace std;
 
 Session::Session(std::auto_ptr<Socket> &socket) : socket_(socket), isConnected_(false) {
-        if (socket_->Create()) {
-            if (socket_->Connect("127.0.0.1", 8888))  {
-                isConnected_ = true;
-            } else {
-                
-            }
+    if (socket_->Create()) {
+        if (socket_->Connect("127.0.0.1", 8888))  {
+            isConnected_ = true;
+        } else {
+            
         }
+    }
+    responsePack_ = (ResponsePack*)buffer_;
 }
 
 void Session::Clear() {

@@ -105,10 +105,10 @@ int Socket::SendN(const char *buf, size_t len) {
     int nLeft;
 	int nWritten;
 	char* p = (char*)buf;
-	nLeft = len;
+	nLeft = (int)len;
     
 	while (nLeft > 0) {
-		nWritten = ::send(fd_, p, nLeft, 0);
+		nWritten = (int)::send(fd_, p, nLeft, 0);
 		if (nWritten == -1) {
             LOG_ERROR<<"SendN error: "<<strerror(errno);
 			return nWritten;
@@ -118,17 +118,17 @@ int Socket::SendN(const char *buf, size_t len) {
 		p += nWritten;
 	}
     
-	return len - nLeft;
+	return (int)len - nLeft;
 }
 
 int Socket::RecvN(char *buf, size_t len) {
     int nLeft;
 	int nRead;
 	char* p = buf;
-	nLeft = len;
+	nLeft = (int)len;
     
 	while (nLeft > 0) {
-		nRead = ::recv(fd_, p, nLeft, 0);
+		nRead = (int)::recv(fd_, p, nLeft, 0);
 		if (nRead == -1) {
             LOG_ERROR<<"recvn error: "<<strerror(errno);
 			return nRead;
@@ -140,5 +140,5 @@ int Socket::RecvN(char *buf, size_t len) {
 		p += nRead;
 	}
     
-	return len - nLeft;
+	return (int)len - nLeft;
 }
