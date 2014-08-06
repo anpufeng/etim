@@ -2,41 +2,23 @@
 //  Client.h
 //  ETImClient
 //
-//  Created by Ethan on 14/8/4.
-//  Copyright (c) 2014年 Pingan. All rights reserved.
+//  Created by ethan on 8/6/14.
+//  Copyright (c) 2014 Pingan. All rights reserved.
 //
 
-#ifndef __ETImClient__Client__
-#define __ETImClient__Client__
-
-#include <iostream>
-#include "Singleton.h"
+#import <Foundation/Foundation.h>
+#import <dispatch/dispatch.h>
 #include "Session.h"
 
-namespace etim {
-    
-    
-    ///主服务, 主要用来管理socket
-    class Client {
-        friend class pub::Singleton<Client>;
-    private:
-        
-    public:
-        
-        Client();
-        ~Client();
-        
-        Session *GetSession() { return session_; }
-        int Start() const;
+@interface Client : NSObject {
+    dispatch_queue_t _queueId;
+}
 
-        
-        int Connect() const;
-        int Disconnet() const;
-    private:
-        Session *session_;
-        bool isConnected_;
-    };
-    
-}   //end etim
 
-#endif /* defined(__ETImClient__Client__) */
++ (Client *)sharedInstance;
+
+///获取session对象
+- (etim::Session *)session;
+- (void)doAction:(etim::Session &)s;
+
+@end

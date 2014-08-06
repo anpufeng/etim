@@ -102,14 +102,12 @@ using namespace etim::pub;
 #pragma mark response
 
 - (void)responseToLoginBtn:(UIButton *)sender {
-    dispatch_async(dispatch_get_global_queue(0, 0), ^{
-        Session *sess = Singleton<Client>::Instance().GetSession();
-		sess->Clear();
-		sess->SetCmd(CMD_LOGIN);
-		sess->SetAttribute("name", "admin");
-		sess->SetAttribute("pass", "admin");
-        Singleton<ActionManager>::Instance().DoAction(*sess);
-    });
+    etim::Session *sess = [[Client sharedInstance] session];
+    sess->Clear();
+    sess->SetCmd(CMD_LOGIN);
+    sess->SetAttribute("name", "admin");
+    sess->SetAttribute("pass", "admin");
+    [[Client sharedInstance] doAction:*sess];
 }
 
 - (void)responseToRegBtn:(UIButton *)sender {
