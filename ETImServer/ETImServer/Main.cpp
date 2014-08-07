@@ -7,6 +7,7 @@
 //
 
 #include <iostream>
+#include <mysql.h>
 #include "Server.h"
 #include "Singleton.h"
 #include "Logging.h"
@@ -44,6 +45,19 @@ int main(int argc, const char * argv[])
     LOG_WARN<<"Log warn";
     LOG_ERROR<<"Log error";
     */
+    
+    MYSQL *connection, mysql;
+    mysql_init(&mysql);
+    connection = mysql_real_connect(&mysql,"127.0.0.1","root","","Pingan",0,0,0);
+    if (connection == NULL)
+    {
+        //unable to connect
+        printf("Oh Noes!\n");
+    }
+    else
+    {
+        printf("Connected.\n");
+    }
     
     return Singleton<Server>::Instance().Start();
 
