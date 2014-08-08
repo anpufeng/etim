@@ -27,6 +27,10 @@ using namespace etim::pub;
 
 @implementation LoginViewController
 
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:notiNameFromCmd(CMD_LOGIN) object:nil];
+}
+
 - (id)init {
     if (self = [super init]) {
         
@@ -39,7 +43,7 @@ using namespace etim::pub;
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(responseToLoginResult) name:notiNameFromCmd(CMD_LOGIN) object:nil];
     [self createUI];
 }
 
@@ -115,6 +119,19 @@ using namespace etim::pub;
     [self.navigationController pushViewController:vc animated:YES];
 }
 
+- (void)responseToLoginResult {
+    etim::Session *sess = [[Client sharedInstance] session];
+    if (sess->GetCmd() == CMD_LOGIN) {
+        if (sess->IsError()) {
+             [[TWMessageBarManager sharedInstance] showMessageWithTitle:@"登录错误" description:stdStrToNsStr(sess->GetErrorMsg()) type:TWMessageBarMessageTypeError];
+        } else {
+            BaseTabBarViewController *tabbar = [[BaseTabBarViewController alloc] init];
+            [[[UIApplication sharedApplication] keyWindow] setRootViewController:tabbar];
+        }
+    } else {
+        [[TWMessageBarManager sharedInstance] showMessageWithTitle:@"登录错误" description:@"未知错误" type:TWMessageBarMessageTypeError];
+    }
+}
 
 #pragma mark -
 #pragma mark textfield delegate

@@ -26,6 +26,8 @@ namespace etim {
 #define CMD_SWITCH_STATUS                       0x0007      //切换登录状态
 #define CMD_RETRIVE_BUDDY                       0x0008      //获取好友列表
     
+    static const std::string gCmdNoti[CMD_RETRIVE_BUDDY] = {"CMD_REGISTER", "CMD_LOGIN", "CMD_LOGOUT", "CMD_HEART_BEAT", "CMD_SEND_MSG", "CMD_ADD_BUDDY", "CMD_SWITCH_STATUS", "CMD_RETRIVE_BUDDY"};
+    
 #define ERR_MSG_LENGTH      30              // 错误消息定长
     ///请求头
     struct RequestHead
@@ -133,6 +135,8 @@ namespace etim {
         void SetErrorMsg(const std::string& errorMsg) { errMsg_ = errorMsg; }
         
         int16 const GetErrorCode() const { return errCode_; }
+        const std::string GetErrorMsg() const { return errMsg_;}
+        bool const IsError() const { return errCode_ != kErrCode000; }
         
     private:
         std::auto_ptr<Socket> socket_;

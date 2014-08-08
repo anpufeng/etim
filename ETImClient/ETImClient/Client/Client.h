@@ -6,9 +6,25 @@
 //  Copyright (c) 2014 Pingan. All rights reserved.
 //
 
+#ifndef __ETImServer__Client__
+#define __ETImServer__Client__
+
 #import <Foundation/Foundation.h>
 #import <dispatch/dispatch.h>
 #include "Session.h"
+
+///根据cmd获取要发送的通知名
+inline NSString *notiNameFromCmd(const int16_t cmd) {
+    std::string noti = etim::gCmdNoti[cmd];
+    NSString *notiName = [[NSString alloc] initWithUTF8String:noti.c_str()];
+    
+    return notiName;
+}
+
+inline NSString *stdStrToNsStr(const std::string & str) {
+    
+    return [[NSString alloc] initWithUTF8String:str.c_str()];
+}
 
 @interface Client : NSObject {
     dispatch_queue_t _queueId;
@@ -22,3 +38,5 @@
 - (void)doAction:(etim::Session &)s;
 
 @end
+
+#endif  //end

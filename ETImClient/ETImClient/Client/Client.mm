@@ -10,9 +10,14 @@
 #include "Socket.h"
 #include "Logging.h"
 #include "ActionManager.h"
+#include <string>
 
 using namespace etim;
 using namespace etim::pub;
+
+
+
+
 
 @interface Client () {
     @private
@@ -58,6 +63,9 @@ static Client *sharedClient = nil;
 - (void)doAction:(etim::Session &)s {
     dispatch_async(_queueId, ^{
         Singleton<ActionManager>::Instance().DoAction(s);
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [[NSNotificationCenter defaultCenter] postNotificationName:notiNameFromCmd(s.GetCmd()) object:nil];
+        });
     });
 }
 

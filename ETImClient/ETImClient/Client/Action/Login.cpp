@@ -85,7 +85,6 @@ void Login::Execute(Session& s) {
     
 	char error_msg[31];
 	jis.ReadBytes(error_msg, 30);
-    printf("%s\n", error_msg);
     
 	s.SetErrorCode(error_code);
 	s.SetErrorMsg(error_msg);

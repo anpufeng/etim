@@ -327,13 +327,6 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
-		AA59F02E198A1565009FD449 /* Util */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Util;
-			sourceTree = "<group>";
-		};
 		AA59F02F198A156F009FD449 /* Vendor */ = {
 			isa = PBXGroup;
 			children = (
@@ -517,7 +510,6 @@
 				AA59F031198A1590009FD449 /* Helper */,
 				AA59F030198A1580009FD449 /* Category */,
 				AA59F02F198A156F009FD449 /* Vendor */,
-				AA59F02E198A1565009FD449 /* Util */,
 				AA59F02D198A138B009FD449 /* Model */,
 				AA59F02C198A1382009FD449 /* View */,
 				AA59F02B198A137A009FD449 /* Controller */,
