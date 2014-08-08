@@ -28,6 +28,7 @@
 		AA7004DC19889D3C005D5FC1 /* AddBuddy.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AA7004DA19889D3C005D5FC1 /* AddBuddy.cpp */; };
 		AA7004DF19889D8D005D5FC1 /* SwitchStatus.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AA7004DD19889D8D005D5FC1 /* SwitchStatus.cpp */; };
 		AA7004E219889E2E005D5FC1 /* RetriveBuddy.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AA7004E019889E2E005D5FC1 /* RetriveBuddy.cpp */; };
+		AA7EB99B1993AA00000BD838 /* MysqlDB.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AA7EB9991993AA00000BD838 /* MysqlDB.cpp */; };
 		AABF3C9E19863690001C8DCA /* Main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AABF3C9D19863690001C8DCA /* Main.cpp */; };
 		AABF3CA019863690001C8DCA /* ETImServer.1 in CopyFiles */ = {isa = PBXBuildFile; fileRef = AABF3C9F19863690001C8DCA /* ETImServer.1 */; };
 /* End PBXBuildFile section */
@@ -92,6 +93,8 @@
 		AA7004DE19889D8D005D5FC1 /* SwitchStatus.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SwitchStatus.h; sourceTree = "<group>"; };
 		AA7004E019889E2E005D5FC1 /* RetriveBuddy.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = RetriveBuddy.cpp; sourceTree = "<group>"; };
 		AA7004E119889E2E005D5FC1 /* RetriveBuddy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RetriveBuddy.h; sourceTree = "<group>"; };
+		AA7EB9991993AA00000BD838 /* MysqlDB.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MysqlDB.cpp; sourceTree = "<group>"; };
+		AA7EB99A1993AA00000BD838 /* MysqlDB.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MysqlDB.h; sourceTree = "<group>"; };
 		AABF3C9A19863690001C8DCA /* ETImServer */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = ETImServer; sourceTree = BUILT_PRODUCTS_DIR; };
 		AABF3C9D19863690001C8DCA /* Main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Main.cpp; sourceTree = "<group>"; };
 		AABF3C9F19863690001C8DCA /* ETImServer.1 */ = {isa = PBXFileReference; lastKnownFileType = text.man; path = ETImServer.1; sourceTree = "<group>"; };
@@ -189,6 +192,8 @@
 				AA420BAE198642F300D1117F /* Socket.h */,
 				AA7004C119879911005D5FC1 /* Session.cpp */,
 				AA7004C219879911005D5FC1 /* Session.h */,
+				AA7EB9991993AA00000BD838 /* MysqlDB.cpp */,
+				AA7EB99A1993AA00000BD838 /* MysqlDB.h */,
 				AA7004CE19889AF4005D5FC1 /* ActionManager.cpp */,
 				AA7004CF19889AF4005D5FC1 /* ActionManager.h */,
 			);
@@ -247,6 +252,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				AA7004CA198897B3005D5FC1 /* Register.cpp in Sources */,
+				AA7EB99B1993AA00000BD838 /* MysqlDB.cpp in Sources */,
 				AA588BB71990BC8500F08821 /* Exception.cpp in Sources */,
 				AA7004C319879911005D5FC1 /* Session.cpp in Sources */,
 				AA59F0231988C4CC009FD449 /* Endian.cpp in Sources */,
@@ -308,6 +314,11 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				ONLY_ACTIVE_ARCH = YES;
+				OTHER_LDFLAGS = (
+					"-lm",
+					"-lmysqlclient",
+					"-lz",
+				);
 				SDKROOT = macosx;
 			};
 			name = Debug;
@@ -340,6 +351,11 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				OTHER_LDFLAGS = (
+					"-lm",
+					"-lmysqlclient",
+					"-lz",
+				);
 				SDKROOT = macosx;
 			};
 			name = Release;
@@ -347,6 +363,12 @@
 		AABF3CA419863690001C8DCA /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					/usr/local/mysql/include,
+				);
+				LIBRARY_SEARCH_PATHS = /usr/local/mysql/lib;
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -355,6 +377,12 @@
 		AABF3CA519863690001C8DCA /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					/usr/local/mysql/include,
+				);
+				LIBRARY_SEARCH_PATHS = /usr/local/mysql/lib;
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
