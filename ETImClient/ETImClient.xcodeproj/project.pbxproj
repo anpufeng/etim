@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AA0BA4A1199894A300CDB8C6 /* common_button_green_nor@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AA0BA49F199894A300CDB8C6 /* common_button_green_nor@2x.png */; };
+		AA0BA4A2199894A300CDB8C6 /* common_button_green_press@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AA0BA4A0199894A300CDB8C6 /* common_button_green_press@2x.png */; };
 		AA1100EB198B3C01008811E4 /* tab_buddy_nor@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AA1100E3198B3C01008811E4 /* tab_buddy_nor@2x.png */; };
 		AA1100EC198B3C01008811E4 /* tab_buddy_press@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AA1100E4198B3C01008811E4 /* tab_buddy_press@2x.png */; };
 		AA1100ED198B3C01008811E4 /* tab_me_nor@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AA1100E5198B3C01008811E4 /* tab_me_nor@2x.png */; };
@@ -42,7 +44,7 @@
 		AA59F098198A2250009FD449 /* login_bg_ip5@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = AA59F096198A2250009FD449 /* login_bg_ip5@2x.jpg */; };
 		AA59F099198A2250009FD449 /* login_bg@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = AA59F097198A2250009FD449 /* login_bg@2x.jpg */; };
 		AA59F09C198A25C6009FD449 /* LoginViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = AA59F09B198A25C6009FD449 /* LoginViewController.mm */; };
-		AA59F09F198A25EA009FD449 /* RegViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA59F09E198A25EA009FD449 /* RegViewController.m */; };
+		AA59F09F198A25EA009FD449 /* RegViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = AA59F09E198A25EA009FD449 /* RegViewController.mm */; };
 		AA59F0A1198A28CF009FD449 /* login_avatar@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AA59F0A0198A28CF009FD449 /* login_avatar@2x.png */; };
 		AA59F0A3198A2C5D009FD449 /* login_avatar_default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AA59F0A2198A2C5D009FD449 /* login_avatar_default@2x.png */; };
 		AA59F0A5198A3187009FD449 /* login_textfield@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AA59F0A4198A3187009FD449 /* login_textfield@2x.png */; };
@@ -90,6 +92,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		AA0BA49F199894A300CDB8C6 /* common_button_green_nor@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "common_button_green_nor@2x.png"; sourceTree = "<group>"; };
+		AA0BA4A0199894A300CDB8C6 /* common_button_green_press@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "common_button_green_press@2x.png"; sourceTree = "<group>"; };
 		AA1100E3198B3C01008811E4 /* tab_buddy_nor@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tab_buddy_nor@2x.png"; sourceTree = "<group>"; };
 		AA1100E4198B3C01008811E4 /* tab_buddy_press@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tab_buddy_press@2x.png"; sourceTree = "<group>"; };
 		AA1100E5198B3C01008811E4 /* tab_me_nor@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tab_me_nor@2x.png"; sourceTree = "<group>"; };
@@ -146,7 +150,7 @@
 		AA59F09A198A25C6009FD449 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
 		AA59F09B198A25C6009FD449 /* LoginViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = LoginViewController.mm; sourceTree = "<group>"; };
 		AA59F09D198A25EA009FD449 /* RegViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegViewController.h; sourceTree = "<group>"; };
-		AA59F09E198A25EA009FD449 /* RegViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegViewController.m; sourceTree = "<group>"; };
+		AA59F09E198A25EA009FD449 /* RegViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = RegViewController.mm; sourceTree = "<group>"; };
 		AA59F0A0198A28CF009FD449 /* login_avatar@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "login_avatar@2x.png"; sourceTree = "<group>"; };
 		AA59F0A2198A2C5D009FD449 /* login_avatar_default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "login_avatar_default@2x.png"; sourceTree = "<group>"; };
 		AA59F0A4198A3187009FD449 /* login_textfield@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "login_textfield@2x.png"; sourceTree = "<group>"; };
@@ -381,7 +385,7 @@
 				AA59F09A198A25C6009FD449 /* LoginViewController.h */,
 				AA59F09B198A25C6009FD449 /* LoginViewController.mm */,
 				AA59F09D198A25EA009FD449 /* RegViewController.h */,
-				AA59F09E198A25EA009FD449 /* RegViewController.m */,
+				AA59F09E198A25EA009FD449 /* RegViewController.mm */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -425,6 +429,8 @@
 		AA59F095198A211C009FD449 /* Login */ = {
 			isa = PBXGroup;
 			children = (
+				AA0BA49F199894A300CDB8C6 /* common_button_green_nor@2x.png */,
+				AA0BA4A0199894A300CDB8C6 /* common_button_green_press@2x.png */,
 				AA59F0A6198A3667009FD449 /* login_btn_blue_nor@2x.png */,
 				AA59F0A7198A3667009FD449 /* login_btn_blue_press@2x.png */,
 				AA59F0A4198A3187009FD449 /* login_textfield@2x.png */,
@@ -658,6 +664,7 @@
 				AA1100EC198B3C01008811E4 /* tab_buddy_press@2x.png in Resources */,
 				AA110108198B61DD008811E4 /* icon-info@2x.png in Resources */,
 				AA11010A198B61DD008811E4 /* icon-success@2x.png in Resources */,
+				AA0BA4A1199894A300CDB8C6 /* common_button_green_nor@2x.png in Resources */,
 				AA110109198B61DD008811E4 /* icon-success.png in Resources */,
 				AA1100F2198B3C01008811E4 /* tab_recent_press@2x.png in Resources */,
 				AA1100EE198B3C01008811E4 /* tab_me_press@2x.png in Resources */,
@@ -675,6 +682,7 @@
 				AA59F0A8198A3667009FD449 /* login_btn_blue_nor@2x.png in Resources */,
 				AA59F0A9198A3667009FD449 /* login_btn_blue_press@2x.png in Resources */,
 				AA1100EF198B3C01008811E4 /* tab_qworld_nor@2x.png in Resources */,
+				AA0BA4A2199894A300CDB8C6 /* common_button_green_press@2x.png in Resources */,
 				AA1100F0198B3C01008811E4 /* tab_qworld_press@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -729,7 +737,7 @@
 				AA59F03C198A197B009FD449 /* UIImage+Additions.m in Sources */,
 				AA588BB21990B4EC00F08821 /* RetriveBuddy.cpp in Sources */,
 				AA588BAD1990B4EC00F08821 /* Action.cpp in Sources */,
-				AA59F09F198A25EA009FD449 /* RegViewController.m in Sources */,
+				AA59F09F198A25EA009FD449 /* RegViewController.mm in Sources */,
 				AAA6DCDB198B918100EB948E /* Logging.cpp in Sources */,
 				AA588BAE1990B4EC00F08821 /* AddBuddy.cpp in Sources */,
 				AA59F034198A15F0009FD449 /* Constants.m in Sources */,

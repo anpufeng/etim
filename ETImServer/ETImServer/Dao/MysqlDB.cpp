@@ -16,6 +16,10 @@ MysqlDB::~MysqlDB()
 		Close();
 	}
 }
+
+void MysqlDB::Open() {
+    Open("localhost", "root", "", "etim", 3306);
+}
 void MysqlDB::Open(const char* host,
 				   const char* user,
 				   const char* passwd,

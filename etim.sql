@@ -1,17 +1,17 @@
 /*
  Navicat Premium Data Transfer
 
- Source Server         : localhost
+ Source Server         : localhost-mysql
  Source Server Type    : MySQL
- Source Server Version : 50525
+ Source Server Version : 50619
  Source Host           : localhost
  Source Database       : etim
 
  Target Server Type    : MySQL
- Target Server Version : 50525
+ Target Server Version : 50619
  File Encoding         : utf-8
 
- Date: 08/07/2014 22:52:44 PM
+ Date: 08/11/2014 14:27:50 PM
 */
 
 SET NAMES utf8;
@@ -60,8 +60,8 @@ CREATE TABLE `message` (
 DROP TABLE IF EXISTS `user`;
 CREATE TABLE `user` (
   `user_id` int(11) NOT NULL AUTO_INCREMENT,
-  `username` char(32) NOT NULL,
-  `password` char(32) NOT NULL,
+  `username` char(16) NOT NULL,
+  `password` char(16) NOT NULL,
   `reg_time` datetime NOT NULL COMMENT '注册时间',
   `last_time` datetime NOT NULL COMMENT '上次操作时间,',
   `gender` bit(1) NOT NULL COMMENT '性别',

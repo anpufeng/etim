@@ -10,6 +10,10 @@
 
 ///用户注册
 
-@interface RegViewController : BackViewController
+@interface RegViewController : BackViewController <UITextFieldDelegate> {
+    UITextField *_nameTextField;
+    UITextField *_pwdTextField;
+    UIButton    *_regBtn;
+}
 
 @end

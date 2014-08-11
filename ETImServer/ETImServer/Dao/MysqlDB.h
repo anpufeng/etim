@@ -70,6 +70,7 @@ class MysqlDB
 public:
 	MysqlDB();
 	~MysqlDB();
+    void Open();
 	void Open(const char* host,
 		const char* user,
 		const char* passwd,

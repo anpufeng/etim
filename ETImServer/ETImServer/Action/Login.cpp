@@ -33,8 +33,7 @@ void Login::Execute(Session *s) {
 	buf[1] = cmd & 0xff;
 	MD5 md5;
 	md5.MD5Make(ideaKey, buf, 2);
-	for (int i=0; i<8; ++i)
-	{
+	for (int i=0; i<8; ++i) {
 		ideaKey[i] = ideaKey[i] ^ ideaKey[i+8];
 		ideaKey[i] = ideaKey[i] ^ ((cmd >> (i%2)) & 0xff);
 		ideaKey[i+8] = ideaKey[i] ^ ideaKey[i+8];
