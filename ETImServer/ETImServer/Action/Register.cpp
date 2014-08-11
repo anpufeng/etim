@@ -11,6 +11,11 @@
 #include "InStream.h"
 #include "MD5.h"
 #include "Idea.h"
+#include "DataService.h"
+#include "Logging.h"
+#include "Session.h"
+
+#include <string>
 
 using namespace etim;
 using namespace etim::pub;
@@ -22,7 +27,7 @@ void Register::Execute(Session *s) {
     InStream jis(s->GetRequestPack()->buf, s->GetRequestPack()->head.len);
 	uint16 cmd = s->GetCmd();
     
-	// 柜员登录名
+	// 注册名
 	string name;
 	jis>>name;
 	// 密码
@@ -49,29 +54,20 @@ void Register::Execute(Session *s) {
 	char error_msg[31] = {0};
     
     
-    /*
-     // 实际的登录操作
-     BankService dao;
+
+     // 实际的注册操作
+    DataService dao;
      int ret;
-     ret = dao.UserLogin(name, pass);
-     if (ret == 0)
+     ret = dao.UserRegister(name, pass);
+     if (ret == kErrCode000) {
+         LOG_INFO<<"注册成功";
+     } else if (ret == kErrCode002)
      {
-     LOG_INFO<<"登录成功";
+         error_code = kErrCode002;
+         strcpy(error_msg, gErrMsg[kErrCode002].c_str());
+         LOG_INFO<<error_msg;
      }
-     else if (ret == 1)
-     {
-     error_code = 1;
-     strcpy_s(error_msg, "用户名或密码错误");
-     LOG_INFO<<error_msg;
-     }
-     else if (ret == -1)
-     {
-     error_code = -1;
-     strcpy_s(error_msg, "数据库错误");
-     LOG_INFO<<error_msg;
-     }
-     
-     */
+    
 	OutStream jos;
 	// 包头命令
 	jos<<cmd;

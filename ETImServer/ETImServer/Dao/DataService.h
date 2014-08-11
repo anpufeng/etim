@@ -14,11 +14,9 @@
 namespace etim  {
     
     class BDataService {
-        // 用户注册
+    public:
         virtual int UserRegister(const std::string& user, const std::string& pass) = 0;
-        // 用户登录
         virtual int UserLogin(const std::string& user, const std::string& pass) = 0;
-        // 用户登出
         virtual int UserLogout(const std::string& user, double& interest) = 0;
     };
     
@@ -26,11 +24,16 @@ namespace etim  {
     
     
     class DataService : public BDataService {
+        public:
+        // 用户注册
         int UserRegister(const std::string& user, const std::string& pass);
         /*
          @return int 0为正常
          */
-        int UserLogin(std::string &username, std::string &password);
+        // 用户登录
+        int  UserLogin(const std::string& user, const std::string& pass);
+        // 用户登出
+        int UserLogout(const std::string& user, double& interest);
     };
 }   //end etim
 

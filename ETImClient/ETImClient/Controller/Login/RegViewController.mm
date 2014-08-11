@@ -16,7 +16,9 @@
 using namespace etim;
 using namespace etim::pub;
 
-@interface RegViewController ()
+@interface RegViewController () <MBProgressHUDDelegate> {
+    MBProgressHUD *_hud;
+}
 
 @end
 
@@ -98,8 +100,23 @@ using namespace etim::pub;
         if (sess->IsError()) {
             [[TWMessageBarManager sharedInstance] showMessageWithTitle:@"注册错误" description:stdStrToNsStr(sess->GetErrorMsg()) type:TWMessageBarMessageTypeError];
         } else {
-            //登录成功
-            [self.navigationController popViewControllerAnimated:YES];
+            //注册成功
+            _hud = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
+    
+            [self.navigationController.view addSubview:_hud];
+            _hud.customView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:MB_CHECKMARK_IMAGE]];
+            
+            // Set custom view mode
+            _hud.mode = MBProgressHUDModeCustomView;
+            
+            _hud.delegate = self;
+            _hud.labelText = @"注册成功";
+            
+            [_hud show:YES];
+            [_hud hide:YES afterDelay:MB_CHECKMARK_DURATION];
+
+
+            
         }
     } else {
         [[TWMessageBarManager sharedInstance] showMessageWithTitle:@"注册错误" description:@"未知错误" type:TWMessageBarMessageTypeError];
@@ -110,6 +127,17 @@ using namespace etim::pub;
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
     return YES;
+}
+
+#pragma mark -
+#pragma mark MBProgressHUDDelegate methods
+
+- (void)hudWasHidden:(MBProgressHUD *)hud {
+	// Remove HUD from screen when the HUD was hidded
+	[hud removeFromSuperview];
+	hud = nil;
+    
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)didReceiveMemoryWarning

@@ -9,6 +9,8 @@
 #include "DataService.h"
 #include "MysqlDB.h"
 #include "Logging.h"
+#include "Exception.h"
+#include "Session.h"
 
 #include <sstream>
 
@@ -16,44 +18,37 @@ using namespace etim;
 using namespace std;
 
 int DataService::UserRegister(const std::string &user, const std::string &pass) {
+    MysqlDB db;
+    
     try {
-        MysqlDB db;
         db.Open();
-        db.StartTransaction();
         stringstream ss;
-        ss<<"insert into user values(null, '"<<
+        //insert into user(user_id, username, password, reg_time, last_time, gender, status) values(null, 'admin', 'admin', now(), now(), 0, 3);
+        ss<<"insert into user (user_id, username, password, reg_time, last_time, gender, status) values(null, '"<<
         user<<"', '"<<
-        pass<<"', '"<<
-        ", now(), "<<
-        ", now(), "<<
-        0<<");";
-		unsigned long long ret = db.ExecSQL(ss.str().c_str());
+        pass<<"', "<<
+        " now(), "<<
+        " now(), "<<
+        0<<","<<
+        kBuddyOffline<<");";
         
-        
-		ss.clear();
-		ss.str("");
-		account.account_id = static_cast<int>(db.GetInsertId());
-		ss<<"insert into trans values(null, "<<
-        account.account_id<<", null, "<<
-        1<<", "<<
-        setprecision(2)<<setiosflags(ios::fixed)<<account.balance<<", "<<
-        setprecision(2)<<setiosflags(ios::fixed)<<account.balance<<
-        ",  now());";
-        
-		ret = db.ExecSQL(ss.str().c_str());
-        
-		db.Commit();
-        
-		ss.clear();
-		ss.str("");
-		ss<<"select open_date from bank_account where account_id='"<<
-        account.account_id<<"';";
-		MysqlRecordset rs = db.QuerySQL(ss.str().c_str());
-		account.op_date = rs.GetItem(0, "open_date");
-    } catch (<#catch parameter#>) {
-        <#statements#>
+        unsigned long long ret = db.ExecSQL(ss.str().c_str());
+    
+        ret = db.ExecSQL(ss.str().c_str());
+    } catch (exception &e) {
+        LOG_INFO<<e.what();
+        db.Rollback();
+        return kErrCode002;
     }
-    return 0;
+    
+    return kErrCode000;
+}
+
+int DataService:: UserLogin(const std::string& user, const std::string& pass) {
+    return kErrCode000;
+}
+int DataService::UserLogout(const std::string& user, double& interest) {
+    return kErrCode000;
 }
 
 
