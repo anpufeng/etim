@@ -75,7 +75,7 @@ namespace etim {
     };
     
     ///错误信息
-    static const std::string gErrMsg[kErrCodeMax] = {"正常", "服务器错误", "数据库错误"};
+    static const std::string gErrMsg[kErrCodeMax] = {"正常", "用户或密码错误", "数据库错误"};
     
     ///在线状态
     enum BuddyStatus {

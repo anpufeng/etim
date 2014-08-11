@@ -49,7 +49,7 @@
 		AA59F0A8198A3667009FD449 /* login_btn_blue_nor@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AA59F0A6198A3667009FD449 /* login_btn_blue_nor@2x.png */; };
 		AA59F0A9198A3667009FD449 /* login_btn_blue_press@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AA59F0A7198A3667009FD449 /* login_btn_blue_press@2x.png */; };
 		AA59F0AD198A3732009FD449 /* LeeScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = AA59F0AC198A3732009FD449 /* LeeScrollView.m */; };
-		AA59F0B0198A4117009FD449 /* BuddyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA59F0AF198A4117009FD449 /* BuddyViewController.m */; };
+		AA59F0B0198A4117009FD449 /* BuddyViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = AA59F0AF198A4117009FD449 /* BuddyViewController.mm */; };
 		AA59F0B3198A4121009FD449 /* OnlineViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA59F0B2198A4121009FD449 /* OnlineViewController.m */; };
 		AA59F0B6198A4142009FD449 /* AccountViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA59F0B5198A4142009FD449 /* AccountViewController.m */; };
 		AA7EB9981992674D000BD838 /* Client.mm in Sources */ = {isa = PBXBuildFile; fileRef = AA7EB9971992674D000BD838 /* Client.mm */; };
@@ -74,6 +74,7 @@
 		AABF3CCE198636C0001C8DCA /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AABF3CB6198636C0001C8DCA /* UIKit.framework */; };
 		AABF3CD6198636C0001C8DCA /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = AABF3CD4198636C0001C8DCA /* InfoPlist.strings */; };
 		AABF3CD8198636C0001C8DCA /* ETImClientTests.m in Sources */ = {isa = PBXBuildFile; fileRef = AABF3CD7198636C0001C8DCA /* ETImClientTests.m */; };
+		AACD74981994A1CB00254C55 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = AACD74971994A1CB00254C55 /* MBProgressHUD.m */; };
 		AAF61303198F5C9F00555364 /* Session.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AAF61301198F5C9F00555364 /* Session.cpp */; };
 		AAF613061990723A00555364 /* Exception.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AAF613041990723A00555364 /* Exception.cpp */; };
 /* End PBXBuildFile section */
@@ -154,7 +155,7 @@
 		AA59F0AB198A3732009FD449 /* LeeScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LeeScrollView.h; sourceTree = "<group>"; };
 		AA59F0AC198A3732009FD449 /* LeeScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LeeScrollView.m; sourceTree = "<group>"; };
 		AA59F0AE198A4117009FD449 /* BuddyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BuddyViewController.h; sourceTree = "<group>"; };
-		AA59F0AF198A4117009FD449 /* BuddyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BuddyViewController.m; sourceTree = "<group>"; };
+		AA59F0AF198A4117009FD449 /* BuddyViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = BuddyViewController.mm; sourceTree = "<group>"; };
 		AA59F0B1198A4121009FD449 /* OnlineViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OnlineViewController.h; sourceTree = "<group>"; };
 		AA59F0B2198A4121009FD449 /* OnlineViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OnlineViewController.m; sourceTree = "<group>"; };
 		AA59F0B4198A4142009FD449 /* AccountViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AccountViewController.h; sourceTree = "<group>"; };
@@ -199,6 +200,8 @@
 		AABF3CD3198636C0001C8DCA /* ETImClientTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "ETImClientTests-Info.plist"; sourceTree = "<group>"; };
 		AABF3CD5198636C0001C8DCA /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		AABF3CD7198636C0001C8DCA /* ETImClientTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ETImClientTests.m; sourceTree = "<group>"; };
+		AACD74961994A1CB00254C55 /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
+		AACD74971994A1CB00254C55 /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
 		AAF61301198F5C9F00555364 /* Session.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Session.cpp; sourceTree = "<group>"; };
 		AAF61302198F5C9F00555364 /* Session.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Session.h; sourceTree = "<group>"; };
 		AAF613041990723A00555364 /* Exception.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Exception.cpp; sourceTree = "<group>"; };
@@ -330,6 +333,7 @@
 		AA59F02F198A156F009FD449 /* Vendor */ = {
 			isa = PBXGroup;
 			children = (
+				AACD74951994A1AE00254C55 /* MBProgressHUD */,
 				AA1100FB198B61B6008811E4 /* TWMessage */,
 			);
 			path = Vendor;
@@ -386,7 +390,7 @@
 			isa = PBXGroup;
 			children = (
 				AA59F0AE198A4117009FD449 /* BuddyViewController.h */,
-				AA59F0AF198A4117009FD449 /* BuddyViewController.m */,
+				AA59F0AF198A4117009FD449 /* BuddyViewController.mm */,
 			);
 			path = Buddy;
 			sourceTree = "<group>";
@@ -551,6 +555,15 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		AACD74951994A1AE00254C55 /* MBProgressHUD */ = {
+			isa = PBXGroup;
+			children = (
+				AACD74961994A1CB00254C55 /* MBProgressHUD.h */,
+				AACD74971994A1CB00254C55 /* MBProgressHUD.m */,
+			);
+			path = MBProgressHUD;
+			sourceTree = "<group>";
+		};
 		AAF612FD198F564E00555364 /* Client */ = {
 			isa = PBXGroup;
 			children = (
@@ -688,7 +701,7 @@
 				AA588B9B1990B4E500F08821 /* ActionManager.cpp in Sources */,
 				AA59F074198A1A59009FD449 /* BaseViewController.m in Sources */,
 				AA59F0AD198A3732009FD449 /* LeeScrollView.m in Sources */,
-				AA59F0B0198A4117009FD449 /* BuddyViewController.m in Sources */,
+				AA59F0B0198A4117009FD449 /* BuddyViewController.mm in Sources */,
 				AAA6DCDA198B918100EB948E /* InStream.cpp in Sources */,
 				AA1100FA198B3F0A008811E4 /* MomentsViewController.m in Sources */,
 				AAF61303198F5C9F00555364 /* Session.cpp in Sources */,
@@ -703,6 +716,7 @@
 				AAA6DCD9198B918100EB948E /* Idea.cpp in Sources */,
 				AAA6DCE2198B962E00EB948E /* Socket.cpp in Sources */,
 				AA59F09C198A25C6009FD449 /* LoginViewController.mm in Sources */,
+				AACD74981994A1CB00254C55 /* MBProgressHUD.m in Sources */,
 				AA588BB01990B4EC00F08821 /* Login.cpp in Sources */,
 				AA588BB31990B4EC00F08821 /* SendMsg.cpp in Sources */,
 				AA59F073198A1A59009FD449 /* BaseTabBarViewController.m in Sources */,

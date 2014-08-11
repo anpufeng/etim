@@ -125,6 +125,7 @@ using namespace etim::pub;
         if (sess->IsError()) {
              [[TWMessageBarManager sharedInstance] showMessageWithTitle:@"登录错误" description:stdStrToNsStr(sess->GetErrorMsg()) type:TWMessageBarMessageTypeError];
         } else {
+            //登录成功
             BaseTabBarViewController *tabbar = [[BaseTabBarViewController alloc] init];
             [[[UIApplication sharedApplication] keyWindow] setRootViewController:tabbar];
         }

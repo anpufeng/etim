@@ -48,7 +48,7 @@ int main(int argc, const char * argv[])
     
     MYSQL *connection, mysql;
     mysql_init(&mysql);
-    connection = mysql_real_connect(&mysql,"127.0.0.1","root","","Pingan",0,0,0);
+    connection = mysql_real_connect(&mysql,"127.0.0.1","root","","etim",0,0,0);
     if (connection == NULL)
     {
         //unable to connect

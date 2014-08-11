@@ -8,9 +8,8 @@
 #include <string>
 using namespace std;
 
-namespace etim
-{
-
+namespace etim {
+        
 class MysqlDB;
 class MysqlRecordset
 {
@@ -90,6 +89,8 @@ public:
 private:
 	MYSQL* mysql_;
 };
+        
+        
 
 }   //end etim
 

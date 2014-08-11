@@ -48,9 +48,6 @@ int Server::Start() {
     
     
     fd_set writeFds;
-    struct timeval timeout;
-    timeout.tv_sec = 10;
-    timeout.tv_usec = 0;
     
     while (1) {
         FD_ZERO(&readFds_);
@@ -63,7 +60,11 @@ int Server::Start() {
             FD_SET(fd, &readFds_);
         }
         
-        int ready = select(fdMax_ + 1, &readFds_, nullptr, nullptr, 0);
+        struct timeval timeout;
+        timeout.tv_sec = 3;
+        timeout.tv_usec = 0;
+        
+        int ready = select(fdMax_ + 1, &readFds_, nullptr, nullptr, &timeout);
         if (ready == -1) {
             LOG_ERROR<<"select error: "<<strerror(errno);
             exit(EXIT_FAILURE);
@@ -71,6 +72,7 @@ int Server::Start() {
         
         //继续监听
         if (ready <= 0) {
+            LOG_INFO<<"select无可读写...";
             continue;
         }
         

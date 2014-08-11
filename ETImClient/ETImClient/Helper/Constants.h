@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "TWMessageBarManager.h"
-
+#import "MBProgressHUD.h"
 
 //float
 extern const float kStatusBarHeight;

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AA0BA4961994CC2F00CDB8C6 /* DataService.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AA0BA4941994CC2F00CDB8C6 /* DataService.cpp */; };
 		AA11010F198B6556008811E4 /* Logging.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AA11010B198B6556008811E4 /* Logging.cpp */; };
 		AA110110198B6556008811E4 /* LogStream.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AA11010D198B6556008811E4 /* LogStream.cpp */; };
 		AA110113198B6582008811E4 /* Timestamp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AA110111198B6582008811E4 /* Timestamp.cpp */; };
@@ -28,9 +29,9 @@
 		AA7004DC19889D3C005D5FC1 /* AddBuddy.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AA7004DA19889D3C005D5FC1 /* AddBuddy.cpp */; };
 		AA7004DF19889D8D005D5FC1 /* SwitchStatus.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AA7004DD19889D8D005D5FC1 /* SwitchStatus.cpp */; };
 		AA7004E219889E2E005D5FC1 /* RetriveBuddy.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AA7004E019889E2E005D5FC1 /* RetriveBuddy.cpp */; };
-		AA7EB99B1993AA00000BD838 /* MysqlDB.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AA7EB9991993AA00000BD838 /* MysqlDB.cpp */; };
 		AABF3C9E19863690001C8DCA /* Main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AABF3C9D19863690001C8DCA /* Main.cpp */; };
 		AABF3CA019863690001C8DCA /* ETImServer.1 in CopyFiles */ = {isa = PBXBuildFile; fileRef = AABF3C9F19863690001C8DCA /* ETImServer.1 */; };
+		AACD74931994773F00254C55 /* MysqlDB.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AACD74911994773F00254C55 /* MysqlDB.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -47,6 +48,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		AA0BA4941994CC2F00CDB8C6 /* DataService.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DataService.cpp; sourceTree = "<group>"; };
+		AA0BA4951994CC2F00CDB8C6 /* DataService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataService.h; sourceTree = "<group>"; };
 		AA11010B198B6556008811E4 /* Logging.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; lineEnding = 0; path = Logging.cpp; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.cpp; };
 		AA11010C198B6556008811E4 /* Logging.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = Logging.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		AA11010D198B6556008811E4 /* LogStream.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LogStream.cpp; sourceTree = "<group>"; };
@@ -93,11 +96,12 @@
 		AA7004DE19889D8D005D5FC1 /* SwitchStatus.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SwitchStatus.h; sourceTree = "<group>"; };
 		AA7004E019889E2E005D5FC1 /* RetriveBuddy.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = RetriveBuddy.cpp; sourceTree = "<group>"; };
 		AA7004E119889E2E005D5FC1 /* RetriveBuddy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RetriveBuddy.h; sourceTree = "<group>"; };
-		AA7EB9991993AA00000BD838 /* MysqlDB.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MysqlDB.cpp; sourceTree = "<group>"; };
-		AA7EB99A1993AA00000BD838 /* MysqlDB.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MysqlDB.h; sourceTree = "<group>"; };
 		AABF3C9A19863690001C8DCA /* ETImServer */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = ETImServer; sourceTree = BUILT_PRODUCTS_DIR; };
 		AABF3C9D19863690001C8DCA /* Main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Main.cpp; sourceTree = "<group>"; };
 		AABF3C9F19863690001C8DCA /* ETImServer.1 */ = {isa = PBXFileReference; lastKnownFileType = text.man; path = ETImServer.1; sourceTree = "<group>"; };
+		AACD74911994773F00254C55 /* MysqlDB.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MysqlDB.cpp; sourceTree = "<group>"; };
+		AACD74921994773F00254C55 /* MysqlDB.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MysqlDB.h; sourceTree = "<group>"; };
+		AACD7494199478AA00254C55 /* DataStruct.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DataStruct.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -182,6 +186,7 @@
 		AABF3C9C19863690001C8DCA /* ETImServer */ = {
 			isa = PBXGroup;
 			children = (
+				AACD7490199476FB00254C55 /* Dao */,
 				AA7004C41988961C005D5FC1 /* Action */,
 				AA420BB0198648BE00D1117F /* Public */,
 				AABF3C9D19863690001C8DCA /* Main.cpp */,
@@ -192,12 +197,22 @@
 				AA420BAE198642F300D1117F /* Socket.h */,
 				AA7004C119879911005D5FC1 /* Session.cpp */,
 				AA7004C219879911005D5FC1 /* Session.h */,
-				AA7EB9991993AA00000BD838 /* MysqlDB.cpp */,
-				AA7EB99A1993AA00000BD838 /* MysqlDB.h */,
 				AA7004CE19889AF4005D5FC1 /* ActionManager.cpp */,
 				AA7004CF19889AF4005D5FC1 /* ActionManager.h */,
 			);
 			path = ETImServer;
+			sourceTree = "<group>";
+		};
+		AACD7490199476FB00254C55 /* Dao */ = {
+			isa = PBXGroup;
+			children = (
+				AACD74911994773F00254C55 /* MysqlDB.cpp */,
+				AACD74921994773F00254C55 /* MysqlDB.h */,
+				AACD7494199478AA00254C55 /* DataStruct.h */,
+				AA0BA4941994CC2F00CDB8C6 /* DataService.cpp */,
+				AA0BA4951994CC2F00CDB8C6 /* DataService.h */,
+			);
+			path = Dao;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -252,7 +267,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				AA7004CA198897B3005D5FC1 /* Register.cpp in Sources */,
-				AA7EB99B1993AA00000BD838 /* MysqlDB.cpp in Sources */,
+				AACD74931994773F00254C55 /* MysqlDB.cpp in Sources */,
 				AA588BB71990BC8500F08821 /* Exception.cpp in Sources */,
 				AA7004C319879911005D5FC1 /* Session.cpp in Sources */,
 				AA59F0231988C4CC009FD449 /* Endian.cpp in Sources */,
@@ -270,6 +285,7 @@
 				AA7004DF19889D8D005D5FC1 /* SwitchStatus.cpp in Sources */,
 				AA7004C719889628005D5FC1 /* Action.cpp in Sources */,
 				AA7004CD19889872005D5FC1 /* Login.cpp in Sources */,
+				AA0BA4961994CC2F00CDB8C6 /* DataService.cpp in Sources */,
 				AA7004D319889C9B005D5FC1 /* HeartBeat.cpp in Sources */,
 				AA59F0281988C9BB009FD449 /* InStream.cpp in Sources */,
 				AA110110198B6556008811E4 /* LogStream.cpp in Sources */,
@@ -312,7 +328,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = (
 					"-lm",
@@ -350,7 +366,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				OTHER_LDFLAGS = (
 					"-lm",
 					"-lmysqlclient",
