@@ -68,12 +68,12 @@ int Server::Start() {
         int ready = select(fdMax_ + 1, &readFds_, nullptr, nullptr, &timeout);
         if (ready == -1) {
             LOG_ERROR<<"select error: "<<strerror(errno);
-            exit(EXIT_FAILURE);
+            continue;
         }
         
         //继续监听
         if (ready <= 0) {
-            LOG_INFO<<"select无可读写...";
+            LOG_INFO<<"select 无可读写...";
             continue;
         }
         
@@ -100,29 +100,26 @@ int Server::Start() {
             Session *s = *it;
             int fd = s->GetFd();
             if (FD_ISSET(fd, &readFds_)) {
-                int result;
+                ///取消事件
+                FD_CLR(fd, &readFds_);
+                int result = 1;
                 try {
                     s->Recv(&result);
                     //根据接收的数据做出相应的操作
                     Singleton<ActionManager>::Instance().DoAction(s);
-                    ///取消事件
-                    FD_CLR(fd, &readFds_);
+              
                 } catch (Exception &e) {
-                    ///取消事件
-                    FD_CLR(fd, &readFds_);
                     if (result == 0) {
                         //服务端关闭
                         sessions_.erase(std::remove(sessions_.begin(), sessions_.end(), s));
-                        
                     } else {
+                        
                     }
                     LOG_ERROR<<e.what();
-                    continue;
                 }
                 
-                
-                
             } else {
+                
             }
         }
         //TODO  session释放问题
