@@ -26,6 +26,10 @@ inline NSString *stdStrToNsStr(const std::string & str) {
     return [[NSString alloc] initWithUTF8String:str.c_str()];
 }
 
+inline std::string nsStrToStdStr(NSString *str) {
+    return std::string(str.UTF8String);
+}
+
 @interface Client : NSObject {
     dispatch_queue_t _queueId;
 }

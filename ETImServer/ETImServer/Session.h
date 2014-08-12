@@ -97,7 +97,7 @@ namespace etim {
         uint16_t GetCmd() const { return requestPack_->head.cmd; }
         RequestPack *GetRequestPack() const { return requestPack_; }
         void Send(const char* buf, size_t len);
-        void Recv();
+        void Recv(int *result);
         void DoAction();
         
     private:

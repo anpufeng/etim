@@ -12,6 +12,8 @@
 #include "InStream.h"
 #include "MD5.h"
 #include "Idea.h"
+#include "Logging.h"
+#include "DataService.h"
 
 using namespace etim;
 using namespace etim::pub;
@@ -49,29 +51,22 @@ void Login::Execute(Session *s) {
 	char error_msg[31] = {0};
     
     
-    /*
 	// 实际的登录操作
-	BankService dao;
+	DataService dao;
 	int ret;
 	ret = dao.UserLogin(name, pass);
-	if (ret == 0)
-	{
+	if (ret == kErrCode000) {
 		LOG_INFO<<"登录成功";
-	}
-	else if (ret == 1)
-	{
-		error_code = 1;
-		strcpy_s(error_msg, "用户名或密码错误");
+	} else if (ret == kErrCode001) {
+		error_code = kErrCode001;
+		strcpy(error_msg, "用户名或密码错误");
 		LOG_INFO<<error_msg;
-	}
-	else if (ret == -1)
-	{
-		error_code = -1;
-		strcpy_s(error_msg, "数据库错误");
-		LOG_INFO<<error_msg;
+	} else if (ret == kErrCode002) {
+		error_code = kErrCode002;
+		strcpy(error_msg, "数据库错误");
+		LOG_ERROR<<error_msg;
 	}
     
-     */
 	OutStream jos;
 	// 包头命令
 	jos<<cmd;
@@ -94,8 +89,7 @@ void Login::Execute(Session *s) {
 	// 计算包尾
 	unsigned char hash[16];
 	md5.MD5Make(hash, (const unsigned char*)jos.Data(), jos.Length());
-	for (int i=0; i<8; ++i)
-	{
+	for (int i=0; i<8; ++i) {
 		hash[i] = hash[i] ^ hash[i+8];
 		hash[i] = hash[i] ^ ((cmd >> (i%2)) & 0xff);
 	}

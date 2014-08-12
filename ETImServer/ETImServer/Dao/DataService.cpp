@@ -15,6 +15,7 @@
 #include <sstream>
 
 using namespace etim;
+using namespace etim::pub;
 using namespace std;
 
 int DataService::UserRegister(const std::string &user, const std::string &pass) {
@@ -35,7 +36,7 @@ int DataService::UserRegister(const std::string &user, const std::string &pass) 
         unsigned long long ret = db.ExecSQL(ss.str().c_str());
         
         ret = db.ExecSQL(ss.str().c_str());
-    } catch (exception &e) {
+    } catch (Exception &e) {
         LOG_INFO<<e.what();
         db.Rollback();
         return kErrCode002;
@@ -45,6 +46,23 @@ int DataService::UserRegister(const std::string &user, const std::string &pass) 
 }
 
 int DataService:: UserLogin(const std::string& user, const std::string& pass) {
+    MysqlDB db;
+    try {
+        db.Open();
+        stringstream ss;
+        ss<<"select user_id from user where username='"<<
+        user<<"' and password='"<<
+        pass<<"';";
+        MysqlRecordset rs;
+		rs = db.QuerySQL(ss.str().c_str());
+		if (rs.GetRows() < 1)
+			return kErrCode001;
+    } catch (Exception &e) {
+        LOG_INFO<<e.what();
+        db.Rollback();
+        return kErrCode002;
+    }
+    
     return kErrCode000;
 }
 int DataService::UserLogout(const std::string& user, double& interest) {

@@ -9,6 +9,7 @@
 #include "Server.h"
 #include "Logging.h"
 #include "ActionManager.h"
+#include "Exception.h"
 #include <sys/select.h>
 #include <sys/socket.h>
 #include <sys/types.h>
@@ -95,14 +96,33 @@ int Server::Start() {
         
         //检测是否有sesion有可读
         for (iter it = sessions_.begin(); it != sessions_.end(); ++it) {
+            LOG_INFO<<"for循环一次";
             Session *s = *it;
             int fd = s->GetFd();
             if (FD_ISSET(fd, &readFds_)) {
-                s->Recv();
-                //根据接收的数据做出相应的操作
-                Singleton<ActionManager>::Instance().DoAction(s);
-                ///取消事件
-                FD_CLR(fd, &readFds_);
+                int result;
+                try {
+                    s->Recv(&result);
+                    //根据接收的数据做出相应的操作
+                    Singleton<ActionManager>::Instance().DoAction(s);
+                    ///取消事件
+                    FD_CLR(fd, &readFds_);
+                } catch (Exception &e) {
+                    ///取消事件
+                    FD_CLR(fd, &readFds_);
+                    if (result == 0) {
+                        //服务端关闭
+                        sessions_.erase(std::remove(sessions_.begin(), sessions_.end(), s));
+                        
+                    } else {
+                    }
+                    LOG_ERROR<<e.what();
+                    continue;
+                }
+                
+                
+                
+            } else {
             }
         }
         //TODO  session释放问题

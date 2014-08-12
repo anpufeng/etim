@@ -106,11 +106,12 @@ using namespace etim::pub;
 #pragma mark response
 
 - (void)responseToLoginBtn:(UIButton *)sender {
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     etim::Session *sess = [[Client sharedInstance] session];
     sess->Clear();
     sess->SetCmd(CMD_LOGIN);
-    sess->SetAttribute("name", "admin");
-    sess->SetAttribute("pass", "admin");
+    sess->SetAttribute("name", nsStrToStdStr(_nameTextField.text));
+    sess->SetAttribute("pass", nsStrToStdStr(_pwdTextField.text));
     [[Client sharedInstance] doAction:*sess];
 }
 
@@ -120,6 +121,7 @@ using namespace etim::pub;
 }
 
 - (void)responseToLoginResult {
+    [MBProgressHUD hideHUDForView:self.view animated:YES];
     etim::Session *sess = [[Client sharedInstance] session];
     if (sess->GetCmd() == CMD_LOGIN) {
         if (sess->IsError()) {
