@@ -30,6 +30,9 @@
 #import <UIKit/UIKit.h>
 #import <CoreGraphics/CoreGraphics.h>
 
+#define MB_CHECKMARK_IMAGE          @"37x-Checkmark"
+#define MB_CHECKMARK_DURATION       (2)
+
 @protocol MBProgressHUDDelegate;
 
 
