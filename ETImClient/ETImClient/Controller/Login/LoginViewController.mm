@@ -99,6 +99,9 @@ using namespace etim::pub;
     [_regBtn addTarget:self action:@selector(responseToRegBtn:) forControlEvents:UIControlEventTouchUpInside];
 
     [scrollView addSubview:_regBtn];
+    
+    _nameTextField.text = @"admin";
+    _pwdTextField.text = @"admin";
 }
 
 

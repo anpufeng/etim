@@ -31,6 +31,32 @@
     // Do any additional setup after loading the view.
 }
 
+#pragma mark -
+#pragma mark tableview datasource & delegate
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return 5;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    static NSString *identifier = @"buddyCell";
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
+    if (!cell) {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:identifier];
+    }
+    
+    cell.textLabel.text = [NSString stringWithFormat:@"%d", indexPath.row];
+    
+    return cell;
+}
+
+#pragma mark -
+#pragma mark response
+
+- (void)responseToRefresh {
+    [self.refreshControl endRefreshing];
+}
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];

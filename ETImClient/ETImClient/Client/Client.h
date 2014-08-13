@@ -13,8 +13,7 @@
 #import <dispatch/dispatch.h>
 #include "Session.h"
 
-#define HOST_SERVER                "127.0.0.1"
-#define HOST_PORT                   8888
+
 
 ///根据cmd获取要发送的通知名
 inline NSString *notiNameFromCmd(const int16_t cmd) {

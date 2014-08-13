@@ -7,6 +7,7 @@
 //
 
 #include <iostream>
+#include <signal.h>
 #include <mysql.h>
 #include "Server.h"
 #include "Singleton.h"
@@ -44,7 +45,7 @@ int main(int argc, const char * argv[])
     LOG_DEBUG<<"Log debug";
     LOG_WARN<<"Log warn";
     LOG_ERROR<<"Log error";
-    */
+    
     
     MYSQL *connection, mysql;
     mysql_init(&mysql);
@@ -58,6 +59,9 @@ int main(int argc, const char * argv[])
     {
         printf("Connected.\n");
     }
+     */
+    
+    signal(SIGPIPE, SIG_IGN);
     
     return Singleton<Server>::Instance().Start();
 

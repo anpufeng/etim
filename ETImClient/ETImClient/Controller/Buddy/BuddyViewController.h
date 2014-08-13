@@ -7,10 +7,10 @@
 //
 
 #import "BaseViewController.h"
-
+#import "BaseTableViewController.h"
 ///好友页面
 
-@interface BuddyViewController : UITableViewController <UITableViewDataSource, UITableViewDelegate> {
+@interface BuddyViewController : BaseTableViewController <UITableViewDataSource, UITableViewDelegate> {
     UITableView *_tableView;
 }
 

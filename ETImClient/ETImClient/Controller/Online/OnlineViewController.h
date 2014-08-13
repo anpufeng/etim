@@ -7,9 +7,10 @@
 //
 
 #import "BaseViewController.h"
+#import "BaseTableViewController.h"
 
 ///查询在线的所有用户
 
-@interface OnlineViewController : BaseViewController
+@interface OnlineViewController : BaseTableViewController
 
 @end

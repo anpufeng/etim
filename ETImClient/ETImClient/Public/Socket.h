@@ -9,6 +9,9 @@
 #ifndef __ETImServer__Socket__
 #define __ETImServer__Socket__
 
+#define HOST_SERVER                "127.0.0.1"
+#define HOST_PORT                   8888
+
 #include <iostream>
 
 namespace etim {

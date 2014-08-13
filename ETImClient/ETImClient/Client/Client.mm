@@ -12,6 +12,7 @@
 #include "ActionManager.h"
 #include "Exception.h"
 #include <string>
+#include <signal.h>
 
 using namespace etim;
 using namespace etim::pub;
@@ -36,6 +37,8 @@ static Client *sharedClient = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         sharedClient=[[Client alloc]init];
+        //忽略send产生的sigpipe信号
+        signal(SIGPIPE, SIG_IGN);
     });
     
     return sharedClient;
@@ -62,21 +65,28 @@ static Client *sharedClient = nil;
 }
 
 - (void)doAction:(etim::Session &)s {
-    dispatch_async(_queueId, ^{
-        try {
-            Singleton<ActionManager>::Instance().DoAction(s);
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [[NSNotificationCenter defaultCenter] postNotificationName:notiNameFromCmd(s.GetCmd()) object:nil];
-            });
-        } catch (Exception &e) {
-            s.SetErrorCode(kErrCodeMax);
-            s.SetErrorMsg(e.what());
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [[NSNotificationCenter defaultCenter] postNotificationName:notiNameFromCmd(s.GetCmd()) object:nil];
-            });
-        }
-        
-    });
+    if (s.IsConnected()) {
+        dispatch_async(_queueId, ^{
+            try {
+                Singleton<ActionManager>::Instance().DoAction(s);
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [[NSNotificationCenter defaultCenter] postNotificationName:notiNameFromCmd(s.GetCmd()) object:nil];
+                });
+            } catch (Exception &e) {
+                s.SetErrorCode(kErrCodeMax);
+                s.SetErrorMsg(e.what());
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [[NSNotificationCenter defaultCenter] postNotificationName:notiNameFromCmd(s.GetCmd()) object:nil];
+                });
+            }
+            
+        });
+    } else {
+        s.SetErrorCode(kErrCodeMax);
+        s.SetErrorMsg("无服务器连接");
+        [[NSNotificationCenter defaultCenter] postNotificationName:notiNameFromCmd(s.GetCmd()) object:nil];
+    }
+   
 }
 
 @end

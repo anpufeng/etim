@@ -40,16 +40,13 @@ using namespace etim::pub;
     [super viewDidLoad];
     // Do any additional setup after loading the view.
      [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(responseToRetriveBuddyResult) name:notiNameFromCmd(CMD_RETRIVE_BUDDY) object:nil];
-    self.refreshControl = [[UIRefreshControl alloc] init];
-    self.refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:@"刷新列表"];
-    [self.refreshControl addTarget:self action:@selector(responseToRefresh) forControlEvents:UIControlEventValueChanged];
 }
 
 #pragma mark -
 #pragma mark tableview datasource & delegate
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [self.buddyList count];
+    return 5;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {

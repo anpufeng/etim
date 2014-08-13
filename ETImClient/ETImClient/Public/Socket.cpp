@@ -8,7 +8,6 @@
 
 #include "Socket.h"
 #include "Logging.h"
-#include "Client.h"
 #include <unistd.h>
 #include <sys/socket.h>
 #include <sys/types.h>

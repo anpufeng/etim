@@ -11,7 +11,7 @@
 #include "Exception.h"
 #include "MD5.h"
 #include "Logging.h"
-#include "Client.h"
+#include "Socket.h"
 
 using namespace etim;
 using namespace etim::pub;

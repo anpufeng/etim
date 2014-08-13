@@ -57,6 +57,7 @@
 		AA7EB9981992674D000BD838 /* Client.mm in Sources */ = {isa = PBXBuildFile; fileRef = AA7EB9971992674D000BD838 /* Client.mm */; };
 		AA9131E519990F3900524E8D /* 37x-Checkmark.png in Resources */ = {isa = PBXBuildFile; fileRef = AA9131E319990F3900524E8D /* 37x-Checkmark.png */; };
 		AA9131E619990F3900524E8D /* 37x-Checkmark@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AA9131E419990F3900524E8D /* 37x-Checkmark@2x.png */; };
+		AA9131ED199BA98B00524E8D /* BaseTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA9131EC199BA98B00524E8D /* BaseTableViewController.m */; };
 		AAA6DCD8198B918100EB948E /* Endian.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AAA6DCC4198B918100EB948E /* Endian.cpp */; };
 		AAA6DCD9198B918100EB948E /* Idea.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AAA6DCC6198B918100EB948E /* Idea.cpp */; };
 		AAA6DCDA198B918100EB948E /* InStream.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AAA6DCC8198B918100EB948E /* InStream.cpp */; };
@@ -170,6 +171,8 @@
 		AA7EB9971992674D000BD838 /* Client.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = Client.mm; sourceTree = "<group>"; };
 		AA9131E319990F3900524E8D /* 37x-Checkmark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "37x-Checkmark.png"; sourceTree = "<group>"; };
 		AA9131E419990F3900524E8D /* 37x-Checkmark@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "37x-Checkmark@2x.png"; sourceTree = "<group>"; };
+		AA9131EB199BA98B00524E8D /* BaseTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseTableViewController.h; sourceTree = "<group>"; };
+		AA9131EC199BA98B00524E8D /* BaseTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseTableViewController.m; sourceTree = "<group>"; };
 		AAA6DCC4198B918100EB948E /* Endian.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Endian.cpp; sourceTree = "<group>"; };
 		AAA6DCC5198B918100EB948E /* Endian.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Endian.h; sourceTree = "<group>"; };
 		AAA6DCC6198B918100EB948E /* Idea.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Idea.cpp; sourceTree = "<group>"; };
@@ -379,6 +382,8 @@
 				AA59F043198A1A59009FD449 /* BaseTabBarViewController.m */,
 				AA59F044198A1A59009FD449 /* BaseViewController.h */,
 				AA59F045198A1A59009FD449 /* BaseViewController.m */,
+				AA9131EB199BA98B00524E8D /* BaseTableViewController.h */,
+				AA9131EC199BA98B00524E8D /* BaseTableViewController.m */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -724,6 +729,7 @@
 				AA588BB41990B4EC00F08821 /* SwitchStatus.cpp in Sources */,
 				AA59F0B6198A4142009FD449 /* AccountViewController.m in Sources */,
 				AAA6DCD8198B918100EB948E /* Endian.cpp in Sources */,
+				AA9131ED199BA98B00524E8D /* BaseTableViewController.m in Sources */,
 				AA1100FE198B61D2008811E4 /* TWMessageBarManager.m in Sources */,
 				AA59F072198A1A59009FD449 /* BaseNavigationController.m in Sources */,
 				AAA6DCDC198B918100EB948E /* LogStream.cpp in Sources */,
