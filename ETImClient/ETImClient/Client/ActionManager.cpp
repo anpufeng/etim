@@ -42,6 +42,7 @@ ActionManager::~ActionManager()
 
 bool ActionManager::DoAction(Session &s)
 {
+    //TODO 处理异常
 	uint16_t cmd = s.GetCmd();
 	if (actions_.find(cmd) != actions_.end()) {
 		actions_[cmd]->Execute(s);

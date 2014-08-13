@@ -10,6 +10,7 @@
 #include "Socket.h"
 #include "Logging.h"
 #include "ActionManager.h"
+#include "Exception.h"
 #include <string>
 
 using namespace etim;
@@ -47,7 +48,7 @@ static Client *sharedClient = nil;
 
 - (id)init {
     if (self = [super init]) {
-        _queueId = dispatch_queue_create("hello", NULL);
+        _queueId = dispatch_queue_create("client", NULL);
         std::auto_ptr<Socket> connSoc(new Socket(-1, 0));
         ///令人头痛的命名冲突
         _session = new Session(connSoc);
@@ -62,10 +63,19 @@ static Client *sharedClient = nil;
 
 - (void)doAction:(etim::Session &)s {
     dispatch_async(_queueId, ^{
-        Singleton<ActionManager>::Instance().DoAction(s);
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [[NSNotificationCenter defaultCenter] postNotificationName:notiNameFromCmd(s.GetCmd()) object:nil];
-        });
+        try {
+            Singleton<ActionManager>::Instance().DoAction(s);
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [[NSNotificationCenter defaultCenter] postNotificationName:notiNameFromCmd(s.GetCmd()) object:nil];
+            });
+        } catch (Exception &e) {
+            s.SetErrorCode(kErrCodeMax);
+            s.SetErrorMsg(e.what());
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [[NSNotificationCenter defaultCenter] postNotificationName:notiNameFromCmd(s.GetCmd()) object:nil];
+            });
+        }
+        
     });
 }
 

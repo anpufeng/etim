@@ -66,6 +66,10 @@ void Register::Execute(Session *s) {
          error_code = kErrCode002;
          strcpy(error_msg, gErrMsg[kErrCode002].c_str());
          LOG_INFO<<error_msg;
+     } else if (ret == kErrCode003) {
+         error_code = kErrCode003;
+         strcpy(error_msg, gErrMsg[kErrCode003].c_str());
+         LOG_INFO<<error_msg;
      }
     
 	OutStream jos;

@@ -71,6 +71,7 @@ namespace etim {
     };
     
     
+    
     ///包中带的错误码
     enum ErrCode {
         kErrCode000, //000 success, 其它均为异常
@@ -89,7 +90,10 @@ namespace etim {
     };
     
     ///错误信息
-    static const std::string gErrMsg[kErrCodeMax] = {"正常", "服务器错误", "数据库错误"};
+    static const std::string gErrMsg[kErrCodeMax+1] = {"正常", "用户或密码错误", "数据库错误", /*kErrCode003*/"用户已经存在",
+    "kErrCode004", "kErrCode005", "kErrCode006", /*kErrCode007*/"kErrCode007",
+    "kErrCode008", "kErrCode009", "kErrCode010", /*kErrCode011*/"kErrCode011",
+    /*kErrCodeMax*/"kErrCodeMax"};
     
     ///在线状态
     enum BuddyStatus {

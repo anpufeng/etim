@@ -5,6 +5,12 @@
 using namespace etim;
 using namespace etim::pub;
 
+#define MYSQL_SERVER        "localhost"
+#define MYSQL_USER          "root"
+#define MYSQL_PASSWOROD     ""
+#define MYSQL_DATABASE      "etim"
+#define MYSQL_PORT          3306
+
 MysqlDB::MysqlDB() : mysql_(NULL)
 {
 }
@@ -18,7 +24,7 @@ MysqlDB::~MysqlDB()
 }
 
 void MysqlDB::Open() {
-    Open("localhost", "root", "", "etim", 3306);
+    Open(MYSQL_SERVER, MYSQL_USER, MYSQL_PASSWOROD, MYSQL_DATABASE, MYSQL_PORT);
 }
 void MysqlDB::Open(const char* host,
 				   const char* user,

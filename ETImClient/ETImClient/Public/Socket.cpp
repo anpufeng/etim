@@ -8,6 +8,7 @@
 
 #include "Socket.h"
 #include "Logging.h"
+#include "Client.h"
 #include <unistd.h>
 #include <sys/socket.h>
 #include <sys/types.h>
@@ -17,7 +18,7 @@
 
 using namespace etim;
     
-Socket::Socket() : fd_(-1), port_(8888) {
+Socket::Socket() : fd_(-1), port_(HOST_PORT) {
     
 }
 
@@ -41,6 +42,16 @@ bool Socket::Create() {
     // set the SO_REUSEADDR
     int val = 1;
     int result = ::setsockopt(fd_, SOL_SOCKET, SO_REUSEADDR, &val, sizeof(val));
+    if (result == -1) {
+        LOG_ERROR<<"setsockopt error" << strerror(errno);
+    }
+    struct timeval timeout = {3,0};
+    result = ::setsockopt(fd_, SOL_SOCKET,SO_SNDTIMEO, (char *)&timeout,sizeof(struct timeval));
+    if (result == -1) {
+        LOG_ERROR<<"setsockopt error" << strerror(errno);
+    }
+    //设置接收超时
+    result = ::setsockopt(fd_, SOL_SOCKET,SO_RCVTIMEO, (char *)&timeout,sizeof(struct timeval));
     if (result == -1) {
         LOG_ERROR<<"setsockopt error" << strerror(errno);
     }

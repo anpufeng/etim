@@ -24,7 +24,18 @@ int DataService::UserRegister(const std::string &user, const std::string &pass) 
     try {
         db.Open();
         stringstream ss;
-        //insert into user(user_id, username, password, reg_time, last_time, gender, status) values(null, 'admin', 'admin', now(), now(), 0, 3);
+        ///查询是否用户名已存在
+        ss<<"select username from user where username = '"<<user<<"';";
+        MysqlRecordset rs;
+		rs = db.QuerySQL(ss.str().c_str());
+		if (rs.GetRows() >= 1)
+			return kErrCode003;
+        
+        ss.clear();
+		ss.str("");
+        
+        //不存在则插入进行注册  insert into user(user_id, username, password, reg_time, last_time, gender, status)
+        //values(null, 'admin', 'admin', now(), now(), 0, 3);
         ss<<"insert into user (user_id, username, password, reg_time, last_time, gender, status) values(null, '"<<
         user<<"', '"<<
         pass<<"', "<<
@@ -39,7 +50,6 @@ int DataService::UserRegister(const std::string &user, const std::string &pass) 
     } catch (Exception &e) {
         LOG_INFO<<e.what();
         db.Rollback();
-        return kErrCode002;
     }
     
     return kErrCode000;

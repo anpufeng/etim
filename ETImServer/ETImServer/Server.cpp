@@ -95,8 +95,7 @@ int Server::Start() {
         }
         
         //检测是否有sesion有可读
-        for (iter it = sessions_.begin(); it != sessions_.end(); ++it) {
-            LOG_INFO<<"for循环一次";
+        for (iter it = sessions_.begin(); it != sessions_.end();) {
             Session *s = *it;
             int fd = s->GetFd();
             if (FD_ISSET(fd, &readFds_)) {
@@ -107,23 +106,22 @@ int Server::Start() {
                     s->Recv(&result);
                     //根据接收的数据做出相应的操作
                     Singleton<ActionManager>::Instance().DoAction(s);
-              
+                    ++it;
                 } catch (Exception &e) {
                     if (result == 0) {
                         //服务端关闭
+                        delete s;
                         sessions_.erase(std::remove(sessions_.begin(), sessions_.end(), s));
                     } else {
-                        
+                        ++it;
                     }
                     LOG_ERROR<<e.what();
                 }
                 
             } else {
-                
+                ++it;
             }
         }
-        //TODO  session释放问题
-        
     } //end while
     
     return 0;
