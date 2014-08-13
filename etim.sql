@@ -11,7 +11,7 @@
  Target Server Version : 50619
  File Encoding         : utf-8
 
- Date: 08/11/2014 14:27:50 PM
+ Date: 08/13/2014 17:49:50 PM
 */
 
 SET NAMES utf8;
@@ -66,6 +66,7 @@ CREATE TABLE `user` (
   `last_time` datetime NOT NULL COMMENT '上次操作时间,',
   `gender` bit(1) NOT NULL COMMENT '性别',
   `status` tinyint(4) NOT NULL DEFAULT '3',
-  PRIMARY KEY (`user_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  PRIMARY KEY (`user_id`),
+  UNIQUE KEY `username_index` (`username`)
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
 
