@@ -12,6 +12,7 @@
 #include "OutStream.h"
 #include "MD5.h"
 #include "Idea.h"
+#include "DataStruct.h"
 
 using namespace etim;
 using namespace etim::action;
@@ -29,7 +30,7 @@ void Login::Execute(Session& s) {
 	size_t lengthPos = jos.Length();
 	jos.Skip(2);
     
-	// 柜员登录名
+	// 登录名
 	string name = s.GetAttribute("name");
 	jos<<name;
     
@@ -86,6 +87,14 @@ void Login::Execute(Session& s) {
 	char error_msg[31];
 	jis.ReadBytes(error_msg, 30);
     
+    IMUser user;
+    char userId[7] = {0};
+    jis.ReadBytes(userId, 6);
+    jis>>user.username;
+    jis>>user.regDate;
+    jis>>user.gender;
+    jis>>user.status;
+    user.userId = userId;
     
 	s.SetErrorCode(error_code);
 	s.SetErrorMsg(error_msg);

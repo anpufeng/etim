@@ -173,6 +173,7 @@
 		AA9131E419990F3900524E8D /* 37x-Checkmark@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "37x-Checkmark@2x.png"; sourceTree = "<group>"; };
 		AA9131EB199BA98B00524E8D /* BaseTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseTableViewController.h; sourceTree = "<group>"; };
 		AA9131EC199BA98B00524E8D /* BaseTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseTableViewController.m; sourceTree = "<group>"; };
+		AA9131EE199CE7C100524E8D /* DataStruct.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataStruct.h; sourceTree = "<group>"; };
 		AAA6DCC4198B918100EB948E /* Endian.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Endian.cpp; sourceTree = "<group>"; };
 		AAA6DCC5198B918100EB948E /* Endian.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Endian.h; sourceTree = "<group>"; };
 		AAA6DCC6198B918100EB948E /* Idea.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Idea.cpp; sourceTree = "<group>"; };
@@ -591,6 +592,7 @@
 				AAF61302198F5C9F00555364 /* Session.h */,
 				AA7EB9961992674D000BD838 /* Client.h */,
 				AA7EB9971992674D000BD838 /* Client.mm */,
+				AA9131EE199CE7C100524E8D /* DataStruct.h */,
 			);
 			path = Client;
 			sourceTree = "<group>";

@@ -61,7 +61,7 @@ int DataService:: UserLogin(const std::string& username, const std::string& pass
     try {
         db.Open();
         stringstream ss;
-        ss<<"select a.username, a.reg_time, a.gender, b.status_name from user as a, `status` as b " <<
+        ss<<"select a.user_id, a.username, a.reg_time, a.gender, b.status_name from user as a, `status` as b " <<
         "where a.status_id = b.status_id and a.username='"<<
         username<<"' and a.password='"<<
         pass<<"';";
@@ -70,10 +70,15 @@ int DataService:: UserLogin(const std::string& username, const std::string& pass
 		if (rs.GetRows() < 1)
 			return kErrCode001;
         
+        user.userId = rs.GetItem(0, "a.user_id");
         string reg = rs.GetItem(0, "a.reg_time");
 		user.regDate = reg.substr(0, reg.find(" "));
+        
+        std::cout<<rs.GetItem(0, "a.gender")<<endl;
         user.gender = Convert::StringToInt(rs.GetItem(0, "a.gender"));
         user.status =  rs.GetItem(0, "b.status_name");
+        
+        std::cout<<user.gender<<endl;
         
     } catch (Exception &e) {
         LOG_INFO<<e.what();

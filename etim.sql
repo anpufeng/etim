@@ -1,17 +1,17 @@
 /*
  Navicat Premium Data Transfer
 
- Source Server         : localhost-mysql
+ Source Server         : localhost
  Source Server Type    : MySQL
- Source Server Version : 50619
+ Source Server Version : 50525
  Source Host           : localhost
  Source Database       : etim
 
  Target Server Type    : MySQL
- Target Server Version : 50619
+ Target Server Version : 50525
  File Encoding         : utf-8
 
- Date: 08/14/2014 18:02:58 PM
+ Date: 08/15/2014 07:55:08 AM
 */
 
 SET NAMES utf8;
@@ -88,7 +88,7 @@ CREATE TABLE `user` (
   `password` char(16) NOT NULL,
   `reg_time` datetime NOT NULL COMMENT '注册时间',
   `last_time` datetime NOT NULL COMMENT '上次操作时间,',
-  `gender` bit(1) NOT NULL COMMENT '性别',
+  `gender` tinyint(1) NOT NULL COMMENT '性别',
   `status_id` tinyint(4) NOT NULL DEFAULT '3',
   PRIMARY KEY (`user_id`),
   UNIQUE KEY `username_index` (`username`)
@@ -98,6 +98,6 @@ CREATE TABLE `user` (
 --  Records of `user`
 -- ----------------------------
 BEGIN;
-INSERT INTO `user` VALUES ('1', 'admin', 'admin', '2014-08-12 09:38:04', '2014-08-12 09:38:04', b'0', '3');
+INSERT INTO `user` VALUES ('1', 'admin', 'admin', '2014-08-12 09:38:04', '2014-08-12 09:38:04', '1', '3');
 COMMIT;
 
