@@ -86,7 +86,13 @@ MysqlRecordset MysqlDB::QuerySQL(const char* sql)
 	while ((mysql_field = mysql_fetch_field(mysql_res)) != NULL)
 	{
 		MysqlRecordset::FIELD field;
-		field.name = mysql_field->name;
+        ///如果相等则无别名 直接将filed名返回 如果有别名 则将别名+列名拼起来
+        if (strcmp(mysql_field->org_table, mysql_field->table) == 0) {
+            field.name =  mysql_field->name;
+        } else {
+            field.name = std::string(mysql_field->table) + std::string(".") + std::string(mysql_field->name);
+        }
+		
 		field.index = i;
 		++i;
 		rs.fields_.push_back(field);

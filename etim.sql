@@ -11,7 +11,7 @@
  Target Server Version : 50619
  File Encoding         : utf-8
 
- Date: 08/13/2014 17:49:50 PM
+ Date: 08/14/2014 18:02:58 PM
 */
 
 SET NAMES utf8;
@@ -26,7 +26,14 @@ CREATE TABLE `event` (
   `event_type` tinyint(4) NOT NULL COMMENT '事件类型 0添加好友,1删除好友',
   `event_done` bit(1) NOT NULL COMMENT '是否完成',
   PRIMARY KEY (`event_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+--  Records of `event`
+-- ----------------------------
+BEGIN;
+INSERT INTO `event` VALUES ('1', '1', b'1');
+COMMIT;
 
 -- ----------------------------
 --  Table structure for `friend`
@@ -55,18 +62,42 @@ CREATE TABLE `message` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
+--  Table structure for `status`
+-- ----------------------------
+DROP TABLE IF EXISTS `status`;
+CREATE TABLE `status` (
+  `status_id` tinyint(6) NOT NULL AUTO_INCREMENT,
+  `status_name` char(8) NOT NULL,
+  PRIMARY KEY (`status_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=40000 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+--  Records of `status`
+-- ----------------------------
+BEGIN;
+INSERT INTO `status` VALUES ('1', '在线'), ('2', '隐身'), ('3', '离开'), ('4', '离线');
+COMMIT;
+
+-- ----------------------------
 --  Table structure for `user`
 -- ----------------------------
 DROP TABLE IF EXISTS `user`;
 CREATE TABLE `user` (
-  `user_id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(6) NOT NULL AUTO_INCREMENT,
   `username` char(16) NOT NULL,
   `password` char(16) NOT NULL,
   `reg_time` datetime NOT NULL COMMENT '注册时间',
   `last_time` datetime NOT NULL COMMENT '上次操作时间,',
   `gender` bit(1) NOT NULL COMMENT '性别',
-  `status` tinyint(4) NOT NULL DEFAULT '3',
+  `status_id` tinyint(4) NOT NULL DEFAULT '3',
   PRIMARY KEY (`user_id`),
   UNIQUE KEY `username_index` (`username`)
 ) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+--  Records of `user`
+-- ----------------------------
+BEGIN;
+INSERT INTO `user` VALUES ('1', 'admin', 'admin', '2014-08-12 09:38:04', '2014-08-12 09:38:04', b'0', '3');
+COMMIT;
 

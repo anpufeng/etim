@@ -44,7 +44,7 @@ bool Socket::Create() {
     if (result == -1) {
         LOG_ERROR<<"setsockopt error" << strerror(errno);
     }
-    struct timeval timeout = {3,0};
+    struct timeval timeout = {300,0};
     result = ::setsockopt(fd_, SOL_SOCKET,SO_SNDTIMEO, (char *)&timeout,sizeof(struct timeval));
     if (result == -1) {
         LOG_ERROR<<"setsockopt error" << strerror(errno);

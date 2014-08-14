@@ -14,6 +14,10 @@
 #include "Idea.h"
 #include "Logging.h"
 #include "DataService.h"
+#include "DataStruct.h"
+
+#include <sstream>
+#include <iomanip>
 
 using namespace etim;
 using namespace etim::pub;
@@ -24,7 +28,7 @@ void Login::Execute(Session *s) {
     InStream jis(s->GetRequestPack()->buf, s->GetRequestPack()->head.len);
 	uint16 cmd = s->GetCmd();
     
-	// 柜员登录名
+	// 登录名
 	string name;
 	jis>>name;
 	// 密码
@@ -53,8 +57,10 @@ void Login::Execute(Session *s) {
     
 	// 实际的登录操作
 	DataService dao;
+    IMUser user;
+    user.username = name;
 	int ret;
-	ret = dao.UserLogin(name, pass);
+	ret = dao.UserLogin(name, pass, user);
 	if (ret == kErrCode000) {
 		LOG_INFO<<"登录成功";
 	} else if (ret == kErrCode001) {
@@ -71,13 +77,21 @@ void Login::Execute(Session *s) {
 	// 包头命令
 	jos<<cmd;
 	size_t lengthPos = jos.Length();
-	jos.Skip(2);
+	jos.Skip(2);///留出2个字节空间用来后面存储包体长度+包尾(8)的长度
 	// 包头cnt、seq、error_code、error_msg
 	uint16 cnt = 0;
 	uint16 seq = 0;
 	jos<<cnt<<seq<<error_code;
 	jos.WriteBytes(error_msg, 30);
-	// 包体为空
+    
+	// 包体
+    stringstream ss;
+	ss<<setw(6)<<setfill('0')<<user.userId;
+	jos.WriteBytes(ss.str().c_str(), 6);
+	jos<<user.username;
+    jos<<user.regDate;
+    jos<<user.gender;
+    jos<<user.status;
     
 	// 包头len
 	size_t tailPos = jos.Length();
