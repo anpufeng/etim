@@ -37,7 +37,7 @@ public:
     int RecvN(char* buf, size_t len);
     int GetFd() const { return fd_; }
     
-    bool IsValid() const { return fd_ == -1; }
+    bool IsValid() const { return fd_ != -1; }
 private:
     int fd_;
     short port_;

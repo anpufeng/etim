@@ -14,6 +14,7 @@
 #include <map>
 #include "Socket.h"
 #include "Endian.h"
+#include "DataStruct.h"
 
 namespace etim {
     
@@ -51,7 +52,7 @@ namespace etim {
         ///错误码，0正确
         unsigned short error_code;
         ///错误消息 定长30
-        char error_msg[30];
+        char error_msg[ERR_MSG_LENGTH];
     };
     
     ///请求包休
@@ -107,7 +108,7 @@ namespace etim {
     class Session {
     public:
         Session(std::auto_ptr<Socket> &socket);
-        ~Session() {}
+        ~Session();
         
         ///设置操作命令
         void SetCmd(uint16_t cmd) { cmd_ = cmd; }
@@ -131,6 +132,11 @@ namespace etim {
         ///获取打包数据
         void Recv();
         void DoAction();
+        
+        ///获取用户信息
+        const IMUser GetIMUser() const { return user_; }
+        ///设置用户信息
+        void SetIMUser(IMUser &user);
         
         
         uint16_t GetFd() const { return socket_->GetFd(); }
@@ -158,6 +164,7 @@ namespace etim {
         std::string errMsg_;
         
         BuddyStatus status_;
+        IMUser      user_;
     };
 }   //end etim
 

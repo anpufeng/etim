@@ -7,9 +7,12 @@
 //
 
 #import "BuddyViewController.h"
-#include "Session.h"
-#include "Client.h"
 #import "MBProgressHUD.h"
+
+#include "Client.h"
+#include "Singleton.h"
+#include "Session.h"
+#include "ActionManager.h"
 
 using namespace etim;
 using namespace etim::pub;
@@ -40,6 +43,28 @@ using namespace etim::pub;
     [super viewDidLoad];
     // Do any additional setup after loading the view.
      [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(responseToRetriveBuddyResult) name:notiNameFromCmd(CMD_RETRIVE_BUDDY) object:nil];
+    [self createUI];
+}
+
+- (void)createUI {
+    [self createRightNav];
+}
+
+- (void)createRightNav {
+    UIButton *addBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [addBtn addTarget:self action:@selector(responseToAddContactBtn:) forControlEvents:UIControlEventTouchUpInside];
+    addBtn.frame = CGRectMake(0, 0, 44, 44);
+
+    [addBtn setImage:[UIImage imageNamed:@"contact_add_btn_nor"] forState:UIControlStateNormal];
+    [addBtn setImage:[UIImage imageNamed:@"contact_add_btn_press"] forState:UIControlStateNormal];
+    
+    UIBarButtonItem *spaceItem = [[UIBarButtonItem alloc]
+                                        initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace
+                                        target:nil action:nil];
+    spaceItem.width = -20;
+    
+    UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithCustomView:addBtn];
+    self.navigationItem.rightBarButtonItems = @[spaceItem, item];
 }
 
 #pragma mark -
@@ -70,6 +95,10 @@ using namespace etim::pub;
 
 - (void)responseToRefresh {
     [self.refreshControl endRefreshing];
+}
+
+- (void)responseToAddContactBtn:(UIButton *)sender {
+    
 }
 - (void)didReceiveMemoryWarning
 {

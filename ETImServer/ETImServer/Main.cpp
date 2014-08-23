@@ -50,13 +50,10 @@ int main(int argc, const char * argv[])
     MYSQL *connection, mysql;
     mysql_init(&mysql);
     connection = mysql_real_connect(&mysql,"127.0.0.1","root","","etim",0,0,0);
-    if (connection == NULL)
-    {
+    if (connection == NULL) {
         //unable to connect
-        printf("Oh Noes!\n");
-    }
-    else
-    {
+        printf("Connect error!\n");
+    } else {
         printf("Connected.\n");
     }
      */

@@ -73,7 +73,6 @@ int Server::Start() {
         
         //继续监听
         if (ready <= 0) {
-            LOG_INFO<<"select 无可读写...";
             continue;
         }
         

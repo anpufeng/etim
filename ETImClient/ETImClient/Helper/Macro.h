@@ -94,11 +94,11 @@
 
 // DEBUG method
 #ifdef DEBUG
-#define PALOG(...) NSLog(__VA_ARGS__)
-#define PALOG_METHOD() NSLog(@"%s", __func__)
+#define ETLOG(...) NSLog(__VA_ARGS__)
+#define ETLOG_METHOD() NSLog(@"%s", __func__)
 #else
-#define PALOG(...)
-#define PALOG_METHOD()
+#define ETLOG(...)
+#define ETLOG_METHOD()
 #endif /* DEBUG */
 
 #endif

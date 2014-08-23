@@ -85,7 +85,7 @@ void Login::Execute(Session& s) {
 	jis>>cnt>>seq>>error_code;
     
 	char error_msg[31];
-	jis.ReadBytes(error_msg, 30);
+	jis.ReadBytes(error_msg, ERR_MSG_LENGTH);
     
     IMUser user;
     char userId[7] = {0};
@@ -96,11 +96,59 @@ void Login::Execute(Session& s) {
     jis>>user.status;
     user.userId = userId;
     
+    s.SetIMUser(user);
 	s.SetErrorCode(error_code);
 	s.SetErrorMsg(error_msg);
 }
 
 void Logout::Execute(Session& s) {
+    OutStream jos;
     
+	// 包头命令
+	uint16 cmd = CMD_LOGOUT;
+	jos<<cmd;
+    
+	// 预留两个字节包头len（包体+包尾长度）
+	size_t lengthPos = jos.Length();
+	jos.Skip(2);
+    
+	// 用户id
+	string name = s.GetAttribute("name");
+	jos<<name;
+
+	MD5 md5;
+	// 包头len
+	size_t tailPos = jos.Length();
+	jos.Reposition(lengthPos);
+	jos<<static_cast<uint16>(tailPos + 8 - sizeof(RequestHead)); // 包体长度 + 包尾长度
+    
+	// 包尾
+	jos.Reposition(tailPos);
+	// 计算包尾
+	unsigned char hash[16];
+	md5.MD5Make(hash, (const unsigned char*)jos.Data(), jos.Length());
+	for (int i=0; i<8; ++i)
+	{
+		hash[i] = hash[i] ^ hash[i+8];
+		hash[i] = hash[i] ^ ((cmd >> (i%2)) & 0xff);
+	}
+	jos.WriteBytes(hash, 8);
+    
+    
+	s.Send(jos.Data(), jos.Length());	// 发送请求包
+	s.Recv();	// 接收应答包
+	InStream jis((const char*)s.GetResponsePack(), s.GetResponsePack()->head.len+sizeof(ResponseHead));
+	// 跳过cmd、len
+	jis.Skip(4);
+	uint16 cnt;
+	uint16 seq;
+	int16 error_code;
+	jis>>cnt>>seq>>error_code;
+    
+	char error_msg[ERR_MSG_LENGTH + 1];
+	jis.ReadBytes(error_msg, ERR_MSG_LENGTH);
+    
+	s.SetErrorCode(error_code);
+	s.SetErrorMsg(error_msg);
 }
 

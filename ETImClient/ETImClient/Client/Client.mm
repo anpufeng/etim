@@ -32,10 +32,10 @@ using namespace etim::pub;
 @implementation Client
 
 static Client *sharedClient = nil;
+static dispatch_once_t predicate;
 
 +(Client*)sharedInstance{
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
+    dispatch_once(&predicate, ^{
         sharedClient=[[Client alloc]init];
         //忽略send产生的sigpipe信号
         signal(SIGPIPE, SIG_IGN);
@@ -44,7 +44,17 @@ static Client *sharedClient = nil;
     return sharedClient;
 }
 
++ (void)sharedDealloc {
+    if (sharedClient) {
+        sharedClient = nil;
+        predicate = 0;
+    }
+    
+    return;
+}
+
 - (void)dealloc {
+    ETLOG(@"======= Client DEALLOC ========");
     delete _session;
     
 }

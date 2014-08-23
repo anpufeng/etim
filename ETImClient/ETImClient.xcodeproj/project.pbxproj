@@ -7,8 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		AA0BA4A1199894A300CDB8C6 /* common_button_green_nor@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AA0BA49F199894A300CDB8C6 /* common_button_green_nor@2x.png */; };
-		AA0BA4A2199894A300CDB8C6 /* common_button_green_press@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AA0BA4A0199894A300CDB8C6 /* common_button_green_press@2x.png */; };
 		AA1100EB198B3C01008811E4 /* tab_buddy_nor@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AA1100E3198B3C01008811E4 /* tab_buddy_nor@2x.png */; };
 		AA1100EC198B3C01008811E4 /* tab_buddy_press@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AA1100E4198B3C01008811E4 /* tab_buddy_press@2x.png */; };
 		AA1100ED198B3C01008811E4 /* tab_me_nor@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AA1100E5198B3C01008811E4 /* tab_me_nor@2x.png */; };
@@ -25,6 +23,20 @@
 		AA110108198B61DD008811E4 /* icon-info@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AA110102198B61DD008811E4 /* icon-info@2x.png */; };
 		AA110109198B61DD008811E4 /* icon-success.png in Resources */ = {isa = PBXBuildFile; fileRef = AA110103198B61DD008811E4 /* icon-success.png */; };
 		AA11010A198B61DD008811E4 /* icon-success@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AA110104198B61DD008811E4 /* icon-success@2x.png */; };
+		AA3374E719A8378A005BD678 /* TestView.m in Sources */ = {isa = PBXBuildFile; fileRef = AA3374E619A8378A005BD678 /* TestView.m */; };
+		AA3374EA19A83967005BD678 /* TestTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AA3374E919A83967005BD678 /* TestTableViewCell.m */; };
+		AA3374F319A8681A005BD678 /* common_btn_green_nor@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AA3374F119A8681A005BD678 /* common_btn_green_nor@2x.png */; };
+		AA3374F419A8681A005BD678 /* common_btn_green_press@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AA3374F219A8681A005BD678 /* common_btn_green_press@2x.png */; };
+		AA3374F719A86877005BD678 /* common_btn_red_nor@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AA3374F519A86877005BD678 /* common_btn_red_nor@2x.png */; };
+		AA3374F819A86877005BD678 /* common_btn_red_press@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AA3374F619A86877005BD678 /* common_btn_red_press@2x.png */; };
+		AA33752419A871A5005BD678 /* Icon-120.png in Resources */ = {isa = PBXBuildFile; fileRef = AA33751E19A871A5005BD678 /* Icon-120.png */; };
+		AA33752619A871A5005BD678 /* Icon-Small.png in Resources */ = {isa = PBXBuildFile; fileRef = AA33752019A871A5005BD678 /* Icon-Small.png */; };
+		AA33752719A871A5005BD678 /* Icon-Small@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AA33752119A871A5005BD678 /* Icon-Small@2x.png */; };
+		AA33752819A871A5005BD678 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = AA33752219A871A5005BD678 /* Icon.png */; };
+		AA33752919A871A5005BD678 /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AA33752319A871A5005BD678 /* Icon@2x.png */; };
+		AA33752B19A871CD005BD678 /* MetroUI-Folder-OS-OS-Linux-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = AA33752A19A871CD005BD678 /* MetroUI-Folder-OS-OS-Linux-icon.png */; };
+		AA33752F19A89E49005BD678 /* contact_add_btn_nor@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AA33752D19A89E49005BD678 /* contact_add_btn_nor@2x.png */; };
+		AA33753019A89E49005BD678 /* contact_add_btn_press@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AA33752E19A89E49005BD678 /* contact_add_btn_press@2x.png */; };
 		AA588B9B1990B4E500F08821 /* ActionManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AA588B991990B4E500F08821 /* ActionManager.cpp */; };
 		AA588BAD1990B4EC00F08821 /* Action.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AA588B9D1990B4EC00F08821 /* Action.cpp */; };
 		AA588BAE1990B4EC00F08821 /* AddBuddy.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AA588B9F1990B4EC00F08821 /* AddBuddy.cpp */; };
@@ -52,8 +64,8 @@
 		AA59F0A9198A3667009FD449 /* login_btn_blue_press@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AA59F0A7198A3667009FD449 /* login_btn_blue_press@2x.png */; };
 		AA59F0AD198A3732009FD449 /* LeeScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = AA59F0AC198A3732009FD449 /* LeeScrollView.m */; };
 		AA59F0B0198A4117009FD449 /* BuddyViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = AA59F0AF198A4117009FD449 /* BuddyViewController.mm */; };
-		AA59F0B3198A4121009FD449 /* OnlineViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA59F0B2198A4121009FD449 /* OnlineViewController.m */; };
-		AA59F0B6198A4142009FD449 /* AccountViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA59F0B5198A4142009FD449 /* AccountViewController.m */; };
+		AA59F0B3198A4121009FD449 /* OnlineViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = AA59F0B2198A4121009FD449 /* OnlineViewController.mm */; };
+		AA59F0B6198A4142009FD449 /* AccountViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = AA59F0B5198A4142009FD449 /* AccountViewController.mm */; };
 		AA7EB9981992674D000BD838 /* Client.mm in Sources */ = {isa = PBXBuildFile; fileRef = AA7EB9971992674D000BD838 /* Client.mm */; };
 		AA9131E519990F3900524E8D /* 37x-Checkmark.png in Resources */ = {isa = PBXBuildFile; fileRef = AA9131E319990F3900524E8D /* 37x-Checkmark.png */; };
 		AA9131E619990F3900524E8D /* 37x-Checkmark@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AA9131E419990F3900524E8D /* 37x-Checkmark@2x.png */; };
@@ -95,8 +107,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		AA0BA49F199894A300CDB8C6 /* common_button_green_nor@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "common_button_green_nor@2x.png"; sourceTree = "<group>"; };
-		AA0BA4A0199894A300CDB8C6 /* common_button_green_press@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "common_button_green_press@2x.png"; sourceTree = "<group>"; };
 		AA1100E3198B3C01008811E4 /* tab_buddy_nor@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tab_buddy_nor@2x.png"; sourceTree = "<group>"; };
 		AA1100E4198B3C01008811E4 /* tab_buddy_press@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tab_buddy_press@2x.png"; sourceTree = "<group>"; };
 		AA1100E5198B3C01008811E4 /* tab_me_nor@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tab_me_nor@2x.png"; sourceTree = "<group>"; };
@@ -115,6 +125,22 @@
 		AA110102198B61DD008811E4 /* icon-info@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-info@2x.png"; sourceTree = "<group>"; };
 		AA110103198B61DD008811E4 /* icon-success.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-success.png"; sourceTree = "<group>"; };
 		AA110104198B61DD008811E4 /* icon-success@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-success@2x.png"; sourceTree = "<group>"; };
+		AA3374E519A8378A005BD678 /* TestView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestView.h; sourceTree = "<group>"; };
+		AA3374E619A8378A005BD678 /* TestView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestView.m; sourceTree = "<group>"; };
+		AA3374E819A83967005BD678 /* TestTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestTableViewCell.h; sourceTree = "<group>"; };
+		AA3374E919A83967005BD678 /* TestTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestTableViewCell.m; sourceTree = "<group>"; };
+		AA3374F119A8681A005BD678 /* common_btn_green_nor@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "common_btn_green_nor@2x.png"; sourceTree = "<group>"; };
+		AA3374F219A8681A005BD678 /* common_btn_green_press@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "common_btn_green_press@2x.png"; sourceTree = "<group>"; };
+		AA3374F519A86877005BD678 /* common_btn_red_nor@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "common_btn_red_nor@2x.png"; sourceTree = "<group>"; };
+		AA3374F619A86877005BD678 /* common_btn_red_press@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "common_btn_red_press@2x.png"; sourceTree = "<group>"; };
+		AA33751E19A871A5005BD678 /* Icon-120.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-120.png"; sourceTree = "<group>"; };
+		AA33752019A871A5005BD678 /* Icon-Small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Small.png"; sourceTree = "<group>"; };
+		AA33752119A871A5005BD678 /* Icon-Small@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Small@2x.png"; sourceTree = "<group>"; };
+		AA33752219A871A5005BD678 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
+		AA33752319A871A5005BD678 /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon@2x.png"; sourceTree = "<group>"; };
+		AA33752A19A871CD005BD678 /* MetroUI-Folder-OS-OS-Linux-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "MetroUI-Folder-OS-OS-Linux-icon.png"; sourceTree = "<group>"; };
+		AA33752D19A89E49005BD678 /* contact_add_btn_nor@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "contact_add_btn_nor@2x.png"; sourceTree = "<group>"; };
+		AA33752E19A89E49005BD678 /* contact_add_btn_press@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "contact_add_btn_press@2x.png"; sourceTree = "<group>"; };
 		AA588B991990B4E500F08821 /* ActionManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ActionManager.cpp; sourceTree = "<group>"; };
 		AA588B9A1990B4E500F08821 /* ActionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActionManager.h; sourceTree = "<group>"; };
 		AA588B9D1990B4EC00F08821 /* Action.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Action.cpp; sourceTree = "<group>"; };
@@ -164,9 +190,9 @@
 		AA59F0AE198A4117009FD449 /* BuddyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BuddyViewController.h; sourceTree = "<group>"; };
 		AA59F0AF198A4117009FD449 /* BuddyViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = BuddyViewController.mm; sourceTree = "<group>"; };
 		AA59F0B1198A4121009FD449 /* OnlineViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OnlineViewController.h; sourceTree = "<group>"; };
-		AA59F0B2198A4121009FD449 /* OnlineViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OnlineViewController.m; sourceTree = "<group>"; };
+		AA59F0B2198A4121009FD449 /* OnlineViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = OnlineViewController.mm; sourceTree = "<group>"; };
 		AA59F0B4198A4142009FD449 /* AccountViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AccountViewController.h; sourceTree = "<group>"; };
-		AA59F0B5198A4142009FD449 /* AccountViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AccountViewController.m; sourceTree = "<group>"; };
+		AA59F0B5198A4142009FD449 /* AccountViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AccountViewController.mm; sourceTree = "<group>"; };
 		AA7EB9961992674D000BD838 /* Client.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Client.h; sourceTree = "<group>"; };
 		AA7EB9971992674D000BD838 /* Client.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = Client.mm; sourceTree = "<group>"; };
 		AA9131E319990F3900524E8D /* 37x-Checkmark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "37x-Checkmark.png"; sourceTree = "<group>"; };
@@ -247,6 +273,10 @@
 		AA1100E2198B3BFA008811E4 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				AA3374F519A86877005BD678 /* common_btn_red_nor@2x.png */,
+				AA3374F619A86877005BD678 /* common_btn_red_press@2x.png */,
+				AA3374F119A8681A005BD678 /* common_btn_green_nor@2x.png */,
+				AA3374F219A8681A005BD678 /* common_btn_green_press@2x.png */,
 				AA1100E3198B3C01008811E4 /* tab_buddy_nor@2x.png */,
 				AA1100E4198B3C01008811E4 /* tab_buddy_press@2x.png */,
 				AA1100E5198B3C01008811E4 /* tab_me_nor@2x.png */,
@@ -281,6 +311,28 @@
 				AA1100FD198B61D2008811E4 /* TWMessageBarManager.m */,
 			);
 			path = TWMessage;
+			sourceTree = "<group>";
+		};
+		AA3374F919A86EB8005BD678 /* Icon */ = {
+			isa = PBXGroup;
+			children = (
+				AA33752A19A871CD005BD678 /* MetroUI-Folder-OS-OS-Linux-icon.png */,
+				AA33751E19A871A5005BD678 /* Icon-120.png */,
+				AA33752019A871A5005BD678 /* Icon-Small.png */,
+				AA33752119A871A5005BD678 /* Icon-Small@2x.png */,
+				AA33752219A871A5005BD678 /* Icon.png */,
+				AA33752319A871A5005BD678 /* Icon@2x.png */,
+			);
+			path = Icon;
+			sourceTree = "<group>";
+		};
+		AA33752C19A89E29005BD678 /* Buddy */ = {
+			isa = PBXGroup;
+			children = (
+				AA33752D19A89E49005BD678 /* contact_add_btn_nor@2x.png */,
+				AA33752E19A89E49005BD678 /* contact_add_btn_press@2x.png */,
+			);
+			path = Buddy;
 			sourceTree = "<group>";
 		};
 		AA588B9C1990B4EC00F08821 /* Action */ = {
@@ -413,7 +465,7 @@
 			isa = PBXGroup;
 			children = (
 				AA59F0B1198A4121009FD449 /* OnlineViewController.h */,
-				AA59F0B2198A4121009FD449 /* OnlineViewController.m */,
+				AA59F0B2198A4121009FD449 /* OnlineViewController.mm */,
 			);
 			path = Online;
 			sourceTree = "<group>";
@@ -422,7 +474,7 @@
 			isa = PBXGroup;
 			children = (
 				AA59F0B4198A4142009FD449 /* AccountViewController.h */,
-				AA59F0B5198A4142009FD449 /* AccountViewController.m */,
+				AA59F0B5198A4142009FD449 /* AccountViewController.mm */,
 			);
 			path = Account;
 			sourceTree = "<group>";
@@ -430,6 +482,8 @@
 		AA59F094198A20AE009FD449 /* Image */ = {
 			isa = PBXGroup;
 			children = (
+				AA33752C19A89E29005BD678 /* Buddy */,
+				AA3374F919A86EB8005BD678 /* Icon */,
 				AA1100E2198B3BFA008811E4 /* Common */,
 				AA59F095198A211C009FD449 /* Login */,
 			);
@@ -439,8 +493,6 @@
 		AA59F095198A211C009FD449 /* Login */ = {
 			isa = PBXGroup;
 			children = (
-				AA0BA49F199894A300CDB8C6 /* common_button_green_nor@2x.png */,
-				AA0BA4A0199894A300CDB8C6 /* common_button_green_press@2x.png */,
 				AA59F0A6198A3667009FD449 /* login_btn_blue_nor@2x.png */,
 				AA59F0A7198A3667009FD449 /* login_btn_blue_press@2x.png */,
 				AA59F0A4198A3187009FD449 /* login_textfield@2x.png */,
@@ -457,6 +509,10 @@
 			children = (
 				AA59F0AB198A3732009FD449 /* LeeScrollView.h */,
 				AA59F0AC198A3732009FD449 /* LeeScrollView.m */,
+				AA3374E519A8378A005BD678 /* TestView.h */,
+				AA3374E619A8378A005BD678 /* TestView.m */,
+				AA3374E819A83967005BD678 /* TestTableViewCell.h */,
+				AA3374E919A83967005BD678 /* TestTableViewCell.m */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -672,32 +728,42 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AA33752819A871A5005BD678 /* Icon.png in Resources */,
 				AA59F098198A2250009FD449 /* login_bg_ip5@2x.jpg in Resources */,
 				AA59F099198A2250009FD449 /* login_bg@2x.jpg in Resources */,
 				AA1100EC198B3C01008811E4 /* tab_buddy_press@2x.png in Resources */,
 				AA110108198B61DD008811E4 /* icon-info@2x.png in Resources */,
 				AA11010A198B61DD008811E4 /* icon-success@2x.png in Resources */,
 				AA9131E619990F3900524E8D /* 37x-Checkmark@2x.png in Resources */,
-				AA0BA4A1199894A300CDB8C6 /* common_button_green_nor@2x.png in Resources */,
 				AA110109198B61DD008811E4 /* icon-success.png in Resources */,
 				AA1100F2198B3C01008811E4 /* tab_recent_press@2x.png in Resources */,
+				AA33752919A871A5005BD678 /* Icon@2x.png in Resources */,
 				AA1100EE198B3C01008811E4 /* tab_me_press@2x.png in Resources */,
+				AA3374F319A8681A005BD678 /* common_btn_green_nor@2x.png in Resources */,
 				AABF3CBD198636C0001C8DCA /* InfoPlist.strings in Resources */,
+				AA33752F19A89E49005BD678 /* contact_add_btn_nor@2x.png in Resources */,
 				AA110107198B61DD008811E4 /* icon-info.png in Resources */,
 				AA110106198B61DD008811E4 /* icon-error@2x.png in Resources */,
 				AA59F0A3198A2C5D009FD449 /* login_avatar_default@2x.png in Resources */,
 				AA59F0A5198A3187009FD449 /* login_textfield@2x.png in Resources */,
 				AA1100F1198B3C01008811E4 /* tab_recent_nor@2x.png in Resources */,
+				AA33752619A871A5005BD678 /* Icon-Small.png in Resources */,
 				AA110105198B61DD008811E4 /* icon-error.png in Resources */,
 				AABF3CC5198636C0001C8DCA /* Images.xcassets in Resources */,
 				AA59F0A1198A28CF009FD449 /* login_avatar@2x.png in Resources */,
 				AA1100ED198B3C01008811E4 /* tab_me_nor@2x.png in Resources */,
+				AA33752719A871A5005BD678 /* Icon-Small@2x.png in Resources */,
 				AA1100EB198B3C01008811E4 /* tab_buddy_nor@2x.png in Resources */,
 				AA59F0A8198A3667009FD449 /* login_btn_blue_nor@2x.png in Resources */,
 				AA59F0A9198A3667009FD449 /* login_btn_blue_press@2x.png in Resources */,
+				AA3374F819A86877005BD678 /* common_btn_red_press@2x.png in Resources */,
+				AA33752B19A871CD005BD678 /* MetroUI-Folder-OS-OS-Linux-icon.png in Resources */,
 				AA9131E519990F3900524E8D /* 37x-Checkmark.png in Resources */,
+				AA33753019A89E49005BD678 /* contact_add_btn_press@2x.png in Resources */,
+				AA3374F719A86877005BD678 /* common_btn_red_nor@2x.png in Resources */,
+				AA3374F419A8681A005BD678 /* common_btn_green_press@2x.png in Resources */,
 				AA1100EF198B3C01008811E4 /* tab_qworld_nor@2x.png in Resources */,
-				AA0BA4A2199894A300CDB8C6 /* common_button_green_press@2x.png in Resources */,
+				AA33752419A871A5005BD678 /* Icon-120.png in Resources */,
 				AA1100F0198B3C01008811E4 /* tab_qworld_press@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -724,18 +790,19 @@
 				AA588B9B1990B4E500F08821 /* ActionManager.cpp in Sources */,
 				AA59F074198A1A59009FD449 /* BaseViewController.m in Sources */,
 				AA59F0AD198A3732009FD449 /* LeeScrollView.m in Sources */,
+				AA3374EA19A83967005BD678 /* TestTableViewCell.m in Sources */,
 				AA59F0B0198A4117009FD449 /* BuddyViewController.mm in Sources */,
 				AAA6DCDA198B918100EB948E /* InStream.cpp in Sources */,
 				AA1100FA198B3F0A008811E4 /* MomentsViewController.m in Sources */,
 				AAF61303198F5C9F00555364 /* Session.cpp in Sources */,
 				AA588BB41990B4EC00F08821 /* SwitchStatus.cpp in Sources */,
-				AA59F0B6198A4142009FD449 /* AccountViewController.m in Sources */,
+				AA59F0B6198A4142009FD449 /* AccountViewController.mm in Sources */,
 				AAA6DCD8198B918100EB948E /* Endian.cpp in Sources */,
 				AA9131ED199BA98B00524E8D /* BaseTableViewController.m in Sources */,
 				AA1100FE198B61D2008811E4 /* TWMessageBarManager.m in Sources */,
 				AA59F072198A1A59009FD449 /* BaseNavigationController.m in Sources */,
 				AAA6DCDC198B918100EB948E /* LogStream.cpp in Sources */,
-				AA59F0B3198A4121009FD449 /* OnlineViewController.m in Sources */,
+				AA59F0B3198A4121009FD449 /* OnlineViewController.mm in Sources */,
 				AA59F03B198A197B009FD449 /* UIColor+Additions.m in Sources */,
 				AAA6DCD9198B918100EB948E /* Idea.cpp in Sources */,
 				AAA6DCE2198B962E00EB948E /* Socket.cpp in Sources */,
@@ -749,6 +816,7 @@
 				AAF613061990723A00555364 /* Exception.cpp in Sources */,
 				AA59F071198A1A59009FD449 /* BackViewController.m in Sources */,
 				AAA6DCDF198B918100EB948E /* Timestamp.cpp in Sources */,
+				AA3374E719A8378A005BD678 /* TestView.m in Sources */,
 				AA7EB9981992674D000BD838 /* Client.mm in Sources */,
 				AA59F03C198A197B009FD449 /* UIImage+Additions.m in Sources */,
 				AA588BB21990B4EC00F08821 /* RetriveBuddy.cpp in Sources */,
@@ -871,7 +939,6 @@
 		AABF3CDC198636C0001C8DCA /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ETImClient/ETImClient-Prefix.pch";
@@ -885,7 +952,6 @@
 		AABF3CDD198636C0001C8DCA /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ETImClient/ETImClient-Prefix.pch";

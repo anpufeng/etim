@@ -12,4 +12,9 @@
 
 @property (strong, nonatomic) UIWindow *window;
 
+/**跳到登录界面
+ @param animated 是否有动画操作
+*/
+- (void)jumpToLogin:(BOOL)animated;
+
 @end

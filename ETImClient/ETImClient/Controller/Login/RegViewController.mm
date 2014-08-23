@@ -65,9 +65,9 @@ using namespace etim::pub;
     [self.view addSubview:_pwdTextField];
     
     _regBtn = [[UIButton alloc] initWithFrame:CGRectMake((RECT_WIDTH(self.view) - 290)/2.0f, RECT_MAX_Y(_pwdTextField) + 20, 290, 44)];
-    UIImage *regImg = [IMAGE_PNG(@"common_button_green_nor") resizableImageWithCapInsets:UIEdgeInsetsMake(10, 15, 10, 15)
+    UIImage *regImg = [IMAGE_PNG(@"common_btn_green_nor") resizableImageWithCapInsets:UIEdgeInsetsMake(10, 15, 10, 15)
                                                                             resizingMode:UIImageResizingModeStretch];
-    UIImage *regPressImg = [IMAGE_PNG(@"common_button_green_press") resizableImageWithCapInsets:UIEdgeInsetsMake(10, 15, 10, 15)
+    UIImage *regPressImg = [IMAGE_PNG(@"common_btn_green_press") resizableImageWithCapInsets:UIEdgeInsetsMake(10, 15, 10, 15)
                                                                             resizingMode:UIImageResizingModeStretch];
     [_regBtn setBackgroundImage:regImg forState:UIControlStateNormal];
     [_regBtn setBackgroundImage:regPressImg forState:UIControlStateHighlighted];
