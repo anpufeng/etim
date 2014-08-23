@@ -83,8 +83,8 @@ void Register::Execute(Session& s) {
 	int16 error_code;
 	jis>>cnt>>seq>>error_code;
     
-	char error_msg[31];
-	jis.ReadBytes(error_msg, 30);
+	char error_msg[ERR_MSG_LENGTH + 1];
+	jis.ReadBytes(error_msg, ERR_MSG_LENGTH);
     
 	s.SetErrorCode(error_code);
 	s.SetErrorMsg(error_msg);

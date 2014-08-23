@@ -21,7 +21,9 @@ using namespace etim;
 using namespace etim::pub;
 
 
-@interface LoginViewController ()
+@interface LoginViewController () {
+    
+}
 
 @end
 
@@ -76,6 +78,7 @@ using namespace etim::pub;
     _nameTextField.placeholder = @"用户名";
     _nameTextField.backgroundColor = [UIColor clearColor];
     _nameTextField.returnKeyType = UIReturnKeyNext;
+    _nameTextField.clearButtonMode = UITextFieldViewModeWhileEditing;
     _nameTextField.delegate = self;
     [scrollView addSubview:_nameTextField];
     
@@ -83,6 +86,7 @@ using namespace etim::pub;
     _pwdTextField.placeholder = @"密码";
     _pwdTextField.backgroundColor = [UIColor clearColor];
     _pwdTextField.returnKeyType = UIReturnKeyGo;
+    _pwdTextField.clearButtonMode = UITextFieldViewModeWhileEditing;
     _pwdTextField.delegate = self;
     [scrollView addSubview:_pwdTextField];
     
@@ -109,6 +113,10 @@ using namespace etim::pub;
 #pragma mark response
 
 - (void)responseToLoginBtn:(UIButton *)sender {
+    if (![_nameTextField.text length] || ![_pwdTextField.text length]) {
+         [[TWMessageBarManager sharedInstance] showMessageWithTitle:@"温馨提示" description:@"请输入用户名和密码" type:TWMessageBarMessageTypeInfo];
+        return;
+    }
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     etim::Session *sess = [[Client sharedInstance] session];
     sess->Clear();
@@ -147,9 +155,8 @@ using namespace etim::pub;
         [_pwdTextField becomeFirstResponder];
     } else {
         [_pwdTextField resignFirstResponder];
-        //TODO login
-        BaseTabBarViewController *tabbar = [[BaseTabBarViewController alloc] init];
-        [[[UIApplication sharedApplication] keyWindow] setRootViewController:tabbar];
+        
+        [self responseToLoginBtn:_loginBtn];
     }
     
     return YES;

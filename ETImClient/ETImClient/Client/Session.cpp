@@ -29,6 +29,10 @@ Session::Session(std::auto_ptr<Socket> &socket) : socket_(socket), isConnected_(
     responsePack_ = (ResponsePack*)buffer_;
 }
 
+Session::~Session() {
+    LOG_INFO<<"~Session 析构函数";
+}
+
 void Session::Clear() {
     request_.clear();
     response_.clear();
@@ -94,5 +98,9 @@ void Session::SetAttribute(const string& k, const string& v)
 const string& Session::GetAttribute(const string& k)
 {
 	return request_[k];
+}
+
+void Session::SetIMUser(IMUser &user) {
+    user_ = user;
 }
 

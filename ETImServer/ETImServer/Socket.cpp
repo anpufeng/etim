@@ -82,7 +82,7 @@ int Socket::Accept() {
     int sock = ::accept(fd_, (struct sockaddr *)&clientAddr, (socklen_t *)&len);
 
     printf("%d\n", clientAddr.sin_addr.s_addr);
-    LOG_INFO<<"accept 客户端IP"<<inet_ntoa(clientAddr.sin_addr);
+    LOG_INFO<<"accept 客户端IP "<<inet_ntoa(clientAddr.sin_addr);
 
     return sock;
 }

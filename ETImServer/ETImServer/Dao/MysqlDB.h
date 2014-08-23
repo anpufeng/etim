@@ -6,6 +6,8 @@
 
 #include <vector>
 #include <string>
+
+//sudo /usr/local/mysql/support-files/mysql.server start
 using namespace std;
 
 namespace etim {

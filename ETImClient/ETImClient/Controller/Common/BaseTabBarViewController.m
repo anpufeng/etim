@@ -21,6 +21,11 @@
 
 @implementation BaseTabBarViewController
 
+- (void)dealloc {
+    ETLOG(@"======= BaseTabBarViewController DEALLOC ========");
+}
+
+
 - (id)init {
     if (self = [super init]) {
         BuddyViewController *buddy = [[BuddyViewController alloc] init];
@@ -41,7 +46,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
     
 }
 

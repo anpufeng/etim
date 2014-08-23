@@ -19,10 +19,7 @@
     // Override point for customization after application launch.
     self.window.backgroundColor = [UIColor whiteColor];
     
-    LoginViewController *vc = [[LoginViewController alloc] init];
-    UINavigationController *root = [[BaseNavigationController alloc] initWithRootViewController:vc];
-//    root.navigationBarHidden = YES;
-    self.window.rootViewController = root;
+    [self jumpToLogin:NO];
 
     [self.window makeKeyAndVisible];
     return YES;
@@ -55,4 +52,20 @@
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
 
+
+- (void)jumpToLogin:(BOOL)animated {
+    LoginViewController *vc = [[LoginViewController alloc] init];
+    UINavigationController *root = [[BaseNavigationController alloc] initWithRootViewController:vc];
+    if (animated) {
+        [UIView transitionWithView:self.window
+                          duration:0.5
+                           options:UIViewAnimationOptionTransitionCrossDissolve
+                        animations:^{
+                            self.window.rootViewController = root;
+                        }
+                        completion:nil];
+    } else {
+        self.window.rootViewController = root;
+    }
+}
 @end

@@ -11,9 +11,8 @@
 
 #import <Foundation/Foundation.h>
 #import <dispatch/dispatch.h>
+
 #include "Session.h"
-
-
 
 ///根据cmd获取要发送的通知名
 inline NSString *notiNameFromCmd(const int16_t cmd) {
@@ -23,11 +22,12 @@ inline NSString *notiNameFromCmd(const int16_t cmd) {
     return notiName;
 }
 
+///将std::string转换为NSString
 inline NSString *stdStrToNsStr(const std::string & str) {
-    
     return [[NSString alloc] initWithUTF8String:str.c_str()];
 }
 
+///将NSString转换为std::string
 inline std::string nsStrToStdStr(NSString *str) {
     return std::string(str.UTF8String);
 }
@@ -38,6 +38,9 @@ inline std::string nsStrToStdStr(NSString *str) {
 
 
 + (Client *)sharedInstance;
+///销毁单例
++ (void)sharedDealloc;
+
 
 ///获取session对象
 - (etim::Session *)session;

@@ -27,7 +27,10 @@ Socket::Socket(int fd, short port) : fd_(fd), port_(port) {
 
 Socket::~Socket() {
     if (IsValid()) {
+        LOG_INFO<<"~Socket析构:   关闭fd";
         ::close(fd_);
+    } else {
+        LOG_INFO<<"~Socket析构:   无可用fd";
     }
 }
 
