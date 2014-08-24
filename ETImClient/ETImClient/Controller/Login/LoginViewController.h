@@ -8,12 +8,14 @@
 
 #import "BaseViewController.h"
 
+@class LeftMarginTextField;
+
 ///用户登录
 
 @interface LoginViewController : BaseViewController <UITextFieldDelegate> {
     UIImageView         *_iconImgView;
-    UITextField         *_nameTextField;
-    UITextField         *_pwdTextField;
+    LeftMarginTextField *_nameTextField;
+    LeftMarginTextField *_pwdTextField;
     UIButton            *_forgotBtn;
     UIButton            *_loginBtn;
     UIButton            *_regBtn;

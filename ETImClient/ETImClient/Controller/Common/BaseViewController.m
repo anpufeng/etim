@@ -23,6 +23,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.view.backgroundColor = RGB_TO_UICOLOR(238, 238, 238);
     
 //    if ([self respondsToSelector:@selector(setAutomaticallyAdjustsScrollViewInsets:)]) {
 //        self.automaticallyAdjustsScrollViewInsets = NO;

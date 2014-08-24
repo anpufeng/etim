@@ -11,7 +11,7 @@
  Target Server Version : 50525
  File Encoding         : utf-8
 
- Date: 08/15/2014 07:55:08 AM
+ Date: 08/24/2014 21:32:59 PM
 */
 
 SET NAMES utf8;
@@ -88,16 +88,17 @@ CREATE TABLE `user` (
   `password` char(16) NOT NULL,
   `reg_time` datetime NOT NULL COMMENT '注册时间',
   `last_time` datetime NOT NULL COMMENT '上次操作时间,',
+  `signature` char(32) NOT NULL DEFAULT '暂无签名',
   `gender` tinyint(1) NOT NULL COMMENT '性别',
   `status_id` tinyint(4) NOT NULL DEFAULT '3',
   PRIMARY KEY (`user_id`),
   UNIQUE KEY `username_index` (`username`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 --  Records of `user`
 -- ----------------------------
 BEGIN;
-INSERT INTO `user` VALUES ('1', 'admin', 'admin', '2014-08-12 09:38:04', '2014-08-12 09:38:04', '1', '3');
+INSERT INTO `user` VALUES ('1', 'admin', 'admin', '2014-08-12 09:38:04', '2014-08-12 09:38:04', '暂无签名', '1', '3'), ('2', 'admin2', 'admin', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '暂无签名', '0', '3');
 COMMIT;
 

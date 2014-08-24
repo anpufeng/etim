@@ -24,6 +24,10 @@ using namespace etim::pub;
 using namespace etim::action;
 using namespace std;
 
+
+/**
+ 用户登录
+ */
 void Login::Execute(Session *s) {
     InStream jis(s->GetRequestPack()->buf, s->GetRequestPack()->head.len);
 	uint16 cmd = s->GetCmd();
@@ -62,14 +66,15 @@ void Login::Execute(Session *s) {
 	int ret;
 	ret = dao.UserLogin(name, pass, user);
 	if (ret == kErrCode000) {
+        s->SetIMUser(user);
 		LOG_INFO<<"登录成功";
 	} else if (ret == kErrCode001) {
 		error_code = kErrCode001;
-		strcpy(error_msg, "用户名或密码错误");
+		strcpy(error_msg, gErrMsg[kErrCode001].c_str());
 		LOG_INFO<<error_msg;
 	} else if (ret == kErrCode002) {
 		error_code = kErrCode002;
-		strcpy(error_msg, "数据库错误");
+		strcpy(error_msg, gErrMsg[kErrCode002].c_str());
 		LOG_ERROR<<error_msg;
 	}
     
@@ -90,7 +95,9 @@ void Login::Execute(Session *s) {
 	jos.WriteBytes(ss.str().c_str(), 6);
 	jos<<user.username;
     jos<<user.regDate;
+    jos<<user.signature;
     jos<<user.gender;
+    jos<<user.relation;
     jos<<user.status;
     
 	// 包头len
@@ -112,6 +119,9 @@ void Login::Execute(Session *s) {
 	s->Send(jos.Data(), jos.Length());
 }
 
+/**
+ 用户登出
+ */
 void Logout::Execute(Session *s) {
     InStream jis(s->GetRequestPack()->buf, s->GetRequestPack()->head.len);
 	uint16 cmd = s->GetCmd();
@@ -123,20 +133,21 @@ void Logout::Execute(Session *s) {
     MD5 md5;
     int16 error_code = kErrCode000;
 	char error_msg[31] = {0};
-	// 更新用户状态为离线
+	//TODO 登出操作  更新用户状态为离线
 	DataService dao;
     IMUser user;
 	int ret = kErrCode000;
+    
 //	ret = dao.UserLogin(name, pass, user);
 	if (ret == kErrCode000) {
 		LOG_INFO<<"登出成功";
 	} else if (ret == kErrCode001) {
 		error_code = kErrCode001;
-		strcpy(error_msg, "用户名或密码错误");
+		strcpy(error_msg, gErrMsg[kErrCode001].c_str());
 		LOG_INFO<<error_msg;
 	} else if (ret == kErrCode002) {
 		error_code = kErrCode002;
-		strcpy(error_msg, "数据库错误");
+		strcpy(error_msg, gErrMsg[kErrCode002].c_str());
 		LOG_ERROR<<error_msg;
 	}
     

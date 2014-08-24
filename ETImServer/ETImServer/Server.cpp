@@ -113,6 +113,7 @@ int Server::Start() {
                         sessions_.erase(std::remove(sessions_.begin(), sessions_.end(), s));
                     } else {
                         ++it;
+                        //TODO 其它出错的处理
                     }
                     LOG_ERROR<<e.what();
                 }

@@ -18,21 +18,4 @@
 
 
 
-///帐户上方的tableview的headerview
-@interface AccountHeadView : UIView
 
-
-@property (nonatomic, strong) UIImageView *thumbImgView;
-@property (nonatomic, strong) UILabel *nameLabel;
-
-@end
-
-
-///帐户上方的tableview的cell
-@interface AccountTableViewCell : UITableViewCell
-
-@property (nonatomic, strong) UILabel *keyLabel;
-@property (nonatomic, strong) UILabel *valueLabel;
-
-
-@end

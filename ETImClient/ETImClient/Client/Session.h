@@ -27,6 +27,7 @@ namespace etim {
 #define CMD_ADD_BUDDY                           0x0006      //添加好友
 #define CMD_SWITCH_STATUS                       0x0007      //切换登录状态
 #define CMD_RETRIVE_BUDDY                       0x0008      //获取好友列表
+#define CMD_SEARCH_BUDDY                        0x0009      //查询某个用户信息,
     
     static const std::string gCmdNoti[CMD_RETRIVE_BUDDY+1] = {"CMD_RETRIVE_EVENT", "CMD_REGISTER", "CMD_LOGIN", "CMD_LOGOUT", "CMD_HEART_BEAT", "CMD_SEND_MSG", "CMD_ADD_BUDDY", "CMD_SWITCH_STATUS", "CMD_RETRIVE_BUDDY"};
     
@@ -138,6 +139,10 @@ namespace etim {
         ///设置用户信息
         void SetIMUser(IMUser &user);
         
+        ///获取搜索用户信息
+        const IMUser GetSearchIMUser() const { return searchUser_; }
+        ///设置搜索用户信息
+        void SetSearchIMUser(IMUser &user) {searchUser_ = user; }
         
         uint16_t GetFd() const { return socket_->GetFd(); }
         bool IsConnected() const { return isConnected_; }
@@ -165,6 +170,7 @@ namespace etim {
         
         BuddyStatus status_;
         IMUser      user_;
+        IMUser      searchUser_;
     };
 }   //end etim
 

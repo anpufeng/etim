@@ -37,7 +37,7 @@ using namespace etim::pub;
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(responseToLogoutResult) name:notiNameFromCmd(CMD_LOGOUT) object:nil];
+   
 }
 
 #pragma mark -

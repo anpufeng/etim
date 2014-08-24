@@ -8,12 +8,14 @@
 
 #import "BackViewController.h"
 
+@class LeftMarginTextField;
+
 ///用户注册
 
 @interface RegViewController : BackViewController <UITextFieldDelegate> {
-    UITextField *_nameTextField;
-    UITextField *_pwdTextField;
-    UIButton    *_regBtn;
+    LeftMarginTextField *_nameTextField;
+    LeftMarginTextField *_pwdTextField;
+    UIButton            *_regBtn;
 }
 
 @end

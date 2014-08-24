@@ -1,20 +1,24 @@
 //
-//  TestView.m
+//  LeftMarginTextField.m
 //  ETImClient
 //
-//  Created by Ethan on 14/8/23.
-//  Copyright (c) 2014年 Pingan. All rights reserved.
+//  Created by ethan on 8/23/14.
+//  Copyright (c) 2014 Pingan. All rights reserved.
 //
 
-#import "TestView.h"
+#import "LeftMarginTextField.h"
 
-@implementation TestView
+@implementation LeftMarginTextField
 
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
     if (self) {
         // Initialization code
+        
+        UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 6, 5)];
+        self.leftView = view;
+        self.leftViewMode = UITextFieldViewModeAlways;
     }
     return self;
 }

@@ -29,7 +29,7 @@ ActionManager::ActionManager()
 	actions_[CMD_ADD_BUDDY] = new AddBuddy;
 	actions_[CMD_SWITCH_STATUS] = new SwitchStatus;
 	actions_[CMD_RETRIVE_BUDDY] = new RetriveBuddy;
-	
+	actions_[CMD_SEARCH_BUDDY] = new SearchBuddy;
 }
 
 ActionManager::~ActionManager()

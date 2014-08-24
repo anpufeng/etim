@@ -11,7 +11,14 @@
 
 #include <iostream>
 #include "Endian.h"
-#include "Session.h"
+
+///好友关系
+
+enum BuddyRelation {
+    kBuddyRelationSelf,         //自己
+    kBuddyRelationStranger,     //陌生人
+    kBuddyRelationFriend        //好友
+};
 
 namespace etim  {
 
@@ -20,7 +27,10 @@ struct IMUser {
     std::string     userId;
     std::string     username;
     std::string     regDate;
+    std::string     signature;
     int8            gender;
+    BuddyRelation   relation;
+    int             hello;
     std::string     status;
 };
 

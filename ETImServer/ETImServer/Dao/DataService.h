@@ -14,27 +14,23 @@
 
 namespace etim  {
     
+    class Session;
+    
     class BDataService {
     public:
         virtual int UserRegister(const std::string& username, const std::string& pass) = 0;
         virtual int UserLogin(const std::string& username, const std::string& pass, IMUser &user) = 0;
-        virtual int UserLogout(const std::string& username, double& interest) = 0;
+        virtual int UserLogout(const std::string& username, Session *s) = 0;
+        virtual int UserSearch(const std::string &username, Session *s, IMUser &user) = 0;
     };
-    
-    
     
     
     class DataService : public BDataService {
         public:
-        // 用户注册
         int UserRegister(const std::string& username, const std::string& pass);
-        /*
-         @return int 0为正常
-         */
-        // 用户登录
-        int  UserLogin(const std::string& username, const std::string& pass, IMUser &user);
-        // 用户登出
-        int UserLogout(const std::string& username, double& interest);
+        int UserLogin(const std::string& username, const std::string& pass, IMUser &user);
+        int UserLogout(const std::string& username, Session *s);
+        int UserSearch(const std::string &username, Session *s, IMUser &user);
     };
 }   //end etim
 

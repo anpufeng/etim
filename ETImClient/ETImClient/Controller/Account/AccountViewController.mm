@@ -7,6 +7,8 @@
 //
 
 #import "AccountViewController.h"
+#import "ProfileViewController.h"
+#import "SignatureViewController.h"
 #import "AppDelegate.h"
 
 #include "Client.h"
@@ -43,13 +45,14 @@ using namespace etim::pub;
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(responseToLogoutResult) name:notiNameFromCmd(CMD_LOGOUT) object:nil];
     [self initData];
     [self createUI];
 }
 
 - (void)initData {
-    self.accountKeyList = @[@"用户帐号", @"注册日期", @"用户签名" , @"性别"];
+    self.accountKeyList = @[@"个性签名"];
 }
 
 - (void)createUI {
@@ -80,7 +83,6 @@ using namespace etim::pub;
     [logoutBtn addTarget:self action:@selector(responseToLogoutBtn:) forControlEvents:UIControlEventTouchUpInside];
     [footerView addSubview:logoutBtn];
     
-    _tableView.tableHeaderView = [[AccountHeadView alloc] initWithFrame:CGRectMake(0, 0, RECT_WIDTH(self.view), 60)];
     _tableView.tableFooterView = footerView;
 }
 
@@ -88,40 +90,73 @@ using namespace etim::pub;
 #pragma mark tableview datasource & delegate
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [self.accountKeyList count];
+    return [self.accountKeyList count] + 1;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (indexPath.row == 0) {
+        return 60;
+    }
     return 44;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    static NSString *identifier = @"accountCell";
-    AccountTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
-    if (!cell) {
-        cell = [[AccountTableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:identifier];
-//        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+    IMUser user = [[Client sharedInstance] session]->GetIMUser();
+    if (indexPath.row == 0) {
+        static NSString *identifier = @"profileHeadCell";
+        ProfileHeadTableViewCell *headCell = [tableView dequeueReusableCellWithIdentifier:identifier];
+        if (!headCell) {
+            headCell = [[ProfileHeadTableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:identifier];
+            headCell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        }
+        
+        [headCell update:user];
+        return headCell;
+    } else {
+        static NSString *identifier = @"profileCell";
+        ProfileTableViewCell *commonCell = [tableView dequeueReusableCellWithIdentifier:identifier];
+        if (!commonCell) {
+            commonCell = [[ProfileTableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:identifier];
+            commonCell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        }
+        
+        NSInteger index = indexPath.row -1;
+        NSAssert(self.accountKeyList.count > index, @"accountKeyList out of range");
+        commonCell.keyLabel.text = self.accountKeyList[index];
+        switch (index) {
+            case 0:
+                commonCell.valueLabel.text = stdStrToNsStr(user.signature);
+                break;
+            case 1:
+                commonCell.valueLabel.text = stdStrToNsStr(user.regDate);
+                break;
+            case 2:
+                commonCell.valueLabel.text = [NSString stringWithFormat:@"%d", user.gender];
+                break;
+                
+            default:
+                break;
+        }
+        
+        return commonCell;
     }
-    
-    etim::Session *sess = [[Client sharedInstance] session];
-    IMUser user = sess->GetIMUser();
-    cell.keyLabel.text = self.accountKeyList[indexPath.row];
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    UIViewController *vc = nil;
     switch (indexPath.row) {
         case 0:
-            cell.valueLabel.text = stdStrToNsStr(user.userId);
+            vc = [[ProfileViewController alloc] initWithUser:[[Client sharedInstance] session]->GetIMUser()];
             break;
         case 1:
-            cell.valueLabel.text = stdStrToNsStr(user.regDate);
-            break;
-        case 2:
-            cell.valueLabel.text = [NSString stringWithFormat:@"%d", user.gender];
-            break;
-            
+            vc = [[SignatureViewController alloc] init];
         default:
             break;
     }
     
-    return cell;
+    NSAssert(vc, @"no vc to push");
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 #pragma mark -
@@ -172,73 +207,5 @@ using namespace etim::pub;
 
 @end
 
-#pragma mark -
-#pragma mark AccountHeadView
 
-@implementation AccountHeadView
-
-- (id)initWithFrame:(CGRect)frame
-{
-    self = [super initWithFrame:frame];
-    if (self) {
-        // Initialization code
-        _thumbImgView = [[UIImageView alloc] initWithFrame:CGRectMake(10, 10, 40, 40)];
-        _thumbImgView.backgroundColor = [UIColor brownColor];
-        [self addSubview:_thumbImgView];
-        
-        _nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(RECT_MAX_X(_thumbImgView) + 10, RECT_ORIGIN_Y(_thumbImgView), 100, 20)];
-        [self addSubview:_nameLabel];
-        
-        //update
-        etim::Session *sess = [[Client sharedInstance] session];
-        IMUser user = sess->GetIMUser();
-        _nameLabel.text = stdStrToNsStr(user.username);
-    }
-    return self;
-}
-
-/*
- // Only override drawRect: if you perform custom drawing.
- // An empty implementation adversely affects performance during animation.
- - (void)drawRect:(CGRect)rect
- {
- // Drawing code
- }
- */
-
-@end
-
-
-#pragma mark -
-#pragma mark AccountTableViewCell
-
-@implementation AccountTableViewCell
-
-- (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
-{
-    self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
-    if (self) {
-        // Initialization code
-        _keyLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 12, 80, 20)];
-        [self.contentView addSubview:_keyLabel];
-        
-        _valueLabel = [[UILabel alloc] initWithFrame:CGRectMake(RECT_MAX_X(_keyLabel) + 10,
-                                                                RECT_ORIGIN_Y(_keyLabel),
-                                                                120,
-                                                                RECT_HEIGHT(_keyLabel))];
-        _valueLabel.textColor = [UIColor grayColor];
-        [self.contentView addSubview:_valueLabel];
-    }
-    return self;
-}
-
-
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated
-{
-    [super setSelected:selected animated:animated];
-    
-    // Configure the view for the selected state
-}
-
-@end
 

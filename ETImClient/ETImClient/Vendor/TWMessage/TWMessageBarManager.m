@@ -20,7 +20,7 @@ CGFloat const kTWMessageViewTextOffset = 2.0f;
 NSUInteger const kTWMessageViewiOS7Identifier = 7;
 
 // Numerics (TWMessageBarManager)
-CGFloat const kTWMessageBarManagerDisplayDelay = 3.0f;
+CGFloat const kTWMessageBarManagerDisplayDelay = 2.0f;
 CGFloat const kTWMessageBarManagerDismissAnimationDuration = 0.25f;
 CGFloat const kTWMessageBarManagerPanVelocity = 0.2f;
 CGFloat const kTWMessageBarManagerPanAnimationDuration = 0.0002f;

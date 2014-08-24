@@ -11,6 +11,7 @@
 
 #include <iostream>
 #include "Socket.h"
+#include "DataStruct.h"
 
 namespace etim {
 
@@ -23,6 +24,7 @@ namespace etim {
 #define CMD_SWITCH_STATUS                       0x0007      //切换登录状态
 #define CMD_RETRIVE_BUDDY                       0x0008      //获取好友列表
 #define CMD_REMOVE_BUDDY                        0X0009      //删除好友
+#define CMD_SEARCH_BUDDY                        0x0009      //查询某个用户信息,
     
 #define ERR_MSG_LENGTH      30              // 错误消息定长
     ///请求头
@@ -76,7 +78,7 @@ namespace etim {
     
     ///错误信息
     static const std::string gErrMsg[kErrCodeMax+1] = {"正常", "用户或密码错误", "数据库错误", /*kErrCode003*/"用户已经存在",
-        "kErrCode004", "kErrCode005", "kErrCode006", /*kErrCode007*/"kErrCode007",
+        "无此用户", "kErrCode005", "kErrCode006", /*kErrCode007*/"kErrCode007",
         "kErrCode008", "kErrCode009", "kErrCode010", /*kErrCode011*/"kErrCode011",
         /*kErrCodeMax*/"kErrCodeMax"};
     
@@ -103,12 +105,18 @@ namespace etim {
         void Recv(int *result);
         void DoAction();
         
+        
+        ///获取用户信息
+        const IMUser GetIMUser() const { return user_; }
+        ///设置用户信息
+        void SetIMUser(IMUser &user) {user_ = user; }
+        
     private:
         std::auto_ptr<Socket> socket_;
         uint16_t cmd_;
         char buffer_[2048];
         RequestPack* requestPack_;
-        
+        IMUser      user_;
     };
 }   //end etim
 

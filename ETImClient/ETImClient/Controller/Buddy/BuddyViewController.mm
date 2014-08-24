@@ -7,6 +7,7 @@
 //
 
 #import "BuddyViewController.h"
+#import "AddBuddyViewController.h"
 #import "MBProgressHUD.h"
 
 #include "Client.h"
@@ -55,13 +56,12 @@ using namespace etim::pub;
     [addBtn addTarget:self action:@selector(responseToAddContactBtn:) forControlEvents:UIControlEventTouchUpInside];
     addBtn.frame = CGRectMake(0, 0, 44, 44);
 
-    [addBtn setImage:[UIImage imageNamed:@"contact_add_btn_nor"] forState:UIControlStateNormal];
-    [addBtn setImage:[UIImage imageNamed:@"contact_add_btn_press"] forState:UIControlStateNormal];
+    [addBtn setImage:[UIImage imageNamed:@"header_icon_add"] forState:UIControlStateNormal];
     
-    UIBarButtonItem *spaceItem = [[UIBarButtonItem alloc]
-                                        initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace
-                                        target:nil action:nil];
-    spaceItem.width = -20;
+    UIBarButtonItem *spaceItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace
+                                                                               target:nil
+                                                                               action:nil];
+    spaceItem.width = -10;
     
     UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithCustomView:addBtn];
     self.navigationItem.rightBarButtonItems = @[spaceItem, item];
@@ -98,7 +98,8 @@ using namespace etim::pub;
 }
 
 - (void)responseToAddContactBtn:(UIButton *)sender {
-    
+    AddBuddyViewController *vc = [[AddBuddyViewController alloc] init];
+    [self.navigationController pushViewController:vc animated:YES];
 }
 - (void)didReceiveMemoryWarning
 {

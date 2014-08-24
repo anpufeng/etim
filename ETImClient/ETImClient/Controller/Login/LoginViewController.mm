@@ -7,6 +7,7 @@
 //
 
 #import "LoginViewController.h"
+#import "LeftMarginTextField.h"
 #import "RegViewController.h"
 #import "LeeScrollView.h"
 #import "BaseTabBarViewController.h"
@@ -74,7 +75,7 @@ using namespace etim::pub;
     textBg.image = IMAGE_PNG(@"login_textfield");
     [scrollView addSubview:textBg];
     
-    _nameTextField = [[UITextField alloc] initWithFrame:CGRectMake(RECT_ORIGIN_X(textBg) + 5, RECT_ORIGIN_Y(textBg) + 4, RECT_WIDTH(textBg) - 10, 45)];
+    _nameTextField = [[LeftMarginTextField alloc] initWithFrame:CGRectMake(RECT_ORIGIN_X(textBg) + 5, RECT_ORIGIN_Y(textBg) + 4, RECT_WIDTH(textBg) - 10, 45)];
     _nameTextField.placeholder = @"用户名";
     _nameTextField.backgroundColor = [UIColor clearColor];
     _nameTextField.returnKeyType = UIReturnKeyNext;
@@ -82,7 +83,7 @@ using namespace etim::pub;
     _nameTextField.delegate = self;
     [scrollView addSubview:_nameTextField];
     
-    _pwdTextField = [[UITextField alloc] initWithFrame:CGRectMake(RECT_ORIGIN_X(_nameTextField), RECT_MAX_Y(_nameTextField), RECT_WIDTH(_nameTextField), RECT_HEIGHT(_nameTextField))];
+    _pwdTextField = [[LeftMarginTextField alloc] initWithFrame:CGRectMake(RECT_ORIGIN_X(_nameTextField), RECT_MAX_Y(_nameTextField), RECT_WIDTH(_nameTextField), RECT_HEIGHT(_nameTextField))];
     _pwdTextField.placeholder = @"密码";
     _pwdTextField.backgroundColor = [UIColor clearColor];
     _pwdTextField.returnKeyType = UIReturnKeyGo;

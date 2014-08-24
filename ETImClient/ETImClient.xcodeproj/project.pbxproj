@@ -23,8 +23,6 @@
 		AA110108198B61DD008811E4 /* icon-info@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AA110102198B61DD008811E4 /* icon-info@2x.png */; };
 		AA110109198B61DD008811E4 /* icon-success.png in Resources */ = {isa = PBXBuildFile; fileRef = AA110103198B61DD008811E4 /* icon-success.png */; };
 		AA11010A198B61DD008811E4 /* icon-success@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AA110104198B61DD008811E4 /* icon-success@2x.png */; };
-		AA3374E719A8378A005BD678 /* TestView.m in Sources */ = {isa = PBXBuildFile; fileRef = AA3374E619A8378A005BD678 /* TestView.m */; };
-		AA3374EA19A83967005BD678 /* TestTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AA3374E919A83967005BD678 /* TestTableViewCell.m */; };
 		AA3374F319A8681A005BD678 /* common_btn_green_nor@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AA3374F119A8681A005BD678 /* common_btn_green_nor@2x.png */; };
 		AA3374F419A8681A005BD678 /* common_btn_green_press@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AA3374F219A8681A005BD678 /* common_btn_green_press@2x.png */; };
 		AA3374F719A86877005BD678 /* common_btn_red_nor@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AA3374F519A86877005BD678 /* common_btn_red_nor@2x.png */; };
@@ -66,6 +64,17 @@
 		AA59F0B0198A4117009FD449 /* BuddyViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = AA59F0AF198A4117009FD449 /* BuddyViewController.mm */; };
 		AA59F0B3198A4121009FD449 /* OnlineViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = AA59F0B2198A4121009FD449 /* OnlineViewController.mm */; };
 		AA59F0B6198A4142009FD449 /* AccountViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = AA59F0B5198A4142009FD449 /* AccountViewController.mm */; };
+		AA665F7319A8D86A00FCF5C6 /* AddBuddyViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = AA665F7219A8D86A00FCF5C6 /* AddBuddyViewController.mm */; };
+		AA665F7719A8DF0F00FCF5C6 /* MetroUI-Folder-OS-OS-Linux-icon2.png in Resources */ = {isa = PBXBuildFile; fileRef = AA665F7619A8DF0F00FCF5C6 /* MetroUI-Folder-OS-OS-Linux-icon2.png */; };
+		AA665F7919A8E4D800FCF5C6 /* header_icon_add@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AA665F7819A8E4D800FCF5C6 /* header_icon_add@2x.png */; };
+		AA665F7C19A8E66300FCF5C6 /* TextFieldTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AA665F7B19A8E66300FCF5C6 /* TextFieldTableViewCell.m */; };
+		AA665F7F19A8E9B100FCF5C6 /* LeftMarginTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = AA665F7E19A8E9B100FCF5C6 /* LeftMarginTextField.m */; };
+		AA665F8219A961EF00FCF5C6 /* ProfileViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = AA665F8119A961EF00FCF5C6 /* ProfileViewController.mm */; };
+		AA665F8519A971ED00FCF5C6 /* SignatureViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = AA665F8419A971ED00FCF5C6 /* SignatureViewController.mm */; };
+		AA665F8C19AA138300FCF5C6 /* contact_to_chat_btn_nor@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AA665F8819AA138300FCF5C6 /* contact_to_chat_btn_nor@2x.png */; };
+		AA665F8D19AA138300FCF5C6 /* contact_to_chat_btn_press@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AA665F8919AA138300FCF5C6 /* contact_to_chat_btn_press@2x.png */; };
+		AA665F9019AA1D1A00FCF5C6 /* pdi_bottom_edit_btn_press@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AA665F8E19AA1D1A00FCF5C6 /* pdi_bottom_edit_btn_press@2x.png */; };
+		AA665F9119AA1D1A00FCF5C6 /* pdi_bottom_edit_btn_nor@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AA665F8F19AA1D1A00FCF5C6 /* pdi_bottom_edit_btn_nor@2x.png */; };
 		AA7EB9981992674D000BD838 /* Client.mm in Sources */ = {isa = PBXBuildFile; fileRef = AA7EB9971992674D000BD838 /* Client.mm */; };
 		AA9131E519990F3900524E8D /* 37x-Checkmark.png in Resources */ = {isa = PBXBuildFile; fileRef = AA9131E319990F3900524E8D /* 37x-Checkmark.png */; };
 		AA9131E619990F3900524E8D /* 37x-Checkmark@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AA9131E419990F3900524E8D /* 37x-Checkmark@2x.png */; };
@@ -125,10 +134,6 @@
 		AA110102198B61DD008811E4 /* icon-info@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-info@2x.png"; sourceTree = "<group>"; };
 		AA110103198B61DD008811E4 /* icon-success.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-success.png"; sourceTree = "<group>"; };
 		AA110104198B61DD008811E4 /* icon-success@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-success@2x.png"; sourceTree = "<group>"; };
-		AA3374E519A8378A005BD678 /* TestView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestView.h; sourceTree = "<group>"; };
-		AA3374E619A8378A005BD678 /* TestView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestView.m; sourceTree = "<group>"; };
-		AA3374E819A83967005BD678 /* TestTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestTableViewCell.h; sourceTree = "<group>"; };
-		AA3374E919A83967005BD678 /* TestTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestTableViewCell.m; sourceTree = "<group>"; };
 		AA3374F119A8681A005BD678 /* common_btn_green_nor@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "common_btn_green_nor@2x.png"; sourceTree = "<group>"; };
 		AA3374F219A8681A005BD678 /* common_btn_green_press@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "common_btn_green_press@2x.png"; sourceTree = "<group>"; };
 		AA3374F519A86877005BD678 /* common_btn_red_nor@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "common_btn_red_nor@2x.png"; sourceTree = "<group>"; };
@@ -193,6 +198,22 @@
 		AA59F0B2198A4121009FD449 /* OnlineViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = OnlineViewController.mm; sourceTree = "<group>"; };
 		AA59F0B4198A4142009FD449 /* AccountViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AccountViewController.h; sourceTree = "<group>"; };
 		AA59F0B5198A4142009FD449 /* AccountViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AccountViewController.mm; sourceTree = "<group>"; };
+		AA665F7119A8D86A00FCF5C6 /* AddBuddyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddBuddyViewController.h; sourceTree = "<group>"; };
+		AA665F7219A8D86A00FCF5C6 /* AddBuddyViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AddBuddyViewController.mm; sourceTree = "<group>"; };
+		AA665F7619A8DF0F00FCF5C6 /* MetroUI-Folder-OS-OS-Linux-icon2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "MetroUI-Folder-OS-OS-Linux-icon2.png"; sourceTree = "<group>"; };
+		AA665F7819A8E4D800FCF5C6 /* header_icon_add@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "header_icon_add@2x.png"; sourceTree = "<group>"; };
+		AA665F7A19A8E66300FCF5C6 /* TextFieldTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextFieldTableViewCell.h; sourceTree = "<group>"; };
+		AA665F7B19A8E66300FCF5C6 /* TextFieldTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TextFieldTableViewCell.m; sourceTree = "<group>"; };
+		AA665F7D19A8E9B100FCF5C6 /* LeftMarginTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LeftMarginTextField.h; sourceTree = "<group>"; };
+		AA665F7E19A8E9B100FCF5C6 /* LeftMarginTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LeftMarginTextField.m; sourceTree = "<group>"; };
+		AA665F8019A961EF00FCF5C6 /* ProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileViewController.h; sourceTree = "<group>"; };
+		AA665F8119A961EF00FCF5C6 /* ProfileViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ProfileViewController.mm; sourceTree = "<group>"; };
+		AA665F8319A971ED00FCF5C6 /* SignatureViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignatureViewController.h; sourceTree = "<group>"; };
+		AA665F8419A971ED00FCF5C6 /* SignatureViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SignatureViewController.mm; sourceTree = "<group>"; };
+		AA665F8819AA138300FCF5C6 /* contact_to_chat_btn_nor@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "contact_to_chat_btn_nor@2x.png"; sourceTree = "<group>"; };
+		AA665F8919AA138300FCF5C6 /* contact_to_chat_btn_press@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "contact_to_chat_btn_press@2x.png"; sourceTree = "<group>"; };
+		AA665F8E19AA1D1A00FCF5C6 /* pdi_bottom_edit_btn_press@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pdi_bottom_edit_btn_press@2x.png"; sourceTree = "<group>"; };
+		AA665F8F19AA1D1A00FCF5C6 /* pdi_bottom_edit_btn_nor@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pdi_bottom_edit_btn_nor@2x.png"; sourceTree = "<group>"; };
 		AA7EB9961992674D000BD838 /* Client.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Client.h; sourceTree = "<group>"; };
 		AA7EB9971992674D000BD838 /* Client.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = Client.mm; sourceTree = "<group>"; };
 		AA9131E319990F3900524E8D /* 37x-Checkmark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "37x-Checkmark.png"; sourceTree = "<group>"; };
@@ -273,6 +294,7 @@
 		AA1100E2198B3BFA008811E4 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				AA665F7819A8E4D800FCF5C6 /* header_icon_add@2x.png */,
 				AA3374F519A86877005BD678 /* common_btn_red_nor@2x.png */,
 				AA3374F619A86877005BD678 /* common_btn_red_press@2x.png */,
 				AA3374F119A8681A005BD678 /* common_btn_green_nor@2x.png */,
@@ -317,6 +339,7 @@
 			isa = PBXGroup;
 			children = (
 				AA33752A19A871CD005BD678 /* MetroUI-Folder-OS-OS-Linux-icon.png */,
+				AA665F7619A8DF0F00FCF5C6 /* MetroUI-Folder-OS-OS-Linux-icon2.png */,
 				AA33751E19A871A5005BD678 /* Icon-120.png */,
 				AA33752019A871A5005BD678 /* Icon-Small.png */,
 				AA33752119A871A5005BD678 /* Icon-Small@2x.png */,
@@ -329,6 +352,10 @@
 		AA33752C19A89E29005BD678 /* Buddy */ = {
 			isa = PBXGroup;
 			children = (
+				AA665F8E19AA1D1A00FCF5C6 /* pdi_bottom_edit_btn_press@2x.png */,
+				AA665F8F19AA1D1A00FCF5C6 /* pdi_bottom_edit_btn_nor@2x.png */,
+				AA665F8819AA138300FCF5C6 /* contact_to_chat_btn_nor@2x.png */,
+				AA665F8919AA138300FCF5C6 /* contact_to_chat_btn_press@2x.png */,
 				AA33752D19A89E49005BD678 /* contact_add_btn_nor@2x.png */,
 				AA33752E19A89E49005BD678 /* contact_add_btn_press@2x.png */,
 			);
@@ -457,6 +484,8 @@
 			children = (
 				AA59F0AE198A4117009FD449 /* BuddyViewController.h */,
 				AA59F0AF198A4117009FD449 /* BuddyViewController.mm */,
+				AA665F7119A8D86A00FCF5C6 /* AddBuddyViewController.h */,
+				AA665F7219A8D86A00FCF5C6 /* AddBuddyViewController.mm */,
 			);
 			path = Buddy;
 			sourceTree = "<group>";
@@ -475,6 +504,10 @@
 			children = (
 				AA59F0B4198A4142009FD449 /* AccountViewController.h */,
 				AA59F0B5198A4142009FD449 /* AccountViewController.mm */,
+				AA665F8019A961EF00FCF5C6 /* ProfileViewController.h */,
+				AA665F8119A961EF00FCF5C6 /* ProfileViewController.mm */,
+				AA665F8319A971ED00FCF5C6 /* SignatureViewController.h */,
+				AA665F8419A971ED00FCF5C6 /* SignatureViewController.mm */,
 			);
 			path = Account;
 			sourceTree = "<group>";
@@ -509,10 +542,10 @@
 			children = (
 				AA59F0AB198A3732009FD449 /* LeeScrollView.h */,
 				AA59F0AC198A3732009FD449 /* LeeScrollView.m */,
-				AA3374E519A8378A005BD678 /* TestView.h */,
-				AA3374E619A8378A005BD678 /* TestView.m */,
-				AA3374E819A83967005BD678 /* TestTableViewCell.h */,
-				AA3374E919A83967005BD678 /* TestTableViewCell.m */,
+				AA665F7A19A8E66300FCF5C6 /* TextFieldTableViewCell.h */,
+				AA665F7B19A8E66300FCF5C6 /* TextFieldTableViewCell.m */,
+				AA665F7D19A8E9B100FCF5C6 /* LeftMarginTextField.h */,
+				AA665F7E19A8E9B100FCF5C6 /* LeftMarginTextField.m */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -737,6 +770,7 @@
 				AA9131E619990F3900524E8D /* 37x-Checkmark@2x.png in Resources */,
 				AA110109198B61DD008811E4 /* icon-success.png in Resources */,
 				AA1100F2198B3C01008811E4 /* tab_recent_press@2x.png in Resources */,
+				AA665F8C19AA138300FCF5C6 /* contact_to_chat_btn_nor@2x.png in Resources */,
 				AA33752919A871A5005BD678 /* Icon@2x.png in Resources */,
 				AA1100EE198B3C01008811E4 /* tab_me_press@2x.png in Resources */,
 				AA3374F319A8681A005BD678 /* common_btn_green_nor@2x.png in Resources */,
@@ -749,17 +783,22 @@
 				AA1100F1198B3C01008811E4 /* tab_recent_nor@2x.png in Resources */,
 				AA33752619A871A5005BD678 /* Icon-Small.png in Resources */,
 				AA110105198B61DD008811E4 /* icon-error.png in Resources */,
+				AA665F9019AA1D1A00FCF5C6 /* pdi_bottom_edit_btn_press@2x.png in Resources */,
 				AABF3CC5198636C0001C8DCA /* Images.xcassets in Resources */,
 				AA59F0A1198A28CF009FD449 /* login_avatar@2x.png in Resources */,
 				AA1100ED198B3C01008811E4 /* tab_me_nor@2x.png in Resources */,
 				AA33752719A871A5005BD678 /* Icon-Small@2x.png in Resources */,
+				AA665F9119AA1D1A00FCF5C6 /* pdi_bottom_edit_btn_nor@2x.png in Resources */,
 				AA1100EB198B3C01008811E4 /* tab_buddy_nor@2x.png in Resources */,
 				AA59F0A8198A3667009FD449 /* login_btn_blue_nor@2x.png in Resources */,
 				AA59F0A9198A3667009FD449 /* login_btn_blue_press@2x.png in Resources */,
 				AA3374F819A86877005BD678 /* common_btn_red_press@2x.png in Resources */,
 				AA33752B19A871CD005BD678 /* MetroUI-Folder-OS-OS-Linux-icon.png in Resources */,
 				AA9131E519990F3900524E8D /* 37x-Checkmark.png in Resources */,
+				AA665F7919A8E4D800FCF5C6 /* header_icon_add@2x.png in Resources */,
 				AA33753019A89E49005BD678 /* contact_add_btn_press@2x.png in Resources */,
+				AA665F8D19AA138300FCF5C6 /* contact_to_chat_btn_press@2x.png in Resources */,
+				AA665F7719A8DF0F00FCF5C6 /* MetroUI-Folder-OS-OS-Linux-icon2.png in Resources */,
 				AA3374F719A86877005BD678 /* common_btn_red_nor@2x.png in Resources */,
 				AA3374F419A8681A005BD678 /* common_btn_green_press@2x.png in Resources */,
 				AA1100EF198B3C01008811E4 /* tab_qworld_nor@2x.png in Resources */,
@@ -790,7 +829,6 @@
 				AA588B9B1990B4E500F08821 /* ActionManager.cpp in Sources */,
 				AA59F074198A1A59009FD449 /* BaseViewController.m in Sources */,
 				AA59F0AD198A3732009FD449 /* LeeScrollView.m in Sources */,
-				AA3374EA19A83967005BD678 /* TestTableViewCell.m in Sources */,
 				AA59F0B0198A4117009FD449 /* BuddyViewController.mm in Sources */,
 				AAA6DCDA198B918100EB948E /* InStream.cpp in Sources */,
 				AA1100FA198B3F0A008811E4 /* MomentsViewController.m in Sources */,
@@ -801,7 +839,9 @@
 				AA9131ED199BA98B00524E8D /* BaseTableViewController.m in Sources */,
 				AA1100FE198B61D2008811E4 /* TWMessageBarManager.m in Sources */,
 				AA59F072198A1A59009FD449 /* BaseNavigationController.m in Sources */,
+				AA665F7319A8D86A00FCF5C6 /* AddBuddyViewController.mm in Sources */,
 				AAA6DCDC198B918100EB948E /* LogStream.cpp in Sources */,
+				AA665F8519A971ED00FCF5C6 /* SignatureViewController.mm in Sources */,
 				AA59F0B3198A4121009FD449 /* OnlineViewController.mm in Sources */,
 				AA59F03B198A197B009FD449 /* UIColor+Additions.m in Sources */,
 				AAA6DCD9198B918100EB948E /* Idea.cpp in Sources */,
@@ -812,15 +852,17 @@
 				AA588BB31990B4EC00F08821 /* SendMsg.cpp in Sources */,
 				AA59F073198A1A59009FD449 /* BaseTabBarViewController.m in Sources */,
 				AABF3CBF198636C0001C8DCA /* main.m in Sources */,
+				AA665F8219A961EF00FCF5C6 /* ProfileViewController.mm in Sources */,
 				AA588BAF1990B4EC00F08821 /* HeartBeat.cpp in Sources */,
 				AAF613061990723A00555364 /* Exception.cpp in Sources */,
 				AA59F071198A1A59009FD449 /* BackViewController.m in Sources */,
 				AAA6DCDF198B918100EB948E /* Timestamp.cpp in Sources */,
-				AA3374E719A8378A005BD678 /* TestView.m in Sources */,
 				AA7EB9981992674D000BD838 /* Client.mm in Sources */,
 				AA59F03C198A197B009FD449 /* UIImage+Additions.m in Sources */,
 				AA588BB21990B4EC00F08821 /* RetriveBuddy.cpp in Sources */,
+				AA665F7F19A8E9B100FCF5C6 /* LeftMarginTextField.m in Sources */,
 				AA588BAD1990B4EC00F08821 /* Action.cpp in Sources */,
+				AA665F7C19A8E66300FCF5C6 /* TextFieldTableViewCell.m in Sources */,
 				AA59F09F198A25EA009FD449 /* RegViewController.mm in Sources */,
 				AAA6DCDB198B918100EB948E /* Logging.cpp in Sources */,
 				AA588BAE1990B4EC00F08821 /* AddBuddy.cpp in Sources */,
@@ -882,7 +924,8 @@
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: pin lin (VQ873F9G68)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: pin lin (VQ873F9G68)";
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -945,6 +988,7 @@
 				INFOPLIST_FILE = "ETImClient/ETImClient-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "1B342FE8-A965-463D-AA8C-88219DE591D4";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
