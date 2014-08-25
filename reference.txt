@@ -1,0 +1,4 @@
+IM软件业务知识 http://blog.csdn.net/column/details/im-hherima.html
+
+
+浅谈IM软件客户端的断线重连，心跳			http://www.guokr.com/post/594268/
