@@ -19,12 +19,14 @@ namespace etim {
         class RequestAddBuddy : public Action {
         public:
             virtual void Execute(Session& s);
+            virtual void Recv(Session &s);
         };
         
         ///查找
         class SearchBuddy : public Action {
         public:
             virtual void Execute(Session &s);
+            virtual void Recv(Session &s);
         };
     } //end action
 } //end etim

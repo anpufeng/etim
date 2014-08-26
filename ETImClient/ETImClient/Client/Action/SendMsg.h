@@ -19,6 +19,7 @@ namespace etim {
         class SendMsg : public Action {
         public:
             virtual void Execute(Session& s);
+            virtual void Recv(Session &s);
         };
     } //end action
 } //end etim

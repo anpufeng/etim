@@ -22,6 +22,7 @@ namespace etim {
         
     public:
         virtual void Execute(Session& s) = 0;
+        virtual void Recv(Session &s) = 0;
         virtual ~Action() {};
         
     public:

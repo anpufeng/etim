@@ -61,7 +61,9 @@ void Login::Execute(Session& s) {
     FillOutPackage(jos, lengthPos, cmd);
     
 	s.Send(jos.Data(), jos.Length());	// 发送请求包
-	s.Recv();	// 接收应答包
+}
+
+void Login::Recv(etim::Session &s) {
 	InStream jis((const char*)s.GetResponsePack(), s.GetResponsePack()->head.len+sizeof(ResponseHead));
 	// 跳过cmd、len
 	jis.Skip(4);
@@ -123,5 +125,9 @@ void Logout::Execute(Session& s) {
     
 	s.SetErrorCode(error_code);
 	s.SetErrorMsg(error_msg);
+}
+
+void Logout::Recv(etim::Session &s) {
+    
 }
 

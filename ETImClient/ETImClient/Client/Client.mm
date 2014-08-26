@@ -61,10 +61,13 @@ static dispatch_once_t predicate;
 
 - (id)init {
     if (self = [super init]) {
-        _queueId = dispatch_queue_create("client", NULL);
+        _actionQueueId = dispatch_queue_create("clientSend", NULL);
+        _recvQueueId = dispatch_queue_create("clientRecv", NULL);
         std::auto_ptr<Socket> connSoc(new Socket(-1, 0));
         ///令人头痛的命名冲突
         _session = new Session(connSoc);
+        
+        [self doRecv:*_session];
     }
     
     return self;
@@ -76,12 +79,12 @@ static dispatch_once_t predicate;
 
 - (void)doAction:(etim::Session &)s {
     if (s.IsConnected()) {
-        dispatch_async(_queueId, ^{
+        dispatch_async(_actionQueueId, ^{
             try {
                 Singleton<ActionManager>::Instance().DoAction(s);
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    [[NSNotificationCenter defaultCenter] postNotificationName:notiNameFromCmd(s.GetCmd()) object:nil];
-                });
+//                dispatch_async(dispatch_get_main_queue(), ^{
+//                    [[NSNotificationCenter defaultCenter] postNotificationName:notiNameFromCmd(s.GetCmd()) object:nil];
+//                });
             } catch (Exception &e) {
                 s.SetErrorCode(kErrCodeMax);
                 s.SetErrorMsg(e.what());
@@ -97,6 +100,31 @@ static dispatch_once_t predicate;
         [[NSNotificationCenter defaultCenter] postNotificationName:notiNameFromCmd(s.GetCmd()) object:nil];
     }
    
+}
+
+- (void)doRecv:(etim::Session &)s {
+    if (s.IsConnected()) {
+        dispatch_async(_recvQueueId, ^{
+            while (1) {
+                try {
+                    Singleton<ActionManager>::Instance().DoRecv(s);
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        [[NSNotificationCenter defaultCenter] postNotificationName:notiNameFromCmd(s.GetCmd()) object:nil];
+                    });
+                } catch (Exception &e) {
+                    s.SetErrorCode(kErrCodeMax);
+                    s.SetErrorMsg(e.what());
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        [[NSNotificationCenter defaultCenter] postNotificationName:notiNameFromCmd(s.GetCmd()) object:nil];
+                    });
+                }
+            }
+        });
+    } else {
+        s.SetErrorCode(kErrCodeMax);
+        s.SetErrorMsg("无服务器连接");
+        [[NSNotificationCenter defaultCenter] postNotificationName:notiNameFromCmd(s.GetCmd()) object:nil];
+    }
 }
 
 @end

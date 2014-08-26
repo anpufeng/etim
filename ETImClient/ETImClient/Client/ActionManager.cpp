@@ -16,11 +16,13 @@
 #include "AddBuddy.h"
 #include "SwitchStatus.h"
 #include "RetriveBuddy.h"
+#include "InStream.h"
 
 #include <assert.h>
 
 using namespace etim::action;
 using namespace etim;
+using namespace etim::pub;
 
 ActionManager::ActionManager()
 {
@@ -49,6 +51,23 @@ bool ActionManager::DoAction(Session &s)
 	uint16_t cmd = s.GetCmd();
 	if (actions_.find(cmd) != actions_.end()) {
 		actions_[cmd]->Execute(s);
+		return true;
+	}
+    
+    LOG_FATAL<<"没有对应的命令处理类";
+    return false;
+}
+
+bool ActionManager::DoRecv(Session &s)
+{
+    s.Recv();	// 接收应答包
+	InStream jis((const char*)s.GetResponsePack(), s.GetResponsePack()->head.len+sizeof(ResponseHead));
+    uint16 cmd, len;
+    cmd = CMD_LOGIN;
+    jis.Skip(4);
+    
+	if (actions_.find(cmd) != actions_.end()) {
+		actions_[cmd]->Recv(s);
 		return true;
 	}
     

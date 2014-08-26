@@ -15,3 +15,8 @@ using namespace etim::action;
 void RetriveBuddy::Execute(Session& s) {
     
 }
+
+
+void RetriveBuddy::Recv(etim::Session &s) {
+    
+}

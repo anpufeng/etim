@@ -58,6 +58,10 @@ void RequestAddBuddy::Execute(Session& s) {
 	s.SetErrorMsg(error_msg);
 }
 
+void RequestAddBuddy::Recv(etim::Session &s) {
+    
+}
+
 
 void SearchBuddy::Execute(Session &s) {
     OutStream jos;
@@ -106,4 +110,8 @@ void SearchBuddy::Execute(Session &s) {
     s.SetSearchIMUser(user);
 	s.SetErrorCode(error_code);
 	s.SetErrorMsg(error_msg);
+}
+
+void SearchBuddy::Recv(etim::Session &s) {
+    
 }

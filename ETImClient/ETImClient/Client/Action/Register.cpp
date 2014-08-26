@@ -75,3 +75,8 @@ void Register::Execute(Session& s) {
 	s.SetErrorCode(error_code);
 	s.SetErrorMsg(error_msg);
 }
+
+
+void Register::Recv(etim::Session &s) {
+    
+}
