@@ -20,6 +20,14 @@ enum BuddyRelation {
     kBuddyRelationFriend        //好友
 };
 
+
+enum BuddyRequestStatus {
+    kBuddyRequestNoSent,        //请求未发送(用户未在线或其它原因)
+    kBuddyRequestSent,          //请求已发送 用户还未响应
+    kBuddyRequestReject,        //用户拒绝添加为好友
+    kBuddyRequestAccepted,      //用户接受添加为好友
+};
+
 namespace etim  {
     
     ///用户

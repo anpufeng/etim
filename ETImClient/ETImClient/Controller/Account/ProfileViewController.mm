@@ -33,6 +33,12 @@ using namespace etim::pub;
 - (id)initWithUser:(etim::IMUser)user {
     if (self = [super init]) {
         self.user = user;
+        if (self.user.relation == kBuddyRelationStranger) {
+            [[NSNotificationCenter defaultCenter] addObserver:self
+                                                     selector:@selector(responseToRequestAddBuddyResult)
+                                                         name:notiNameFromCmd(CMD_REQUEST_ADD_BUDDY)
+                                                       object:nil];
+        }
     }
     
     return self;
@@ -146,9 +152,9 @@ using namespace etim::pub;
             [MBProgressHUD showHUDAddedTo:self.view animated:YES];
             etim::Session *sess = [[Client sharedInstance] session];
             sess->Clear();
-            sess->SetCmd(CMD_ADD_BUDDY);
-            sess->SetAttribute("friend_from", sess->GetIMUser().userId);
-            sess->SetAttribute("friend_to", self.user.userId);
+            sess->SetCmd(CMD_REQUEST_ADD_BUDDY);
+            sess->SetAttribute("friend_from", sess->GetIMUser().username);
+            sess->SetAttribute("friend_to", self.user.username);
             [[Client sharedInstance] doAction:*sess];
         }
             break;
@@ -161,6 +167,20 @@ using namespace etim::pub;
             
         default:
             break;
+    }
+}
+
+- (void)responseToRequestAddBuddyResult {
+    [MBProgressHUD hideHUDForView:self.view animated:YES];
+    etim::Session *sess = [[Client sharedInstance] session];
+    if (sess->GetCmd() == CMD_REQUEST_ADD_BUDDY) {
+        if (sess->IsError()) {
+            [[TWMessageBarManager sharedInstance] showMessageWithTitle:@"请求添加好友出错" description:stdStrToNsStr(sess->GetErrorMsg()) type:TWMessageBarMessageTypeError];
+        } else {
+            [[TWMessageBarManager sharedInstance] showMessageWithTitle:@"请求添加好友" description:stdStrToNsStr(sess->GetErrorMsg()) type:TWMessageBarMessageTypeSuccess];
+        }
+    } else {
+        [[TWMessageBarManager sharedInstance] showMessageWithTitle:@"请求错误" description:@"未知错误" type:TWMessageBarMessageTypeError];
     }
 }
 

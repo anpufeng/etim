@@ -15,7 +15,7 @@
 namespace etim {
     namespace action {
         
-        class AddBuddy : public Action {
+        class RequestAddBuddy : public Action {
         public:
             virtual void Execute(Session *s);
         };

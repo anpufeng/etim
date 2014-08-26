@@ -11,6 +11,7 @@
 
 #include <iostream>
 #include "DataStruct.h"
+#include "Session.h"
 
 namespace etim  {
     
@@ -22,15 +23,21 @@ namespace etim  {
         virtual int UserLogin(const std::string& username, const std::string& pass, IMUser &user) = 0;
         virtual int UserLogout(const std::string& username, Session *s) = 0;
         virtual int UserSearch(const std::string &username, Session *s, IMUser &user) = 0;
+        virtual int RequestAddBuddy(const std::string &from, const std::string to) = 0;
     };
     
     
     class DataService : public BDataService {
-        public:
+    public:
         int UserRegister(const std::string& username, const std::string& pass);
         int UserLogin(const std::string& username, const std::string& pass, IMUser &user);
         int UserLogout(const std::string& username, Session *s);
         int UserSearch(const std::string &username, Session *s, IMUser &user);
+        int RequestAddBuddy(const std::string &from, const std::string to);
+        
+    public:
+        int UpdateStatus(const std::string &username, BuddyStatus status);
+        int SearchUserStatus(const std::string &username);
     };
 }   //end etim
 

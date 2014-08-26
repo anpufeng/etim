@@ -20,7 +20,7 @@ namespace etim {
 #define CMD_LOGOUT                              0x0003      //登出
 #define CMD_HEART_BEAT                          0x0004      //心跳
 #define CMD_SEND_MSG                            0x0005      //发消息
-#define CMD_ADD_BUDDY                           0x0006      //添加好友
+#define CMD_REQUEST_ADD_BUDDY                           0x0006      //添加好友
 #define CMD_SWITCH_STATUS                       0x0007      //切换登录状态
 #define CMD_RETRIVE_BUDDY                       0x0008      //获取好友列表
 #define CMD_REMOVE_BUDDY                        0X0009      //删除好友
@@ -78,13 +78,13 @@ namespace etim {
     
     ///错误信息
     static const std::string gErrMsg[kErrCodeMax+1] = {"正常", "用户或密码错误", "数据库错误", /*kErrCode003*/"用户已经存在",
-        "无此用户", "kErrCode005", "kErrCode006", /*kErrCode007*/"kErrCode007",
+        "无此用户", "已是好友", "kErrCode006", /*kErrCode007*/"kErrCode007",
         "kErrCode008", "kErrCode009", "kErrCode010", /*kErrCode011*/"kErrCode011",
         /*kErrCodeMax*/"kErrCodeMax"};
     
     ///在线状态
     enum BuddyStatus {
-        kBuddyOnline,
+        kBuddyOnline = 1,
         kBuddyInvisible,
         kBuddyAway,
         kBuddyOffline

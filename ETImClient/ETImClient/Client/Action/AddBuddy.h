@@ -16,7 +16,7 @@ namespace etim {
     namespace action {
         
         ///添加好友
-        class AddBuddy : public Action {
+        class RequestAddBuddy : public Action {
         public:
             virtual void Execute(Session& s);
         };

@@ -30,7 +30,6 @@ struct IMUser {
     std::string     signature;
     int8            gender;
     BuddyRelation   relation;
-    int             hello;
     std::string     status;
 };
 

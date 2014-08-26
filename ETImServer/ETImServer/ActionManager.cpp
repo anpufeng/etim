@@ -7,6 +7,7 @@
 //
 
 #include "ActionManager.h"
+#include "Logging.h"
 #include "Session.h"
 #include "Register.h"
 #include "Login.h"
@@ -24,9 +25,10 @@ ActionManager::ActionManager()
 {
 	actions_[CMD_REGISTER] = new Register;
 	actions_[CMD_LOGIN] = new Login;
+    actions_[CMD_LOGOUT] = new Logout;
 	actions_[CMD_HEART_BEAT] = new HeartBeat;
 	actions_[CMD_SEND_MSG] = new SendMsg;
-	actions_[CMD_ADD_BUDDY] = new AddBuddy;
+	actions_[CMD_REQUEST_ADD_BUDDY] = new RequestAddBuddy;
 	actions_[CMD_SWITCH_STATUS] = new SwitchStatus;
 	actions_[CMD_RETRIVE_BUDDY] = new RetriveBuddy;
 	actions_[CMD_SEARCH_BUDDY] = new SearchBuddy;
@@ -48,5 +50,6 @@ bool ActionManager::DoAction(Session *s)
 		return true;
 	}
     
+    LOG_ERROR<<"没有对应的命令处理类";
     return false;
 }

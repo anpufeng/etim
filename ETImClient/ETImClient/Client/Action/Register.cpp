@@ -12,6 +12,8 @@
 #include "MD5.h"
 #include "Idea.h"
 
+#include <algorithm>
+
 using namespace etim;
 using namespace etim::action;
 using namespace::etim::pub;
@@ -31,6 +33,7 @@ void Register::Execute(Session& s) {
     
 	// 柜员登录名
 	string name = s.GetAttribute("name");
+    transform(name.begin(),name.end(), name.begin(), ::tolower);
 	jos<<name;
     
 	// 密码
@@ -54,24 +57,7 @@ void Register::Execute(Session& s) {
 	idea.Crypt(ideaKey,(const unsigned char*)pass.c_str(), (unsigned char *)encryptedPass, 16, true);
 	jos.WriteBytes(encryptedPass, 16);
     
-    
-	// 包头len
-	size_t tailPos = jos.Length();
-	jos.Reposition(lengthPos);
-	jos<<static_cast<uint16>(tailPos + 8 - sizeof(RequestHead)); // 包体长度 + 包尾长度
-    
-	// 包尾
-	jos.Reposition(tailPos);
-	// 计算包尾
-	unsigned char hash[16];
-	md5.MD5Make(hash, (const unsigned char*)jos.Data(), jos.Length());
-	for (int i=0; i<8; ++i)
-	{
-		hash[i] = hash[i] ^ hash[i+8];
-		hash[i] = hash[i] ^ ((cmd >> (i%2)) & 0xff);
-	}
-	jos.WriteBytes(hash, 8);
-    
+    FillOutPackage(jos, lengthPos, cmd);
     
 	s.Send(jos.Data(), jos.Length());	// 发送请求包
 	s.Recv();	// 接收应答包
