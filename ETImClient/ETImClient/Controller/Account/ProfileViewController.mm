@@ -271,6 +271,8 @@ using namespace etim::pub;
 @end
 
 
+#pragma mark -
+#pragma mark ProfileActionView
 
 @implementation ProfileActionView
 
