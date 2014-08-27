@@ -11,10 +11,10 @@
 using namespace etim;
 using namespace etim::action;
 
-void SwitchStatus::Execute(Session& s) {
+void SwitchStatus::DoSend(Session& s) {
     
 }
 
-void SwitchStatus::Recv(etim::Session &s) {
+void SwitchStatus::DoRecv(etim::Session &s) {
     
 }

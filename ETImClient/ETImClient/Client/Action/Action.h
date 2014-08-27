@@ -21,8 +21,8 @@ namespace etim {
     class Action {
         
     public:
-        virtual void Execute(Session& s) = 0;
-        virtual void Recv(Session &s) = 0;
+        virtual void DoSend(Session& s) = 0;
+        virtual void DoRecv(Session &s) = 0;
         virtual ~Action() {};
         
     public:

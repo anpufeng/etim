@@ -20,7 +20,7 @@ using namespace::etim::pub;
 using namespace std;
 
 
-void Register::Execute(Session& s) {
+void Register::DoSend(Session& s) {
     OutStream jos;
     
 	// 包头命令
@@ -56,11 +56,12 @@ void Register::Execute(Session& s) {
 	// 加密
 	idea.Crypt(ideaKey,(const unsigned char*)pass.c_str(), (unsigned char *)encryptedPass, 16, true);
 	jos.WriteBytes(encryptedPass, 16);
-    
     FillOutPackage(jos, lengthPos, cmd);
-    
 	s.Send(jos.Data(), jos.Length());	// 发送请求包
-	s.Recv();	// 接收应答包
+}
+
+
+void Register::DoRecv(etim::Session &s) {
 	InStream jis((const char*)s.GetResponsePack(), s.GetResponsePack()->head.len+sizeof(ResponseHead));
 	// 跳过cmd、len
 	jis.Skip(4);
@@ -74,9 +75,4 @@ void Register::Execute(Session& s) {
     
 	s.SetErrorCode(error_code);
 	s.SetErrorMsg(error_msg);
-}
-
-
-void Register::Recv(etim::Session &s) {
-    
 }
