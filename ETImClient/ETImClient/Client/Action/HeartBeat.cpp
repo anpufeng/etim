@@ -15,3 +15,8 @@ using namespace etim::action;
 void HeartBeat::Execute(Session& s) {
     
 }
+
+
+void HeartBeat::Recv(etim::Session &s) {
+    
+}

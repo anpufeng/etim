@@ -68,14 +68,11 @@ void Login::Execute(Session *s) {
 	if (ret == kErrCode000) {
         s->SetIMUser(user);
 		LOG_INFO<<"登录成功";
-	} else if (ret == kErrCode001) {
-		error_code = kErrCode001;
-		strcpy(error_msg, gErrMsg[kErrCode001].c_str());
+	} else  {
+		error_code = ret;
+        assert(error_code < kErrCodeMax);
+		strcpy(error_msg, gErrMsg[error_code].c_str());
 		LOG_INFO<<error_msg;
-	} else if (ret == kErrCode002) {
-		error_code = kErrCode002;
-		strcpy(error_msg, gErrMsg[kErrCode002].c_str());
-		LOG_ERROR<<error_msg;
 	}
     
 	OutStream jos;
@@ -100,22 +97,8 @@ void Login::Execute(Session *s) {
     jos<<user.relation;
     jos<<user.status;
     
-	// 包头len
-	size_t tailPos = jos.Length();
-	jos.Reposition(lengthPos);
-	jos<<static_cast<uint16>(tailPos + 8 - sizeof(ResponseHead)); // 包体长度 + 包尾长度
-    
-	// 包尾
-	jos.Reposition(tailPos);
-	// 计算包尾
-	unsigned char hash[16];
-	md5.MD5Make(hash, (const unsigned char*)jos.Data(), jos.Length());
-	for (int i=0; i<8; ++i) {
-		hash[i] = hash[i] ^ hash[i+8];
-		hash[i] = hash[i] ^ ((cmd >> (i%2)) & 0xff);
-	}
-	jos.WriteBytes(hash, 8);
-    
+    FillOutPackage(jos, lengthPos, cmd);
+     
 	s->Send(jos.Data(), jos.Length());
 }
 
@@ -135,20 +118,16 @@ void Logout::Execute(Session *s) {
 	char error_msg[31] = {0};
 	//TODO 登出操作  更新用户状态为离线
 	DataService dao;
-    IMUser user;
+    IMUser user = s->GetIMUser();
 	int ret = kErrCode000;
-    
-//	ret = dao.UserLogin(name, pass, user);
+    ret = dao.UserLogout(user.username, s);
 	if (ret == kErrCode000) {
 		LOG_INFO<<"登出成功";
-	} else if (ret == kErrCode001) {
-		error_code = kErrCode001;
-		strcpy(error_msg, gErrMsg[kErrCode001].c_str());
+	} else  {
+		error_code = ret;
+        assert(error_code < kErrCodeMax);
+		strcpy(error_msg, gErrMsg[error_code].c_str());
 		LOG_INFO<<error_msg;
-	} else if (ret == kErrCode002) {
-		error_code = kErrCode002;
-		strcpy(error_msg, gErrMsg[kErrCode002].c_str());
-		LOG_ERROR<<error_msg;
 	}
     
 	OutStream jos;
@@ -171,21 +150,7 @@ void Logout::Execute(Session *s) {
     jos<<user.gender;
     jos<<user.status;
     
-	// 包头len
-	size_t tailPos = jos.Length();
-	jos.Reposition(lengthPos);
-	jos<<static_cast<uint16>(tailPos + 8 - sizeof(ResponseHead)); // 包体长度 + 包尾长度
-    
-	// 包尾
-	jos.Reposition(tailPos);
-	// 计算包尾
-	unsigned char hash[16];
-	md5.MD5Make(hash, (const unsigned char*)jos.Data(), jos.Length());
-	for (int i=0; i<8; ++i) {
-		hash[i] = hash[i] ^ hash[i+8];
-		hash[i] = hash[i] ^ ((cmd >> (i%2)) & 0xff);
-	}
-	jos.WriteBytes(hash, 8);
+    FillOutPackage(jos, lengthPos, cmd);
     
 	s->Send(jos.Data(), jos.Length());
 }

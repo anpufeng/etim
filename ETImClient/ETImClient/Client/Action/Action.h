@@ -11,6 +11,8 @@
 
 #include <iostream>
 #include "Session.h"
+#include "OutStream.h"
+#include "Endian.h"
 
 namespace etim {
     namespace action {
@@ -20,7 +22,16 @@ namespace etim {
         
     public:
         virtual void Execute(Session& s) = 0;
+        virtual void Recv(Session &s) = 0;
         virtual ~Action() {};
+        
+    public:
+        /**将包头的长度及包尾填充到jos
+         @param jos 输出打包类
+         @param lengthPos 包头要填写包长度的位偏移量
+         @param cmd 命令
+         */
+        void FillOutPackage(pub::OutStream &jos, size_t lengthPos, uint16 cmd);
         
     };
         

@@ -14,3 +14,7 @@ using namespace etim::action;
 void SwitchStatus::Execute(Session& s) {
     
 }
+
+void SwitchStatus::Recv(etim::Session &s) {
+    
+}

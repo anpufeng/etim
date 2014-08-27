@@ -16,15 +16,17 @@ namespace etim {
     namespace action {
         
         ///添加好友
-        class AddBuddy : public Action {
+        class RequestAddBuddy : public Action {
         public:
             virtual void Execute(Session& s);
+            virtual void Recv(Session &s);
         };
         
         ///查找
         class SearchBuddy : public Action {
         public:
             virtual void Execute(Session &s);
+            virtual void Recv(Session &s);
         };
     } //end action
 } //end etim

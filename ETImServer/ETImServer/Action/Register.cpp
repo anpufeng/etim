@@ -61,14 +61,10 @@ void Register::Execute(Session *s) {
      ret = dao.UserRegister(name, pass);
      if (ret == kErrCode000) {
          LOG_INFO<<"注册成功";
-     } else if (ret == kErrCode002)
-     {
-         error_code = kErrCode002;
-         strcpy(error_msg, gErrMsg[kErrCode002].c_str());
-         LOG_INFO<<error_msg;
-     } else if (ret == kErrCode003) {
-         error_code = kErrCode003;
-         strcpy(error_msg, gErrMsg[kErrCode003].c_str());
+     } else {
+         error_code = ret;
+         assert(error_code < kErrCodeMax);
+         strcpy(error_msg, gErrMsg[error_code].c_str());
          LOG_INFO<<error_msg;
      }
     
@@ -84,22 +80,7 @@ void Register::Execute(Session *s) {
 	jos.WriteBytes(error_msg, 30);
 	// 包体为空
     
-	// 包头len
-	size_t tailPos = jos.Length();
-	jos.Reposition(lengthPos);
-	jos<<static_cast<uint16>(tailPos + 8 - sizeof(ResponseHead)); // 包体长度 + 包尾长度
-    
-	// 包尾
-	jos.Reposition(tailPos);
-	// 计算包尾
-	unsigned char hash[16];
-	md5.MD5Make(hash, (const unsigned char*)jos.Data(), jos.Length());
-	for (int i=0; i<8; ++i)
-	{
-		hash[i] = hash[i] ^ hash[i+8];
-		hash[i] = hash[i] ^ ((cmd >> (i%2)) & 0xff);
-	}
-	jos.WriteBytes(hash, 8);
+    FillOutPackage(jos, lengthPos, cmd);
     
 	s->Send(jos.Data(), jos.Length());
 }

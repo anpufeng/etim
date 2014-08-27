@@ -6,16 +6,16 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "No"
+            shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ETImServer/Dao/DataService.cpp"
-            timestampString = "430573517.438548"
+            timestampString = "430736923.955852"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "85"
-            endingLineNumber = "85"
-            landmarkName = "DataService::UserLogin(const std::string&amp; username, const std::string&amp; pass, IMUser &amp;user)"
+            startingLineNumber = "231"
+            endingLineNumber = "231"
+            landmarkName = "DataService::RequestAddBuddy(const std::string &amp;from, const std::string to)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

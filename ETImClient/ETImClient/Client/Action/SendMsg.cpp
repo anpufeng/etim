@@ -15,3 +15,8 @@ using namespace etim::action;
 void SendMsg::Execute(Session& s) {
     
 }
+
+
+void SendMsg::Recv(etim::Session &s) {
+    
+}

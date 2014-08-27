@@ -23,8 +23,52 @@ using namespace etim::pub;
 using namespace etim::action;
 using namespace std;
 
-void AddBuddy::Execute(Session *s) {
+void RequestAddBuddy::Execute(Session *s) {
+    InStream jis(s->GetRequestPack()->buf, s->GetRequestPack()->head.len);
+	uint16 cmd = s->GetCmd();
     
+    MD5 md5;
+	// 好友请求
+	string fromName;
+    string toName;
+    jis>>fromName;
+	jis>>toName;
+	
+	int16 error_code = kErrCode000;
+	char error_msg[31] = {0};
+    
+    
+	// 实际的添加操作
+	DataService dao;
+	int ret;
+	ret = dao.RequestAddBuddy(fromName, toName);
+	if (ret == kErrCode000) {
+        strcpy(error_msg, "请求发送成功");
+		LOG_INFO<<"添加好友请求成功";
+	} else {
+		error_code = ret;
+        assert(error_code < kErrCodeMax);
+		strcpy(error_msg, gErrMsg[error_code].c_str());
+		LOG_ERROR<<error_msg;
+	}
+    
+	OutStream jos;
+	// 包头命令
+	jos<<cmd;
+	size_t lengthPos = jos.Length();
+	jos.Skip(2);///留出2个字节空间用来后面存储包体长度+包尾(8)的长度
+	// 包头cnt、seq、error_code、error_msg
+	uint16 cnt = 0;
+	uint16 seq = 0;
+	jos<<cnt<<seq<<error_code;
+	jos.WriteBytes(error_msg, 30);
+    
+	// 空包体
+    
+    FillOutPackage(jos, lengthPos, cmd);
+    
+	s->Send(jos.Data(), jos.Length());
+    //TODO 如果用户在线要将请求信息发送给用户  (直接遍历vector, 此效率待改进)
 }
 
 
@@ -50,10 +94,11 @@ void SearchBuddy::Execute(Session *s) {
 	ret = dao.UserSearch(name, s, user);
 	if (ret == kErrCode000) {
 		LOG_INFO<<"登录成功";
-	} else if (ret == kErrCode004) {
-		error_code = kErrCode004;
-		strcpy(error_msg, gErrMsg[kErrCode004].c_str());
-		LOG_INFO<<error_msg;
+	} else {
+		error_code = ret;
+        assert(error_code < kErrCodeMax);
+		strcpy(error_msg, gErrMsg[error_code].c_str());
+		LOG_ERROR<<error_msg;
 	}
     
 	OutStream jos;
@@ -78,21 +123,7 @@ void SearchBuddy::Execute(Session *s) {
     jos<<user.relation;
     jos<<user.status;
     
-	// 包头len
-	size_t tailPos = jos.Length();
-	jos.Reposition(lengthPos);
-	jos<<static_cast<uint16>(tailPos + 8 - sizeof(ResponseHead)); // 包体长度 + 包尾长度
-    
-	// 包尾
-	jos.Reposition(tailPos);
-	// 计算包尾
-	unsigned char hash[16];
-	md5.MD5Make(hash, (const unsigned char*)jos.Data(), jos.Length());
-	for (int i=0; i<8; ++i) {
-		hash[i] = hash[i] ^ hash[i+8];
-		hash[i] = hash[i] ^ ((cmd >> (i%2)) & 0xff);
-	}
-	jos.WriteBytes(hash, 8);
+    FillOutPackage(jos, lengthPos, cmd);
     
 	s->Send(jos.Data(), jos.Length());
 }

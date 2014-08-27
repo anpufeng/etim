@@ -1,17 +1,17 @@
 /*
  Navicat Premium Data Transfer
 
- Source Server         : localhost
+ Source Server         : localhost-mysql
  Source Server Type    : MySQL
- Source Server Version : 50525
+ Source Server Version : 50619
  Source Host           : localhost
  Source Database       : etim
 
  Target Server Type    : MySQL
- Target Server Version : 50525
+ Target Server Version : 50619
  File Encoding         : utf-8
 
- Date: 08/24/2014 21:32:59 PM
+ Date: 08/26/2014 20:07:52 PM
 */
 
 SET NAMES utf8;
@@ -29,13 +29,6 @@ CREATE TABLE `event` (
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
---  Records of `event`
--- ----------------------------
-BEGIN;
-INSERT INTO `event` VALUES ('1', '1', b'1');
-COMMIT;
-
--- ----------------------------
 --  Table structure for `friend`
 -- ----------------------------
 DROP TABLE IF EXISTS `friend`;
@@ -43,9 +36,11 @@ CREATE TABLE `friend` (
   `friend_id` int(11) NOT NULL AUTO_INCREMENT,
   `friend_from` int(11) NOT NULL COMMENT 'a from b, b是a的好友',
   `friend_to` int(11) NOT NULL,
-  `add_time` datetime NOT NULL COMMENT '添加时间',
+  `request_time` datetime NOT NULL COMMENT '请求添加时间',
+  `action_time` datetime NOT NULL COMMENT '处理请求时间',
+  `req_status` tinyint(4) NOT NULL DEFAULT '0' COMMENT '0:请求未发送 1:请求已发送 2：请求被拒绝 3：请求已同意',
   PRIMARY KEY (`friend_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 --  Table structure for `message`
@@ -72,13 +67,6 @@ CREATE TABLE `status` (
 ) ENGINE=InnoDB AUTO_INCREMENT=40000 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
---  Records of `status`
--- ----------------------------
-BEGIN;
-INSERT INTO `status` VALUES ('1', '在线'), ('2', '隐身'), ('3', '离开'), ('4', '离线');
-COMMIT;
-
--- ----------------------------
 --  Table structure for `user`
 -- ----------------------------
 DROP TABLE IF EXISTS `user`;
@@ -93,12 +81,5 @@ CREATE TABLE `user` (
   `status_id` tinyint(4) NOT NULL DEFAULT '3',
   PRIMARY KEY (`user_id`),
   UNIQUE KEY `username_index` (`username`)
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8;
-
--- ----------------------------
---  Records of `user`
--- ----------------------------
-BEGIN;
-INSERT INTO `user` VALUES ('1', 'admin', 'admin', '2014-08-12 09:38:04', '2014-08-12 09:38:04', '暂无签名', '1', '3'), ('2', 'admin2', 'admin', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '暂无签名', '0', '3');
-COMMIT;
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8;
 
