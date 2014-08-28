@@ -12,11 +12,11 @@ using namespace etim;
 using namespace etim::action;
 
 
-void SendMsg::Execute(Session& s) {
+void SendMsg::DoSend(Session& s) {
     
 }
 
 
-void SendMsg::Recv(etim::Session &s) {
+void SendMsg::DoRecv(etim::Session &s) {
     
 }

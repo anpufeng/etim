@@ -45,12 +45,12 @@ ActionManager::~ActionManager()
 	}
 }
 
-bool ActionManager::DoAction(Session &s)
+bool ActionManager::SendPacket(Session &s)
 {
     //TODO 处理异常
 	uint16_t cmd = s.GetCmd();
 	if (actions_.find(cmd) != actions_.end()) {
-		actions_[cmd]->Execute(s);
+		actions_[cmd]->DoSend(s);
 		return true;
 	}
     
@@ -58,16 +58,14 @@ bool ActionManager::DoAction(Session &s)
     return false;
 }
 
-bool ActionManager::DoRecv(Session &s)
+bool ActionManager::RecvPacket(Session &s)
 {
     s.Recv();	// 接收应答包
-	InStream jis((const char*)s.GetResponsePack(), s.GetResponsePack()->head.len+sizeof(ResponseHead));
     uint16 cmd, len;
-    cmd = CMD_LOGIN;
-    jis.Skip(4);
+    cmd = s.GetResponsePack()->head.cmd;
     
 	if (actions_.find(cmd) != actions_.end()) {
-		actions_[cmd]->Recv(s);
+		actions_[cmd]->DoRecv(s);
 		return true;
 	}
     

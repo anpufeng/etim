@@ -12,11 +12,11 @@
 using namespace etim;
 using namespace etim::action;
 
-void RetriveBuddy::Execute(Session& s) {
+void RetriveBuddy::DoSend(Session& s) {
     
 }
 
 
-void RetriveBuddy::Recv(etim::Session &s) {
+void RetriveBuddy::DoRecv(etim::Session &s) {
     
 }

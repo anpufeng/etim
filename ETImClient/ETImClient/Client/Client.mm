@@ -18,9 +18,6 @@ using namespace etim;
 using namespace etim::pub;
 
 
-
-
-
 @interface Client () {
     @private
     etim::Session *_session;
@@ -56,7 +53,6 @@ static dispatch_once_t predicate;
 - (void)dealloc {
     ETLOG(@"======= Client DEALLOC ========");
     delete _session;
-    
 }
 
 - (id)init {
@@ -81,10 +77,7 @@ static dispatch_once_t predicate;
     if (s.IsConnected()) {
         dispatch_async(_actionQueueId, ^{
             try {
-                Singleton<ActionManager>::Instance().DoAction(s);
-//                dispatch_async(dispatch_get_main_queue(), ^{
-//                    [[NSNotificationCenter defaultCenter] postNotificationName:notiNameFromCmd(s.GetCmd()) object:nil];
-//                });
+                Singleton<ActionManager>::Instance().SendPacket(s);
             } catch (Exception &e) {
                 s.SetErrorCode(kErrCodeMax);
                 s.SetErrorMsg(e.what());
@@ -107,7 +100,7 @@ static dispatch_once_t predicate;
         dispatch_async(_recvQueueId, ^{
             while (1) {
                 try {
-                    Singleton<ActionManager>::Instance().DoRecv(s);
+                    Singleton<ActionManager>::Instance().RecvPacket(s);
                     dispatch_async(dispatch_get_main_queue(), ^{
                         [[NSNotificationCenter defaultCenter] postNotificationName:notiNameFromCmd(s.GetCmd()) object:nil];
                     });

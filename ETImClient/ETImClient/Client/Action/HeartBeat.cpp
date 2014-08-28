@@ -12,11 +12,11 @@ using namespace etim;
 using namespace etim::action;
 
 
-void HeartBeat::Execute(Session& s) {
+void HeartBeat::DoSend(Session& s) {
     
 }
 
 
-void HeartBeat::Recv(etim::Session &s) {
+void HeartBeat::DoRecv(etim::Session &s) {
     
 }

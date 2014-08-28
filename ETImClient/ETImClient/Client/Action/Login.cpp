@@ -21,7 +21,7 @@ using namespace etim::action;
 using namespace::etim::pub;
 using namespace std;
 
-void Login::Execute(Session& s) {
+void Login::DoSend(Session& s) {
     OutStream jos;
     
 	// 包头命令
@@ -63,7 +63,7 @@ void Login::Execute(Session& s) {
 	s.Send(jos.Data(), jos.Length());	// 发送请求包
 }
 
-void Login::Recv(etim::Session &s) {
+void Login::DoRecv(etim::Session &s) {
 	InStream jis((const char*)s.GetResponsePack(), s.GetResponsePack()->head.len+sizeof(ResponseHead));
 	// 跳过cmd、len
 	jis.Skip(4);
@@ -93,7 +93,7 @@ void Login::Recv(etim::Session &s) {
 	s.SetErrorMsg(error_msg);
 }
 
-void Logout::Execute(Session& s) {
+void Logout::DoSend(Session& s) {
     OutStream jos;
     
 	// 包头命令
@@ -111,7 +111,9 @@ void Logout::Execute(Session& s) {
 	FillOutPackage(jos, lengthPos, cmd);;
     
 	s.Send(jos.Data(), jos.Length());	// 发送请求包
-	s.Recv();	// 接收应答包
+}
+
+void Logout::DoRecv(etim::Session &s) {
 	InStream jis((const char*)s.GetResponsePack(), s.GetResponsePack()->head.len+sizeof(ResponseHead));
 	// 跳过cmd、len
 	jis.Skip(4);
@@ -125,9 +127,5 @@ void Logout::Execute(Session& s) {
     
 	s.SetErrorCode(error_code);
 	s.SetErrorMsg(error_msg);
-}
-
-void Logout::Recv(etim::Session &s) {
-    
 }
 
