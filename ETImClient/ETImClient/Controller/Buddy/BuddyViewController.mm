@@ -25,7 +25,7 @@ using namespace etim::pub;
 @implementation BuddyViewController
 
 - (void)dealloc {
-        [[NSNotificationCenter defaultCenter] removeObserver:self name:notiNameFromCmd(CMD_RETRIVE_BUDDY) object:nil];
+        [[NSNotificationCenter defaultCenter] removeObserver:self name:notiNameFromCmd(CMD_RETRIEVE_BUDDY) object:nil];
 }
 
 - (id)init
@@ -43,7 +43,7 @@ using namespace etim::pub;
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(responseToRetriveBuddyResult) name:notiNameFromCmd(CMD_RETRIVE_BUDDY) object:nil];
+     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(responseToRetriveBuddyResult) name:notiNameFromCmd(CMD_RETRIEVE_BUDDY) object:nil];
     [self createUI];
 }
 

@@ -16,6 +16,7 @@
 namespace etim {
     namespace action {
         
+        ///发送消息
         class SendMsg : public Action {
         public:
             virtual void DoSend(Session& s);

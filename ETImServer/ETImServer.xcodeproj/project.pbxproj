@@ -28,7 +28,7 @@
 		AA7004D619889CEB005D5FC1 /* SendMsg.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AA7004D419889CEB005D5FC1 /* SendMsg.cpp */; };
 		AA7004DC19889D3C005D5FC1 /* AddBuddy.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AA7004DA19889D3C005D5FC1 /* AddBuddy.cpp */; };
 		AA7004DF19889D8D005D5FC1 /* SwitchStatus.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AA7004DD19889D8D005D5FC1 /* SwitchStatus.cpp */; };
-		AA7004E219889E2E005D5FC1 /* RetriveBuddy.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AA7004E019889E2E005D5FC1 /* RetriveBuddy.cpp */; };
+		AA7004E219889E2E005D5FC1 /* RetrieveBuddy.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AA7004E019889E2E005D5FC1 /* RetrieveBuddy.cpp */; };
 		AABF3C9E19863690001C8DCA /* Main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AABF3C9D19863690001C8DCA /* Main.cpp */; };
 		AABF3CA019863690001C8DCA /* ETImServer.1 in CopyFiles */ = {isa = PBXBuildFile; fileRef = AABF3C9F19863690001C8DCA /* ETImServer.1 */; };
 		AACD74931994773F00254C55 /* MysqlDB.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AACD74911994773F00254C55 /* MysqlDB.cpp */; };
@@ -94,8 +94,8 @@
 		AA7004DB19889D3C005D5FC1 /* AddBuddy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddBuddy.h; sourceTree = "<group>"; };
 		AA7004DD19889D8D005D5FC1 /* SwitchStatus.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SwitchStatus.cpp; sourceTree = "<group>"; };
 		AA7004DE19889D8D005D5FC1 /* SwitchStatus.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SwitchStatus.h; sourceTree = "<group>"; };
-		AA7004E019889E2E005D5FC1 /* RetriveBuddy.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = RetriveBuddy.cpp; sourceTree = "<group>"; };
-		AA7004E119889E2E005D5FC1 /* RetriveBuddy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RetriveBuddy.h; sourceTree = "<group>"; };
+		AA7004E019889E2E005D5FC1 /* RetrieveBuddy.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = RetrieveBuddy.cpp; sourceTree = "<group>"; };
+		AA7004E119889E2E005D5FC1 /* RetrieveBuddy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RetrieveBuddy.h; sourceTree = "<group>"; };
 		AABF3C9A19863690001C8DCA /* ETImServer */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = ETImServer; sourceTree = BUILT_PRODUCTS_DIR; };
 		AABF3C9D19863690001C8DCA /* Main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Main.cpp; sourceTree = "<group>"; };
 		AABF3C9F19863690001C8DCA /* ETImServer.1 */ = {isa = PBXFileReference; lastKnownFileType = text.man; path = ETImServer.1; sourceTree = "<group>"; };
@@ -161,8 +161,8 @@
 				AA7004DB19889D3C005D5FC1 /* AddBuddy.h */,
 				AA7004DD19889D8D005D5FC1 /* SwitchStatus.cpp */,
 				AA7004DE19889D8D005D5FC1 /* SwitchStatus.h */,
-				AA7004E019889E2E005D5FC1 /* RetriveBuddy.cpp */,
-				AA7004E119889E2E005D5FC1 /* RetriveBuddy.h */,
+				AA7004E019889E2E005D5FC1 /* RetrieveBuddy.cpp */,
+				AA7004E119889E2E005D5FC1 /* RetrieveBuddy.h */,
 			);
 			path = Action;
 			sourceTree = "<group>";
@@ -271,7 +271,7 @@
 				AA588BB71990BC8500F08821 /* Exception.cpp in Sources */,
 				AA7004C319879911005D5FC1 /* Session.cpp in Sources */,
 				AA59F0231988C4CC009FD449 /* Endian.cpp in Sources */,
-				AA7004E219889E2E005D5FC1 /* RetriveBuddy.cpp in Sources */,
+				AA7004E219889E2E005D5FC1 /* RetrieveBuddy.cpp in Sources */,
 				AA420BAC19863F4200D1117F /* Server.cpp in Sources */,
 				AA7004D019889AF4005D5FC1 /* ActionManager.cpp in Sources */,
 				AA7004DC19889D3C005D5FC1 /* AddBuddy.cpp in Sources */,

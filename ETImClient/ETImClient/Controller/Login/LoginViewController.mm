@@ -142,6 +142,7 @@ using namespace etim::pub;
             //登录成功
             BaseTabBarViewController *tabbar = [[BaseTabBarViewController alloc] init];
             [[[UIApplication sharedApplication] keyWindow] setRootViewController:tabbar];
+            [[Client sharedInstance] pullUnread];
         }
     } else {
         [[TWMessageBarManager sharedInstance] showMessageWithTitle:@"登录错误" description:@"未知错误" type:TWMessageBarMessageTypeError];

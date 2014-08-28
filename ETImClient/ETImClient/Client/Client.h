@@ -35,7 +35,6 @@ inline std::string nsStrToStdStr(NSString *str) {
 @interface Client : NSObject {
     dispatch_queue_t _actionQueueId;
     dispatch_queue_t _recvQueueId;
-    
 }
 
 
@@ -46,7 +45,10 @@ inline std::string nsStrToStdStr(NSString *str) {
 
 ///获取session对象
 - (etim::Session *)session;
+///往服务端发送CMD 获取消息
 - (void)doAction:(etim::Session &)s;
+///获取消息, 登录成功后获取最新消息(好友信息, 聊天信息等)
+- (void)pullUnread;
 
 @end
 
