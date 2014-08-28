@@ -17,15 +17,19 @@ namespace etim {
         
         class RetrieveBuddyList : public Action {
         public:
-            virtual void Execute(Session *s);
+            virtual void DoSend(Session& s);
+            virtual void DoRecv(Session &s);
         };
-        
         
         ///请求好友
         class RetrieveBuddyRequest : public Action {
         public:
-            virtual void Execute(Session *s);
+            virtual void DoSend(Session& s);
+            virtual void DoRecv(Session &s);
         };
+        
+        
+ 
     } //end action
 } //end etim
 #endif /* defined(__ETImServer__RetrieveBuddy__) */

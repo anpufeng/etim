@@ -26,7 +26,9 @@ using namespace etim::pub;
 @implementation ProfileViewController
 
 - (void)dealloc {
-    
+    if (self.user.relation == kBuddyRelationStranger) {
+        [[NSNotificationCenter defaultCenter] removeObserver:self];
+    }
 }
 
 

@@ -22,6 +22,14 @@ namespace etim {
             virtual void DoSend(Session& s);
             virtual void DoRecv(Session &s);
         };
+        
+        
+        ///请求未读消息
+        class RetrieveUnreadMsg : public Action {
+        public:
+            virtual void DoSend(Session& s);
+            virtual void DoRecv(Session &s);
+        };
     } //end action
 } //end etim
 

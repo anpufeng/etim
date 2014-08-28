@@ -76,35 +76,17 @@ static bool shouldStop = NO;
 }
 
 - (void)pullUnread {
-    //获取好友列表
-    
-    
-    //获取未读消息
-    
-    //获取好友请求
+    ///获取好友列表
+    [self pullWithCommand:CMD_RETRIEVE_BUDDY_LIST];
+    ///获取未读消息
+    [self pullWithCommand:CMD_RETRIEVE_UNREAD_MSG];
+    ///获取好友请求
+    [self pullWithCommand:CMD_RETRIEVE_BUDDY_REQUEST];
 }
 
-- (void)pullBuddyList {
-    IMUser user = _session->GetIMUser();
+- (void)pullWithCommand:(uint16)cmd {
     _session->Clear();
-    _session->SetCmd(CMD_RETRIEVE_BUDDY);
-    _session->SetAttribute("name", _session->GetIMUser().username);
-    [[Client sharedInstance] doAction:*_session];
-
-}
-
-- (void)pullMessage {
-    IMUser user = _session->GetIMUser();
-    _session->Clear();
-    _session->SetCmd(CMD_RETRIEVE_UNREAD_MSG);
-    _session->SetAttribute("name", _session->GetIMUser().username);
-    [[Client sharedInstance] doAction:*_session];
-}
-
-- (void)pullBuddyRequests {
-    IMUser user = _session->GetIMUser();
-    _session->Clear();
-    _session->SetCmd(CMD_RETRIEVE_BUDDY_EVENT);
+    _session->SetCmd(cmd);
     _session->SetAttribute("name", _session->GetIMUser().username);
     [[Client sharedInstance] doAction:*_session];
 }
@@ -156,6 +138,7 @@ static bool shouldStop = NO;
                         });
                     }
                 }
+                
             }
         });
     } else {

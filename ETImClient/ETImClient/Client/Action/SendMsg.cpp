@@ -20,3 +20,12 @@ void SendMsg::DoSend(Session& s) {
 void SendMsg::DoRecv(etim::Session &s) {
     
 }
+
+void RetrieveUnreadMsg::DoSend(Session& s) {
+    
+}
+
+
+void RetrieveUnreadMsg::DoRecv(etim::Session &s) {
+    
+}
