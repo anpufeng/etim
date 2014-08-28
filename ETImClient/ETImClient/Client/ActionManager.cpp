@@ -33,7 +33,7 @@ ActionManager::ActionManager()
 	actions_[CMD_SEND_MSG] = new SendMsg;
 	actions_[CMD_REQUEST_ADD_BUDDY] = new RequestAddBuddy;
 	actions_[CMD_SWITCH_STATUS] = new SwitchStatus;
-	actions_[CMD_RETRIVE_BUDDY] = new RetriveBuddy;
+	actions_[CMD_RETRIEVE_BUDDY] = new RetriveBuddy;
 	actions_[CMD_SEARCH_BUDDY] = new SearchBuddy;
 }
 
@@ -61,7 +61,7 @@ bool ActionManager::SendPacket(Session &s)
 bool ActionManager::RecvPacket(Session &s)
 {
     s.Recv();	// 接收应答包
-    uint16 cmd, len;
+    uint16 cmd;
     cmd = s.GetResponsePack()->head.cmd;
     
 	if (actions_.find(cmd) != actions_.end()) {

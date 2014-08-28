@@ -30,6 +30,7 @@ using namespace etim::pub;
 
 static Client *sharedClient = nil;
 static dispatch_once_t predicate;
+static bool shouldStop = NO;
 
 +(Client*)sharedInstance{
     dispatch_once(&predicate, ^{
@@ -43,6 +44,7 @@ static dispatch_once_t predicate;
 
 + (void)sharedDealloc {
     if (sharedClient) {
+        shouldStop = YES;
         sharedClient = nil;
         predicate = 0;
     }
@@ -57,12 +59,12 @@ static dispatch_once_t predicate;
 
 - (id)init {
     if (self = [super init]) {
+        shouldStop = NO;
         _actionQueueId = dispatch_queue_create("clientSend", NULL);
         _recvQueueId = dispatch_queue_create("clientRecv", NULL);
         std::auto_ptr<Socket> connSoc(new Socket(-1, 0));
         ///令人头痛的命名冲突
         _session = new Session(connSoc);
-        
         [self doRecv:*_session];
     }
     
@@ -72,6 +74,43 @@ static dispatch_once_t predicate;
 - (etim::Session *)session {
     return _session;
 }
+
+- (void)pullUnread {
+    //获取好友列表
+    
+    
+    //获取未读消息
+    
+    //获取好友请求
+}
+
+- (void)pullBuddyList {
+    IMUser user = _session->GetIMUser();
+    _session->Clear();
+    _session->SetCmd(CMD_RETRIEVE_BUDDY);
+    _session->SetAttribute("name", _session->GetIMUser().username);
+    [[Client sharedInstance] doAction:*_session];
+
+}
+
+- (void)pullMessage {
+    IMUser user = _session->GetIMUser();
+    _session->Clear();
+    _session->SetCmd(CMD_RETRIEVE_UNREAD_MSG);
+    _session->SetAttribute("name", _session->GetIMUser().username);
+    [[Client sharedInstance] doAction:*_session];
+}
+
+- (void)pullBuddyRequests {
+    IMUser user = _session->GetIMUser();
+    _session->Clear();
+    _session->SetCmd(CMD_RETRIEVE_BUDDY_EVENT);
+    _session->SetAttribute("name", _session->GetIMUser().username);
+    [[Client sharedInstance] doAction:*_session];
+}
+
+#pragma mark -
+#pragma mark send & recv action
 
 - (void)doAction:(etim::Session &)s {
     if (s.IsConnected()) {
@@ -99,17 +138,23 @@ static dispatch_once_t predicate;
     if (s.IsConnected()) {
         dispatch_async(_recvQueueId, ^{
             while (1) {
+                if (shouldStop)
+                    break;
                 try {
                     Singleton<ActionManager>::Instance().RecvPacket(s);
                     dispatch_async(dispatch_get_main_queue(), ^{
                         [[NSNotificationCenter defaultCenter] postNotificationName:notiNameFromCmd(s.GetCmd()) object:nil];
                     });
                 } catch (Exception &e) {
-                    s.SetErrorCode(kErrCodeMax);
-                    s.SetErrorMsg(e.what());
-                    dispatch_async(dispatch_get_main_queue(), ^{
-                        [[NSNotificationCenter defaultCenter] postNotificationName:notiNameFromCmd(s.GetCmd()) object:nil];
-                    });
+                    if (shouldStop) {
+                        
+                    } else {
+                        s.SetErrorCode(kErrCodeMax);
+                        s.SetErrorMsg(e.what());
+                        dispatch_async(dispatch_get_main_queue(), ^{
+                            [[NSNotificationCenter defaultCenter] postNotificationName:notiNameFromCmd(s.GetCmd()) object:nil];
+                        });
+                    }
                 }
             }
         });

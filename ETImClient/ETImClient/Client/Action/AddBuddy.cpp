@@ -42,8 +42,10 @@ void RequestAddBuddy::DoSend(Session& s) {
     FillOutPackage(jos, lengthPos, cmd);
     
 	s.Send(jos.Data(), jos.Length());	// 发送请求包
-	s.Recv();	// 接收应答包
-	InStream jis((const char*)s.GetResponsePack(), s.GetResponsePack()->head.len+sizeof(ResponseHead));
+}
+
+void RequestAddBuddy::DoRecv(etim::Session &s) {
+    InStream jis((const char*)s.GetResponsePack(), s.GetResponsePack()->head.len+sizeof(ResponseHead));
 	// 跳过cmd、len
 	jis.Skip(4);
 	uint16 cnt;
@@ -56,10 +58,6 @@ void RequestAddBuddy::DoSend(Session& s) {
     
  	s.SetErrorCode(error_code);
 	s.SetErrorMsg(error_msg);
-}
-
-void RequestAddBuddy::DoRecv(etim::Session &s) {
-    
 }
 
 
@@ -112,5 +110,4 @@ void SearchBuddy::DoRecv(etim::Session &s) {
     s.SetSearchIMUser(user);
 	s.SetErrorCode(error_code);
 	s.SetErrorMsg(error_msg);
-
 }

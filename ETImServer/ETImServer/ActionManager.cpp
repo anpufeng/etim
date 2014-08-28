@@ -15,7 +15,7 @@
 #include "SendMsg.h"
 #include "AddBuddy.h"
 #include "SwitchStatus.h"
-#include "RetriveBuddy.h"
+#include "RetrieveBuddy.h"
 
 
 using namespace etim::action;
@@ -30,7 +30,7 @@ ActionManager::ActionManager()
 	actions_[CMD_SEND_MSG] = new SendMsg;
 	actions_[CMD_REQUEST_ADD_BUDDY] = new RequestAddBuddy;
 	actions_[CMD_SWITCH_STATUS] = new SwitchStatus;
-	actions_[CMD_RETRIVE_BUDDY] = new RetriveBuddy;
+	actions_[CMD_RETRIEVE_BUDDY] = new RetrieveBuddy;
 	actions_[CMD_SEARCH_BUDDY] = new SearchBuddy;
 }
 

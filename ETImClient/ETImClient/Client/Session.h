@@ -18,7 +18,7 @@
 
 namespace etim {
     
-#define CMD_RETRIVE_EVENT                       0X0000      //获取通知
+#define CMD_RETRIEVE_EVENT                       0X0000      //获取通知
 #define CMD_REGISTER                            0x0001      //注册
 #define CMD_LOGIN                               0x0002      //登录
 #define CMD_LOGOUT                              0x0003      //登出
@@ -26,10 +26,12 @@ namespace etim {
 #define CMD_SEND_MSG                            0x0005      //发消息
 #define CMD_REQUEST_ADD_BUDDY                   0x0006      //请求添加好友
 #define CMD_SWITCH_STATUS                       0x0007      //切换登录状态
-#define CMD_RETRIVE_BUDDY                       0x0008      //获取好友列表
+#define CMD_RETRIEVE_BUDDY                      0x0008      //获取好友列表
 #define CMD_SEARCH_BUDDY                        0x0009      //查询某个用户信息
+#define CMD_RETRIEVE_UNREAD_MSG                 0x000A      //获取未读消息
+#define CMD_RETRIEVE_BUDDY_EVENT                0x000B      //获取未处理好友请求
     
-    static const std::string gCmdNoti[CMD_RETRIVE_BUDDY+1] = {"CMD_RETRIVE_EVENT", "CMD_REGISTER", "CMD_LOGIN", "CMD_LOGOUT", "CMD_HEART_BEAT", "CMD_SEND_MSG", "CMD_REQUEST_ADD_BUDDY", "CMD_SWITCH_STATUS", "CMD_RETRIVE_BUDDY"};
+    static const std::string gCmdNoti[CMD_RETRIEVE_BUDDY+1] = {"CMD_RETRIEVE_EVENT", "CMD_REGISTER", "CMD_LOGIN", "CMD_LOGOUT", "CMD_HEART_BEAT", "CMD_SEND_MSG", "CMD_REQUEST_ADD_BUDDY", "CMD_SWITCH_STATUS", "CMD_RETRIEVE_BUDDY"};
     
 #define ERR_MSG_LENGTH      30              // 错误消息定长
     ///请求头
