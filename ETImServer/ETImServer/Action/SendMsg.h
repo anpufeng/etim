@@ -20,6 +20,13 @@ namespace etim {
         public:
             virtual void Execute(Session *s);
         };
+        
+        
+        ///请求未读消息
+        class RetrieveUnreadMsg : public Action {
+        public:
+            virtual void Execute(Session *s);
+        };
     } //end action
 } //end etim
 

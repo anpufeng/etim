@@ -12,6 +12,11 @@
 using namespace etim;
 using namespace etim::action;
 
-void RetrieveBuddy::Execute(Session *s) {
+void RetrieveBuddyList::Execute(Session *s) {
+    
+}
+
+
+void RetrieveBuddyRequest::Execute(Session *s) {
     
 }

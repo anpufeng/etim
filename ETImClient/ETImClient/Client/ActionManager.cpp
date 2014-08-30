@@ -15,7 +15,7 @@
 #include "SendMsg.h"
 #include "AddBuddy.h"
 #include "SwitchStatus.h"
-#include "RetriveBuddy.h"
+#include "RetrieveBuddy.h"
 #include "InStream.h"
 
 #include <assert.h>
@@ -33,8 +33,10 @@ ActionManager::ActionManager()
 	actions_[CMD_SEND_MSG] = new SendMsg;
 	actions_[CMD_REQUEST_ADD_BUDDY] = new RequestAddBuddy;
 	actions_[CMD_SWITCH_STATUS] = new SwitchStatus;
-	actions_[CMD_RETRIEVE_BUDDY] = new RetriveBuddy;
+	actions_[CMD_RETRIEVE_BUDDY_LIST] = new RetrieveBuddyList;
 	actions_[CMD_SEARCH_BUDDY] = new SearchBuddy;
+    actions_[CMD_RETRIEVE_UNREAD_MSG] = new RetrieveUnreadMsg;
+    actions_[CMD_RETRIEVE_BUDDY_REQUEST] =  new RetrieveBuddyRequest;
 }
 
 ActionManager::~ActionManager()

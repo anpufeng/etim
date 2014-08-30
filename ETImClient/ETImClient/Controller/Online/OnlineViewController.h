@@ -14,3 +14,4 @@
 @interface OnlineViewController : BaseTableViewController
 
 @end
+

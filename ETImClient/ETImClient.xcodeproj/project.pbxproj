@@ -41,7 +41,7 @@
 		AA588BAF1990B4EC00F08821 /* HeartBeat.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AA588BA11990B4EC00F08821 /* HeartBeat.cpp */; };
 		AA588BB01990B4EC00F08821 /* Login.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AA588BA31990B4EC00F08821 /* Login.cpp */; };
 		AA588BB11990B4EC00F08821 /* Register.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AA588BA51990B4EC00F08821 /* Register.cpp */; };
-		AA588BB21990B4EC00F08821 /* RetriveBuddy.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AA588BA71990B4EC00F08821 /* RetriveBuddy.cpp */; };
+		AA588BB21990B4EC00F08821 /* RetrieveBuddy.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AA588BA71990B4EC00F08821 /* RetrieveBuddy.cpp */; };
 		AA588BB31990B4EC00F08821 /* SendMsg.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AA588BA91990B4EC00F08821 /* SendMsg.cpp */; };
 		AA588BB41990B4EC00F08821 /* SwitchStatus.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AA588BAB1990B4EC00F08821 /* SwitchStatus.cpp */; };
 		AA59F034198A15F0009FD449 /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = AA59F033198A15F0009FD449 /* Constants.m */; };
@@ -64,6 +64,7 @@
 		AA59F0B0198A4117009FD449 /* BuddyViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = AA59F0AF198A4117009FD449 /* BuddyViewController.mm */; };
 		AA59F0B3198A4121009FD449 /* OnlineViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = AA59F0B2198A4121009FD449 /* OnlineViewController.mm */; };
 		AA59F0B6198A4142009FD449 /* AccountViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = AA59F0B5198A4142009FD449 /* AccountViewController.mm */; };
+		AA65387619AF6B67003B64B0 /* JSBadgeView.m in Sources */ = {isa = PBXBuildFile; fileRef = AA65387519AF6B67003B64B0 /* JSBadgeView.m */; };
 		AA665F7319A8D86A00FCF5C6 /* AddBuddyViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = AA665F7219A8D86A00FCF5C6 /* AddBuddyViewController.mm */; };
 		AA665F7719A8DF0F00FCF5C6 /* MetroUI-Folder-OS-OS-Linux-icon2.png in Resources */ = {isa = PBXBuildFile; fileRef = AA665F7619A8DF0F00FCF5C6 /* MetroUI-Folder-OS-OS-Linux-icon2.png */; };
 		AA665F7919A8E4D800FCF5C6 /* header_icon_add@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AA665F7819A8E4D800FCF5C6 /* header_icon_add@2x.png */; };
@@ -158,8 +159,8 @@
 		AA588BA41990B4EC00F08821 /* Login.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = Login.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		AA588BA51990B4EC00F08821 /* Register.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Register.cpp; sourceTree = "<group>"; };
 		AA588BA61990B4EC00F08821 /* Register.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = Register.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
-		AA588BA71990B4EC00F08821 /* RetriveBuddy.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = RetriveBuddy.cpp; sourceTree = "<group>"; };
-		AA588BA81990B4EC00F08821 /* RetriveBuddy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = RetriveBuddy.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		AA588BA71990B4EC00F08821 /* RetrieveBuddy.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = RetrieveBuddy.cpp; sourceTree = "<group>"; };
+		AA588BA81990B4EC00F08821 /* RetrieveBuddy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = RetrieveBuddy.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		AA588BA91990B4EC00F08821 /* SendMsg.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SendMsg.cpp; sourceTree = "<group>"; };
 		AA588BAA1990B4EC00F08821 /* SendMsg.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = SendMsg.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		AA588BAB1990B4EC00F08821 /* SwitchStatus.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SwitchStatus.cpp; sourceTree = "<group>"; };
@@ -198,6 +199,8 @@
 		AA59F0B2198A4121009FD449 /* OnlineViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = OnlineViewController.mm; sourceTree = "<group>"; };
 		AA59F0B4198A4142009FD449 /* AccountViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AccountViewController.h; sourceTree = "<group>"; };
 		AA59F0B5198A4142009FD449 /* AccountViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AccountViewController.mm; sourceTree = "<group>"; };
+		AA65387419AF6B66003B64B0 /* JSBadgeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSBadgeView.h; sourceTree = "<group>"; };
+		AA65387519AF6B67003B64B0 /* JSBadgeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSBadgeView.m; sourceTree = "<group>"; };
 		AA665F7119A8D86A00FCF5C6 /* AddBuddyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddBuddyViewController.h; sourceTree = "<group>"; };
 		AA665F7219A8D86A00FCF5C6 /* AddBuddyViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AddBuddyViewController.mm; sourceTree = "<group>"; };
 		AA665F7619A8DF0F00FCF5C6 /* MetroUI-Folder-OS-OS-Linux-icon2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "MetroUI-Folder-OS-OS-Linux-icon2.png"; sourceTree = "<group>"; };
@@ -375,8 +378,8 @@
 				AA588BA41990B4EC00F08821 /* Login.h */,
 				AA588BA51990B4EC00F08821 /* Register.cpp */,
 				AA588BA61990B4EC00F08821 /* Register.h */,
-				AA588BA71990B4EC00F08821 /* RetriveBuddy.cpp */,
-				AA588BA81990B4EC00F08821 /* RetriveBuddy.h */,
+				AA588BA71990B4EC00F08821 /* RetrieveBuddy.cpp */,
+				AA588BA81990B4EC00F08821 /* RetrieveBuddy.h */,
 				AA588BA91990B4EC00F08821 /* SendMsg.cpp */,
 				AA588BAA1990B4EC00F08821 /* SendMsg.h */,
 				AA588BAB1990B4EC00F08821 /* SwitchStatus.cpp */,
@@ -424,6 +427,7 @@
 		AA59F02F198A156F009FD449 /* Vendor */ = {
 			isa = PBXGroup;
 			children = (
+				AA65387319AF6B66003B64B0 /* JSBadgeView */,
 				AACD74951994A1AE00254C55 /* MBProgressHUD */,
 				AA1100FB198B61B6008811E4 /* TWMessage */,
 			);
@@ -548,6 +552,15 @@
 				AA665F7E19A8E9B100FCF5C6 /* LeftMarginTextField.m */,
 			);
 			path = Common;
+			sourceTree = "<group>";
+		};
+		AA65387319AF6B66003B64B0 /* JSBadgeView */ = {
+			isa = PBXGroup;
+			children = (
+				AA65387419AF6B66003B64B0 /* JSBadgeView.h */,
+				AA65387519AF6B67003B64B0 /* JSBadgeView.m */,
+			);
+			path = JSBadgeView;
 			sourceTree = "<group>";
 		};
 		AAA6DCC3198B918100EB948E /* Public */ = {
@@ -744,6 +757,7 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				Base,
 			);
 			mainGroup = AABF3CA6198636C0001C8DCA;
 			productRefGroup = AABF3CB0198636C0001C8DCA /* Products */;
@@ -831,6 +845,7 @@
 				AA59F0AD198A3732009FD449 /* LeeScrollView.m in Sources */,
 				AA59F0B0198A4117009FD449 /* BuddyViewController.mm in Sources */,
 				AAA6DCDA198B918100EB948E /* InStream.cpp in Sources */,
+				AA65387619AF6B67003B64B0 /* JSBadgeView.m in Sources */,
 				AA1100FA198B3F0A008811E4 /* MomentsViewController.m in Sources */,
 				AAF61303198F5C9F00555364 /* Session.cpp in Sources */,
 				AA588BB41990B4EC00F08821 /* SwitchStatus.cpp in Sources */,
@@ -859,7 +874,7 @@
 				AAA6DCDF198B918100EB948E /* Timestamp.cpp in Sources */,
 				AA7EB9981992674D000BD838 /* Client.mm in Sources */,
 				AA59F03C198A197B009FD449 /* UIImage+Additions.m in Sources */,
-				AA588BB21990B4EC00F08821 /* RetriveBuddy.cpp in Sources */,
+				AA588BB21990B4EC00F08821 /* RetrieveBuddy.cpp in Sources */,
 				AA665F7F19A8E9B100FCF5C6 /* LeftMarginTextField.m in Sources */,
 				AA588BAD1990B4EC00F08821 /* Action.cpp in Sources */,
 				AA665F7C19A8E66300FCF5C6 /* TextFieldTableViewCell.m in Sources */,

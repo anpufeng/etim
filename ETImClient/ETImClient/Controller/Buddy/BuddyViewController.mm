@@ -9,6 +9,7 @@
 #import "BuddyViewController.h"
 #import "AddBuddyViewController.h"
 #import "MBProgressHUD.h"
+#import "JSBadgeView.h"
 
 #include "Client.h"
 #include "Singleton.h"
@@ -25,7 +26,7 @@ using namespace etim::pub;
 @implementation BuddyViewController
 
 - (void)dealloc {
-        [[NSNotificationCenter defaultCenter] removeObserver:self name:notiNameFromCmd(CMD_RETRIEVE_BUDDY) object:nil];
+        [[NSNotificationCenter defaultCenter] removeObserver:self name:notiNameFromCmd(CMD_RETRIEVE_BUDDY_LIST) object:nil];
 }
 
 - (id)init
@@ -43,11 +44,14 @@ using namespace etim::pub;
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(responseToRetriveBuddyResult) name:notiNameFromCmd(CMD_RETRIEVE_BUDDY) object:nil];
+     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(responseToRetrieveBuddyResult) name:notiNameFromCmd(CMD_RETRIEVE_BUDDY_LIST) object:nil];
     [self createUI];
 }
 
 - (void)createUI {
+    BuddyTableHeaderView *headerView = [[BuddyTableHeaderView alloc] initWithFrame:CGRectMake(0, 0, RECT_WIDTH(self.tableView), 50)];
+    headerView.backgroundColor = [UIColor grayColor];
+    self.tableView.tableHeaderView = headerView;
     [self createRightNav];
 }
 
@@ -89,7 +93,7 @@ using namespace etim::pub;
 #pragma mark -
 #pragma mark response
 
-- (void)responseToRetriveBuddyResult {
+- (void)responseToRetrieveBuddyResult {
     
 }
 
@@ -117,5 +121,37 @@ using namespace etim::pub;
     // Pass the selected object to the new view controller.
 }
 */
+
+@end
+
+
+
+
+@implementation BuddyTableHeaderView
+
+- (id)initWithFrame:(CGRect)frame
+{
+    self = [super initWithFrame:frame];
+    if (self) {
+        // Initialization code
+        UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
+        btn.frame = CGRectMake(0, 10, RECT_WIDTH(self)/4.0f, RECT_HEIGHT(self));
+        [btn setTitle:@"新朋友" forState:UIControlStateNormal];
+        [self addSubview:btn];
+        
+        JSBadgeView *badgeView = [[JSBadgeView alloc] initWithParentView:btn alignment:JSBadgeViewAlignmentTopRight];
+        badgeView.badgeText = @"19";
+    }
+    return self;
+}
+
+/*
+ // Only override drawRect: if you perform custom drawing.
+ // An empty implementation adversely affects performance during animation.
+ - (void)drawRect:(CGRect)rect
+ {
+ // Drawing code
+ }
+ */
 
 @end

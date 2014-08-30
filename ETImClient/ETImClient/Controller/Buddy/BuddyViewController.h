@@ -17,3 +17,13 @@
 @property (nonatomic, strong) NSMutableArray *buddyList;
 
 @end
+
+
+
+@interface BuddyTableHeaderView : UIView {
+    
+}
+
+- (id)initWithFrame:(CGRect)frame;
+
+@end
