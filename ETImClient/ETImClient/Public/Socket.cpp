@@ -143,7 +143,6 @@ int Socket::RecvN(char *buf, size_t len) {
 	while (nLeft > 0) {
 		nRead = ::recv(fd_, p, nLeft, 0);
 		if (nRead == -1) {
-            LOG_ERROR<<"recvn error: "<<strerror(errno);
 			return nRead;
 		}
 		else if (nRead == 0)

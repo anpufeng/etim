@@ -22,22 +22,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "ETImClient/Controller/Login/RegViewController.mm"
-            timestampString = "430544289.358666"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "148"
-            endingLineNumber = "148"
-            landmarkName = "-hudWasHidden:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
@@ -99,13 +83,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "ETImClient/Controller/Account/ProfileViewController.mm"
-            timestampString = "430927207.453055"
+            filePath = "ETImClient/Client/Action/RetrieveBuddy.cpp"
+            timestampString = "431187230.140418"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "176"
-            endingLineNumber = "176"
-            landmarkName = "-responseToRequestAddBuddyResult"
+            startingLineNumber = "47"
+            endingLineNumber = "47"
+            landmarkName = "RetrieveBuddyList::DoRecv(etim::Session &amp;s)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -115,13 +99,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "ETImClient/Controller/Account/ProfileViewController.mm"
-            timestampString = "430927207.453055"
+            filePath = "ETImClient/Client/Action/RetrieveBuddy.cpp"
+            timestampString = "431187267.821544"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "38"
-            endingLineNumber = "38"
-            landmarkName = "-initWithUser:"
+            startingLineNumber = "24"
+            endingLineNumber = "24"
+            landmarkName = "RetrieveBuddyList::DoSend(Session&amp; s)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -131,45 +115,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "ETImClient/Client/Client.mm"
-            timestampString = "430893180.813428"
+            filePath = "ETImClient/Client/Action/RetrieveBuddy.cpp"
+            timestampString = "431190156.74615"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "56"
-            endingLineNumber = "56"
-            landmarkName = "-dealloc"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "ETImClient/Controller/Account/AccountViewController.mm"
-            timestampString = "430893224.559871"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "179"
-            endingLineNumber = "179"
-            landmarkName = "-responseToLogoutResult"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "ETImClient/Controller/Account/AccountViewController.mm"
-            timestampString = "430893225.824062"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "188"
-            endingLineNumber = "188"
-            landmarkName = "-responseToLogoutResult"
+            startingLineNumber = "87"
+            endingLineNumber = "87"
+            landmarkName = "RetrieveBuddyList::DoRecv(etim::Session &amp;s)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

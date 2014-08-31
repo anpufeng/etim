@@ -113,7 +113,6 @@ void Logout::Execute(Session *s) {
 	string userId;
 	jis>>userId;
 	
-    MD5 md5;
     int16 error_code = kErrCode000;
 	char error_msg[31] = {0};
 	//TODO 登出操作  更新用户状态为离线

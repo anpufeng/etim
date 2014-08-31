@@ -33,8 +33,8 @@ inline std::string nsStrToStdStr(NSString *str) {
 }
 
 @interface Client : NSObject {
-    dispatch_queue_t _actionQueueId;
-    dispatch_queue_t _recvQueueId;
+    dispatch_queue_t _actionQueue;
+    dispatch_queue_t _recvQueue;
 }
 
 

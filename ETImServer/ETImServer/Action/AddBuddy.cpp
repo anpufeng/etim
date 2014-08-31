@@ -27,7 +27,6 @@ void RequestAddBuddy::Execute(Session *s) {
     InStream jis(s->GetRequestPack()->buf, s->GetRequestPack()->head.len);
 	uint16 cmd = s->GetCmd();
     
-    MD5 md5;
 	// 好友请求
 	string fromName;
     string toName;

@@ -233,6 +233,60 @@ int DataService::RequestAddBuddy(const std::string &from, const std::string to) 
     return kErrCode000;
 }
 
+/**
+ 添加好友列表
+ @param user 如果查询到了则通过user返回
+ @return kErrCode000 成功 kErrCode002数据库错误 kErrCode006 无好友数据
+ */
+int DataService::RetrieveBuddyList(const std::string &username, std::list<IMUser> &result) {
+    /*
+     select DISTINCT u_t.*, st.status_name
+     from user u, friend f, user u_t
+	 left join status st
+     on st.status_id = u_t.status_id
+     where u_t.user_id = f.friend_to
+     and u.user_id = f.friend_from
+     and u.username = 'admin'
+     ;
+
+     */
+    MysqlDB db;
+    try {
+        db.Open();
+        stringstream ss;
+        ss<<"select DISTINCT u_t.*, st.status_name"<<
+        " from user u, friend f, user u_t"<<
+        " left join status st "<<
+        "on st.status_id = u_t.status_id"<<
+        " where u_t.user_id = f.friend_to"<<
+        " and u.user_id = f.friend_from"<<
+        " and req_status = "<<kBuddyRequestAccepted<<
+        " and u.username = '"<<username<<
+        "';";
+        MysqlRecordset rs;
+        rs = db.QuerySQL(ss.str().c_str());
+        if (rs.GetRows() < 1) {
+            return kErrCode005;
+        }
+        for (int i = 0; i < rs.GetRows(); ++i) {
+            IMUser user;
+            user.userId = rs.GetItem(i, "u_t.user_id");
+            string reg = rs.GetItem(i, "u_t.reg_time");
+            user.regDate = reg.substr(i, reg.find(" "));
+            
+            user.signature = rs.GetItem(i, "u_t.signature");
+            user.gender = Convert::StringToInt(rs.GetItem(i, "u_t.gender"));
+            user.status =  rs.GetItem(i, "st.status_name");
+            result.push_back(user);
+        }
+    } catch (Exception &e) {
+        LOG_INFO<<e.what();
+        return kErrCode002;
+    }
+
+    return kErrCode000;
+}
+
 #pragma mark -
 #pragma mark private
 
