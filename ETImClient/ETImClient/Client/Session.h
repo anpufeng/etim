@@ -11,6 +11,7 @@
 
 #include <iostream>
 #include <string>
+#include <list>
 #include <map>
 #include "Socket.h"
 #include "Endian.h"
@@ -18,7 +19,7 @@
 
 namespace etim {
     
-#define CMD_RETRIEVE_EVENT                       0X0000      //获取通知
+#define CMD_RETRIEVE_EVENT                      0X0000      //获取通知
 #define CMD_REGISTER                            0x0001      //注册
 #define CMD_LOGIN                               0x0002      //登录
 #define CMD_LOGOUT                              0x0003      //登出
@@ -29,9 +30,12 @@ namespace etim {
 #define CMD_RETRIEVE_BUDDY_LIST                 0x0008      //获取好友列表
 #define CMD_SEARCH_BUDDY                        0x0009      //查询某个用户信息
 #define CMD_RETRIEVE_UNREAD_MSG                 0x000A      //获取未读消息
-#define CMD_RETRIEVE_BUDDY_REQUEST                0x000B      //获取未处理好友请求
+#define CMD_RETRIEVE_BUDDY_REQUEST              0x000B      //获取未处理好友请求
     
-    static const std::string gCmdNoti[CMD_RETRIEVE_BUDDY_REQUEST+1] = {"CMD_RETRIEVE_EVENT", "CMD_REGISTER", "CMD_LOGIN", "CMD_LOGOUT", "CMD_HEART_BEAT", "CMD_SEND_MSG", "CMD_REQUEST_ADD_BUDDY", "CMD_SWITCH_STATUS", "CMD_RETRIEVE_BUDDY_LIST"};
+    static const std::string gCmdNoti[CMD_RETRIEVE_BUDDY_REQUEST+1] =
+    {"CMD_RETRIEVE_EVENT", "CMD_REGISTER", "CMD_LOGIN",
+        "CMD_LOGOUT", "CMD_HEART_BEAT", "CMD_SEND_MSG",
+        "CMD_REQUEST_ADD_BUDDY", "CMD_SWITCH_STATUS", "CMD_RETRIEVE_BUDDY_LIST"};
     
 #define ERR_MSG_LENGTH      30              // 错误消息定长
     ///请求头
@@ -95,9 +99,9 @@ namespace etim {
     
     ///错误信息
     static const std::string gErrMsg[kErrCodeMax+1] = {"正常", "用户或密码错误", "数据库错误", /*kErrCode003*/"用户已经存在",
-    "kErrCode004", "kErrCode005", "kErrCode006", /*kErrCode007*/"kErrCode007",
-    "kErrCode008", "kErrCode009", "kErrCode010", /*kErrCode011*/"kErrCode011",
-    /*kErrCodeMax*/"kErrCodeMax"};
+        "无此用户", "已是好友", "没有数据", /*kErrCode007*/"kErrCode007",
+        "kErrCode008", "kErrCode009", "kErrCode010", /*kErrCode011*/"kErrCode011",
+        /*kErrCodeMax*/"kErrCodeMax"};
     
     ///在线状态
     enum BuddyStatus {
@@ -156,6 +160,12 @@ namespace etim {
         const std::string GetErrorMsg() const { return errMsg_;}
         bool const IsError() const { return errCode_ != kErrCode000; }
         
+        ///好友
+        const std::list<IMUser> GetBuddys() const { return buddys_; }
+        void AddBuddy(IMUser &user) { buddys_.push_back(user); }
+        void ClearBuddys() { buddys_.clear(); }
+        
+        
     private:
         std::auto_ptr<Socket> socket_;
         bool isConnected_;
@@ -173,6 +183,9 @@ namespace etim {
         BuddyStatus status_;
         IMUser      user_;
         IMUser      searchUser_;
+        ///好友列表
+        std::list<IMUser> buddys_;
+        
     };
 }   //end etim
 

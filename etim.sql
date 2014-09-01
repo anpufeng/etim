@@ -1,17 +1,17 @@
 /*
  Navicat Premium Data Transfer
 
- Source Server         : localhost-mysql
+ Source Server         : localhost
  Source Server Type    : MySQL
- Source Server Version : 50619
+ Source Server Version : 50525
  Source Host           : localhost
  Source Database       : etim
 
  Target Server Type    : MySQL
- Target Server Version : 50619
+ Target Server Version : 50525
  File Encoding         : utf-8
 
- Date: 08/28/2014 09:02:31 AM
+ Date: 08/31/2014 23:04:29 PM
 */
 
 SET NAMES utf8;
@@ -47,13 +47,13 @@ CREATE TABLE `friend` (
   `action_time` datetime NOT NULL COMMENT '处理请求时间',
   `req_status` tinyint(4) NOT NULL DEFAULT '0' COMMENT '0:请求未发送 1:请求已发送 2：请求被拒绝 3：请求已同意',
   PRIMARY KEY (`friend_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 --  Records of `friend`
 -- ----------------------------
 BEGIN;
-INSERT INTO `friend` VALUES ('1', '1', '2', '2014-08-26 14:33:53', '2014-08-26 14:33:53', '0'), ('2', '1', '2', '2014-08-26 14:36:05', '2014-08-26 14:36:05', '0'), ('3', '19', '20', '2014-08-26 19:07:57', '2014-08-26 19:07:57', '0'), ('4', '17', '20', '2014-08-26 19:09:03', '2014-08-26 19:09:03', '0'), ('5', '17', '21', '2014-08-26 19:12:43', '2014-08-26 19:12:43', '0'), ('6', '17', '21', '2014-08-26 19:12:47', '2014-08-26 19:12:47', '0'), ('7', '17', '21', '2014-08-26 19:12:49', '2014-08-26 19:12:49', '0');
+INSERT INTO `friend` VALUES ('1', '1', '2', '2014-08-31 22:11:39', '2014-08-31 22:11:39', '3'), ('2', '1', '3', '2014-08-31 22:11:51', '2014-08-31 22:11:51', '3');
 COMMIT;
 
 -- ----------------------------
@@ -102,12 +102,12 @@ CREATE TABLE `user` (
   `status_id` tinyint(4) NOT NULL DEFAULT '3',
   PRIMARY KEY (`user_id`),
   UNIQUE KEY `username_index` (`username`)
-) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 --  Records of `user`
 -- ----------------------------
 BEGIN;
-INSERT INTO `user` VALUES ('17', 'admin', 'admin', '2014-08-26 17:17:52', '2014-08-26 17:17:52', '暂无签名', '0', '1'), ('18', 'admin2', 'Admin', '2014-08-26 17:19:39', '2014-08-26 17:19:39', '暂无签名', '0', '1');
+INSERT INTO `user` VALUES ('1', 'admin', 'admin', '2014-08-31 22:10:56', '2014-08-31 22:10:56', '暂无签名', '0', '1'), ('2', 'admin2', 'admin', '2014-08-31 22:11:11', '2014-08-31 22:11:11', '暂无签名', '0', '4'), ('3', 'admin3', 'admin', '2014-08-31 22:11:22', '2014-08-31 22:11:22', '暂无签名', '0', '4');
 COMMIT;
 

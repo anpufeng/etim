@@ -13,6 +13,8 @@
 #include "Logging.h"
 #include "Socket.h"
 
+#include <string>
+
 using namespace etim;
 using namespace etim::pub;
 
@@ -46,9 +48,11 @@ void Session::Recv() {
     int ret;
 	ret = socket_->RecvN(buffer_, sizeof(ResponseHead));
 	if (ret == 0)
-		throw Exception("服务器断开");
+		throw RecvException(strerror(errno), ret);
+    else if (ret == -1)
+        throw RecvException(strerror(errno), ret);
 	else if (ret != sizeof(ResponseHead))
-		throw Exception("接收数据包出错");
+		throw RecvException(std::string("接收数据包出错").c_str(), ret);
     
 	uint16 cmd = Endian::NetworkToHost16(responsePack_->head.cmd);
 	uint16 len = Endian::NetworkToHost16(responsePack_->head.len);

@@ -45,6 +45,23 @@ namespace etim
             std::string message_;
             std::string stackTrace_;
         };
+        
+        
+        ///端接收异常
+        class RecvException :public Exception {
+            public:
+            
+            explicit RecvException(const char* message, int received)
+            : Exception(message), received_(received)
+            {
+                
+            }
+            
+            int GetReceived() const { return received_; }
+
+        private:
+            int received_;
+        };
     }//end pub
 }   //end etim
 

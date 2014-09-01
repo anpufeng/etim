@@ -23,7 +23,7 @@ void RetrieveBuddyList::DoSend(Session& s) {
     OutStream jos;
     
 	// 包头命令
-	uint16 cmd = CMD_SEARCH_BUDDY;
+	uint16 cmd = CMD_RETRIEVE_BUDDY_LIST;
 	jos<<cmd;
     
 	// 预留两个字节包头len（包体+包尾长度）
@@ -42,7 +42,54 @@ void RetrieveBuddyList::DoSend(Session& s) {
 
 
 void RetrieveBuddyList::DoRecv(etim::Session &s) {
+    InStream jis((const char*)s.GetResponsePack(), s.GetResponsePack()->head.len+sizeof(ResponseHead));
+	// 跳过cmd、len
+	jis.Skip(4);
+	uint16 cnt;
+	uint16 seq;
+	int16 error_code;
+	jis>>cnt>>seq>>error_code;
     
+	char error_msg[31];
+	jis.ReadBytes(error_msg, ERR_MSG_LENGTH);
+    s.SetErrorCode(error_code);
+	s.SetErrorMsg(error_msg);
+    
+    if (error_code == kErrCode000) {
+        s.ClearBuddys();
+        
+        for (uint16 i = 0; i < cnt; ++i) {
+            InStream jis((const char*)s.GetResponsePack(), s.GetResponsePack()->head.len+sizeof(ResponseHead));
+            // 跳过cmd、len
+            jis.Skip(4);
+            uint16 cnt;
+            uint16 seq;
+            int16 error_code;
+            jis>>cnt>>seq>>error_code;
+            char error_msg[31];
+            jis.ReadBytes(error_msg, ERR_MSG_LENGTH);
+            
+            IMUser user;
+            int rel;
+            char userId[7] = {0};
+            jis.ReadBytes(userId, 6);
+            jis>>user.username;
+            jis>>user.regDate;
+            jis>>user.signature;
+            jis>>user.gender;
+            jis>>rel;
+            jis>>user.status;
+            user.userId = userId;
+            user.relation = (BuddyRelation)rel;
+            s.AddBuddy(user);
+            
+            if (seq == cnt - 1)
+                break;
+            s.Recv();
+        }
+    }
+   
+
 }
 
 

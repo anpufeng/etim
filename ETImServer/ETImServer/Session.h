@@ -79,7 +79,7 @@ namespace etim {
     
     ///错误信息
     static const std::string gErrMsg[kErrCodeMax+1] = {"正常", "用户或密码错误", "数据库错误", /*kErrCode003*/"用户已经存在",
-        "无此用户", "已是好友", "kErrCode006", /*kErrCode007*/"kErrCode007",
+        "无此用户", "已是好友", "没有数据", /*kErrCode007*/"kErrCode007",
         "kErrCode008", "kErrCode009", "kErrCode010", /*kErrCode011*/"kErrCode011",
         /*kErrCodeMax*/"kErrCodeMax"};
     

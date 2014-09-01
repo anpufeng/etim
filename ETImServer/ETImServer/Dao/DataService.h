@@ -10,6 +10,7 @@
 #define __ETImServer__DataService__
 
 #include <iostream>
+#include <list>
 #include "DataStruct.h"
 #include "Session.h"
 
@@ -24,6 +25,7 @@ namespace etim  {
         virtual int UserLogout(const std::string& username, Session *s) = 0;
         virtual int UserSearch(const std::string &username, Session *s, IMUser &user) = 0;
         virtual int RequestAddBuddy(const std::string &from, const std::string to) = 0;
+        virtual int RetrieveBuddyList(const std::string &username, std::list<IMUser> &result) = 0;
     };
     
     
@@ -34,10 +36,12 @@ namespace etim  {
         int UserLogout(const std::string& username, Session *s);
         int UserSearch(const std::string &username, Session *s, IMUser &user);
         int RequestAddBuddy(const std::string &from, const std::string to);
+        int RetrieveBuddyList(const std::string &username, std::list<IMUser> &result);
         
     public:
         int UpdateStatus(const std::string &username, BuddyStatus status);
         int SearchUserStatus(const std::string &username);
+
     };
 }   //end etim
 

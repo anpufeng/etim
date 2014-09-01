@@ -30,7 +30,6 @@ using namespace etim::pub;
 
 static Client *sharedClient = nil;
 static dispatch_once_t predicate;
-static bool shouldStop = NO;
 
 +(Client*)sharedInstance{
     dispatch_once(&predicate, ^{
@@ -44,7 +43,6 @@ static bool shouldStop = NO;
 
 + (void)sharedDealloc {
     if (sharedClient) {
-        shouldStop = YES;
         sharedClient = nil;
         predicate = 0;
     }
@@ -59,9 +57,8 @@ static bool shouldStop = NO;
 
 - (id)init {
     if (self = [super init]) {
-        shouldStop = NO;
-        _actionQueueId = dispatch_queue_create("clientSend", NULL);
-        _recvQueueId = dispatch_queue_create("clientRecv", NULL);
+        _actionQueue = dispatch_queue_create("clientSend", NULL);
+        _recvQueue = dispatch_queue_create("clientRecv", NULL);
         std::auto_ptr<Socket> connSoc(new Socket(-1, 0));
         ///令人头痛的命名冲突
         _session = new Session(connSoc);
@@ -79,9 +76,9 @@ static bool shouldStop = NO;
     ///获取好友列表
     [self pullWithCommand:CMD_RETRIEVE_BUDDY_LIST];
     ///获取未读消息
-    [self pullWithCommand:CMD_RETRIEVE_UNREAD_MSG];
+    //[self pullWithCommand:CMD_RETRIEVE_UNREAD_MSG];
     ///获取好友请求
-    [self pullWithCommand:CMD_RETRIEVE_BUDDY_REQUEST];
+    //[self pullWithCommand:CMD_RETRIEVE_BUDDY_REQUEST];
 }
 
 - (void)pullWithCommand:(uint16)cmd {
@@ -96,10 +93,16 @@ static bool shouldStop = NO;
 
 - (void)doAction:(etim::Session &)s {
     if (s.IsConnected()) {
-        dispatch_async(_actionQueueId, ^{
+        __weak Client *wself = self;
+        dispatch_async(_actionQueue, ^{
+            if (!wself)
+                return;
             try {
                 Singleton<ActionManager>::Instance().SendPacket(s);
             } catch (Exception &e) {
+                if (!wself)
+                    return;
+                
                 s.SetErrorCode(kErrCodeMax);
                 s.SetErrorMsg(e.what());
                 dispatch_async(dispatch_get_main_queue(), ^{
@@ -118,18 +121,25 @@ static bool shouldStop = NO;
 
 - (void)doRecv:(etim::Session &)s {
     if (s.IsConnected()) {
-        dispatch_async(_recvQueueId, ^{
+        __weak Client *wself = self;
+        dispatch_async(_recvQueue, ^{
             while (1) {
-                if (shouldStop)
+                if (!wself)
                     break;
+                
                 try {
                     Singleton<ActionManager>::Instance().RecvPacket(s);
                     dispatch_async(dispatch_get_main_queue(), ^{
                         [[NSNotificationCenter defaultCenter] postNotificationName:notiNameFromCmd(s.GetCmd()) object:nil];
                     });
-                } catch (Exception &e) {
-                    if (shouldStop) {
-                        
+                } catch (RecvException &e) {
+                    if (!wself)
+                        return;
+                    LOG_INFO<<e.what();
+                    if (e.GetReceived() == 0) {
+                        LOG_ERROR<<"服务端关闭";
+                    } else if (e.GetReceived() == -1) {
+                        LOG_ERROR<<"接收出错";
                     } else {
                         s.SetErrorCode(kErrCodeMax);
                         s.SetErrorMsg(e.what());
@@ -138,6 +148,13 @@ static bool shouldStop = NO;
                         });
                     }
                 }
+                
+                catch (Exception &e) {
+                    if (!wself)
+                        return;
+                    LOG_INFO<<e.what();
+                }
+
                 
             }
         });
