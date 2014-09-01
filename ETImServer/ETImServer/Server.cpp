@@ -48,7 +48,7 @@ int Server::Start() {
 
     
     
-    fd_set writeFds;
+    //fd_set writeFds;
     
     while (1) {
         FD_ZERO(&readFds_);

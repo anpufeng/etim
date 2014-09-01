@@ -76,6 +76,10 @@
 		AA665F8D19AA138300FCF5C6 /* contact_to_chat_btn_press@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AA665F8919AA138300FCF5C6 /* contact_to_chat_btn_press@2x.png */; };
 		AA665F9019AA1D1A00FCF5C6 /* pdi_bottom_edit_btn_press@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AA665F8E19AA1D1A00FCF5C6 /* pdi_bottom_edit_btn_press@2x.png */; };
 		AA665F9119AA1D1A00FCF5C6 /* pdi_bottom_edit_btn_nor@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AA665F8F19AA1D1A00FCF5C6 /* pdi_bottom_edit_btn_nor@2x.png */; };
+		AA6D73C419B1673B006DBC6D /* NewBuddyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA6D73C319B1673B006DBC6D /* NewBuddyViewController.m */; };
+		AA6D73C719B168C9006DBC6D /* BackTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA6D73C619B168C9006DBC6D /* BackTableViewController.m */; };
+		AA6D73C919B16B9C006DBC6D /* add_icon_friend@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AA6D73C819B16B9C006DBC6D /* add_icon_friend@2x.png */; };
+		AA6D73D019B1E739006DBC6D /* BadgeButton.m in Sources */ = {isa = PBXBuildFile; fileRef = AA6D73CF19B1E739006DBC6D /* BadgeButton.m */; };
 		AA7EB9981992674D000BD838 /* Client.mm in Sources */ = {isa = PBXBuildFile; fileRef = AA7EB9971992674D000BD838 /* Client.mm */; };
 		AA9131E519990F3900524E8D /* 37x-Checkmark.png in Resources */ = {isa = PBXBuildFile; fileRef = AA9131E319990F3900524E8D /* 37x-Checkmark.png */; };
 		AA9131E619990F3900524E8D /* 37x-Checkmark@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AA9131E419990F3900524E8D /* 37x-Checkmark@2x.png */; };
@@ -217,6 +221,13 @@
 		AA665F8919AA138300FCF5C6 /* contact_to_chat_btn_press@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "contact_to_chat_btn_press@2x.png"; sourceTree = "<group>"; };
 		AA665F8E19AA1D1A00FCF5C6 /* pdi_bottom_edit_btn_press@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pdi_bottom_edit_btn_press@2x.png"; sourceTree = "<group>"; };
 		AA665F8F19AA1D1A00FCF5C6 /* pdi_bottom_edit_btn_nor@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pdi_bottom_edit_btn_nor@2x.png"; sourceTree = "<group>"; };
+		AA6D73C219B1673B006DBC6D /* NewBuddyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewBuddyViewController.h; sourceTree = "<group>"; };
+		AA6D73C319B1673B006DBC6D /* NewBuddyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewBuddyViewController.m; sourceTree = "<group>"; };
+		AA6D73C519B168C9006DBC6D /* BackTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BackTableViewController.h; sourceTree = "<group>"; };
+		AA6D73C619B168C9006DBC6D /* BackTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BackTableViewController.m; sourceTree = "<group>"; };
+		AA6D73C819B16B9C006DBC6D /* add_icon_friend@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "add_icon_friend@2x.png"; sourceTree = "<group>"; };
+		AA6D73CE19B1E739006DBC6D /* BadgeButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BadgeButton.h; sourceTree = "<group>"; };
+		AA6D73CF19B1E739006DBC6D /* BadgeButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BadgeButton.m; sourceTree = "<group>"; };
 		AA7EB9961992674D000BD838 /* Client.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Client.h; sourceTree = "<group>"; };
 		AA7EB9971992674D000BD838 /* Client.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = Client.mm; sourceTree = "<group>"; };
 		AA9131E319990F3900524E8D /* 37x-Checkmark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "37x-Checkmark.png"; sourceTree = "<group>"; };
@@ -355,6 +366,7 @@
 		AA33752C19A89E29005BD678 /* Buddy */ = {
 			isa = PBXGroup;
 			children = (
+				AA6D73C819B16B9C006DBC6D /* add_icon_friend@2x.png */,
 				AA665F8E19AA1D1A00FCF5C6 /* pdi_bottom_edit_btn_press@2x.png */,
 				AA665F8F19AA1D1A00FCF5C6 /* pdi_bottom_edit_btn_nor@2x.png */,
 				AA665F8819AA138300FCF5C6 /* contact_to_chat_btn_nor@2x.png */,
@@ -468,6 +480,8 @@
 				AA59F045198A1A59009FD449 /* BaseViewController.m */,
 				AA9131EB199BA98B00524E8D /* BaseTableViewController.h */,
 				AA9131EC199BA98B00524E8D /* BaseTableViewController.m */,
+				AA6D73C519B168C9006DBC6D /* BackTableViewController.h */,
+				AA6D73C619B168C9006DBC6D /* BackTableViewController.m */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -490,6 +504,8 @@
 				AA59F0AF198A4117009FD449 /* BuddyViewController.mm */,
 				AA665F7119A8D86A00FCF5C6 /* AddBuddyViewController.h */,
 				AA665F7219A8D86A00FCF5C6 /* AddBuddyViewController.mm */,
+				AA6D73C219B1673B006DBC6D /* NewBuddyViewController.h */,
+				AA6D73C319B1673B006DBC6D /* NewBuddyViewController.m */,
 			);
 			path = Buddy;
 			sourceTree = "<group>";
@@ -550,6 +566,8 @@
 				AA665F7B19A8E66300FCF5C6 /* TextFieldTableViewCell.m */,
 				AA665F7D19A8E9B100FCF5C6 /* LeftMarginTextField.h */,
 				AA665F7E19A8E9B100FCF5C6 /* LeftMarginTextField.m */,
+				AA6D73CE19B1E739006DBC6D /* BadgeButton.h */,
+				AA6D73CF19B1E739006DBC6D /* BadgeButton.m */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -802,6 +820,7 @@
 				AA59F0A1198A28CF009FD449 /* login_avatar@2x.png in Resources */,
 				AA1100ED198B3C01008811E4 /* tab_me_nor@2x.png in Resources */,
 				AA33752719A871A5005BD678 /* Icon-Small@2x.png in Resources */,
+				AA6D73C919B16B9C006DBC6D /* add_icon_friend@2x.png in Resources */,
 				AA665F9119AA1D1A00FCF5C6 /* pdi_bottom_edit_btn_nor@2x.png in Resources */,
 				AA1100EB198B3C01008811E4 /* tab_buddy_nor@2x.png in Resources */,
 				AA59F0A8198A3667009FD449 /* login_btn_blue_nor@2x.png in Resources */,
@@ -852,6 +871,7 @@
 				AA59F0B6198A4142009FD449 /* AccountViewController.mm in Sources */,
 				AAA6DCD8198B918100EB948E /* Endian.cpp in Sources */,
 				AA9131ED199BA98B00524E8D /* BaseTableViewController.m in Sources */,
+				AA6D73D019B1E739006DBC6D /* BadgeButton.m in Sources */,
 				AA1100FE198B61D2008811E4 /* TWMessageBarManager.m in Sources */,
 				AA59F072198A1A59009FD449 /* BaseNavigationController.m in Sources */,
 				AA665F7319A8D86A00FCF5C6 /* AddBuddyViewController.mm in Sources */,
@@ -864,6 +884,7 @@
 				AA59F09C198A25C6009FD449 /* LoginViewController.mm in Sources */,
 				AACD74981994A1CB00254C55 /* MBProgressHUD.m in Sources */,
 				AA588BB01990B4EC00F08821 /* Login.cpp in Sources */,
+				AA6D73C719B168C9006DBC6D /* BackTableViewController.m in Sources */,
 				AA588BB31990B4EC00F08821 /* SendMsg.cpp in Sources */,
 				AA59F073198A1A59009FD449 /* BaseTabBarViewController.m in Sources */,
 				AABF3CBF198636C0001C8DCA /* main.m in Sources */,
@@ -882,6 +903,7 @@
 				AAA6DCDB198B918100EB948E /* Logging.cpp in Sources */,
 				AA588BAE1990B4EC00F08821 /* AddBuddy.cpp in Sources */,
 				AA59F034198A15F0009FD449 /* Constants.m in Sources */,
+				AA6D73C419B1673B006DBC6D /* NewBuddyViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

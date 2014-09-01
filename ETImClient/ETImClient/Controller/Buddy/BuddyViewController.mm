@@ -49,8 +49,8 @@ using namespace etim::pub;
 }
 
 - (void)createUI {
-    BuddyTableHeaderView *headerView = [[BuddyTableHeaderView alloc] initWithFrame:CGRectMake(0, 0, RECT_WIDTH(self.tableView), 50)];
-    headerView.backgroundColor = [UIColor grayColor];
+    BuddyTableHeaderView *headerView = [[BuddyTableHeaderView alloc] initWithFrame:CGRectMake(0, 0, RECT_WIDTH(self.tableView), 80)];
+    headerView.backgroundColor = RGB_TO_UICOLOR(213, 213, 213);
     self.tableView.tableHeaderView = headerView;
     [self createRightNav];
 }
@@ -135,8 +135,10 @@ using namespace etim::pub;
     if (self) {
         // Initialization code
         UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
-        btn.frame = CGRectMake(0, 10, RECT_WIDTH(self)/4.0f, RECT_HEIGHT(self));
-        [btn setTitle:@"新朋友" forState:UIControlStateNormal];
+        float margin = (RECT_WIDTH(self)/4.0f - 50)/2.0f;
+        btn.frame = CGRectMake(margin, 10, RECT_WIDTH(self)/4.0f, 50);
+        [btn setImage:[UIImage imageNamed:@"add_icon_friend"] forState:UIControlStateNormal];
+        btn.tag = BuddyViewMenuNewFriend;
         [self addSubview:btn];
         
         JSBadgeView *badgeView = [[JSBadgeView alloc] initWithParentView:btn alignment:JSBadgeViewAlignmentTopRight];

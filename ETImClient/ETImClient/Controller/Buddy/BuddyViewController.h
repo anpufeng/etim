@@ -20,9 +20,18 @@
 
 
 
-@interface BuddyTableHeaderView : UIView {
+
+
+typedef NS_ENUM(NSInteger, BuddyViewMenu) {
+    BuddyViewMenuNewFriend
+};
+
+///朋友列表上面菜单
+@interface BuddyTableHeaderView : UIControl {
     
 }
+
+- (void)buddyMenu:(NSString *)count menu:(BuddyViewMenu)menu;
 
 - (id)initWithFrame:(CGRect)frame;
 

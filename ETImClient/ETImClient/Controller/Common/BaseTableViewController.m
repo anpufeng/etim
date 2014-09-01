@@ -41,8 +41,10 @@
 
 ///子类实现
 - (void)responseToRefresh {
-
+    
 }
+
+
 
 - (void)didReceiveMemoryWarning
 {
