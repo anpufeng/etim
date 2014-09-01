@@ -35,6 +35,7 @@
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
     self.view.backgroundColor = RGB_TO_UICOLOR(240, 239, 244);
     self.refreshControl = [[UIRefreshControl alloc] init];
+    self.refreshControl.tintColor = [UIColor blueColor];
     [self.refreshControl addTarget:self action:@selector(responseToRefresh) forControlEvents:UIControlEventValueChanged];
 }
 

@@ -53,7 +53,6 @@ bool ActionManager::SendPacket(Session &s)
 {
     //TODO 处理异常
 	uint16_t cmd = s.GetSendCmd();
-    LOG_INFO<<"cmd " << cmd;
 	if (actions_.find(cmd) != actions_.end()) {
 		actions_[cmd]->DoSend(s);
 		return true;

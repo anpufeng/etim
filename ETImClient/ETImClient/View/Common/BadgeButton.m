@@ -19,9 +19,9 @@
 @implementation BadgeButton
 
 + (id)buttonWithType:(UIButtonType)buttonType alignment:(JSBadgeViewAlignment)alignment {
+    NSAssert(0, @"不支持");
     id btn = [[self class] buttonWithType:buttonType];
     if (btn)  {
-        JSBadgeView *view = [[JSBadgeView alloc] initWithParentView:btn alignment:alignment];
         
     }
     
@@ -37,7 +37,7 @@
 - (id)initWithFrame:(CGRect)frame alignment:(JSBadgeViewAlignment)alignment {
     self = [super initWithFrame:frame];
     if (self) {
-        
+        _badgeView = [[JSBadgeView alloc] initWithParentView:self alignment:alignment];
     }
     return self;
 }
@@ -51,7 +51,7 @@
 }
 
 - (void)setBadge:(NSString *)badge {
-    
+    [_badgeView setBadgeText:badge];
 }
 
 

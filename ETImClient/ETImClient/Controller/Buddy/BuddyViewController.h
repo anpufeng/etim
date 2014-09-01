@@ -23,7 +23,8 @@
 
 
 typedef NS_ENUM(NSInteger, BuddyViewMenu) {
-    BuddyViewMenuNewFriend
+    BuddyViewMenuNewFriend,
+    BuddyViewMenuMax
 };
 
 ///朋友列表上面菜单
@@ -31,7 +32,7 @@ typedef NS_ENUM(NSInteger, BuddyViewMenu) {
     
 }
 
-- (void)buddyMenu:(NSString *)count menu:(BuddyViewMenu)menu;
+@property (nonatomic, assign) BuddyViewMenu menu;
 
 - (id)initWithFrame:(CGRect)frame;
 

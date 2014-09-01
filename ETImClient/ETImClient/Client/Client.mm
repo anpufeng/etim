@@ -132,41 +132,23 @@ static dispatch_once_t predicate;
                     dispatch_async(dispatch_get_main_queue(), ^{
                         [[NSNotificationCenter defaultCenter] postNotificationName:notiNameFromCmd(s.GetRecvCmd()) object:nil];
                     });
-                    /*
-                    if (s.GetRecvCmd() == CMD_LOGIN && !s.IsError()) {
-                        //第一次登录或重新登录后拉取未读信息
-                        //之所以放于此是因为避免多线程问题(同时顺序发送不同命令要在一个线程当中)
-                            try {
-                                if (!wself)
-                                    return;
-                                s.Clear();
-                                s.SetAttribute("name", s.GetIMUser().username);
-                                
-                                s.SetSendCmd(CMD_RETRIEVE_BUDDY_LIST);
-                                Singleton<ActionManager>::Instance().SendPacket(s);
-                                s.SetSendCmd(CMD_RETRIEVE_UNREAD_MSG);
-                                Singleton<ActionManager>::Instance().SendPacket(s);
-                                s.SetSendCmd(CMD_RETRIEVE_BUDDY_REQUEST);
-                                Singleton<ActionManager>::Instance().SendPacket(s);
-                            } catch (Exception &e) {
-                                if (!wself)
-                                    return;
-                                
-                                s.SetErrorCode(kErrCodeMax);
-                                s.SetErrorMsg(e.what());
-                                dispatch_async(dispatch_get_main_queue(), ^{
-                                    [[NSNotificationCenter defaultCenter] postNotificationName:notiNameFromCmd(s.GetSendCmd()) object:nil];
-                                });
-                            }
-                    }
-                     */
-                   
                 } catch (RecvException &e) {
                     if (!wself)
                         return;
                     LOG_INFO<<e.what();
                     if (e.GetReceived() == 0) {
                         LOG_ERROR<<"服务端关闭";
+                        [[TWMessageBarManager sharedInstance] showMessageWithTitle:@"服务器错误" description:@"服务端关闭" type:TWMessageBarMessageTypeError];
+                        
+                        s.SetErrorCode(kErrCodeMax);
+                        s.SetErrorMsg(e.what());
+                        dispatch_async(dispatch_get_main_queue(), ^{
+                            [[NSNotificationCenter defaultCenter] postNotificationName:notiNameFromCmd(s.GetSendCmd()) object:nil];
+                        });
+
+                        break;
+                        
+                        
                     } else if (e.GetReceived() == -1) {
                         LOG_ERROR<<"接收出错";
                     } else {
