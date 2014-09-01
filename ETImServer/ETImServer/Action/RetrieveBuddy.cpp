@@ -27,6 +27,9 @@ using namespace std;
 void RetrieveBuddyList::Execute(Session *s) {
     InStream jis(s->GetRequestPack()->buf, s->GetRequestPack()->head.len);
 	uint16 cmd = s->GetCmd();
+    if (cmd == CMD_UNREAD) {
+        cmd = CMD_RETRIEVE_BUDDY_LIST;
+    }
     
 	// 好友请求
 	string username;

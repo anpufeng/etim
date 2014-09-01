@@ -35,6 +35,8 @@
 		AA33752B19A871CD005BD678 /* MetroUI-Folder-OS-OS-Linux-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = AA33752A19A871CD005BD678 /* MetroUI-Folder-OS-OS-Linux-icon.png */; };
 		AA33752F19A89E49005BD678 /* contact_add_btn_nor@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AA33752D19A89E49005BD678 /* contact_add_btn_nor@2x.png */; };
 		AA33753019A89E49005BD678 /* contact_add_btn_press@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AA33752E19A89E49005BD678 /* contact_add_btn_press@2x.png */; };
+		AA49BA4119B40DBB0058BFF3 /* BuddyTableViewCell.mm in Sources */ = {isa = PBXBuildFile; fileRef = AA49BA4019B40DBB0058BFF3 /* BuddyTableViewCell.mm */; };
+		AA49BA4819B41A080058BFF3 /* BuddyModel.mm in Sources */ = {isa = PBXBuildFile; fileRef = AA49BA4619B41A080058BFF3 /* BuddyModel.mm */; };
 		AA588B9B1990B4E500F08821 /* ActionManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AA588B991990B4E500F08821 /* ActionManager.cpp */; };
 		AA588BAD1990B4EC00F08821 /* Action.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AA588B9D1990B4EC00F08821 /* Action.cpp */; };
 		AA588BAE1990B4EC00F08821 /* AddBuddy.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AA588B9F1990B4EC00F08821 /* AddBuddy.cpp */; };
@@ -76,7 +78,7 @@
 		AA665F8D19AA138300FCF5C6 /* contact_to_chat_btn_press@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AA665F8919AA138300FCF5C6 /* contact_to_chat_btn_press@2x.png */; };
 		AA665F9019AA1D1A00FCF5C6 /* pdi_bottom_edit_btn_press@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AA665F8E19AA1D1A00FCF5C6 /* pdi_bottom_edit_btn_press@2x.png */; };
 		AA665F9119AA1D1A00FCF5C6 /* pdi_bottom_edit_btn_nor@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AA665F8F19AA1D1A00FCF5C6 /* pdi_bottom_edit_btn_nor@2x.png */; };
-		AA6D73C419B1673B006DBC6D /* NewBuddyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA6D73C319B1673B006DBC6D /* NewBuddyViewController.m */; };
+		AA6D73C419B1673B006DBC6D /* NewBuddyViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = AA6D73C319B1673B006DBC6D /* NewBuddyViewController.mm */; };
 		AA6D73C719B168C9006DBC6D /* BackTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA6D73C619B168C9006DBC6D /* BackTableViewController.m */; };
 		AA6D73C919B16B9C006DBC6D /* add_icon_friend@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AA6D73C819B16B9C006DBC6D /* add_icon_friend@2x.png */; };
 		AA6D73D019B1E739006DBC6D /* BadgeButton.m in Sources */ = {isa = PBXBuildFile; fileRef = AA6D73CF19B1E739006DBC6D /* BadgeButton.m */; };
@@ -106,6 +108,8 @@
 		AABF3CD6198636C0001C8DCA /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = AABF3CD4198636C0001C8DCA /* InfoPlist.strings */; };
 		AABF3CD8198636C0001C8DCA /* ETImClientTests.m in Sources */ = {isa = PBXBuildFile; fileRef = AABF3CD7198636C0001C8DCA /* ETImClientTests.m */; };
 		AACD74981994A1CB00254C55 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = AACD74971994A1CB00254C55 /* MBProgressHUD.m */; };
+		AAEBB81919B4308400AB3A07 /* ChatViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = AAEBB81819B4308400AB3A07 /* ChatViewController.mm */; };
+		AAF496A019B47585008A9372 /* Unread.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AAF4969E19B47585008A9372 /* Unread.cpp */; };
 		AAF61303198F5C9F00555364 /* Session.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AAF61301198F5C9F00555364 /* Session.cpp */; };
 		AAF613061990723A00555364 /* Exception.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AAF613041990723A00555364 /* Exception.cpp */; };
 /* End PBXBuildFile section */
@@ -151,6 +155,10 @@
 		AA33752A19A871CD005BD678 /* MetroUI-Folder-OS-OS-Linux-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "MetroUI-Folder-OS-OS-Linux-icon.png"; sourceTree = "<group>"; };
 		AA33752D19A89E49005BD678 /* contact_add_btn_nor@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "contact_add_btn_nor@2x.png"; sourceTree = "<group>"; };
 		AA33752E19A89E49005BD678 /* contact_add_btn_press@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "contact_add_btn_press@2x.png"; sourceTree = "<group>"; };
+		AA49BA3F19B40DBB0058BFF3 /* BuddyTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BuddyTableViewCell.h; sourceTree = "<group>"; };
+		AA49BA4019B40DBB0058BFF3 /* BuddyTableViewCell.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = BuddyTableViewCell.mm; sourceTree = "<group>"; };
+		AA49BA4619B41A080058BFF3 /* BuddyModel.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = BuddyModel.mm; sourceTree = "<group>"; };
+		AA49BA4719B41A080058BFF3 /* BuddyModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BuddyModel.h; sourceTree = "<group>"; };
 		AA588B991990B4E500F08821 /* ActionManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; lineEnding = 0; path = ActionManager.cpp; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.cpp; };
 		AA588B9A1990B4E500F08821 /* ActionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = ActionManager.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		AA588B9D1990B4EC00F08821 /* Action.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Action.cpp; sourceTree = "<group>"; };
@@ -222,7 +230,7 @@
 		AA665F8E19AA1D1A00FCF5C6 /* pdi_bottom_edit_btn_press@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pdi_bottom_edit_btn_press@2x.png"; sourceTree = "<group>"; };
 		AA665F8F19AA1D1A00FCF5C6 /* pdi_bottom_edit_btn_nor@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pdi_bottom_edit_btn_nor@2x.png"; sourceTree = "<group>"; };
 		AA6D73C219B1673B006DBC6D /* NewBuddyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewBuddyViewController.h; sourceTree = "<group>"; };
-		AA6D73C319B1673B006DBC6D /* NewBuddyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewBuddyViewController.m; sourceTree = "<group>"; };
+		AA6D73C319B1673B006DBC6D /* NewBuddyViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = NewBuddyViewController.mm; sourceTree = "<group>"; };
 		AA6D73C519B168C9006DBC6D /* BackTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BackTableViewController.h; sourceTree = "<group>"; };
 		AA6D73C619B168C9006DBC6D /* BackTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BackTableViewController.m; sourceTree = "<group>"; };
 		AA6D73C819B16B9C006DBC6D /* add_icon_friend@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "add_icon_friend@2x.png"; sourceTree = "<group>"; };
@@ -275,6 +283,10 @@
 		AABF3CD7198636C0001C8DCA /* ETImClientTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ETImClientTests.m; sourceTree = "<group>"; };
 		AACD74961994A1CB00254C55 /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
 		AACD74971994A1CB00254C55 /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
+		AAEBB81719B4308400AB3A07 /* ChatViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatViewController.h; sourceTree = "<group>"; };
+		AAEBB81819B4308400AB3A07 /* ChatViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ChatViewController.mm; sourceTree = "<group>"; };
+		AAF4969E19B47585008A9372 /* Unread.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Unread.cpp; sourceTree = "<group>"; };
+		AAF4969F19B47585008A9372 /* Unread.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Unread.h; sourceTree = "<group>"; };
 		AAF61301198F5C9F00555364 /* Session.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Session.cpp; sourceTree = "<group>"; };
 		AAF61302198F5C9F00555364 /* Session.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = Session.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		AAF613041990723A00555364 /* Exception.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Exception.cpp; sourceTree = "<group>"; };
@@ -377,6 +389,15 @@
 			path = Buddy;
 			sourceTree = "<group>";
 		};
+		AA49BA4519B419FF0058BFF3 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				AA49BA4619B41A080058BFF3 /* BuddyModel.mm */,
+				AA49BA4719B41A080058BFF3 /* BuddyModel.h */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		AA588B9C1990B4EC00F08821 /* Action */ = {
 			isa = PBXGroup;
 			children = (
@@ -396,6 +417,8 @@
 				AA588BAA1990B4EC00F08821 /* SendMsg.h */,
 				AA588BAB1990B4EC00F08821 /* SwitchStatus.cpp */,
 				AA588BAC1990B4EC00F08821 /* SwitchStatus.h */,
+				AAF4969E19B47585008A9372 /* Unread.cpp */,
+				AAF4969F19B47585008A9372 /* Unread.h */,
 			);
 			path = Action;
 			sourceTree = "<group>";
@@ -427,13 +450,6 @@
 				AA59F0AA198A372B009FD449 /* Common */,
 			);
 			path = View;
-			sourceTree = "<group>";
-		};
-		AA59F02D198A138B009FD449 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Model;
 			sourceTree = "<group>";
 		};
 		AA59F02F198A156F009FD449 /* Vendor */ = {
@@ -505,7 +521,9 @@
 				AA665F7119A8D86A00FCF5C6 /* AddBuddyViewController.h */,
 				AA665F7219A8D86A00FCF5C6 /* AddBuddyViewController.mm */,
 				AA6D73C219B1673B006DBC6D /* NewBuddyViewController.h */,
-				AA6D73C319B1673B006DBC6D /* NewBuddyViewController.m */,
+				AA6D73C319B1673B006DBC6D /* NewBuddyViewController.mm */,
+				AAEBB81719B4308400AB3A07 /* ChatViewController.h */,
+				AAEBB81819B4308400AB3A07 /* ChatViewController.mm */,
 			);
 			path = Buddy;
 			sourceTree = "<group>";
@@ -568,6 +586,8 @@
 				AA665F7E19A8E9B100FCF5C6 /* LeftMarginTextField.m */,
 				AA6D73CE19B1E739006DBC6D /* BadgeButton.h */,
 				AA6D73CF19B1E739006DBC6D /* BadgeButton.m */,
+				AA49BA3F19B40DBB0058BFF3 /* BuddyTableViewCell.h */,
+				AA49BA4019B40DBB0058BFF3 /* BuddyTableViewCell.mm */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -645,12 +665,12 @@
 		AABF3CB8198636C0001C8DCA /* ETImClient */ = {
 			isa = PBXGroup;
 			children = (
+				AA49BA4519B419FF0058BFF3 /* Model */,
 				AAF612FD198F564E00555364 /* Client */,
 				AAA6DCC3198B918100EB948E /* Public */,
 				AA59F031198A1590009FD449 /* Helper */,
 				AA59F030198A1580009FD449 /* Category */,
 				AA59F02F198A156F009FD449 /* Vendor */,
-				AA59F02D198A138B009FD449 /* Model */,
 				AA59F02C198A1382009FD449 /* View */,
 				AA59F02B198A137A009FD449 /* Controller */,
 				AA59F02A198A1368009FD449 /* Resource */,
@@ -881,6 +901,8 @@
 				AA59F03B198A197B009FD449 /* UIColor+Additions.m in Sources */,
 				AAA6DCD9198B918100EB948E /* Idea.cpp in Sources */,
 				AAA6DCE2198B962E00EB948E /* Socket.cpp in Sources */,
+				AAEBB81919B4308400AB3A07 /* ChatViewController.mm in Sources */,
+				AA49BA4819B41A080058BFF3 /* BuddyModel.mm in Sources */,
 				AA59F09C198A25C6009FD449 /* LoginViewController.mm in Sources */,
 				AACD74981994A1CB00254C55 /* MBProgressHUD.m in Sources */,
 				AA588BB01990B4EC00F08821 /* Login.cpp in Sources */,
@@ -888,9 +910,11 @@
 				AA588BB31990B4EC00F08821 /* SendMsg.cpp in Sources */,
 				AA59F073198A1A59009FD449 /* BaseTabBarViewController.m in Sources */,
 				AABF3CBF198636C0001C8DCA /* main.m in Sources */,
+				AAF496A019B47585008A9372 /* Unread.cpp in Sources */,
 				AA665F8219A961EF00FCF5C6 /* ProfileViewController.mm in Sources */,
 				AA588BAF1990B4EC00F08821 /* HeartBeat.cpp in Sources */,
 				AAF613061990723A00555364 /* Exception.cpp in Sources */,
+				AA49BA4119B40DBB0058BFF3 /* BuddyTableViewCell.mm in Sources */,
 				AA59F071198A1A59009FD449 /* BackViewController.m in Sources */,
 				AAA6DCDF198B918100EB948E /* Timestamp.cpp in Sources */,
 				AA7EB9981992674D000BD838 /* Client.mm in Sources */,
@@ -903,7 +927,7 @@
 				AAA6DCDB198B918100EB948E /* Logging.cpp in Sources */,
 				AA588BAE1990B4EC00F08821 /* AddBuddy.cpp in Sources */,
 				AA59F034198A15F0009FD449 /* Constants.m in Sources */,
-				AA6D73C419B1673B006DBC6D /* NewBuddyViewController.m in Sources */,
+				AA6D73C419B1673B006DBC6D /* NewBuddyViewController.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

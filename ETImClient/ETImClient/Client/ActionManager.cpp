@@ -16,6 +16,7 @@
 #include "AddBuddy.h"
 #include "SwitchStatus.h"
 #include "RetrieveBuddy.h"
+#include "Unread.h"
 #include "InStream.h"
 
 #include <assert.h>
@@ -37,6 +38,7 @@ ActionManager::ActionManager()
 	actions_[CMD_SEARCH_BUDDY] = new SearchBuddy;
     actions_[CMD_RETRIEVE_UNREAD_MSG] = new RetrieveUnreadMsg;
     actions_[CMD_RETRIEVE_BUDDY_REQUEST] =  new RetrieveBuddyRequest;
+    actions_[CMD_UNREAD] =  new Unread;
 }
 
 ActionManager::~ActionManager()
@@ -50,7 +52,8 @@ ActionManager::~ActionManager()
 bool ActionManager::SendPacket(Session &s)
 {
     //TODO 处理异常
-	uint16_t cmd = s.GetCmd();
+	uint16_t cmd = s.GetSendCmd();
+    LOG_INFO<<"cmd " << cmd;
 	if (actions_.find(cmd) != actions_.end()) {
 		actions_[cmd]->DoSend(s);
 		return true;

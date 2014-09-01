@@ -38,7 +38,7 @@ Session::~Session() {
 void Session::Clear() {
     request_.clear();
     response_.clear();
-    errCode_ = 0;
+    //errCode_ = 0;
 }
 void Session::Send(const char *buf, size_t len) {
     socket_->SendN(buf, len);

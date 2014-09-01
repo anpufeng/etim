@@ -185,7 +185,6 @@ int DataService::UserSearch(const std::string &username, Session *s, IMUser &use
 
 /**
  添加好友请求
- @param user 如果查询到了则通过user返回
  @return kErrCode000 成功 kErrCode002数据库错误 kErrCode004 无此用户
  kErrCode005 已是好友
  */
@@ -234,8 +233,8 @@ int DataService::RequestAddBuddy(const std::string &from, const std::string to) 
 }
 
 /**
- 添加好友列表
- @param user 如果查询到了则通过user返回
+ 获取好友列表
+ @param result 如果查询到了则通过user返回
  @return kErrCode000 成功 kErrCode002数据库错误 kErrCode006 无好友数据
  */
 int DataService::RetrieveBuddyList(const std::string &username, std::list<IMUser> &result) {
@@ -271,6 +270,7 @@ int DataService::RetrieveBuddyList(const std::string &username, std::list<IMUser
         for (int i = 0; i < rs.GetRows(); ++i) {
             IMUser user;
             user.userId = rs.GetItem(i, "u_t.user_id");
+            user.username = rs.GetItem(i, "u_t.username");
             string reg = rs.GetItem(i, "u_t.reg_time");
             user.regDate = reg.substr(i, reg.find(" "));
             

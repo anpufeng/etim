@@ -26,6 +26,10 @@ namespace etim {
 #define CMD_SEARCH_BUDDY                        0x0009      //查询某个用户信息
 #define CMD_RETRIEVE_UNREAD_MSG                 0x000A      //获取未读消息
 #define CMD_RETRIEVE_BUDDY_REQUEST              0x000B      //获取未处理好友请求
+#define CMD_UNREAD                              0X000C      //获取未读事件, 暂只包括三子命令
+                                                            //CMD_RETRIEVE_BUDDY_LIST,
+                                                            //CMD_RETRIEVE_UNREAD_MSG
+                                                            //CMD_RETRIEVE_BUDDY_REQUEST)
     
 #define ERR_MSG_LENGTH      30              // 错误消息定长
     ///请求头

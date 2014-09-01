@@ -166,7 +166,7 @@ using namespace etim::pub;
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     etim::Session *sess = [[Client sharedInstance] session];
     sess->Clear();
-    sess->SetCmd(CMD_LOGOUT);
+    sess->SetSendCmd(CMD_LOGOUT);
     sess->SetAttribute("name", sess->GetIMUser().username);
     [[Client sharedInstance] doAction:*sess];
 }
@@ -175,7 +175,7 @@ using namespace etim::pub;
 - (void)responseToLogoutResult {
     [MBProgressHUD hideHUDForView:self.view animated:YES];
     etim::Session *sess = [[Client sharedInstance] session];
-    if (sess->GetCmd() == CMD_LOGOUT) {
+    if (sess->GetRecvCmd() == CMD_LOGOUT) {
         if (sess->IsError()) {
             [[TWMessageBarManager sharedInstance] showMessageWithTitle:@"登出错误" description:stdStrToNsStr(sess->GetErrorMsg()) type:TWMessageBarMessageTypeError];
         } else {

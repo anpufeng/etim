@@ -33,7 +33,7 @@ using namespace etim::pub;
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.view.backgroundColor = RGB_TO_UICOLOR(240, 239, 244);
+    
     self.title = @"添加好友";
     [[NSNotificationCenter defaultCenter] addObserver:self
                                               selector:@selector(responseToSearchBuddyResult)
@@ -90,7 +90,7 @@ using namespace etim::pub;
 - (void)responseToSearchBuddyResult {
     [MBProgressHUD hideHUDForView:self.view animated:YES];
     etim::Session *sess = [[Client sharedInstance] session];
-    if (sess->GetCmd() == CMD_SEARCH_BUDDY) {
+    if (sess->GetRecvCmd() == CMD_SEARCH_BUDDY) {
         if (sess->IsError()) {
             [[TWMessageBarManager sharedInstance] showMessageWithTitle:@"查找结果" description:stdStrToNsStr(sess->GetErrorMsg()) type:TWMessageBarMessageTypeInfo];
         } else {
@@ -119,7 +119,7 @@ using namespace etim::pub;
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     etim::Session *sess = [[Client sharedInstance] session];
     sess->Clear();
-    sess->SetCmd(CMD_SEARCH_BUDDY);
+    sess->SetSendCmd(CMD_SEARCH_BUDDY);
     sess->SetAttribute("name", nsStrToStdStr(textField.text));
     [[Client sharedInstance] doAction:*sess];
     

@@ -50,7 +50,12 @@ bool ActionManager::DoAction(Session *s)
 	if (actions_.find(cmd) != actions_.end()) {
 		actions_[cmd]->Execute(s);
 		return true;
-	}
+	} else if (cmd == CMD_UNREAD) {
+        actions_[CMD_RETRIEVE_BUDDY_LIST]->Execute(s);
+        actions_[CMD_RETRIEVE_UNREAD_MSG]->Execute(s);
+        actions_[CMD_RETRIEVE_BUDDY_REQUEST]->Execute(s);
+        return true;
+    }
     
     LOG_ERROR<<"没有对应的命令处理类";
     return false;

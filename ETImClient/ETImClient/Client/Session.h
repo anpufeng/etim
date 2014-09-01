@@ -31,6 +31,10 @@ namespace etim {
 #define CMD_SEARCH_BUDDY                        0x0009      //查询某个用户信息
 #define CMD_RETRIEVE_UNREAD_MSG                 0x000A      //获取未读消息
 #define CMD_RETRIEVE_BUDDY_REQUEST              0x000B      //获取未处理好友请求
+#define CMD_UNREAD                              0X000C      //获取未读事件, 暂只包括三子命令
+                                                            //CMD_RETRIEVE_BUDDY_LIST,
+                                                            //CMD_RETRIEVE_UNREAD_MSG
+                                                            //CMD_RETRIEVE_BUDDY_REQUEST)
     
     static const std::string gCmdNoti[CMD_RETRIEVE_BUDDY_REQUEST+1] =
     {"CMD_RETRIEVE_EVENT", "CMD_REGISTER", "CMD_LOGIN",
@@ -117,9 +121,13 @@ namespace etim {
         Session(std::auto_ptr<Socket> &socket);
         ~Session();
         
-        ///设置操作命令
-        void SetCmd(uint16_t cmd) { cmd_ = cmd; }
-        uint16_t GetCmd() const { return cmd_; }
+        ///设置发送操作命令
+        void SetSendCmd(uint16_t cmd) { cmd_ = cmd; }
+        ///获取发送操作命令
+        uint16_t GetSendCmd() const { return cmd_; }
+        ///获取接收操作命令
+        uint16_t GetRecvCmd() const { return responsePack_->head.cmd; }
+        
         ///将返回值加入
         void SetResponse(const std::string& k, const std::string& v);
         ///获取返回值

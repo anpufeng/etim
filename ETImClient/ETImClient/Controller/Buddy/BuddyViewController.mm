@@ -8,6 +8,10 @@
 
 #import "BuddyViewController.h"
 #import "AddBuddyViewController.h"
+#import "BuddyTableViewCell.h"
+#import "BaseTabBarViewController.h"
+#import "ChatViewController.h"
+#import "BuddyModel.h"
 #import "MBProgressHUD.h"
 #import "JSBadgeView.h"
 
@@ -16,10 +20,17 @@
 #include "Session.h"
 #include "ActionManager.h"
 
+
+
 using namespace etim;
 using namespace etim::pub;
+using namespace std;
 
-@interface BuddyViewController ()
+@interface BuddyViewController () {
+    
+}
+
+@property (nonatomic, strong) NSMutableArray *buddyList;
 
 @end
 
@@ -75,26 +86,47 @@ using namespace etim::pub;
 #pragma mark tableview datasource & delegate
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 5;
+    return [self.buddyList count];
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return 50;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     static NSString *identifier = @"buddyCell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
+    BuddyTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
     if (!cell) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:identifier];
+        cell = [[BuddyTableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:identifier];
     }
     
-    cell.textLabel.text = [NSString stringWithFormat:@"%d", indexPath.row];
+    [cell update:self.buddyList[indexPath.row]];
     
     return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    BuddyModel *buddy = self.buddyList[indexPath.row];
+    ChatViewController *vc = [[ChatViewController alloc] init];
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 #pragma mark -
 #pragma mark response
 
 - (void)responseToRetrieveBuddyResult {
-    
+    etim::Session *sess = [[Client sharedInstance] session];
+    if (sess->GetRecvCmd() == CMD_RETRIEVE_BUDDY_LIST) {
+        if (sess->IsError()) {
+            [[TWMessageBarManager sharedInstance] showMessageWithTitle:@"请求错误" description:stdStrToNsStr(sess->GetErrorMsg()) type:TWMessageBarMessageTypeError];
+        } else {
+            //用户列表成功
+            self.buddyList = [BuddyModel buddys:sess->GetBuddys()];
+            [self.tableView reloadData];
+        }
+    } else {
+        [[TWMessageBarManager sharedInstance] showMessageWithTitle:@"登录错误" description:@"未知错误" type:TWMessageBarMessageTypeError];
+    }
 }
 
 - (void)responseToRefresh {

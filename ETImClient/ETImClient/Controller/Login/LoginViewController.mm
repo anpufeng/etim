@@ -121,7 +121,7 @@ using namespace etim::pub;
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     etim::Session *sess = [[Client sharedInstance] session];
     sess->Clear();
-    sess->SetCmd(CMD_LOGIN);
+    sess->SetSendCmd(CMD_LOGIN);
     sess->SetAttribute("name", nsStrToStdStr(_nameTextField.text));
     sess->SetAttribute("pass", nsStrToStdStr(_pwdTextField.text));
     [[Client sharedInstance] doAction:*sess];
@@ -135,7 +135,7 @@ using namespace etim::pub;
 - (void)responseToLoginResult {
     [MBProgressHUD hideHUDForView:self.view animated:YES];
     etim::Session *sess = [[Client sharedInstance] session];
-    if (sess->GetCmd() == CMD_LOGIN) {
+    if (sess->GetRecvCmd() == CMD_LOGIN) {
         if (sess->IsError()) {
              [[TWMessageBarManager sharedInstance] showMessageWithTitle:@"登录错误" description:stdStrToNsStr(sess->GetErrorMsg()) type:TWMessageBarMessageTypeError];
         } else {

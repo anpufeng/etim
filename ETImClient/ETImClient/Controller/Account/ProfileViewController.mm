@@ -154,7 +154,7 @@ using namespace etim::pub;
             [MBProgressHUD showHUDAddedTo:self.view animated:YES];
             etim::Session *sess = [[Client sharedInstance] session];
             sess->Clear();
-            sess->SetCmd(CMD_REQUEST_ADD_BUDDY);
+            sess->SetSendCmd(CMD_REQUEST_ADD_BUDDY);
             sess->SetAttribute("friend_from", sess->GetIMUser().username);
             sess->SetAttribute("friend_to", self.user.username);
             [[Client sharedInstance] doAction:*sess];
@@ -175,7 +175,7 @@ using namespace etim::pub;
 - (void)responseToRequestAddBuddyResult {
     [MBProgressHUD hideHUDForView:self.view animated:YES];
     etim::Session *sess = [[Client sharedInstance] session];
-    if (sess->GetCmd() == CMD_REQUEST_ADD_BUDDY) {
+    if (sess->GetRecvCmd() == CMD_REQUEST_ADD_BUDDY) {
         if (sess->IsError()) {
             [[TWMessageBarManager sharedInstance] showMessageWithTitle:@"请求添加好友出错" description:stdStrToNsStr(sess->GetErrorMsg()) type:TWMessageBarMessageTypeError];
         } else {

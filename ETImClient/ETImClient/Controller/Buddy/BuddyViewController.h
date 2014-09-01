@@ -11,10 +11,10 @@
 ///好友页面
 
 @interface BuddyViewController : BaseTableViewController <UITableViewDataSource, UITableViewDelegate> {
-    UITableView *_tableView;
+
 }
 
-@property (nonatomic, strong) NSMutableArray *buddyList;
+
 
 @end
 

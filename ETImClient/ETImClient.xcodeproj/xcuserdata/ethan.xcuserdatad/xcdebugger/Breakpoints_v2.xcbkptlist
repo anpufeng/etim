@@ -83,45 +83,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "ETImClient/Client/Action/RetrieveBuddy.cpp"
-            timestampString = "431187230.140418"
+            filePath = "ETImClient/Client/Client.mm"
+            timestampString = "431253730.823009"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "47"
-            endingLineNumber = "47"
-            landmarkName = "RetrieveBuddyList::DoRecv(etim::Session &amp;s)"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "ETImClient/Client/Action/RetrieveBuddy.cpp"
-            timestampString = "431187267.821544"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "24"
-            endingLineNumber = "24"
-            landmarkName = "RetrieveBuddyList::DoSend(Session&amp; s)"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "ETImClient/Client/Action/RetrieveBuddy.cpp"
-            timestampString = "431190156.74615"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "87"
-            endingLineNumber = "87"
-            landmarkName = "RetrieveBuddyList::DoRecv(etim::Session &amp;s)"
+            startingLineNumber = "182"
+            endingLineNumber = "182"
+            landmarkName = "-doRecv:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
