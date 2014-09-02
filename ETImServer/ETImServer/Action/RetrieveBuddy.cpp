@@ -45,7 +45,7 @@ void RetrieveBuddyList::Execute(Session *s) {
 	int ret;
 	ret = dao.RetrieveBuddyList(username, buddys);
 	if (ret == kErrCode000) {
-		LOG_INFO<<"获取好友列表成功"<<username;
+		LOG_INFO<<"获取好友列表成功: "<<username;
         uint16 cnt = static_cast<uint16>(buddys.size());    //总共多少
 		uint16 seq = 0;                                     //序列号
         list<IMUser>::const_iterator it;
@@ -120,7 +120,7 @@ void RetrieveBuddyRequest::Execute(Session *s) {
 	int ret = kErrCode000;
     //ret = dao.UserLogout(username, s);
 	if (ret == kErrCode000) {
-		LOG_INFO<<"查询好友请求成功";
+		LOG_INFO<<"查询好友请求成功: "<<username;
 	} else  {
 		error_code = ret;
         assert(error_code < kErrCodeMax);

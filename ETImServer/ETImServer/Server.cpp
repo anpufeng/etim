@@ -109,6 +109,7 @@ int Server::Start() {
                 } catch (Exception &e) {
                     if (result == 0) {
                         //服务端关闭此session
+                        LOG_INFO<<"客户端关闭socket"<<s->GetIMUser().username;
                         delete s;
                         sessions_.erase(std::remove(sessions_.begin(), sessions_.end(), s));
                     } else {

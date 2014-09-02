@@ -19,6 +19,7 @@
         UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 6, 5)];
         self.leftView = view;
         self.leftViewMode = UITextFieldViewModeAlways;
+        self.clearButtonMode = UITextFieldViewModeWhileEditing;
     }
     return self;
 }

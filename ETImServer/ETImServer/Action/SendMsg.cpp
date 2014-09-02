@@ -51,7 +51,7 @@ void RetrieveUnreadMsg::Execute(Session *s) {
 	int ret = kErrCode000;
     //ret = dao.UserLogout(username, s);
 	if (ret == kErrCode000) {
-		LOG_INFO<<"查询未读消息成功";
+		LOG_INFO<<"查询未读消息成功: "<<username;
 	} else  {
 		error_code = ret;
         assert(error_code < kErrCodeMax);

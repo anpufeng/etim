@@ -28,6 +28,11 @@ enum BuddyRequestStatus {
     kBuddyRequestAccepted,      //3用户接受添加为好友
 };
 
+enum MsgSentStatus {
+    kMsgUnsent,                 //用户信息未发出
+    kMsgSent                    //用户信息已发出
+};
+
 namespace etim  {
     
     ///用户
@@ -44,8 +49,7 @@ namespace etim  {
     ///消息
     struct IMMsg {
         int             msgId;
-        IMUser          *from;
-        IMUser          *to;
+        IMUser          from;
         std::string     text;
         int8            sent;
         std::string     sendTime;

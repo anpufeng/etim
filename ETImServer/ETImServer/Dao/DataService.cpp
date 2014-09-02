@@ -14,6 +14,7 @@
 #include "Endian.h"
 
 #include <sstream>
+#include <list>
 
 using namespace etim;
 using namespace etim::pub;
@@ -83,7 +84,7 @@ int DataService::UserLogin(const std::string& username, const std::string& pass,
         ss.str("");
         ss<<"update user set status_id = "<<kBuddyOnline<<" where username = '"<<username<<"';";
         unsigned long long ret = db.ExecSQL(ss.str().c_str());
-        
+        (void)ret;
         
         ss.clear();
         ss.str("");
@@ -234,7 +235,7 @@ int DataService::RequestAddBuddy(const std::string &from, const std::string to) 
 
 /**
  获取好友列表
- @param result 如果查询到了则通过user返回
+ @param result 如果查询到了则通过result返回
  @return kErrCode000 成功 kErrCode002数据库错误 kErrCode006 无好友数据
  */
 int DataService::RetrieveBuddyList(const std::string &username, std::list<IMUser> &result) {
@@ -265,7 +266,7 @@ int DataService::RetrieveBuddyList(const std::string &username, std::list<IMUser
         MysqlRecordset rs;
         rs = db.QuerySQL(ss.str().c_str());
         if (rs.GetRows() < 1) {
-            return kErrCode005;
+            return kErrCode006;
         }
         for (int i = 0; i < rs.GetRows(); ++i) {
             IMUser user;
@@ -284,6 +285,63 @@ int DataService::RetrieveBuddyList(const std::string &username, std::list<IMUser
         return kErrCode002;
     }
 
+    return kErrCode000;
+}
+
+/**
+ 获取未读消息
+ @param result 如果查询到了则通过result返回
+ @return kErrCode000 成功 kErrCode002数据库错误 kErrCode006 无未读数据
+ */
+
+int DataService::RetrieveUnreadMsg(const std::string &username, std::list<IMMsg> &result) {
+    /*
+     select * from message m
+     left join user u
+     on u.user_id = m.msg_from
+     where
+     m.sent = 0 and u.username = 'admin';
+     
+     select m.*, u.* from message m, `status` s
+     left join user u
+     on u.user_id = m.msg_from and s.status_id = u.status_id
+     where
+     m.sent = 0;
+     */
+    MysqlDB db;
+    try {
+        db.Open();
+        stringstream ss;
+        ss<<"select * from message m"<<
+        " left join user u_t"<<
+        " on u.user_id = m.msg_from"<<
+        " where m.sent = "<< kMsgUnsent <<
+        " and u.username = '"<<
+        username<<"';";
+        MysqlRecordset rs;
+        rs = db.QuerySQL(ss.str().c_str());
+        if (rs.GetRows() < 1) {
+            return kErrCode006;
+        }
+        for (int i = 0; i < rs.GetRows(); ++i) {
+            IMUser fromUser;
+            fromUser.userId = rs.GetItem(i, "u_t.user_id");
+            fromUser.username = rs.GetItem(i, "u_t.username");
+            string reg = rs.GetItem(i, "u_t.reg_time");
+            fromUser.regDate = reg.substr(i, reg.find(" "));
+            
+            fromUser.signature = rs.GetItem(i, "u_t.signature");
+            fromUser.gender = Convert::StringToInt(rs.GetItem(i, "u_t.gender"));
+            fromUser.status =  rs.GetItem(i, "st.status_name");
+            
+            
+            result.push_back(user);
+        }
+    } catch (Exception &e) {
+        LOG_INFO<<e.what();
+        return kErrCode002;
+    }
+    
     return kErrCode000;
 }
 

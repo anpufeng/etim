@@ -67,12 +67,12 @@ void Login::Execute(Session *s) {
 	ret = dao.UserLogin(name, pass, user);
 	if (ret == kErrCode000) {
         s->SetIMUser(user);
-		LOG_INFO<<"登录成功";
+		LOG_INFO<<"登录成功: "<<name;
 	} else  {
 		error_code = ret;
         assert(error_code < kErrCodeMax);
 		strcpy(error_msg, gErrMsg[error_code].c_str());
-		LOG_INFO<<error_msg;
+		LOG_INFO<<error_msg <<name;
 	}
     
 	OutStream jos;
@@ -120,7 +120,7 @@ void Logout::Execute(Session *s) {
 	int ret = kErrCode000;
     ret = dao.UserLogout(user.username, s);
 	if (ret == kErrCode000) {
-		LOG_INFO<<"登出成功";
+		LOG_INFO<<"登出成功"<<username;
 	} else  {
 		error_code = ret;
         assert(error_code < kErrCodeMax);

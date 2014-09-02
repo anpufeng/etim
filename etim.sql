@@ -1,17 +1,17 @@
 /*
  Navicat Premium Data Transfer
 
- Source Server         : localhost
+ Source Server         : localhost-mysql
  Source Server Type    : MySQL
- Source Server Version : 50525
+ Source Server Version : 50619
  Source Host           : localhost
  Source Database       : etim
 
  Target Server Type    : MySQL
- Target Server Version : 50525
+ Target Server Version : 50619
  File Encoding         : utf-8
 
- Date: 08/31/2014 23:04:29 PM
+ Date: 09/02/2014 18:30:32 PM
 */
 
 SET NAMES utf8;
@@ -64,11 +64,19 @@ CREATE TABLE `message` (
   `msg_id` int(11) NOT NULL AUTO_INCREMENT,
   `msg_from` int(11) NOT NULL,
   `msg_to` int(11) NOT NULL,
-  `send_time` datetime NOT NULL,
-  `sent` bit(1) NOT NULL COMMENT '是否已发送给接收方',
+  `request_time` datetime NOT NULL COMMENT '请求发送时间',
+  `send_time` datetime NOT NULL COMMENT '真正发送到对方的时间',
+  `sent` tinyint(1) NOT NULL DEFAULT '0' COMMENT '是否已发送给接收方0没有1已发送',
   `message` char(128) NOT NULL,
   PRIMARY KEY (`msg_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+--  Records of `message`
+-- ----------------------------
+BEGIN;
+INSERT INTO `message` VALUES ('1', '2', '1', '2014-09-02 15:09:45', '2014-09-02 15:09:48', '0', 'hello test1'), ('2', '2', '1', '2014-09-02 18:05:23', '2014-09-02 18:05:25', '0', 'hello tes what kind of message you received?'), ('3', '2', '3', '2014-09-02 18:26:02', '2014-09-02 18:26:05', '0', 'msg from 2 to 3');
+COMMIT;
 
 -- ----------------------------
 --  Table structure for `status`

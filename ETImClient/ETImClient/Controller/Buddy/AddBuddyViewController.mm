@@ -9,6 +9,7 @@
 #import "AddBuddyViewController.h"
 #import "TextFieldTableViewCell.h"
 #import "ProfileViewController.h"
+#import "LeftMarginTextField.h"
 
 #include "Client.h"
 #include "Singleton.h"

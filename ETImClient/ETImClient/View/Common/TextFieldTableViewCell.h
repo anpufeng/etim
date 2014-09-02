@@ -11,9 +11,11 @@
 
 ///UITableViewCell当中含有textfield的行
 
+@class LeftMarginTextField;
+
 @interface TextFieldTableViewCell : UITableViewCell
 
-@property (nonatomic, strong) UITextField *textField;
+@property (nonatomic, strong) LeftMarginTextField *textField;
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier;
 

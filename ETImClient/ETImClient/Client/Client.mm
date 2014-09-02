@@ -6,6 +6,12 @@
 //  Copyright (c) 2014 Pingan. All rights reserved.
 //
 
+/**
+ 遇到的问题主要是多个命令连续发的时候会产生SESSION被改变而这时上一个命令可能还未发出(因为发送用异步,主线程先于发送执行)
+ 所以导致发的CMD及PARAM被改变 后面考虑做成OPERATIONQUQUE 每次把CMD及PARAM存到
+ NSOPERATION去执行 解决命令顺序问题
+ */
+
 #import "Client.h"
 #include "Socket.h"
 #include "Logging.h"
@@ -17,6 +23,7 @@
 
 using namespace etim;
 using namespace etim::pub;
+using namespace std;
 
 
 @interface Client () {
@@ -78,7 +85,7 @@ static dispatch_once_t predicate;
     [self pullWithCommand:CMD_UNREAD];
 }
 
-///获取未读消息
+///只有参数为name时的命令操作
 - (void)pullWithCommand:(uint16)cmd {
     _session->Clear();
     _session->SetSendCmd(cmd);
@@ -97,18 +104,19 @@ static dispatch_once_t predicate;
             if (!wself)
                 return;
             try {
-                ETLOG(@"发送cmd: %0X, 通知名称: %@", s.GetSendCmd(), notiNameFromCmd(s.GetSendCmd()));
-                std::map<std::string, std::string> request = s.GetRequest();
-                std::map<std::string, std::string>::iterator it;
+                ETLOG(@"发送cmd: 0X%04X, 通知名称: %@", s.GetSendCmd(), notiNameFromCmd(s.GetSendCmd()));
+                map<string, string> request = s.GetRequest();
+                map<string, string>::iterator it;
                 for(it = request.begin(); it != request.end(); it++) {
-                    std::cout<<it->first <<"->"<<it->second<<std::endl;
+                    cout<<it->first <<"->"<<it->second<<endl;
                 }
+                cout<<endl;
                 
                 Singleton<ActionManager>::Instance().SendPacket(s);
             } catch (Exception &e) {
                 if (!wself)
                     return;
-                ETLOG(@"出错发送cmd: %0X, 通知名称: %@", s.GetSendCmd(), notiNameFromCmd(s.GetSendCmd()));
+                ETLOG(@"出错发送cmd: 0X%04X, 通知名称: %@", s.GetSendCmd(), notiNameFromCmd(s.GetSendCmd()));
                 s.SetErrorCode(kErrCodeMax);
                 s.SetErrorMsg(e.what());
                 dispatch_sync(dispatch_get_main_queue(), ^{
@@ -138,7 +146,7 @@ static dispatch_once_t predicate;
                         break;
                     ///必须dispatch_sync,不然如果多个命令连续的话会导致重新发出相同的最后一个命令名称
                     dispatch_sync(dispatch_get_main_queue(), ^{
-                        ETLOG(@"接收cmd: %0X, 通知名称: %@", s.GetRecvCmd(), notiNameFromCmd(s.GetRecvCmd()));
+                        ETLOG(@"接收cmd: 0X%04X, 通知名称: %@", s.GetRecvCmd(), notiNameFromCmd(s.GetRecvCmd()));
                         [[NSNotificationCenter defaultCenter] postNotificationName:notiNameFromCmd(s.GetRecvCmd()) object:nil];
                     });
                 } catch (RecvException &e) {
@@ -146,7 +154,8 @@ static dispatch_once_t predicate;
                         return;
                     LOG_INFO<<e.what();
                     if (e.GetReceived() == 0) {
-                        LOG_ERROR<<"服务端关闭";
+                        ///TODO 关闭客户端socket并进行重连
+                        LOG_ERROR<<"服务端关闭或超时";
                         [[TWMessageBarManager sharedInstance] showMessageWithTitle:@"服务器错误" description:@"服务端关闭" type:TWMessageBarMessageTypeError];
                         
                         s.SetErrorCode(kErrCodeMax);
