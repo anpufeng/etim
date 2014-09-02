@@ -37,6 +37,7 @@
     self.refreshControl = [[UIRefreshControl alloc] init];
     self.refreshControl.tintColor = [UIColor blueColor];
     [self.refreshControl addTarget:self action:@selector(responseToRefresh) forControlEvents:UIControlEventValueChanged];
+    self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
 }
 
 

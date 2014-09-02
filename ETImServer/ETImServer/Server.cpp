@@ -108,7 +108,7 @@ int Server::Start() {
                     ++it;
                 } catch (Exception &e) {
                     if (result == 0) {
-                        //服务端关闭
+                        //服务端关闭此session
                         delete s;
                         sessions_.erase(std::remove(sessions_.begin(), sessions_.end(), s));
                     } else {

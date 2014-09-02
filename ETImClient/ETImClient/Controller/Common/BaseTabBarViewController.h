@@ -8,7 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@class PALeftViewController;
 
 @interface BaseTabBarViewController : UITabBarController
 

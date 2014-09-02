@@ -56,13 +56,7 @@ using namespace etim::pub;
 }
 
 - (void)createUI {
-    _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, RECT_WIDTH(self.view), RECT_HEIGHT(self.view) - kTabBarHeight) style:UITableViewStylePlain];
-    _tableView.dataSource = self;
-    _tableView.delegate = self;
-    _tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
-    [self.view addSubview:_tableView];
-    
-    UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, RECT_WIDTH(_tableView), 60)];
+    UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, RECT_WIDTH(self.tableView), 60)];
     
     UIButton *logoutBtn = [[UIButton alloc] initWithFrame:CGRectMake(20, 10, 280, 40)];
     UIEdgeInsets inset = UIEdgeInsetsMake(10, 15, 10, 15);
@@ -83,7 +77,7 @@ using namespace etim::pub;
     [logoutBtn addTarget:self action:@selector(responseToLogoutBtn:) forControlEvents:UIControlEventTouchUpInside];
     [footerView addSubview:logoutBtn];
     
-    _tableView.tableFooterView = footerView;
+    self.tableView.tableFooterView = footerView;
 }
 
 #pragma mark -

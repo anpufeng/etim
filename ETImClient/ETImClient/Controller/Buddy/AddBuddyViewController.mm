@@ -43,17 +43,7 @@ using namespace etim::pub;
 }
 
 - (void)createUI {
-    _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0,
-                                                               0,
-                                                               RECT_WIDTH(self.view),
-                                                               RECT_HEIGHT(self.view))
-                                              style:UITableViewStylePlain];
-    _tableView.backgroundColor = RGB_TO_UICOLOR(240, 239, 244);
-    _tableView.separatorStyle =  UITableViewCellSeparatorStyleNone;
-    _tableView.delegate = self;
-    _tableView.dataSource = self;
-    
-    [self.view addSubview:_tableView];
+
 }
 
 #pragma mark -

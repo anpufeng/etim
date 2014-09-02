@@ -8,6 +8,7 @@
 
 #import "BuddyViewController.h"
 #import "AddBuddyViewController.h"
+#import "NewBuddyViewController.h"
 #import "BuddyTableViewCell.h"
 #import "BaseTabBarViewController.h"
 #import "ChatViewController.h"
@@ -56,7 +57,8 @@ using namespace std;
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(responseToRetrieveBuddyResult) name:notiNameFromCmd(CMD_RETRIEVE_BUDDY_LIST) object:nil];
+     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(responseToRetrieveBuddyListResult) name:notiNameFromCmd(CMD_RETRIEVE_BUDDY_LIST) object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(responseToRetrieveBuddyRequestResult) name:notiNameFromCmd(CMD_RETRIEVE_BUDDY_REQUEST) object:nil];
     [self createUI];
 }
 
@@ -115,7 +117,8 @@ using namespace std;
 #pragma mark -
 #pragma mark response
 
-- (void)responseToRetrieveBuddyResult {
+///好友列表结果
+- (void)responseToRetrieveBuddyListResult {
     [self.refreshControl endRefreshing];
     etim::Session *sess = [[Client sharedInstance] session];
     if (sess->GetRecvCmd() == CMD_RETRIEVE_BUDDY_LIST) {
@@ -128,6 +131,21 @@ using namespace std;
         }
     } else {
         [[TWMessageBarManager sharedInstance] showMessageWithTitle:@"获取好友列表错误" description:@"未知错误" type:TWMessageBarMessageTypeError];
+    }
+}
+
+///好友请求结果
+- (void)responseToRetrieveBuddyRequestResult {
+    etim::Session *sess = [[Client sharedInstance] session];
+    if (sess->GetRecvCmd() == CMD_RETRIEVE_BUDDY_REQUEST) {
+        if (sess->IsError()) {
+            [[TWMessageBarManager sharedInstance] showMessageWithTitle:@"获取好友请求错误" description:stdStrToNsStr(sess->GetErrorMsg()) type:TWMessageBarMessageTypeError];
+        } else {
+            //好友请求列表成功
+            
+        }
+    } else {
+        [[TWMessageBarManager sharedInstance] showMessageWithTitle:@"获取好友请求错误" description:@"未知错误" type:TWMessageBarMessageTypeError];
     }
 }
 
@@ -145,7 +163,18 @@ using namespace std;
 }
 
 - (void)responseToBuddyMenu:(BuddyTableHeaderView *)sender {
-    ETLOG(@"点击按钮 : %d", sender.menu);
+    switch (sender.menu) {
+        case BuddyViewMenuNewFriend:
+        {
+            NewBuddyViewController *vc = [[NewBuddyViewController alloc] init];
+            [self.navigationController pushViewController:vc animated:YES];
+        }
+            break;
+            
+            
+        default:
+            break;
+    }
 }
 - (void)didReceiveMemoryWarning
 {
@@ -204,7 +233,7 @@ using namespace std;
         UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, RECT_MAX_Y(lineImgView), RECT_WIDTH(self), RECT_HEIGHT(self) - RECT_MAX_Y(lineImgView))];
         label.backgroundColor = RGB_TO_UICOLOR(247, 247, 247);
         label.font = FONT(14);
-        label.text = @"     好友列表";
+        label.text = @"    好友列表";
         [self addSubview:label];
         
     }

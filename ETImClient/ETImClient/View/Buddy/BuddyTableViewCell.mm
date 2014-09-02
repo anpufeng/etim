@@ -26,7 +26,6 @@
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         // Initialization code
-        
         _iconImgView = [[UIImageView alloc] initWithFrame:CGRectMake(12, 5, 40, 40)];
         _iconImgView.layer.cornerRadius = 4.0f;
         _iconImgView.layer.masksToBounds = YES;

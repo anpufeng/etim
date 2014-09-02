@@ -52,6 +52,7 @@ using namespace etim::pub;
     // Do any additional setup after loading the view.
     
     self.title = @"个人资料";
+    self.view.backgroundColor = RGB_TO_UICOLOR(240, 239, 244);
     [self initData];
     [self createUI];
 }
@@ -69,7 +70,6 @@ using namespace etim::pub;
     
     _tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     
-    //TODO 根据不同relation生成底部不同操作按钮
     ProfileActionView *footView = [[ProfileActionView alloc] initWithFrame:CGRectMake(0,
                                                                                       RECT_MAX_Y(_tableView),
                                                                                       RECT_WIDTH(self.view),

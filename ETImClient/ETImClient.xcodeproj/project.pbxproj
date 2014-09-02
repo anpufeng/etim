@@ -24,6 +24,8 @@
 		AA110109198B61DD008811E4 /* icon-success.png in Resources */ = {isa = PBXBuildFile; fileRef = AA110103198B61DD008811E4 /* icon-success.png */; };
 		AA11010A198B61DD008811E4 /* icon-success@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AA110104198B61DD008811E4 /* icon-success@2x.png */; };
 		AA30A74C19B49FC8006925F5 /* line@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AA30A74B19B49FC8006925F5 /* line@2x.png */; };
+		AA30A75119B5592E006925F5 /* BuddyTableViewCell.mm in Sources */ = {isa = PBXBuildFile; fileRef = AA30A75019B5592E006925F5 /* BuddyTableViewCell.mm */; };
+		AA30A75519B55DFB006925F5 /* MsgViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA30A75419B55DFB006925F5 /* MsgViewController.m */; };
 		AA3374F319A8681A005BD678 /* common_btn_green_nor@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AA3374F119A8681A005BD678 /* common_btn_green_nor@2x.png */; };
 		AA3374F419A8681A005BD678 /* common_btn_green_press@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AA3374F219A8681A005BD678 /* common_btn_green_press@2x.png */; };
 		AA3374F719A86877005BD678 /* common_btn_red_nor@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AA3374F519A86877005BD678 /* common_btn_red_nor@2x.png */; };
@@ -36,7 +38,6 @@
 		AA33752B19A871CD005BD678 /* MetroUI-Folder-OS-OS-Linux-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = AA33752A19A871CD005BD678 /* MetroUI-Folder-OS-OS-Linux-icon.png */; };
 		AA33752F19A89E49005BD678 /* contact_add_btn_nor@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AA33752D19A89E49005BD678 /* contact_add_btn_nor@2x.png */; };
 		AA33753019A89E49005BD678 /* contact_add_btn_press@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AA33752E19A89E49005BD678 /* contact_add_btn_press@2x.png */; };
-		AA49BA4119B40DBB0058BFF3 /* BuddyTableViewCell.mm in Sources */ = {isa = PBXBuildFile; fileRef = AA49BA4019B40DBB0058BFF3 /* BuddyTableViewCell.mm */; };
 		AA49BA4819B41A080058BFF3 /* BuddyModel.mm in Sources */ = {isa = PBXBuildFile; fileRef = AA49BA4619B41A080058BFF3 /* BuddyModel.mm */; };
 		AA588B9B1990B4E500F08821 /* ActionManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AA588B991990B4E500F08821 /* ActionManager.cpp */; };
 		AA588BAD1990B4EC00F08821 /* Action.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AA588B9D1990B4EC00F08821 /* Action.cpp */; };
@@ -145,6 +146,10 @@
 		AA110103198B61DD008811E4 /* icon-success.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-success.png"; sourceTree = "<group>"; };
 		AA110104198B61DD008811E4 /* icon-success@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-success@2x.png"; sourceTree = "<group>"; };
 		AA30A74B19B49FC8006925F5 /* line@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "line@2x.png"; sourceTree = "<group>"; };
+		AA30A74F19B5592E006925F5 /* BuddyTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BuddyTableViewCell.h; sourceTree = "<group>"; };
+		AA30A75019B5592E006925F5 /* BuddyTableViewCell.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = BuddyTableViewCell.mm; sourceTree = "<group>"; };
+		AA30A75319B55DFB006925F5 /* MsgViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MsgViewController.h; sourceTree = "<group>"; };
+		AA30A75419B55DFB006925F5 /* MsgViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MsgViewController.m; sourceTree = "<group>"; };
 		AA3374F119A8681A005BD678 /* common_btn_green_nor@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "common_btn_green_nor@2x.png"; sourceTree = "<group>"; };
 		AA3374F219A8681A005BD678 /* common_btn_green_press@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "common_btn_green_press@2x.png"; sourceTree = "<group>"; };
 		AA3374F519A86877005BD678 /* common_btn_red_nor@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "common_btn_red_nor@2x.png"; sourceTree = "<group>"; };
@@ -157,8 +162,6 @@
 		AA33752A19A871CD005BD678 /* MetroUI-Folder-OS-OS-Linux-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "MetroUI-Folder-OS-OS-Linux-icon.png"; sourceTree = "<group>"; };
 		AA33752D19A89E49005BD678 /* contact_add_btn_nor@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "contact_add_btn_nor@2x.png"; sourceTree = "<group>"; };
 		AA33752E19A89E49005BD678 /* contact_add_btn_press@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "contact_add_btn_press@2x.png"; sourceTree = "<group>"; };
-		AA49BA3F19B40DBB0058BFF3 /* BuddyTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BuddyTableViewCell.h; sourceTree = "<group>"; };
-		AA49BA4019B40DBB0058BFF3 /* BuddyTableViewCell.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = BuddyTableViewCell.mm; sourceTree = "<group>"; };
 		AA49BA4619B41A080058BFF3 /* BuddyModel.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = BuddyModel.mm; sourceTree = "<group>"; };
 		AA49BA4719B41A080058BFF3 /* BuddyModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BuddyModel.h; sourceTree = "<group>"; };
 		AA588B991990B4E500F08821 /* ActionManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; lineEnding = 0; path = ActionManager.cpp; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.cpp; };
@@ -364,6 +367,31 @@
 			path = TWMessage;
 			sourceTree = "<group>";
 		};
+		AA30A74D19B5590C006925F5 /* Buddy */ = {
+			isa = PBXGroup;
+			children = (
+				AA30A74F19B5592E006925F5 /* BuddyTableViewCell.h */,
+				AA30A75019B5592E006925F5 /* BuddyTableViewCell.mm */,
+			);
+			path = Buddy;
+			sourceTree = "<group>";
+		};
+		AA30A74E19B55913006925F5 /* Chat */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Chat;
+			sourceTree = "<group>";
+		};
+		AA30A75219B55DE3006925F5 /* Message */ = {
+			isa = PBXGroup;
+			children = (
+				AA30A75319B55DFB006925F5 /* MsgViewController.h */,
+				AA30A75419B55DFB006925F5 /* MsgViewController.m */,
+			);
+			path = Message;
+			sourceTree = "<group>";
+		};
 		AA3374F919A86EB8005BD678 /* Icon */ = {
 			isa = PBXGroup;
 			children = (
@@ -437,6 +465,7 @@
 		AA59F02B198A137A009FD449 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				AA30A75219B55DE3006925F5 /* Message */,
 				AA1100F7198B3F0A008811E4 /* Moments */,
 				AA59F093198A208D009FD449 /* Account */,
 				AA59F092198A2083009FD449 /* Online */,
@@ -450,6 +479,8 @@
 		AA59F02C198A1382009FD449 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				AA30A74E19B55913006925F5 /* Chat */,
+				AA30A74D19B5590C006925F5 /* Buddy */,
 				AA59F0AA198A372B009FD449 /* Common */,
 			);
 			path = View;
@@ -589,8 +620,6 @@
 				AA665F7E19A8E9B100FCF5C6 /* LeftMarginTextField.m */,
 				AA6D73CE19B1E739006DBC6D /* BadgeButton.h */,
 				AA6D73CF19B1E739006DBC6D /* BadgeButton.m */,
-				AA49BA3F19B40DBB0058BFF3 /* BuddyTableViewCell.h */,
-				AA49BA4019B40DBB0058BFF3 /* BuddyTableViewCell.mm */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -885,6 +914,7 @@
 				AA588BB11990B4EC00F08821 /* Register.cpp in Sources */,
 				AA588B9B1990B4E500F08821 /* ActionManager.cpp in Sources */,
 				AA59F074198A1A59009FD449 /* BaseViewController.m in Sources */,
+				AA30A75519B55DFB006925F5 /* MsgViewController.m in Sources */,
 				AA59F0AD198A3732009FD449 /* LeeScrollView.m in Sources */,
 				AA59F0B0198A4117009FD449 /* BuddyViewController.mm in Sources */,
 				AAA6DCDA198B918100EB948E /* InStream.cpp in Sources */,
@@ -903,6 +933,7 @@
 				AA665F8519A971ED00FCF5C6 /* SignatureViewController.mm in Sources */,
 				AA59F0B3198A4121009FD449 /* OnlineViewController.mm in Sources */,
 				AA59F03B198A197B009FD449 /* UIColor+Additions.m in Sources */,
+				AA30A75119B5592E006925F5 /* BuddyTableViewCell.mm in Sources */,
 				AAA6DCD9198B918100EB948E /* Idea.cpp in Sources */,
 				AAA6DCE2198B962E00EB948E /* Socket.cpp in Sources */,
 				AAEBB81919B4308400AB3A07 /* ChatViewController.mm in Sources */,
@@ -918,7 +949,6 @@
 				AA665F8219A961EF00FCF5C6 /* ProfileViewController.mm in Sources */,
 				AA588BAF1990B4EC00F08821 /* HeartBeat.cpp in Sources */,
 				AAF613061990723A00555364 /* Exception.cpp in Sources */,
-				AA49BA4119B40DBB0058BFF3 /* BuddyTableViewCell.mm in Sources */,
 				AA59F071198A1A59009FD449 /* BackViewController.m in Sources */,
 				AAA6DCDF198B918100EB948E /* Timestamp.cpp in Sources */,
 				AA7EB9981992674D000BD838 /* Client.mm in Sources */,

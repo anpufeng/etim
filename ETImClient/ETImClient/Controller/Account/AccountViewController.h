@@ -6,12 +6,11 @@
 //  Copyright (c) 2014年 Pingan. All rights reserved.
 //
 
-#import "BaseViewController.h"
+#import "BaseTableViewController.h"
 
 ///我的帐户
 
-@interface AccountViewController : BaseViewController <UITableViewDataSource, UITableViewDelegate> {
-    UITableView         *_tableView;
+@interface AccountViewController : BaseTableViewController {
 }
 
 @end

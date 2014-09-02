@@ -110,12 +110,11 @@ void Logout::Execute(Session *s) {
 	uint16 cmd = s->GetCmd();
     
 	// 登录名
-	string userId;
-	jis>>userId;
+	string username;
+	jis>>username;
 	
     int16 error_code = kErrCode000;
 	char error_msg[31] = {0};
-	//TODO 登出操作  更新用户状态为离线
 	DataService dao;
     IMUser user = s->GetIMUser();
 	int ret = kErrCode000;
@@ -140,15 +139,8 @@ void Logout::Execute(Session *s) {
 	jos<<cnt<<seq<<error_code;
 	jos.WriteBytes(error_msg, 30);
     
-	// 包体
-    stringstream ss;
-	ss<<setw(6)<<setfill('0')<<user.userId;
-	jos.WriteBytes(ss.str().c_str(), 6);
-	jos<<user.username;
-    jos<<user.regDate;
-    jos<<user.gender;
-    jos<<user.status;
-    
+	// 空包体
+
     FillOutPackage(jos, lengthPos, cmd);
     
 	s->Send(jos.Data(), jos.Length());

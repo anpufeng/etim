@@ -15,7 +15,7 @@
 
 @property (nonatomic, strong) NSString *badge;
 
-+ (id)buttonWithType:(UIButtonType)buttonType alignment:(JSBadgeViewAlignment)alignment;
+
 
 - (id)initWithFrame:(CGRect)frame alignment:(JSBadgeViewAlignment)alignment;
 

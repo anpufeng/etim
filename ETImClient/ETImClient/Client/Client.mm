@@ -13,6 +13,7 @@
 #include "Exception.h"
 #include <string>
 #include <signal.h>
+#include <map>
 
 using namespace etim;
 using namespace etim::pub;
@@ -73,14 +74,11 @@ static dispatch_once_t predicate;
 }
 
 - (void)pullUnread {
-    ///获取好友列表
+    
     [self pullWithCommand:CMD_UNREAD];
-    ///获取未读消息
-    //[self pullWithCommand:CMD_RETRIEVE_UNREAD_MSG];
-    ///获取好友请求
-    //[self pullWithCommand:CMD_RETRIEVE_BUDDY_REQUEST];
 }
 
+///获取未读消息
 - (void)pullWithCommand:(uint16)cmd {
     _session->Clear();
     _session->SetSendCmd(cmd);
@@ -99,14 +97,21 @@ static dispatch_once_t predicate;
             if (!wself)
                 return;
             try {
+                ETLOG(@"发送cmd: %0X, 通知名称: %@", s.GetSendCmd(), notiNameFromCmd(s.GetSendCmd()));
+                std::map<std::string, std::string> request = s.GetRequest();
+                std::map<std::string, std::string>::iterator it;
+                for(it = request.begin(); it != request.end(); it++) {
+                    std::cout<<it->first <<"->"<<it->second<<std::endl;
+                }
+                
                 Singleton<ActionManager>::Instance().SendPacket(s);
             } catch (Exception &e) {
                 if (!wself)
                     return;
-                
+                ETLOG(@"出错发送cmd: %0X, 通知名称: %@", s.GetSendCmd(), notiNameFromCmd(s.GetSendCmd()));
                 s.SetErrorCode(kErrCodeMax);
                 s.SetErrorMsg(e.what());
-                dispatch_async(dispatch_get_main_queue(), ^{
+                dispatch_sync(dispatch_get_main_queue(), ^{
                     [[NSNotificationCenter defaultCenter] postNotificationName:notiNameFromCmd(s.GetSendCmd()) object:nil];
                 });
             }
@@ -129,7 +134,11 @@ static dispatch_once_t predicate;
                     break;
                 try {
                     Singleton<ActionManager>::Instance().RecvPacket(s);
-                    dispatch_async(dispatch_get_main_queue(), ^{
+                    if (!wself)
+                        break;
+                    ///必须dispatch_sync,不然如果多个命令连续的话会导致重新发出相同的最后一个命令名称
+                    dispatch_sync(dispatch_get_main_queue(), ^{
+                        ETLOG(@"接收cmd: %0X, 通知名称: %@", s.GetRecvCmd(), notiNameFromCmd(s.GetRecvCmd()));
                         [[NSNotificationCenter defaultCenter] postNotificationName:notiNameFromCmd(s.GetRecvCmd()) object:nil];
                     });
                 } catch (RecvException &e) {
@@ -147,14 +156,12 @@ static dispatch_once_t predicate;
                         });
 
                         break;
-                        
-                        
                     } else if (e.GetReceived() == -1) {
                         LOG_ERROR<<"接收出错";
                     } else {
                         s.SetErrorCode(kErrCodeMax);
                         s.SetErrorMsg(e.what());
-                        dispatch_async(dispatch_get_main_queue(), ^{
+                        dispatch_sync(dispatch_get_main_queue(), ^{
                             [[NSNotificationCenter defaultCenter] postNotificationName:notiNameFromCmd(s.GetRecvCmd()) object:nil];
                         });
                     }

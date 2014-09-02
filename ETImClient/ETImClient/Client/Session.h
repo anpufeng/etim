@@ -36,10 +36,12 @@ namespace etim {
                                                             //CMD_RETRIEVE_UNREAD_MSG
                                                             //CMD_RETRIEVE_BUDDY_REQUEST)
     
-    static const std::string gCmdNoti[CMD_RETRIEVE_BUDDY_REQUEST+1] =
-    {"CMD_RETRIEVE_EVENT", "CMD_REGISTER", "CMD_LOGIN",
-        "CMD_LOGOUT", "CMD_HEART_BEAT", "CMD_SEND_MSG",
-        "CMD_REQUEST_ADD_BUDDY", "CMD_SWITCH_STATUS", "CMD_RETRIEVE_BUDDY_LIST"};
+    static const std::string gCmdNoti[CMD_UNREAD+1] =
+        {"CMD_RETRIEVE_EVENT", "CMD_REGISTER", "CMD_LOGIN", /*0x0002*/
+        "CMD_LOGOUT", "CMD_HEART_BEAT", "CMD_SEND_MSG",     /*0x0005*/
+        "CMD_REQUEST_ADD_BUDDY", "CMD_SWITCH_STATUS", "CMD_RETRIEVE_BUDDY_LIST", /*0x0008*/
+        "CMD_SEARCH_BUDDY", "CMD_RETRIEVE_UNREAD_MSG", "CMD_RETRIEVE_BUDDY_REQUEST",  /*0x000B*/
+        "CMD_UNREAD"};
     
 #define ERR_MSG_LENGTH      30              // 错误消息定长
     ///请求头
@@ -128,6 +130,7 @@ namespace etim {
         ///获取接收操作命令
         uint16_t GetRecvCmd() const { return responsePack_->head.cmd; }
         
+        std::map<std::string, std::string> GetRequest() const { return request_; }
         ///将返回值加入
         void SetResponse(const std::string& k, const std::string& v);
         ///获取返回值
