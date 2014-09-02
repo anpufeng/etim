@@ -87,9 +87,7 @@ void Login::Execute(Session *s) {
 	jos.WriteBytes(error_msg, 30);
     
 	// 包体
-    stringstream ss;
-	ss<<setw(6)<<setfill('0')<<user.userId;
-	jos.WriteBytes(ss.str().c_str(), 6);
+    jos<<user.userId;
 	jos<<user.username;
     jos<<user.regDate;
     jos<<user.signature;
@@ -110,17 +108,17 @@ void Logout::Execute(Session *s) {
 	uint16 cmd = s->GetCmd();
     
 	// 登录名
-	string username;
-	jis>>username;
+	string userId;
+	jis>>userId;
 	
     int16 error_code = kErrCode000;
 	char error_msg[31] = {0};
 	DataService dao;
     IMUser user = s->GetIMUser();
 	int ret = kErrCode000;
-    ret = dao.UserLogout(user.username, s);
+    ret = dao.UserLogout(userId, s);
 	if (ret == kErrCode000) {
-		LOG_INFO<<"登出成功"<<username;
+		LOG_INFO<<"登出成功 userId: "<<userId;
 	} else  {
 		error_code = ret;
         assert(error_code < kErrCodeMax);

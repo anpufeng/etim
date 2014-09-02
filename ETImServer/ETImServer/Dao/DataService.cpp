@@ -94,7 +94,8 @@ int DataService::UserLogin(const std::string& username, const std::string& pass,
         pass<<"';";
 		rs = db.QuerySQL(ss.str().c_str());
         
-        user.userId = rs.GetItem(0, "a.user_id");
+        string userId = rs.GetItem(0, "a.user_id");
+        user.userId = atoi(userId.c_str());
         string reg = rs.GetItem(0, "a.reg_time");
 		user.regDate = reg.substr(0, reg.find(" "));
         
@@ -115,13 +116,13 @@ int DataService::UserLogin(const std::string& username, const std::string& pass,
  客户端主动退出, 后面客户端会断开SOCKET, 服务器会删除对应的SESSION
  @return kErrCode000 成功 kErrCode002 数据库错误
  */
-int DataService::UserLogout(const std::string& username, Session *s) {
+int DataService::UserLogout(const std::string& userId, Session *s) {
     ///更新状态为离线
     MysqlDB db;
     try {
         db.Open();
         stringstream ss;
-        ss<<"update user set status_id ="<<kBuddyOffline<<" where username = '"<<username<<"';";
+        ss<<"update user set status_id ="<<kBuddyOffline<<" where user_id = '"<<userId<<"';";
         MysqlRecordset rs;
         unsigned long long ret = db.ExecSQL(ss.str().c_str());
         (void)ret;
@@ -138,6 +139,21 @@ int DataService::UserLogout(const std::string& username, Session *s) {
  @return kErrCode000 成功 kErrCode002数据库错误 kErrCode004 无此用户
  */
 int DataService::UserSearch(const std::string &username, Session *s, IMUser &user) {
+    /*
+     select u.*,
+     (select
+     case COUNT(1)
+     when 0 then '0'
+     else '1'
+     end
+     from friend f
+     where f.friend_from=1 and f.friend_to=4
+     limit 1
+     )  'is_friend'
+     from user u
+     where u.username = 'admin'
+     */
+    //TODO sql待改进
     IMUser sessionUser = s->GetIMUser();
     if (s->GetIMUser().username == username) {
         user = s->GetIMUser();
@@ -155,8 +171,8 @@ int DataService::UserSearch(const std::string &username, Session *s, IMUser &use
             rs = db.QuerySQL(ss.str().c_str());
             if (rs.GetRows() < 1)
                 return kErrCode004;
-            
-            user.userId = rs.GetItem(0, "a.user_id");
+            string userId = rs.GetItem(0, "a.user_id");
+            user.userId = atoi(userId.c_str());
             string reg = rs.GetItem(0, "a.reg_time");
             user.regDate = reg.substr(0, reg.find(" "));
             
@@ -238,7 +254,7 @@ int DataService::RequestAddBuddy(const std::string &from, const std::string to) 
  @param result 如果查询到了则通过result返回
  @return kErrCode000 成功 kErrCode002数据库错误 kErrCode006 无好友数据
  */
-int DataService::RetrieveBuddyList(const std::string &username, std::list<IMUser> &result) {
+int DataService::RetrieveBuddyList(const std::string &userId, std::list<IMUser> &result) {
     /*
      select DISTINCT u_t.*, st.status_name
      from user u, friend f, user u_t
@@ -261,7 +277,7 @@ int DataService::RetrieveBuddyList(const std::string &username, std::list<IMUser
         " where u_t.user_id = f.friend_to"<<
         " and u.user_id = f.friend_from"<<
         " and req_status = "<<kBuddyRequestAccepted<<
-        " and u.username = '"<<username<<
+        " and u.user_id = '"<<userId<<
         "';";
         MysqlRecordset rs;
         rs = db.QuerySQL(ss.str().c_str());
@@ -270,7 +286,7 @@ int DataService::RetrieveBuddyList(const std::string &username, std::list<IMUser
         }
         for (int i = 0; i < rs.GetRows(); ++i) {
             IMUser user;
-            user.userId = rs.GetItem(i, "u_t.user_id");
+            user.userId = atoi(rs.GetItem(0, "u_t.user_id").c_str());
             user.username = rs.GetItem(i, "u_t.username");
             string reg = rs.GetItem(i, "u_t.reg_time");
             user.regDate = reg.substr(i, reg.find(" "));
@@ -294,19 +310,17 @@ int DataService::RetrieveBuddyList(const std::string &username, std::list<IMUser
  @return kErrCode000 成功 kErrCode002数据库错误 kErrCode006 无未读数据
  */
 
-int DataService::RetrieveUnreadMsg(const std::string &username, std::list<IMMsg> &result) {
+int DataService::RetrieveUnreadMsg(const std::string &userId, std::list<IMMsg> &result) {
     /*
-     select * from message m
-     left join user u
-     on u.user_id = m.msg_from
-     where
-     m.sent = 0 and u.username = 'admin';
-     
-     select m.*, u.* from message m, `status` s
-     left join user u
-     on u.user_id = m.msg_from and s.status_id = u.status_id
-     where
-     m.sent = 0;
+     select m.*, u_f.*, s.status_name from message m
+     left join user u_t
+     on u_t.user_id = m.msg_to
+     left join user u_f
+     on u_f.user_id = m.msg_from
+     left join status s
+     on u_f.status_id = s.status_id
+     where u_t.user_id = 1
+
      */
     MysqlDB db;
     try {
@@ -317,7 +331,7 @@ int DataService::RetrieveUnreadMsg(const std::string &username, std::list<IMMsg>
         " on u.user_id = m.msg_from"<<
         " where m.sent = "<< kMsgUnsent <<
         " and u.username = '"<<
-        username<<"';";
+        userId<<"';";
         MysqlRecordset rs;
         rs = db.QuerySQL(ss.str().c_str());
         if (rs.GetRows() < 1) {
@@ -325,7 +339,7 @@ int DataService::RetrieveUnreadMsg(const std::string &username, std::list<IMMsg>
         }
         for (int i = 0; i < rs.GetRows(); ++i) {
             IMUser fromUser;
-            fromUser.userId = rs.GetItem(i, "u_t.user_id");
+            fromUser.userId = atoi(rs.GetItem(i, "u_t.user_id").c_str());
             fromUser.username = rs.GetItem(i, "u_t.username");
             string reg = rs.GetItem(i, "u_t.reg_time");
             fromUser.regDate = reg.substr(i, reg.find(" "));
@@ -334,8 +348,7 @@ int DataService::RetrieveUnreadMsg(const std::string &username, std::list<IMMsg>
             fromUser.gender = Convert::StringToInt(rs.GetItem(i, "u_t.gender"));
             fromUser.status =  rs.GetItem(i, "st.status_name");
             
-            
-            result.push_back(user);
+
         }
     } catch (Exception &e) {
         LOG_INFO<<e.what();

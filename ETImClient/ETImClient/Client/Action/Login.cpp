@@ -82,15 +82,13 @@ void Login::DoRecv(etim::Session &s) {
     if (error_code == kErrCode000) {
         IMUser user;
         int rel;
-        char userId[7] = {0};
-        jis.ReadBytes(userId, 6);
+        jis>>user.userId;
         jis>>user.username;
         jis>>user.regDate;
         jis>>user.signature;
         jis>>user.gender;
         jis>>rel;
         jis>>user.status;
-        user.userId = userId;
         user.relation = (BuddyRelation)rel;
         
         s.SetIMUser(user);
@@ -109,7 +107,7 @@ void Logout::DoSend(Session& s) {
 	jos.Skip(2);
     
 	// 用户id
-	string name = s.GetAttribute("name");
+	string name = s.GetAttribute("userId");
 	jos<<name;
     
 	FillOutPackage(jos, lengthPos, cmd);;

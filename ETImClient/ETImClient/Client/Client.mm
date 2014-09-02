@@ -20,6 +20,7 @@
 #include <string>
 #include <signal.h>
 #include <map>
+#include <sstream>
 
 using namespace etim;
 using namespace etim::pub;
@@ -85,11 +86,13 @@ static dispatch_once_t predicate;
     [self pullWithCommand:CMD_UNREAD];
 }
 
-///只有参数为name时的命令操作
+///只有参数为userId时的命令操作
 - (void)pullWithCommand:(uint16)cmd {
     _session->Clear();
     _session->SetSendCmd(cmd);
-    _session->SetAttribute("name", _session->GetIMUser().username);
+    stringstream ss;
+    ss<<_session->GetIMUser().userId;
+    _session->SetAttribute("userId", ss.str());
     [self doAction:*_session];
 }
  

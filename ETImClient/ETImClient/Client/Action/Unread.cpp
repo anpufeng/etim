@@ -33,7 +33,7 @@ void Unread::DoSend(Session& s) {
 	jos.Skip(2);
     
 	// 用户id
-	string name = s.GetAttribute("name");
+	string name = s.GetAttribute("userId");
 	jos<<name;
     
 	FillOutPackage(jos, lengthPos, cmd);;

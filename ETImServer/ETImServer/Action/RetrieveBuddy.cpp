@@ -32,8 +32,8 @@ void RetrieveBuddyList::Execute(Session *s) {
     }
     
 	// 好友请求
-	string username;
-	jis>>username;
+	string userId;
+	jis>>userId;
 	
 	int16 error_code = kErrCode000;
 	char error_msg[31] = {0};
@@ -43,9 +43,9 @@ void RetrieveBuddyList::Execute(Session *s) {
 	DataService dao;
     list<IMUser> buddys;
 	int ret;
-	ret = dao.RetrieveBuddyList(username, buddys);
+	ret = dao.RetrieveBuddyList(userId, buddys);
 	if (ret == kErrCode000) {
-		LOG_INFO<<"获取好友列表成功: "<<username;
+		LOG_INFO<<"获取好友列表成功 userid: "<<userId <<" 好友数: "<<buddys.size();
         uint16 cnt = static_cast<uint16>(buddys.size());    //总共多少
 		uint16 seq = 0;                                     //序列号
         list<IMUser>::const_iterator it;
@@ -62,9 +62,7 @@ void RetrieveBuddyList::Execute(Session *s) {
             jos.WriteBytes(error_msg, 30);
             
             // 包体
-            stringstream ss;
-            ss<<setw(6)<<setfill('0')<<it->userId;
-            jos.WriteBytes(ss.str().c_str(), 6);
+            jos<<it->userId;
             jos<<it->username;
             jos<<it->regDate;
             jos<<it->signature;
@@ -110,8 +108,8 @@ void RetrieveBuddyRequest::Execute(Session *s) {
     }
     
 	// 登录名
-	string username;
-	jis>>username;
+	string userId;
+	jis>>userId;
 	
     int16 error_code = kErrCode000;
 	char error_msg[31] = {0};
@@ -120,7 +118,7 @@ void RetrieveBuddyRequest::Execute(Session *s) {
 	int ret = kErrCode000;
     //ret = dao.UserLogout(username, s);
 	if (ret == kErrCode000) {
-		LOG_INFO<<"查询好友请求成功: "<<username;
+		LOG_INFO<<"查询好友请求成功 userid: "<<userId;
 	} else  {
 		error_code = ret;
         assert(error_code < kErrCodeMax);

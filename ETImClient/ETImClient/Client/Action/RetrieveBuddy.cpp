@@ -31,7 +31,7 @@ void RetrieveBuddyList::DoSend(Session& s) {
 	jos.Skip(2);
     
 	// 要查找的用户名
-	string name = s.GetAttribute("name");
+	string name = s.GetAttribute("userId");
     transform(name.begin(),name.end(), name.begin(), ::tolower);
 	jos<<name;
     
@@ -71,15 +71,13 @@ void RetrieveBuddyList::DoRecv(etim::Session &s) {
             
             IMUser user;
             int rel;
-            char userId[7] = {0};
-            jis.ReadBytes(userId, 6);
+            jis>>user.userId;
             jis>>user.username;
             jis>>user.regDate;
             jis>>user.signature;
             jis>>user.gender;
             jis>>rel;
             jis>>user.status;
-            user.userId = userId;
             user.relation = (BuddyRelation)rel;
             s.AddBuddy(user);
             
@@ -105,7 +103,7 @@ void RetrieveBuddyRequest::DoSend(Session& s) {
 	jos.Skip(2);
     
 	// 要查找的用户名
-	string name = s.GetAttribute("name");
+	string name = s.GetAttribute("userId");
     transform(name.begin(),name.end(), name.begin(), ::tolower);
 	jos<<name;
     

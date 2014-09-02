@@ -96,15 +96,13 @@ void SearchBuddy::DoRecv(etim::Session &s) {
     
     IMUser user;
     int rel;
-    char userId[7] = {0};
-    jis.ReadBytes(userId, 6);
+    jis>>user.userId;
     jis>>user.username;
     jis>>user.regDate;
     jis>>user.signature;
     jis>>user.gender;
     jis>>rel;
     jis>>user.status;
-    user.userId = userId;
     user.relation = (BuddyRelation)rel;
     
     s.SetSearchIMUser(user);

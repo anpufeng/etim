@@ -41,6 +41,7 @@ void Session::Recv(int *result) {
 		throw Exception("接收数据包出错");
 	}
     
+    //将包头转换为本机字节序
 	uint16 cmd = Endian::NetworkToHost16(requestPack_->head.cmd);
 	uint16 len = Endian::NetworkToHost16(requestPack_->head.len);
 	
@@ -71,7 +72,6 @@ void Session::Recv(int *result) {
 		throw Exception("错误的数据包");
     }
     
-    //将包头转换为本机字节序
 	requestPack_->head.cmd = cmd;
 	requestPack_->head.len = len;
 }

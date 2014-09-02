@@ -50,7 +50,7 @@ namespace etim {
         char error_msg[30];
     };
     
-    ///请求包休
+    ///请求包体
     struct RequestPack
     {
         RequestHead head;

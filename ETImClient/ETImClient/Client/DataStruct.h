@@ -24,7 +24,7 @@ namespace etim  {
 
 ///用户
 struct IMUser {
-    std::string     userId;
+    int             userId;
     std::string     username;
     std::string     regDate;
     std::string     signature;

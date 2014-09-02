@@ -22,11 +22,11 @@ namespace etim  {
     public:
         virtual int UserRegister(const std::string& username, const std::string& pass) = 0;
         virtual int UserLogin(const std::string& username, const std::string& pass, IMUser &user) = 0;
-        virtual int UserLogout(const std::string& username, Session *s) = 0;
+        virtual int UserLogout(const std::string& userId, Session *s) = 0;
         virtual int UserSearch(const std::string &username, Session *s, IMUser &user) = 0;
         virtual int RequestAddBuddy(const std::string &from, const std::string to) = 0;
-        virtual int RetrieveBuddyList(const std::string &username, std::list<IMUser> &result) = 0;
-        virtual int RetrieveUnreadMsg(const std::string &username, std::list<IMMsg> &result) = 0;
+        virtual int RetrieveBuddyList(const std::string &userId, std::list<IMUser> &result) = 0;
+        virtual int RetrieveUnreadMsg(const std::string &userId, std::list<IMMsg> &result) = 0;
     };
     
     
@@ -34,11 +34,11 @@ namespace etim  {
     public:
         int UserRegister(const std::string& username, const std::string& pass);
         int UserLogin(const std::string& username, const std::string& pass, IMUser &user);
-        int UserLogout(const std::string& username, Session *s);
+        int UserLogout(const std::string& userId, Session *s);
         int UserSearch(const std::string &username, Session *s, IMUser &user);
         int RequestAddBuddy(const std::string &from, const std::string to);
-        int RetrieveBuddyList(const std::string &username, std::list<IMUser> &result);
-        int RetrieveUnreadMsg(const std::string &username, std::list<IMMsg> &result);
+        int RetrieveBuddyList(const std::string &userId, std::list<IMUser> &result);
+        int RetrieveUnreadMsg(const std::string &userId, std::list<IMMsg> &result);
         
     public:
         int UpdateStatus(const std::string &username, BuddyStatus status);

@@ -118,7 +118,7 @@ using namespace etim::pub;
         commonCell.keyLabel.text = self.profileKeyList[index];
         switch (index) {
             case 0:
-                commonCell.valueLabel.text = stdStrToNsStr(self.user.userId);
+                commonCell.valueLabel.text = [NSString stringWithFormat:@"%06d", self.user.userId];
                 break;
             case 1:
                 commonCell.valueLabel.text = stdStrToNsStr(self.user.regDate);

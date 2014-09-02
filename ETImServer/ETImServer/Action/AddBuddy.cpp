@@ -111,9 +111,7 @@ void SearchBuddy::Execute(Session *s) {
 	jos.WriteBytes(error_msg, 30);
     
 	// 包体
-    stringstream ss;
-	ss<<setw(6)<<setfill('0')<<user.userId;
-	jos.WriteBytes(ss.str().c_str(), 6);
+    jos<<user.userId;
 	jos<<user.username;
     jos<<user.regDate;
     jos<<user.signature;

@@ -158,11 +158,7 @@ using namespace etim::pub;
 
 - (void)responseToLogoutBtn:(UIButton *)sender {
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    etim::Session *sess = [[Client sharedInstance] session];
-    sess->Clear();
-    sess->SetSendCmd(CMD_LOGOUT);
-    sess->SetAttribute("name", sess->GetIMUser().username);
-    [[Client sharedInstance] doAction:*sess];
+    [[Client sharedInstance] pullWithCommand:CMD_LOGOUT];
 }
 
 

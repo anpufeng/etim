@@ -27,7 +27,7 @@ using namespace etim;
 
 - (id)initWithUser:(etim::IMUser)user {
     if (self = [super init]) {
-        self.userId = stdStrToNsStr(user.userId);
+        self.userId = user.userId;
         self.username = stdStrToNsStr(user.username);
         self.regDate = stdStrToNsStr(user.regDate);
         self.signature = stdStrToNsStr(user.signature);
@@ -42,7 +42,7 @@ using namespace etim;
     return self.gender ? @"男" : @"女";
 }
 - (NSString *)description {
-    return [NSString stringWithFormat:@"用户id: %@, 用户名:%@, 注册日期: %@, 签名:%@, 性别:%@, 状态:%@",
+    return [NSString stringWithFormat:@"用户id: %06d, 用户名:%@, 注册日期: %@, 签名:%@, 性别:%@, 状态:%@",
             self.userId,
             self.username,
             self.regDate,

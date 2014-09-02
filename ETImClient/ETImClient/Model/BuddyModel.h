@@ -16,7 +16,7 @@
 
 @interface BuddyModel : NSObject
 
-@property (nonatomic, copy) NSString *userId;
+@property (nonatomic, assign) int userId;
 @property (nonatomic, copy) NSString *username;
 @property (nonatomic, copy) NSString *regDate;
 @property (nonatomic, copy) NSString *signature;

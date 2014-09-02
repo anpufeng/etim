@@ -150,11 +150,8 @@ using namespace std;
 }
 
 - (void)responseToRefresh {
-    etim::Session *sess = [[Client sharedInstance] session];
-    sess->Clear();
-    sess->SetSendCmd(CMD_RETRIEVE_BUDDY_LIST);
-    sess->SetAttribute("name", sess->GetIMUser().username);
-    [[Client sharedInstance] doAction:*sess];
+  
+    [[Client sharedInstance] pullWithCommand:CMD_RETRIEVE_BUDDY_LIST];
 }
 
 - (void)responseToAddContactBtn:(UIButton *)sender {

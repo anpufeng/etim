@@ -41,8 +41,8 @@ void RetrieveUnreadMsg::Execute(Session *s) {
     }
     
 	// 登录名
-	string username;
-	jis>>username;
+	string userId;
+	jis>>userId;
 	
     int16 error_code = kErrCode000;
 	char error_msg[31] = {0};
@@ -51,7 +51,7 @@ void RetrieveUnreadMsg::Execute(Session *s) {
 	int ret = kErrCode000;
     //ret = dao.UserLogout(username, s);
 	if (ret == kErrCode000) {
-		LOG_INFO<<"查询未读消息成功: "<<username;
+		LOG_INFO<<"查询未读消息成功 userId: "<<userId;
 	} else  {
 		error_code = ret;
         assert(error_code < kErrCodeMax);

@@ -60,7 +60,7 @@ void Register::Execute(Session *s) {
      int ret;
      ret = dao.UserRegister(name, pass);
      if (ret == kErrCode000) {
-         LOG_INFO<<"注册成功";
+         LOG_INFO<<"注册成功 用户名: "<<name;
      } else {
          error_code = ret;
          assert(error_code < kErrCodeMax);
