@@ -72,7 +72,7 @@ void Login::DoRecv(etim::Session &s) {
 	int16 error_code;
 	jis>>cnt>>seq>>error_code;
     
-	char error_msg[31];
+	char error_msg[ERR_MSG_LENGTH+1];
 	jis.ReadBytes(error_msg, ERR_MSG_LENGTH);
     
     
@@ -82,14 +82,18 @@ void Login::DoRecv(etim::Session &s) {
     if (error_code == kErrCode000) {
         IMUser user;
         int rel;
+        int status;
         jis>>user.userId;
         jis>>user.username;
         jis>>user.regDate;
         jis>>user.signature;
         jis>>user.gender;
         jis>>rel;
-        jis>>user.status;
-        user.relation = (BuddyRelation)rel;
+        jis>>status;
+        jis>>user.statusName;
+        
+        user.relation = static_cast<BuddyRelation>(rel);
+        user.status = static_cast<BuddyStatus>(status);
         
         s.SetIMUser(user);
     }
@@ -110,8 +114,7 @@ void Logout::DoSend(Session& s) {
 	string name = s.GetAttribute("userId");
 	jos<<name;
     
-	FillOutPackage(jos, lengthPos, cmd);;
-    
+	FillOutPackage(jos, lengthPos, cmd);
 	s.Send(jos.Data(), jos.Length());	// 发送请求包
 }
 

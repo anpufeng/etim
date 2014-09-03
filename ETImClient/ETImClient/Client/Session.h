@@ -109,14 +109,6 @@ namespace etim {
         "kErrCode008", "kErrCode009", "kErrCode010", /*kErrCode011*/"kErrCode011",
         /*kErrCodeMax*/"kErrCodeMax"};
     
-    ///在线状态
-    enum BuddyStatus {
-        kBuddyOnline = 1,
-        kBuddyInvisible,
-        kBuddyAway,
-        kBuddyOffline
-    };
-    
     ///会话数据
     class Session {
     public:
@@ -169,12 +161,16 @@ namespace etim {
         
         int16 const GetErrorCode() const { return errCode_; }
         const std::string GetErrorMsg() const { return errMsg_;}
-        bool const IsError() const { return errCode_ != kErrCode000; }
+        bool const IsError() const { return errCode_ != kErrCode000 && errCode_ != kErrCode006; }
         
         ///好友
         const std::list<IMUser> GetBuddys() const { return buddys_; }
         void AddBuddy(IMUser &user) { buddys_.push_back(user); }
         void ClearBuddys() { buddys_.clear(); }
+        
+        ///消息
+        const std::list<IMMsg> GetUnreadMsgs() const {return unreadMsgs_; }
+        void AddUnreadMsg(IMMsg &msg) {unreadMsgs_.push_back(msg); }
         
         
     private:
@@ -196,6 +192,8 @@ namespace etim {
         IMUser      searchUser_;
         ///好友列表
         std::list<IMUser> buddys_;
+        ///未读消息
+        std::list<IMMsg> unreadMsgs_;
         
     };
 }   //end etim

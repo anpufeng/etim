@@ -53,7 +53,7 @@ void RequestAddBuddy::DoRecv(etim::Session &s) {
 	int16 error_code;
 	jis>>cnt>>seq>>error_code;
     
-	char error_msg[31];
+	char error_msg[ERR_MSG_LENGTH+1];
 	jis.ReadBytes(error_msg, ERR_MSG_LENGTH);
     
  	s.SetErrorCode(error_code);
@@ -91,19 +91,22 @@ void SearchBuddy::DoRecv(etim::Session &s) {
 	int16 error_code;
 	jis>>cnt>>seq>>error_code;
     
-	char error_msg[31];
+	char error_msg[ERR_MSG_LENGTH+1];
 	jis.ReadBytes(error_msg, ERR_MSG_LENGTH);
     
     IMUser user;
     int rel;
+    int status;
     jis>>user.userId;
     jis>>user.username;
     jis>>user.regDate;
     jis>>user.signature;
     jis>>user.gender;
     jis>>rel;
-    jis>>user.status;
-    user.relation = (BuddyRelation)rel;
+    jis>>status;
+    jis>>user.statusName;
+    user.relation = static_cast<BuddyRelation>(rel);
+    user.status = static_cast<BuddyStatus>(status);
     
     s.SetSearchIMUser(user);
 	s.SetErrorCode(error_code);

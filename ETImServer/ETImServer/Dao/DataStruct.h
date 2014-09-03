@@ -33,6 +33,14 @@ enum MsgSentStatus {
     kMsgSent                    //用户信息已发出
 };
 
+///在线状态
+enum BuddyStatus {
+    kBuddyOnline = 1,
+    kBuddyInvisible,
+    kBuddyAway,
+    kBuddyOffline
+};
+
 namespace etim  {
     
     ///用户
@@ -43,7 +51,8 @@ namespace etim  {
         std::string     signature;
         int8            gender;
         BuddyRelation   relation;
-        std::string     status;
+        BuddyStatus     status;
+        std::string     statusName;
     };
     
     ///消息
@@ -52,6 +61,7 @@ namespace etim  {
         IMUser          from;
         std::string     text;
         int8            sent;
+        std::string     requestTime;
         std::string     sendTime;
     };
     

@@ -23,10 +23,6 @@ using namespace etim::pub;
 using namespace etim::action;
 using namespace std;
 
-using namespace etim;
-using namespace etim::action;
-
-
 void SendMsg::Execute(Session *s) {
     
 }
@@ -40,40 +36,75 @@ void RetrieveUnreadMsg::Execute(Session *s) {
         cmd = CMD_RETRIEVE_UNREAD_MSG;
     }
     
-	// 登录名
+	// 登录id
 	string userId;
 	jis>>userId;
 	
     int16 error_code = kErrCode000;
-	char error_msg[31] = {0};
+	char error_msg[ERR_MSG_LENGTH+1] = {0};
 	//TODO 获取未读消息 查询数据库未读消息并send
 	DataService dao;
+    std::list<IMMsg> msgs;
 	int ret = kErrCode000;
-    //ret = dao.UserLogout(username, s);
+    ret = dao.RetrieveUnreadMsg(userId, msgs);
 	if (ret == kErrCode000) {
-		LOG_INFO<<"查询未读消息成功 userId: "<<userId;
+		LOG_INFO<<"查询未读消息成功 userId: "<<userId <<" 未读消息条数: "<<msgs.size();
+        uint16 cnt = static_cast<uint16>(msgs.size());    //总共多少
+		uint16 seq = 0;                                     //序列号
+        list<IMMsg>::const_iterator it;
+        for (it = msgs.begin(); it != msgs.end(); ++it) {
+            OutStream jos;
+            // 包头命令
+            jos<<cmd;
+            size_t lengthPos = jos.Length();
+            jos.Skip(2);///留出2个字节空间用来后面存储包体长度+包尾(8)的长度
+            // 包头cnt、seq、error_code、error_msg
+            
+            jos<<cnt<<seq<<error_code;
+            seq++;
+            jos.WriteBytes(error_msg, ERR_MSG_LENGTH);
+            
+            // 包体
+            jos<<it->msgId;
+            jos<<it->from.userId;
+            jos<<it->from.username;
+            jos<<it->from.regDate;
+            jos<<it->from.signature;
+            jos<<it->from.gender;
+            jos<<it->from.relation;
+            jos<<it->from.status;
+            jos<<it->from.statusName;
+            jos<<it->text;
+            jos<<it->sent;
+            jos<<it->requestTime;
+            jos<<it->sendTime;
+            
+            FillOutPackage(jos, lengthPos, cmd);
+            
+            s->Send(jos.Data(), jos.Length());
+        }
+
 	} else  {
 		error_code = ret;
         assert(error_code < kErrCodeMax);
 		strcpy(error_msg, gErrMsg[error_code].c_str());
 		LOG_INFO<<error_msg;
+        
+        OutStream jos;
+        // 包头命令
+        jos<<cmd;
+        size_t lengthPos = jos.Length();
+        jos.Skip(2);///留出2个字节空间用来后面存储包体长度+包尾(8)的长度
+        // 包头cnt、seq、error_code、error_msg
+        uint16 cnt = 0;
+        uint16 seq = 0;
+        jos<<cnt<<seq<<error_code;
+        jos.WriteBytes(error_msg, ERR_MSG_LENGTH);
+        
+        // 空包体
+        
+        FillOutPackage(jos, lengthPos, cmd);
+        
+        s->Send(jos.Data(), jos.Length());
 	}
-    
-	OutStream jos;
-	// 包头命令
-	jos<<cmd;
-	size_t lengthPos = jos.Length();
-	jos.Skip(2);///留出2个字节空间用来后面存储包体长度+包尾(8)的长度
-	// 包头cnt、seq、error_code、error_msg
-	uint16 cnt = 0;
-	uint16 seq = 0;
-	jos<<cnt<<seq<<error_code;
-	jos.WriteBytes(error_msg, 30);
-    
-	// 空包体
-    
-    FillOutPackage(jos, lengthPos, cmd);
-    
-	s->Send(jos.Data(), jos.Length());
-
 }

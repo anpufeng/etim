@@ -8,17 +8,14 @@
 
 #import "BaseViewController.h"
 #import "BaseTableViewController.h"
+
 ///好友页面
 
 @interface BuddyViewController : BaseTableViewController <UITableViewDataSource, UITableViewDelegate> {
 
 }
 
-
-
 @end
-
-
 
 
 

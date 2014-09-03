@@ -8,7 +8,7 @@
 
 #import "BaseTabBarViewController.h"
 #import "BuddyViewController.h"
-#import "OnlineViewController.h"
+#import "MsgViewController.h"
 #import "MomentsViewController.h"
 #import "AccountViewController.h"
 #import "BaseNavigationController.h"
@@ -29,15 +29,15 @@
 - (id)init {
     if (self = [super init]) {
         BuddyViewController *buddy = [[BuddyViewController alloc] init];
-        OnlineViewController *online = [[OnlineViewController alloc] init];
+        MsgViewController *msg = [[MsgViewController alloc] init];
         MomentsViewController *moments = [[MomentsViewController alloc] init];
         AccountViewController *account = [[AccountViewController alloc] init];
         
         BaseNavigationController *buddyNav = [[BaseNavigationController alloc] initWithRootViewController:buddy];
-        BaseNavigationController *onlineNav = [[BaseNavigationController alloc] initWithRootViewController:online];
+        BaseNavigationController *msgNav = [[BaseNavigationController alloc] initWithRootViewController:msg];
         BaseNavigationController *momentsNav = [[BaseNavigationController alloc] initWithRootViewController:moments];
         BaseNavigationController *accountNav = [[BaseNavigationController alloc] initWithRootViewController:account];
-        self.viewControllers = @[buddyNav, onlineNav, momentsNav, accountNav];
+        self.viewControllers = @[buddyNav, msgNav, momentsNav, accountNav];
     }
     
     return self;

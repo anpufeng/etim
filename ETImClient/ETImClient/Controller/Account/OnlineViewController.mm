@@ -25,9 +25,7 @@ using namespace etim::pub;
 - (id)init
 {
     if (self = [super init]) {
-        self.title = @"在线列表";
-        self.navigationItem.title = @"在线列表";
-         [self.tabBarItem setFinishedSelectedImage:[UIImage imageNamed:@"tab_recent_press"] withFinishedUnselectedImage:[UIImage imageNamed:@"tab_recent_nor"]];
+        
     }
     
     return self;
@@ -37,7 +35,7 @@ using namespace etim::pub;
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-   
+   self.title = @"在线列表";
 }
 
 #pragma mark -

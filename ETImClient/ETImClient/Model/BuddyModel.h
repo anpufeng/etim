@@ -22,7 +22,8 @@
 @property (nonatomic, copy) NSString *signature;
 @property (nonatomic, assign) etim::uint8 gender;
 @property (nonatomic, assign) BuddyRelation relation;
-@property (nonatomic, copy) NSString *status;
+@property (nonatomic, assign) BuddyStatus status;
+@property (nonatomic, copy) NSString *statusName;
 
 - (id)initWithUser:(etim::IMUser)user;
 ///用户性别文本

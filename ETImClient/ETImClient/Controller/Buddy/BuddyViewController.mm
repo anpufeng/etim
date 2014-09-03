@@ -72,7 +72,7 @@ using namespace std;
 - (void)createRightNav {
     UIButton *addBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [addBtn addTarget:self action:@selector(responseToAddContactBtn:) forControlEvents:UIControlEventTouchUpInside];
-    addBtn.frame = CGRectMake(0, 0, 44, 44);
+    addBtn.frame = CGRectMake(0, 0, kNavigationBarHeight, kNavigationBarHeight);
 
     [addBtn setImage:[UIImage imageNamed:@"header_icon_add"] forState:UIControlStateNormal];
     

@@ -56,6 +56,7 @@ using namespace etim::pub;
 }
 
 - (void)createUI {
+    self.refreshControl = nil;
     UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, RECT_WIDTH(self.tableView), 60)];
     
     UIButton *logoutBtn = [[UIButton alloc] initWithFrame:CGRectMake(20, 10, 280, 40)];

@@ -51,7 +51,7 @@ void Register::Execute(Session *s) {
 	idea.Crypt(ideaKey, (const unsigned char*)encryptedPass, (unsigned char *)pass, 16, false);
     
 	int16 error_code = kErrCode000;
-	char error_msg[31] = {0};
+	char error_msg[ERR_MSG_LENGTH+1] = {0};
     
     
 
@@ -77,7 +77,7 @@ void Register::Execute(Session *s) {
 	uint16 cnt = 0;
 	uint16 seq = 0;
 	jos<<cnt<<seq<<error_code;
-	jos.WriteBytes(error_msg, 30);
+	jos.WriteBytes(error_msg, ERR_MSG_LENGTH);
 	// 包体为空
     
     FillOutPackage(jos, lengthPos, cmd);

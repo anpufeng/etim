@@ -49,6 +49,13 @@
 }
 
 - (void)update:(BuddyModel *)buddy {
+    /*
+    if (buddy.status == kBuddyOnline) {
+        self.backgroundColor = [UIColor whiteColor];
+    } else {
+        self.backgroundColor = [UIColor grayColor];
+    }
+     */
     _iconImgView.image = [UIImage imageNamed:@"login_avatar_default"];
     _nameLabel.text = buddy.username;
     _signatureLabel.text = buddy.signature;

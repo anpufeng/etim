@@ -90,9 +90,7 @@ static dispatch_once_t predicate;
 - (void)pullWithCommand:(uint16)cmd {
     _session->Clear();
     _session->SetSendCmd(cmd);
-    stringstream ss;
-    ss<<_session->GetIMUser().userId;
-    _session->SetAttribute("userId", ss.str());
+    _session->SetAttribute("userId", Convert::IntToString(_session->GetIMUser().userId));
     [self doAction:*_session];
 }
  

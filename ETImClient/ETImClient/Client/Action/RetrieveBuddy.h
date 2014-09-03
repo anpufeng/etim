@@ -21,7 +21,7 @@ namespace etim {
             virtual void DoRecv(Session &s);
         };
         
-        ///请求好友
+        ///未处理的请求好友
         class RetrieveBuddyRequest : public Action {
         public:
             virtual void DoSend(Session& s);

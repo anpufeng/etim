@@ -25,7 +25,7 @@
 		AA11010A198B61DD008811E4 /* icon-success@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AA110104198B61DD008811E4 /* icon-success@2x.png */; };
 		AA30A74C19B49FC8006925F5 /* line@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AA30A74B19B49FC8006925F5 /* line@2x.png */; };
 		AA30A75119B5592E006925F5 /* BuddyTableViewCell.mm in Sources */ = {isa = PBXBuildFile; fileRef = AA30A75019B5592E006925F5 /* BuddyTableViewCell.mm */; };
-		AA30A75519B55DFB006925F5 /* MsgViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA30A75419B55DFB006925F5 /* MsgViewController.m */; };
+		AA30A75519B55DFB006925F5 /* MsgViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = AA30A75419B55DFB006925F5 /* MsgViewController.mm */; };
 		AA3374F319A8681A005BD678 /* common_btn_green_nor@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AA3374F119A8681A005BD678 /* common_btn_green_nor@2x.png */; };
 		AA3374F419A8681A005BD678 /* common_btn_green_press@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AA3374F219A8681A005BD678 /* common_btn_green_press@2x.png */; };
 		AA3374F719A86877005BD678 /* common_btn_red_nor@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AA3374F519A86877005BD678 /* common_btn_red_nor@2x.png */; };
@@ -66,7 +66,6 @@
 		AA59F0A9198A3667009FD449 /* login_btn_blue_press@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AA59F0A7198A3667009FD449 /* login_btn_blue_press@2x.png */; };
 		AA59F0AD198A3732009FD449 /* LeeScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = AA59F0AC198A3732009FD449 /* LeeScrollView.m */; };
 		AA59F0B0198A4117009FD449 /* BuddyViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = AA59F0AF198A4117009FD449 /* BuddyViewController.mm */; };
-		AA59F0B3198A4121009FD449 /* OnlineViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = AA59F0B2198A4121009FD449 /* OnlineViewController.mm */; };
 		AA59F0B6198A4142009FD449 /* AccountViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = AA59F0B5198A4142009FD449 /* AccountViewController.mm */; };
 		AA65387619AF6B67003B64B0 /* JSBadgeView.m in Sources */ = {isa = PBXBuildFile; fileRef = AA65387519AF6B67003B64B0 /* JSBadgeView.m */; };
 		AA665F7319A8D86A00FCF5C6 /* AddBuddyViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = AA665F7219A8D86A00FCF5C6 /* AddBuddyViewController.mm */; };
@@ -88,6 +87,7 @@
 		AA9131E519990F3900524E8D /* 37x-Checkmark.png in Resources */ = {isa = PBXBuildFile; fileRef = AA9131E319990F3900524E8D /* 37x-Checkmark.png */; };
 		AA9131E619990F3900524E8D /* 37x-Checkmark@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AA9131E419990F3900524E8D /* 37x-Checkmark@2x.png */; };
 		AA9131ED199BA98B00524E8D /* BaseTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA9131EC199BA98B00524E8D /* BaseTableViewController.m */; };
+		AA98798219B6E281002AE2AF /* OnlineViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = AA98798119B6E281002AE2AF /* OnlineViewController.mm */; };
 		AAA6DCD8198B918100EB948E /* Endian.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AAA6DCC4198B918100EB948E /* Endian.cpp */; };
 		AAA6DCD9198B918100EB948E /* Idea.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AAA6DCC6198B918100EB948E /* Idea.cpp */; };
 		AAA6DCDA198B918100EB948E /* InStream.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AAA6DCC8198B918100EB948E /* InStream.cpp */; };
@@ -149,7 +149,7 @@
 		AA30A74F19B5592E006925F5 /* BuddyTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BuddyTableViewCell.h; sourceTree = "<group>"; };
 		AA30A75019B5592E006925F5 /* BuddyTableViewCell.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = BuddyTableViewCell.mm; sourceTree = "<group>"; };
 		AA30A75319B55DFB006925F5 /* MsgViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MsgViewController.h; sourceTree = "<group>"; };
-		AA30A75419B55DFB006925F5 /* MsgViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MsgViewController.m; sourceTree = "<group>"; };
+		AA30A75419B55DFB006925F5 /* MsgViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MsgViewController.mm; sourceTree = "<group>"; };
 		AA3374F119A8681A005BD678 /* common_btn_green_nor@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "common_btn_green_nor@2x.png"; sourceTree = "<group>"; };
 		AA3374F219A8681A005BD678 /* common_btn_green_press@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "common_btn_green_press@2x.png"; sourceTree = "<group>"; };
 		AA3374F519A86877005BD678 /* common_btn_red_nor@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "common_btn_red_nor@2x.png"; sourceTree = "<group>"; };
@@ -212,8 +212,6 @@
 		AA59F0AC198A3732009FD449 /* LeeScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LeeScrollView.m; sourceTree = "<group>"; };
 		AA59F0AE198A4117009FD449 /* BuddyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BuddyViewController.h; sourceTree = "<group>"; };
 		AA59F0AF198A4117009FD449 /* BuddyViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = BuddyViewController.mm; sourceTree = "<group>"; };
-		AA59F0B1198A4121009FD449 /* OnlineViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OnlineViewController.h; sourceTree = "<group>"; };
-		AA59F0B2198A4121009FD449 /* OnlineViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = OnlineViewController.mm; sourceTree = "<group>"; };
 		AA59F0B4198A4142009FD449 /* AccountViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AccountViewController.h; sourceTree = "<group>"; };
 		AA59F0B5198A4142009FD449 /* AccountViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AccountViewController.mm; sourceTree = "<group>"; };
 		AA65387419AF6B66003B64B0 /* JSBadgeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSBadgeView.h; sourceTree = "<group>"; };
@@ -248,6 +246,8 @@
 		AA9131EB199BA98B00524E8D /* BaseTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseTableViewController.h; sourceTree = "<group>"; };
 		AA9131EC199BA98B00524E8D /* BaseTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseTableViewController.m; sourceTree = "<group>"; };
 		AA9131EE199CE7C100524E8D /* DataStruct.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataStruct.h; sourceTree = "<group>"; };
+		AA98798019B6E281002AE2AF /* OnlineViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OnlineViewController.h; sourceTree = "<group>"; };
+		AA98798119B6E281002AE2AF /* OnlineViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = OnlineViewController.mm; sourceTree = "<group>"; };
 		AAA6DCC4198B918100EB948E /* Endian.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Endian.cpp; sourceTree = "<group>"; };
 		AAA6DCC5198B918100EB948E /* Endian.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Endian.h; sourceTree = "<group>"; };
 		AAA6DCC6198B918100EB948E /* Idea.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Idea.cpp; sourceTree = "<group>"; };
@@ -387,7 +387,7 @@
 			isa = PBXGroup;
 			children = (
 				AA30A75319B55DFB006925F5 /* MsgViewController.h */,
-				AA30A75419B55DFB006925F5 /* MsgViewController.m */,
+				AA30A75419B55DFB006925F5 /* MsgViewController.mm */,
 			);
 			path = Message;
 			sourceTree = "<group>";
@@ -468,7 +468,6 @@
 				AA30A75219B55DE3006925F5 /* Message */,
 				AA1100F7198B3F0A008811E4 /* Moments */,
 				AA59F093198A208D009FD449 /* Account */,
-				AA59F092198A2083009FD449 /* Online */,
 				AA59F091198A2074009FD449 /* Buddy */,
 				AA59F090198A1DF4009FD449 /* Login */,
 				AA59F03D198A1A59009FD449 /* Common */,
@@ -562,18 +561,11 @@
 			path = Buddy;
 			sourceTree = "<group>";
 		};
-		AA59F092198A2083009FD449 /* Online */ = {
-			isa = PBXGroup;
-			children = (
-				AA59F0B1198A4121009FD449 /* OnlineViewController.h */,
-				AA59F0B2198A4121009FD449 /* OnlineViewController.mm */,
-			);
-			path = Online;
-			sourceTree = "<group>";
-		};
 		AA59F093198A208D009FD449 /* Account */ = {
 			isa = PBXGroup;
 			children = (
+				AA98798019B6E281002AE2AF /* OnlineViewController.h */,
+				AA98798119B6E281002AE2AF /* OnlineViewController.mm */,
 				AA59F0B4198A4142009FD449 /* AccountViewController.h */,
 				AA59F0B5198A4142009FD449 /* AccountViewController.mm */,
 				AA665F8019A961EF00FCF5C6 /* ProfileViewController.h */,
@@ -914,7 +906,7 @@
 				AA588BB11990B4EC00F08821 /* Register.cpp in Sources */,
 				AA588B9B1990B4E500F08821 /* ActionManager.cpp in Sources */,
 				AA59F074198A1A59009FD449 /* BaseViewController.m in Sources */,
-				AA30A75519B55DFB006925F5 /* MsgViewController.m in Sources */,
+				AA30A75519B55DFB006925F5 /* MsgViewController.mm in Sources */,
 				AA59F0AD198A3732009FD449 /* LeeScrollView.m in Sources */,
 				AA59F0B0198A4117009FD449 /* BuddyViewController.mm in Sources */,
 				AAA6DCDA198B918100EB948E /* InStream.cpp in Sources */,
@@ -931,7 +923,6 @@
 				AA665F7319A8D86A00FCF5C6 /* AddBuddyViewController.mm in Sources */,
 				AAA6DCDC198B918100EB948E /* LogStream.cpp in Sources */,
 				AA665F8519A971ED00FCF5C6 /* SignatureViewController.mm in Sources */,
-				AA59F0B3198A4121009FD449 /* OnlineViewController.mm in Sources */,
 				AA59F03B198A197B009FD449 /* UIColor+Additions.m in Sources */,
 				AA30A75119B5592E006925F5 /* BuddyTableViewCell.mm in Sources */,
 				AAA6DCD9198B918100EB948E /* Idea.cpp in Sources */,
@@ -956,6 +947,7 @@
 				AA588BB21990B4EC00F08821 /* RetrieveBuddy.cpp in Sources */,
 				AA665F7F19A8E9B100FCF5C6 /* LeftMarginTextField.m in Sources */,
 				AA588BAD1990B4EC00F08821 /* Action.cpp in Sources */,
+				AA98798219B6E281002AE2AF /* OnlineViewController.mm in Sources */,
 				AA665F7C19A8E66300FCF5C6 /* TextFieldTableViewCell.m in Sources */,
 				AA59F09F198A25EA009FD449 /* RegViewController.mm in Sources */,
 				AAA6DCDB198B918100EB948E /* Logging.cpp in Sources */,

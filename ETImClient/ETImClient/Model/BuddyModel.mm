@@ -32,7 +32,8 @@ using namespace etim;
         self.regDate = stdStrToNsStr(user.regDate);
         self.signature = stdStrToNsStr(user.signature);
         self.gender = user.gender;
-        self.status = stdStrToNsStr(user.status);
+        self.status = user.status;
+        self.statusName = stdStrToNsStr(user.statusName);
     }
     
     return self;
@@ -48,7 +49,7 @@ using namespace etim;
             self.regDate,
             self.signature,
             self.gender ? @"男" : @"女",
-            self.status];
+            self.statusName];
 }
 
 + (NSMutableArray *)buddys:(const std::list<etim::IMUser> &)users {

@@ -34,7 +34,7 @@ void RequestAddBuddy::Execute(Session *s) {
 	jis>>toName;
 	
 	int16 error_code = kErrCode000;
-	char error_msg[31] = {0};
+	char error_msg[ERR_MSG_LENGTH+1] = {0};
     
     
 	// 实际的添加操作
@@ -60,7 +60,7 @@ void RequestAddBuddy::Execute(Session *s) {
 	uint16 cnt = 0;
 	uint16 seq = 0;
 	jos<<cnt<<seq<<error_code;
-	jos.WriteBytes(error_msg, 30);
+	jos.WriteBytes(error_msg, ERR_MSG_LENGTH);
     
 	// 空包体
     
@@ -81,7 +81,7 @@ void SearchBuddy::Execute(Session *s) {
 	jis>>name;
 	
 	int16 error_code = kErrCode000;
-	char error_msg[31] = {0};
+	char error_msg[ERR_MSG_LENGTH+1] = {0};
     
     
 	// 实际的搜索操作
@@ -108,7 +108,7 @@ void SearchBuddy::Execute(Session *s) {
 	uint16 cnt = 0;
 	uint16 seq = 0;
 	jos<<cnt<<seq<<error_code;
-	jos.WriteBytes(error_msg, 30);
+	jos.WriteBytes(error_msg, ERR_MSG_LENGTH);
     
 	// 包体
     jos<<user.userId;
@@ -118,6 +118,7 @@ void SearchBuddy::Execute(Session *s) {
     jos<<user.gender;
     jos<<user.relation;
     jos<<user.status;
+    jos<<user.statusName;
     
     FillOutPackage(jos, lengthPos, cmd);
     

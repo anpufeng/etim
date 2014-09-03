@@ -87,13 +87,7 @@ namespace etim {
         "kErrCode008", "kErrCode009", "kErrCode010", /*kErrCode011*/"kErrCode011",
         /*kErrCodeMax*/"kErrCodeMax"};
     
-    ///在线状态
-    enum BuddyStatus {
-        kBuddyOnline = 1,
-        kBuddyInvisible,
-        kBuddyAway,
-        kBuddyOffline
-    };
+   
 
 ///每个会话
     class Session {

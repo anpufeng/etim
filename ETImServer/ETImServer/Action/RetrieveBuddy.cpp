@@ -36,7 +36,7 @@ void RetrieveBuddyList::Execute(Session *s) {
 	jis>>userId;
 	
 	int16 error_code = kErrCode000;
-	char error_msg[31] = {0};
+	char error_msg[ERR_MSG_LENGTH+1] = {0};
     
     
 	// 实际的添加操作
@@ -45,7 +45,7 @@ void RetrieveBuddyList::Execute(Session *s) {
 	int ret;
 	ret = dao.RetrieveBuddyList(userId, buddys);
 	if (ret == kErrCode000) {
-		LOG_INFO<<"获取好友列表成功 userid: "<<userId <<" 好友数: "<<buddys.size();
+		LOG_INFO<<"查询好友列表成功 userid: "<<userId <<" 好友数: "<<buddys.size();
         uint16 cnt = static_cast<uint16>(buddys.size());    //总共多少
 		uint16 seq = 0;                                     //序列号
         list<IMUser>::const_iterator it;
@@ -59,7 +59,7 @@ void RetrieveBuddyList::Execute(Session *s) {
 
             jos<<cnt<<seq<<error_code;
             seq++;
-            jos.WriteBytes(error_msg, 30);
+            jos.WriteBytes(error_msg, ERR_MSG_LENGTH);
             
             // 包体
             jos<<it->userId;
@@ -69,6 +69,7 @@ void RetrieveBuddyList::Execute(Session *s) {
             jos<<it->gender;
             jos<<it->relation;
             jos<<it->status;
+            jos<<it->statusName;
             
             FillOutPackage(jos, lengthPos, cmd);
             
@@ -89,7 +90,7 @@ void RetrieveBuddyList::Execute(Session *s) {
         uint16 cnt = 0;
         uint16 seq = 0;
         jos<<cnt<<seq<<error_code;
-        jos.WriteBytes(error_msg, 30);
+        jos.WriteBytes(error_msg, ERR_MSG_LENGTH);
         
         // 空包体
         
@@ -112,7 +113,7 @@ void RetrieveBuddyRequest::Execute(Session *s) {
 	jis>>userId;
 	
     int16 error_code = kErrCode000;
-	char error_msg[31] = {0};
+	char error_msg[ERR_MSG_LENGTH+1] = {0};
 	//TODO 用户请求 查询用户请求信息
 	DataService dao;
 	int ret = kErrCode000;

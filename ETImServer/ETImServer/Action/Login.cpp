@@ -56,7 +56,7 @@ void Login::Execute(Session *s) {
 	idea.Crypt(ideaKey, (const unsigned char*)encryptedPass, (unsigned char *)pass, 16, false);
     
 	int16 error_code = kErrCode000;
-	char error_msg[31] = {0};
+	char error_msg[ERR_MSG_LENGTH+1] = {0};
     
     
 	// 实际的登录操作
@@ -84,7 +84,7 @@ void Login::Execute(Session *s) {
 	uint16 cnt = 0;
 	uint16 seq = 0;
 	jos<<cnt<<seq<<error_code;
-	jos.WriteBytes(error_msg, 30);
+	jos.WriteBytes(error_msg, ERR_MSG_LENGTH);
     
 	// 包体
     jos<<user.userId;
@@ -94,6 +94,7 @@ void Login::Execute(Session *s) {
     jos<<user.gender;
     jos<<user.relation;
     jos<<user.status;
+    jos<<user.statusName;
     
     FillOutPackage(jos, lengthPos, cmd);
      
@@ -112,7 +113,7 @@ void Logout::Execute(Session *s) {
 	jis>>userId;
 	
     int16 error_code = kErrCode000;
-	char error_msg[31] = {0};
+	char error_msg[ERR_MSG_LENGTH+1] = {0};
 	DataService dao;
     IMUser user = s->GetIMUser();
 	int ret = kErrCode000;
@@ -135,7 +136,7 @@ void Logout::Execute(Session *s) {
 	uint16 cnt = 0;
 	uint16 seq = 0;
 	jos<<cnt<<seq<<error_code;
-	jos.WriteBytes(error_msg, 30);
+	jos.WriteBytes(error_msg, ERR_MSG_LENGTH);
     
 	// 空包体
 
