@@ -24,10 +24,10 @@ namespace etim  {
         virtual int UserLogin(const std::string& username, const std::string& pass, IMUser &user) = 0;
         virtual int UserLogout(const std::string& userId, Session *s) = 0;
         virtual int UserSearch(const std::string &username, Session *s, IMUser &user) = 0;
-        virtual int RequestAddBuddy(const std::string &from, const std::string to) = 0;
+        virtual int RequestAddBuddy(const std::string &from, const std::string &to) = 0;
         virtual int RetrieveBuddyList(const std::string &userId, std::list<IMUser> &result) = 0;
         virtual int RetrieveUnreadMsg(const std::string &userId, std::list<IMMsg> &result) = 0;
-        virtual int RetrieveBuddyRequest(const std::string &userId, std::list<IMUser> &result) = 0;
+        virtual int RetrievePendingBuddyRequest(const std::string &userId, std::list<IMUser> &result) = 0;
     };
     
     
@@ -37,10 +37,10 @@ namespace etim  {
         int UserLogin(const std::string& username, const std::string& pass, IMUser &user);
         int UserLogout(const std::string& userId, Session *s);
         int UserSearch(const std::string &username, Session *s, IMUser &user);
-        int RequestAddBuddy(const std::string &from, const std::string to);
+        int RequestAddBuddy(const std::string &from, const std::string &to);
         int RetrieveBuddyList(const std::string &userId, std::list<IMUser> &result);
         int RetrieveUnreadMsg(const std::string &userId, std::list<IMMsg> &result);
-        int RetrieveBuddyRequest(const std::string &userId, std::list<IMUser> &result);
+        int RetrievePendingBuddyRequest(const std::string &userId, std::list<IMUser> &result);
         
     public:
         int UpdateStatus(const std::string &username, BuddyStatus status);

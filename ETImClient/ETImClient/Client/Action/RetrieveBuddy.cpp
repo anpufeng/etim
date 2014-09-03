@@ -90,11 +90,11 @@ void RetrieveBuddyList::DoRecv(etim::Session &s) {
 }
 
 
-void RetrieveBuddyRequest::DoSend(Session& s) {
+void RetrievePendingBuddyRequest::DoSend(Session& s) {
     OutStream jos;
     
 	// 包头命令
-	uint16 cmd = CMD_RETRIEVE_BUDDY_REQUEST;
+	uint16 cmd = CMD_RETRIEVE_PENDING_BUDDY_REQUEST;
 	jos<<cmd;
     
 	// 预留两个字节包头len（包体+包尾长度）
@@ -112,6 +112,6 @@ void RetrieveBuddyRequest::DoSend(Session& s) {
 }
 
 
-void RetrieveBuddyRequest::DoRecv(etim::Session &s) {
+void RetrievePendingBuddyRequest::DoRecv(etim::Session &s) {
     
 }

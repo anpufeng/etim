@@ -22,7 +22,7 @@ namespace etim {
         
         
         ///请求好友
-        class RetrieveBuddyRequest : public Action {
+        class RetrievePendingBuddyRequest : public Action {
         public:
             virtual void Execute(Session *s);
         };

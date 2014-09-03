@@ -43,7 +43,7 @@ void RequestAddBuddy::Execute(Session *s) {
 	ret = dao.RequestAddBuddy(fromName, toName);
 	if (ret == kErrCode000) {
         strcpy(error_msg, "请求发送成功");
-		LOG_INFO<<"添加好友请求成功";
+		LOG_INFO<<"添加好友请求成功 from: "<<fromName<<" to: "<<toName;
 	} else {
 		error_code = ret;
         assert(error_code < kErrCodeMax);
@@ -91,7 +91,7 @@ void SearchBuddy::Execute(Session *s) {
 	int ret;
 	ret = dao.UserSearch(name, s, user);
 	if (ret == kErrCode000) {
-		LOG_INFO<<"登录成功";
+		LOG_INFO<<"查询用户成功 查询名: "<<name;
 	} else {
 		error_code = ret;
         assert(error_code < kErrCodeMax);

@@ -30,17 +30,18 @@ namespace etim {
 #define CMD_RETRIEVE_BUDDY_LIST                 0x0008      //获取好友列表
 #define CMD_SEARCH_BUDDY                        0x0009      //查询某个用户信息
 #define CMD_RETRIEVE_UNREAD_MSG                 0x000A      //获取未读消息
-#define CMD_RETRIEVE_BUDDY_REQUEST              0x000B      //获取未处理好友请求
+#define CMD_RETRIEVE_PENDING_BUDDY_REQUEST      0x000B      //获取未处理好友请求
 #define CMD_UNREAD                              0X000C      //获取未读事件, 暂只包括三子命令
                                                             //CMD_RETRIEVE_BUDDY_LIST,
                                                             //CMD_RETRIEVE_UNREAD_MSG
-                                                            //CMD_RETRIEVE_BUDDY_REQUEST)
+                                                            //CMD_RETRIEVE_PENDING_BUDDY_REQUEST)
+#define CMD_RETRIEVE_ALL_BUDDY_REQUEST          0X000D      ///获取好友请求历史包括同意和拒绝历史
     
     static const std::string gCmdNoti[CMD_UNREAD+1] =
         {"CMD_RETRIEVE_EVENT", "CMD_REGISTER", "CMD_LOGIN", /*0x0002*/
         "CMD_LOGOUT", "CMD_HEART_BEAT", "CMD_SEND_MSG",     /*0x0005*/
         "CMD_REQUEST_ADD_BUDDY", "CMD_SWITCH_STATUS", "CMD_RETRIEVE_BUDDY_LIST", /*0x0008*/
-        "CMD_SEARCH_BUDDY", "CMD_RETRIEVE_UNREAD_MSG", "CMD_RETRIEVE_BUDDY_REQUEST",  /*0x000B*/
+        "CMD_SEARCH_BUDDY", "CMD_RETRIEVE_UNREAD_MSG", "CMD_RETRIEVE_PENDING_BUDDY_REQUEST",  /*0x000B*/
         "CMD_UNREAD"};
     
 #define ERR_MSG_LENGTH      30              // 错误消息定长

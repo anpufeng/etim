@@ -88,7 +88,7 @@ void RetrieveUnreadMsg::Execute(Session *s) {
 		error_code = ret;
         assert(error_code < kErrCodeMax);
 		strcpy(error_msg, gErrMsg[error_code].c_str());
-		LOG_INFO<<error_msg;
+		LOG_INFO<<"查询未读消息: "<<error_msg;
         
         OutStream jos;
         // 包头命令

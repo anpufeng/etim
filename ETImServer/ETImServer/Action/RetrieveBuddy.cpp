@@ -79,7 +79,7 @@ void RetrieveBuddyList::Execute(Session *s) {
 		error_code = ret;
         assert(error_code < kErrCodeMax);
 		strcpy(error_msg, gErrMsg[error_code].c_str());
-		LOG_ERROR<<error_msg;
+		LOG_ERROR<<"查询好友列表: "<<error_msg;
         
         OutStream jos;
         // 包头命令
@@ -101,11 +101,11 @@ void RetrieveBuddyList::Execute(Session *s) {
 }
 
 
-void RetrieveBuddyRequest::Execute(Session *s) {
+void RetrievePendingBuddyRequest::Execute(Session *s) {
     InStream jis(s->GetRequestPack()->buf, s->GetRequestPack()->head.len);
 	uint16 cmd = s->GetCmd();
     if (cmd == CMD_UNREAD) {
-        cmd = CMD_RETRIEVE_BUDDY_REQUEST;
+        cmd = CMD_RETRIEVE_PENDING_BUDDY_REQUEST;
     }
     
 	// 登录名

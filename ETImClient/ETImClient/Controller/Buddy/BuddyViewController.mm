@@ -58,7 +58,7 @@ using namespace std;
     [super viewDidLoad];
     // Do any additional setup after loading the view.
      [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(responseToRetrieveBuddyListResult) name:notiNameFromCmd(CMD_RETRIEVE_BUDDY_LIST) object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(responseToRetrieveBuddyRequestResult) name:notiNameFromCmd(CMD_RETRIEVE_BUDDY_REQUEST) object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(responseToRetrieveBuddyRequestResult) name:notiNameFromCmd(CMD_RETRIEVE_PENDING_BUDDY_REQUEST) object:nil];
     [self createUI];
 }
 
@@ -137,7 +137,7 @@ using namespace std;
 ///好友请求结果
 - (void)responseToRetrieveBuddyRequestResult {
     etim::Session *sess = [[Client sharedInstance] session];
-    if (sess->GetRecvCmd() == CMD_RETRIEVE_BUDDY_REQUEST) {
+    if (sess->GetRecvCmd() == CMD_RETRIEVE_PENDING_BUDDY_REQUEST) {
         if (sess->IsError()) {
             [[TWMessageBarManager sharedInstance] showMessageWithTitle:@"获取好友请求错误" description:stdStrToNsStr(sess->GetErrorMsg()) type:TWMessageBarMessageTypeError];
         } else {

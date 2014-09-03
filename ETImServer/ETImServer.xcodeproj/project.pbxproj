@@ -77,14 +77,14 @@
 		AA59F0261988C9BB009FD449 /* OutStream.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = OutStream.cpp; sourceTree = "<group>"; };
 		AA59F0271988C9BB009FD449 /* OutStream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OutStream.h; sourceTree = "<group>"; };
 		AA7004C119879911005D5FC1 /* Session.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Session.cpp; sourceTree = "<group>"; };
-		AA7004C219879911005D5FC1 /* Session.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Session.h; sourceTree = "<group>"; };
+		AA7004C219879911005D5FC1 /* Session.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = Session.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		AA7004C519889628005D5FC1 /* Action.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Action.cpp; sourceTree = "<group>"; };
 		AA7004C619889628005D5FC1 /* Action.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Action.h; sourceTree = "<group>"; };
 		AA7004C8198897B3005D5FC1 /* Register.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Register.cpp; sourceTree = "<group>"; };
 		AA7004C9198897B3005D5FC1 /* Register.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Register.h; sourceTree = "<group>"; };
 		AA7004CB19889872005D5FC1 /* Login.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Login.cpp; sourceTree = "<group>"; };
 		AA7004CC19889872005D5FC1 /* Login.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Login.h; sourceTree = "<group>"; };
-		AA7004CE19889AF4005D5FC1 /* ActionManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ActionManager.cpp; sourceTree = "<group>"; };
+		AA7004CE19889AF4005D5FC1 /* ActionManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; lineEnding = 0; path = ActionManager.cpp; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.cpp; };
 		AA7004CF19889AF4005D5FC1 /* ActionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActionManager.h; sourceTree = "<group>"; };
 		AA7004D119889C9B005D5FC1 /* HeartBeat.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = HeartBeat.cpp; sourceTree = "<group>"; };
 		AA7004D219889C9B005D5FC1 /* HeartBeat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HeartBeat.h; sourceTree = "<group>"; };
@@ -94,7 +94,7 @@
 		AA7004DB19889D3C005D5FC1 /* AddBuddy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddBuddy.h; sourceTree = "<group>"; };
 		AA7004DD19889D8D005D5FC1 /* SwitchStatus.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SwitchStatus.cpp; sourceTree = "<group>"; };
 		AA7004DE19889D8D005D5FC1 /* SwitchStatus.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SwitchStatus.h; sourceTree = "<group>"; };
-		AA7004E019889E2E005D5FC1 /* RetrieveBuddy.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = RetrieveBuddy.cpp; sourceTree = "<group>"; };
+		AA7004E019889E2E005D5FC1 /* RetrieveBuddy.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; lineEnding = 0; path = RetrieveBuddy.cpp; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.cpp; };
 		AA7004E119889E2E005D5FC1 /* RetrieveBuddy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RetrieveBuddy.h; sourceTree = "<group>"; };
 		AABF3C9A19863690001C8DCA /* ETImServer */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = ETImServer; sourceTree = BUILT_PRODUCTS_DIR; };
 		AABF3C9D19863690001C8DCA /* Main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Main.cpp; sourceTree = "<group>"; };

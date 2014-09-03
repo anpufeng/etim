@@ -13,5 +13,121 @@
             stopOnStyle = "0">
          </BreakpointContent>
       </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ETImServer/Public/Logging.h"
+            timestampString = "431447041.738924"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "42"
+            endingLineNumber = "42"
+            landmarkName = "SourceFile(const char (&amp;arr)[N])"
+            landmarkType = "5">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "muduo::Logger::SourceFile::SourceFile&lt;91&gt;(char const (&amp;) [91])"
+                  moduleName = "ETImServer"
+                  urlString = "file:///Users/ethan/Documents/Projects/etinstantmessage/ETImServer/ETImServer/Public/Logging.h"
+                  timestampString = "431447048.075508"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "42"
+                  endingLineNumber = "42"
+                  offsetFromSymbolStart = "39">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "muduo::Logger::SourceFile::SourceFile&lt;83&gt;(char const (&amp;) [83])"
+                  moduleName = "ETImServer"
+                  urlString = "file:///Users/ethan/Documents/Projects/etinstantmessage/ETImServer/ETImServer/Public/Logging.h"
+                  timestampString = "431447048.075862"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "42"
+                  endingLineNumber = "42"
+                  offsetFromSymbolStart = "39">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "muduo::Logger::SourceFile::SourceFile&lt;96&gt;(char const (&amp;) [96])"
+                  moduleName = "ETImServer"
+                  urlString = "file:///Users/ethan/Documents/Projects/etinstantmessage/ETImServer/ETImServer/Public/Logging.h"
+                  timestampString = "431447048.076074"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "42"
+                  endingLineNumber = "42"
+                  offsetFromSymbolStart = "39">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "muduo::Logger::SourceFile::SourceFile&lt;82&gt;(char const (&amp;) [82])"
+                  moduleName = "ETImServer"
+                  urlString = "file:///Users/ethan/Documents/Projects/etinstantmessage/ETImServer/ETImServer/Public/Logging.h"
+                  timestampString = "431447048.076343"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "42"
+                  endingLineNumber = "42"
+                  offsetFromSymbolStart = "39">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "muduo::Logger::SourceFile::SourceFile&lt;89&gt;(char const (&amp;) [89])"
+                  moduleName = "ETImServer"
+                  urlString = "file:///Users/ethan/Documents/Projects/etinstantmessage/ETImServer/ETImServer/Public/Logging.h"
+                  timestampString = "431447048.076671"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "42"
+                  endingLineNumber = "42"
+                  offsetFromSymbolStart = "39">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "muduo::Logger::SourceFile::SourceFile&lt;88&gt;(char const (&amp;) [88])"
+                  moduleName = "ETImServer"
+                  urlString = "file:///Users/ethan/Documents/Projects/etinstantmessage/ETImServer/ETImServer/Public/Logging.h"
+                  timestampString = "431447048.076876"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "42"
+                  endingLineNumber = "42"
+                  offsetFromSymbolStart = "39">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "muduo::Logger::SourceFile::SourceFile&lt;90&gt;(char const (&amp;) [90])"
+                  moduleName = "ETImServer"
+                  urlString = "file:///Users/ethan/Documents/Projects/etinstantmessage/ETImServer/ETImServer/Public/Logging.h"
+                  timestampString = "431447048.077113"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "42"
+                  endingLineNumber = "42"
+                  offsetFromSymbolStart = "39">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
    </Breakpoints>
 </Bucket>

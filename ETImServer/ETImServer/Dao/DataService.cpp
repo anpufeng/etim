@@ -53,7 +53,7 @@ int DataService::UserRegister(const std::string &username, const std::string &pa
         unsigned long long ret = db.ExecSQL(ss.str().c_str());
         (void)ret;
     } catch (Exception &e) {
-        LOG_INFO<<e.what();
+        LOG_ERROR<<e.what();
         return kErrCode002;
     }
     
@@ -106,7 +106,7 @@ int DataService::UserLogin(const std::string& username, const std::string& pass,
         user.relation = kBuddyRelationSelf;
         
     } catch (Exception &e) {
-        LOG_INFO<<e.what();
+        LOG_ERROR<<e.what();
         return kErrCode002;
     }
     
@@ -128,7 +128,7 @@ int DataService::UserLogout(const std::string& userId, Session *s) {
         unsigned long long ret = db.ExecSQL(ss.str().c_str());
         (void)ret;
     } catch (Exception &e) {
-        LOG_INFO<<e.what();
+        LOG_ERROR<<e.what();
         return kErrCode002;
     }
     return kErrCode000;
@@ -195,7 +195,7 @@ int DataService::UserSearch(const std::string &username, Session *s, IMUser &use
                 user.relation = kBuddyRelationFriend;
             
         } catch (Exception &e) {
-            LOG_INFO<<e.what();
+            LOG_ERROR<<e.what();
             return kErrCode002;
         }
     }
@@ -207,7 +207,7 @@ int DataService::UserSearch(const std::string &username, Session *s, IMUser &use
  @return kErrCode000 成功 kErrCode002数据库错误 kErrCode004 无此用户
  kErrCode005 已是好友
  */
-int DataService::RequestAddBuddy(const std::string &from, const std::string to) {
+int DataService::RequestAddBuddy(const std::string &from, const std::string &to) {
         MysqlDB db;
         try {
             db.Open();
@@ -245,7 +245,7 @@ int DataService::RequestAddBuddy(const std::string &from, const std::string to) 
             unsigned long long ret = db.ExecSQL(ss.str().c_str());
             (void)ret;
         } catch (Exception &e) {
-            LOG_INFO<<e.what();
+            LOG_ERROR<<e.what();
             return kErrCode002;
         }
     return kErrCode000;
@@ -300,7 +300,7 @@ int DataService::RetrieveBuddyList(const std::string &userId, std::list<IMUser> 
             result.push_back(user);
         }
     } catch (Exception &e) {
-        LOG_INFO<<e.what();
+        LOG_ERROR<<e.what();
         return kErrCode002;
     }
 
@@ -371,7 +371,7 @@ int DataService::RetrieveUnreadMsg(const std::string &userId, std::list<IMMsg> &
             result.push_back(msg);
         }
     } catch (Exception &e) {
-        LOG_INFO<<e.what();
+        LOG_ERROR<<e.what();
         return kErrCode002;
     }
     
@@ -383,7 +383,53 @@ int DataService::RetrieveUnreadMsg(const std::string &userId, std::list<IMMsg> &
  @param result 如果查询到了则通过result返回
  @return kErrCode000 成功 kErrCode002数据库错误 kErrCode006 无未读数据
  */
-int DataService::RetrieveBuddyRequest(const std::string &userId, std::list<IMUser> &result) {
+int DataService::RetrievePendingBuddyRequest(const std::string &userId, std::list<IMUser> &result) {
+    /*
+     select distinct  u_f.*, s.status_name
+     from friend f
+     left join user u_f
+     on u_f.user_id = f.friend_from
+     left join status s
+     on u_f.status_id = s.status_id
+     where f.friend_to = 4 and f.req_status = 0;
+     */
+    
+    MysqlDB db;
+    try {
+        db.Open();
+        stringstream ss;
+        ss<<"select distinct  u_f.*, s.status_name"<<
+        " from friend f"<<
+        " left join user u_f"<<
+        " on u_f.user_id = f.friend_from"<<
+        " left join status s"<<
+        " on u_f.status_id = s.status_id"<<
+        " where f.friend_to = "<<userId<<
+        " and f.req_status = "<<kBuddyRequestNoSent<<
+        ";";
+        MysqlRecordset rs;
+        rs = db.QuerySQL(ss.str().c_str());
+        if (rs.GetRows() < 1) {
+            return kErrCode006;
+        }
+        for (int i = 0; i < rs.GetRows(); ++i) {
+            IMUser user;
+            user.userId = atoi(rs.GetItem(0, "u_f.user_id").c_str());
+            user.username = rs.GetItem(i, "u_f.username");
+            string reg = rs.GetItem(i, "u_f.reg_time");
+            user.regDate = reg.substr(i, reg.find(" "));
+            
+            user.signature = rs.GetItem(i, "u_f.signature");
+            user.gender = Convert::StringToInt(rs.GetItem(i, "u_f.gender"));
+            user.status = static_cast<BuddyStatus>(atoi(rs.GetItem(i, "u_f.status_id").c_str()));
+            user.statusName =  rs.GetItem(i, "s.status_name");
+            result.push_back(user);
+        }
+    } catch (Exception &e) {
+        LOG_ERROR<<e.what();
+        return kErrCode002;
+    }
+    
     return kErrCode000;
 }
 

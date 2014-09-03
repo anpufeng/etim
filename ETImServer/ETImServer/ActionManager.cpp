@@ -33,7 +33,7 @@ ActionManager::ActionManager()
 	actions_[CMD_RETRIEVE_BUDDY_LIST] = new RetrieveBuddyList;
 	actions_[CMD_SEARCH_BUDDY] = new SearchBuddy;
     actions_[CMD_RETRIEVE_UNREAD_MSG] = new RetrieveUnreadMsg;
-    actions_[CMD_RETRIEVE_BUDDY_REQUEST] =  new RetrieveBuddyRequest;
+    actions_[CMD_RETRIEVE_PENDING_BUDDY_REQUEST] =  new RetrievePendingBuddyRequest;
 }
 
 ActionManager::~ActionManager()
@@ -53,7 +53,7 @@ bool ActionManager::DoAction(Session *s)
 	} else if (cmd == CMD_UNREAD) {
         actions_[CMD_RETRIEVE_BUDDY_LIST]->Execute(s);
         actions_[CMD_RETRIEVE_UNREAD_MSG]->Execute(s);
-        actions_[CMD_RETRIEVE_BUDDY_REQUEST]->Execute(s);
+        actions_[CMD_RETRIEVE_PENDING_BUDDY_REQUEST]->Execute(s);
         return true;
     }
     
