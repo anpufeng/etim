@@ -64,7 +64,7 @@ void MysqlDB::Close()
 
 MysqlRecordset MysqlDB::QuerySQL(const char* sql)
 {
-    //printf("要执行的sql: %s\n", sql);
+    printf("要执行的sql: %s\n", sql);
 	if (mysql_query(mysql_, sql) != 0)
 	{
 		//int errno = mysql_errno(mysql_);

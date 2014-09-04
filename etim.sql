@@ -1,17 +1,17 @@
 /*
  Navicat Premium Data Transfer
 
- Source Server         : localhost-mysql
+ Source Server         : localhost
  Source Server Type    : MySQL
- Source Server Version : 50619
+ Source Server Version : 50525
  Source Host           : localhost
  Source Database       : etim
 
  Target Server Type    : MySQL
- Target Server Version : 50619
+ Target Server Version : 50525
  File Encoding         : utf-8
 
- Date: 09/04/2014 18:13:01 PM
+ Date: 09/04/2014 23:17:34 PM
 */
 
 SET NAMES utf8;
@@ -33,7 +33,7 @@ CREATE TABLE `friend` (
 --  Records of `friend`
 -- ----------------------------
 BEGIN;
-INSERT INTO `friend` VALUES ('1', '1', '2', '1'), ('2', '1', '3', '2');
+INSERT INTO `friend` VALUES ('1', '1', '2', '1'), ('2', '1', '3', '2'), ('3', '1', '2', '3');
 COMMIT;
 
 -- ----------------------------
@@ -44,8 +44,8 @@ CREATE TABLE `message` (
   `msg_id` int(11) NOT NULL,
   `msg_from` int(11) NOT NULL,
   `msg_to` int(11) NOT NULL,
-  `req_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '请求发送时间',
-  `send_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `req_time` datetime NOT NULL COMMENT '请求发送时间',
+  `send_time` datetime NOT NULL,
   `sent` tinyint(4) NOT NULL COMMENT '是否已发送给接收方0没有1已发送',
   `message` varchar(45) NOT NULL,
   PRIMARY KEY (`msg_id`)
@@ -58,18 +58,18 @@ DROP TABLE IF EXISTS `request`;
 CREATE TABLE `request` (
   `req_id` int(11) NOT NULL AUTO_INCREMENT,
   `req_status` tinyint(4) NOT NULL DEFAULT '0' COMMENT '0:请求未发送 1:请求已发送 2:请求被拒绝 4:请求已同意 0|2:请求被拒绝未发送到请求方 1|2:请求被拒绝已发送请求方向 0|4:请求已同意未发送到请求方 1|4:请求已同意已发送到请求方',
-  `req_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `req_send_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '请求发送时间',
-  `action_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '接受或拒绝时间',
-  `action_send_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '请求或拒绝发送到原请求方的时间',
+  `req_time` datetime NOT NULL,
+  `req_send_time` datetime NOT NULL COMMENT '请求发送时间',
+  `action_time` datetime NOT NULL COMMENT '接受或拒绝时间',
+  `action_send_time` datetime NOT NULL COMMENT '请求或拒绝发送到原请求方的时间',
   PRIMARY KEY (`req_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 --  Records of `request`
 -- ----------------------------
 BEGIN;
-INSERT INTO `request` VALUES ('1', '0', '2014-09-04 17:27:40', '2014-09-04 17:27:40', '2014-09-04 17:27:40', '2014-09-04 17:27:40'), ('2', '4', '2014-09-04 17:32:07', '2014-09-04 17:32:07', '2014-09-04 17:32:07', '2014-09-04 17:32:07');
+INSERT INTO `request` VALUES ('1', '0', '2014-09-04 17:27:40', '2014-09-04 17:27:40', '2014-09-04 17:27:40', '2014-09-04 17:27:40'), ('2', '4', '2014-09-04 17:32:07', '2014-09-04 17:32:07', '2014-09-04 17:32:07', '2014-09-04 17:32:07'), ('3', '4', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00');
 COMMIT;
 
 -- ----------------------------
@@ -97,8 +97,8 @@ CREATE TABLE `user` (
   `user_id` int(11) NOT NULL AUTO_INCREMENT,
   `username` varchar(45) DEFAULT NULL,
   `password` varchar(45) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL,
-  `reg_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '注册时间',
-  `last_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '上次操作时间,',
+  `reg_time` datetime DEFAULT NULL COMMENT '注册时间',
+  `last_time` datetime DEFAULT NULL COMMENT '上次操作时间,',
   `signature` varchar(45) DEFAULT '暂无签名' COMMENT '用户签名',
   `gender` tinyint(4) DEFAULT NULL COMMENT '性别',
   `status_id` tinyint(4) DEFAULT '4' COMMENT '状态ID 1:在线 2:隐身 3:离开 4:离线',

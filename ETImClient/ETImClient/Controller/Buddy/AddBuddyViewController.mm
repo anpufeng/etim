@@ -107,12 +107,19 @@ using namespace etim::pub;
     }
     
     [textField resignFirstResponder];
-    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    
     etim::Session *sess = [[Client sharedInstance] session];
-    sess->Clear();
-    sess->SetSendCmd(CMD_SEARCH_BUDDY);
-    sess->SetAttribute("name", nsStrToStdStr(textField.text));
-    [[Client sharedInstance] doAction:*sess];
+    if ([stdStrToNsStr(sess->GetIMUser().username) isEqualToString:[textField.text lowercaseString]]) {
+        ProfileViewController *vc = [[ProfileViewController alloc] initWithUser:sess->GetIMUser()];
+        [self.navigationController pushViewController:vc animated:YES];
+    } else {
+        sess->Clear();
+        sess->SetSendCmd(CMD_SEARCH_BUDDY);
+        sess->SetAttribute("name", nsStrToStdStr(textField.text));
+        [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        [[Client sharedInstance] doAction:*sess];
+    }
+   
     
     return YES;
 }

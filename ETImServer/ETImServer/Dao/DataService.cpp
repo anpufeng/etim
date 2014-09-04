@@ -31,7 +31,8 @@ int DataService::UserRegister(const std::string &username, const std::string &pa
         db.Open();
         stringstream ss;
         ///查询是否用户名已存在
-        ss<<"select username from user where username = '"<<username<<"';";
+        ss<<"select username from user"<<
+        "where username = '"<<username<<"';";
         MysqlRecordset rs;
 		rs = db.QuerySQL(ss.str().c_str());
 		if (rs.GetRows() >= 1)
@@ -42,7 +43,7 @@ int DataService::UserRegister(const std::string &username, const std::string &pa
         
         //不存在则插入进行注册  insert into user(user_id, username, password, reg_time, last_time, gender, status)
         //values(null, 'admin', 'admin', now(), now(), 0, 3);
-        ss<<"insert into user (user_id, username, password, reg_time, last_time, gender, status_id) values(null, '"<<
+        ss<<"insert into user (user_id, username, password, reg_time, last_time, gender, status_id) values (null, '"<<
         username<<"', '"<<
         pass<<"', "<<
         " now(), "<<
@@ -61,7 +62,7 @@ int DataService::UserRegister(const std::string &username, const std::string &pa
 }
 
 /**
- @return kErrCode000 成功 kErrCode002数据库错误 kErrCode001 用户或密码出错
+ @return kErrCode000 成功 kErrCode001 用户或密码出错 kErrCode002数据库错误
  */
 int DataService::UserLogin(const std::string& username, const std::string& pass, IMUser &user) {
     MysqlDB db;
@@ -70,9 +71,10 @@ int DataService::UserLogin(const std::string& username, const std::string& pass,
         stringstream ss;
         
         ///查询用户密码是否正确
-        ss<<"select a.user_id, a.username, a.reg_time, a.signature, a.gender, b.status_name from `user` as a, `status` as b " <<
-        "where a.status_id = b.status_id and a.username='"<<
-        username<<"' and a.password='"<<
+        ss<<"select a.*, b.status_name from `user` as a, `status` as b" <<
+        " where a.status_id = b.status_id"<<
+        " and a.username = '"<<
+        username<<"' and a.password = '"<<
         pass<<"';";
         MysqlRecordset rs;
 		rs = db.QuerySQL(ss.str().c_str());
@@ -86,23 +88,12 @@ int DataService::UserLogin(const std::string& username, const std::string& pass,
         unsigned long long ret = db.ExecSQL(ss.str().c_str());
         (void)ret;
         
-        ss.clear();
-        ss.str("");
-        //TODO 去除此SQL
-        ss<<"select a.user_id, a.username, a.reg_time, a.signature, a.gender, a.status_id, b.status_name from `user` as a, `status` as b " <<
-        "where a.status_id = b.status_id and a.username='"<<
-        username<<"' and a.password='"<<
-        pass<<"';";
-		rs = db.QuerySQL(ss.str().c_str());
-        
-        string userId = rs.GetItem(0, "a.user_id");
-        user.userId = atoi(userId.c_str());
         string reg = rs.GetItem(0, "a.reg_time");
+        user.userId = Convert::StringToInt(rs.GetItem(0, "a.user_id"));
 		user.regDate = reg.substr(0, reg.find(" "));
-        
         user.signature = rs.GetItem(0, "a.signature");
         user.gender = Convert::StringToInt(rs.GetItem(0, "a.gender"));
-        user.status =  static_cast<BuddyStatus>(atoi(rs.GetItem(0, "a.status_id").c_str()));
+        user.status = static_cast<BuddyStatus>(Convert::StringToInt(rs.GetItem(0, "a.status_id").c_str()));
         user.statusName = rs.GetItem(0, "b.status_name");
         user.relation = kBuddyRelationSelf;
         
@@ -142,10 +133,10 @@ int DataService::UserLogout(const std::string& userId, Session *s) {
  */
 int DataService::UserSearch(const std::string &username, Session *s, IMUser &user) {
     /*
-     admin (1) 到 admin2(3) 不是好友
+     admin (1) 到 admin2(2) 不是好友
      admin (1)到 admin3(3) 是好友
-    select u.*,
-    (select
+     select  u.*, s.status_name,
+     (select
      case COUNT(1)
      when 0 then '0'
      else '1'
@@ -156,10 +147,11 @@ int DataService::UserSearch(const std::string &username, Session *s, IMUser &use
      where f.friend_from=1 and f.friend_to=u.user_id and r.req_status = 4
      limit 1
      )  'is_friend'
-    from user u
-    where u.username = 'admin3'
+     from user u
+     left join status s
+     on u.status_id = s.status_id
+     where u.username = 'admin3'
      */
-    //TODO sql待改进
     IMUser sessionUser = s->GetIMUser();
     if (s->GetIMUser().username == username) {
         user = s->GetIMUser();
@@ -171,34 +163,40 @@ int DataService::UserSearch(const std::string &username, Session *s, IMUser &use
             db.Open();
             stringstream ss;
             //查询当前用户的资料并且将是否好友返回
-            ss<<"select a.user_id, a.username, a.reg_time, a.signature, a.gender, a.status_id, b.status_name from `user` as a, `status` as b " <<
-            "where a.status_id = b.status_id and a.username='"<<
-            username<<"';";
+            ss<<"select u.*, s.status_name,"<<
+            " (select"<<
+            "  case COUNT(1)"<<
+            " when 0 then '0'"<<
+            " else '1'"<<
+            " end"<<
+            " from friend f"<<
+            " left join request r"<<
+            " on f.req_id = r.req_id"<<
+            " where f.friend_from = "<<sessionUser.userId<<
+            " and f.friend_to = u.user_id"<<
+            " and r.req_status in ("<<(kBuddyRequestAccepted|kBuddyRequestNoSent)<<", "<<(kBuddyRequestAccepted|kBuddyRequestSent)<<")"<<
+            " limit 1"<<
+            " )  'is_friend'"<<
+            " from user u"<<
+            " left join status s"<<
+            " on u.status_id = s.status_id"<<
+            " where u.username = '"<<username<<"';";
             MysqlRecordset rs;
             rs = db.QuerySQL(ss.str().c_str());
             if (rs.GetRows() < 1)
                 return kErrCode004;
-            string userId = rs.GetItem(0, "a.user_id");
-            user.userId = atoi(userId.c_str());
-            string reg = rs.GetItem(0, "a.reg_time");
+            
+            string reg = rs.GetItem(0, "u.reg_time");
+            string userId = rs.GetItem(0, "u.user_id");
+            user.userId = Convert::StringToInt(userId.c_str());
             user.regDate = reg.substr(0, reg.find(" "));
+            user.signature = rs.GetItem(0, "u.signature");
+            user.gender = Convert::StringToInt(rs.GetItem(0, "u.gender"));
+            user.status =  static_cast<BuddyStatus>(Convert::StringToInt(rs.GetItem(0, "u.status_id").c_str()));
+            user.statusName =  rs.GetItem(0, "s.status_name");
             
-            user.signature = rs.GetItem(0, "a.signature");
-            user.gender = Convert::StringToInt(rs.GetItem(0, "a.gender"));
-            user.status =  static_cast<BuddyStatus>(atoi(rs.GetItem(0, "a.status_id").c_str()));
-            user.statusName =  rs.GetItem(0, "b.status_name");
-            
-            ss.clear();
-            ss.str("");
-            //查询是否已为好友
-            ss<<"select a.username, b.friend_id from `user` as a, `friend` as b  where a.username='" <<
-            username<<"' and a.user_id = b.friend_from and b.req_status=" <<kBuddyRequestAccepted<<";";
-            
-            rs = db.QuerySQL(ss.str().c_str());
-            if (rs.GetRows() < 1)
-                user.relation = kBuddyRelationStranger;
-            else
-                user.relation = kBuddyRelationFriend;
+            int isFriend = Convert::StringToInt(rs.GetItem(0, "is_friend").c_str());
+            user.relation = isFriend ? kBuddyRelationFriend : kBuddyRelationStranger;
             
         } catch (Exception &e) {
             LOG_ERROR<<e.what();
@@ -267,28 +265,33 @@ int DataService::RequestAddBuddy(const std::string &from, const std::string &to)
  */
 int DataService::RetrieveBuddyList(const std::string &userId, std::list<IMUser> &result) {
     /*
-     select DISTINCT u_t.*, st.status_name
-     from user u, friend f, user u_t
-	 left join status st
+     select u_t.*, st.status_name
+     from (user u_f, friend f, user u_t)
+     left join status st
      on st.status_id = u_t.status_id
-     where u_t.user_id = f.friend_to
-     and u.user_id = f.friend_from
-     and u.username = 'admin'
-     ;
+     left join request r
+     on r.req_id = f.req_id
+     where u_f.user_id = f.friend_from
+     and u_t.user_id = f.friend_to
+     and u_f.user_id = 1
+     and r.req_status in (4,5) order by u_t.user_id;
 
      */
     MysqlDB db;
     try {
         db.Open();
         stringstream ss;
-        ss<<"select DISTINCT u_t.*, st.*"<<
-        " from user u, friend f, user u_t"<<
+        ss<<"select u_t.*, st.status_name"<<
+        " from (user u_f, friend f, user u_t)"<<
         " left join status st "<<
-        "on st.status_id = u_t.status_id"<<
-        " where u_t.user_id = f.friend_to"<<
-        " and u.user_id = f.friend_from"<<
-        " and req_status = "<<kBuddyRequestAccepted<<
-        " and u.user_id = "<<userId<<
+        " on st.status_id = u_t.status_id"<<
+        " left join request r"<<
+        " on r.req_id = f.req_id"<<
+        " where u_f.user_id = f.friend_from"<<
+        " and u_t.user_id = f.friend_to"<<
+        " and u_f.user_id = "<<userId<<
+        " and r.req_status in ("<<(kBuddyRequestAccepted|kBuddyRequestNoSent)<<", "<<(kBuddyRequestAccepted|kBuddyRequestSent)<<")"<<
+        " order by u_t.user_id"
         ";";
         MysqlRecordset rs;
         rs = db.QuerySQL(ss.str().c_str());
@@ -297,14 +300,13 @@ int DataService::RetrieveBuddyList(const std::string &userId, std::list<IMUser> 
         }
         for (int i = 0; i < rs.GetRows(); ++i) {
             IMUser user;
-            user.userId = atoi(rs.GetItem(0, "u_t.user_id").c_str());
-            user.username = rs.GetItem(i, "u_t.username");
             string reg = rs.GetItem(i, "u_t.reg_time");
+            user.userId = Convert::StringToInt(rs.GetItem(0, "u_t.user_id").c_str());
+            user.username = rs.GetItem(i, "u_t.username");
             user.regDate = reg.substr(i, reg.find(" "));
-            
             user.signature = rs.GetItem(i, "u_t.signature");
             user.gender = Convert::StringToInt(rs.GetItem(i, "u_t.gender"));
-            user.status = static_cast<BuddyStatus>(atoi(rs.GetItem(i, "st.status_id").c_str()));
+            user.status = static_cast<BuddyStatus>(Convert::StringToInt(rs.GetItem(i, "u_t.status_id").c_str()));
             user.statusName =  rs.GetItem(i, "st.status_name");
             result.push_back(user);
         }
@@ -358,11 +360,10 @@ int DataService::RetrieveUnreadMsg(const std::string &userId, std::list<IMMsg> &
         }
         for (int i = 0; i < rs.GetRows(); ++i) {
             IMUser fromUser;
+            string reg = rs.GetItem(i, "u_f.reg_time");
             fromUser.userId = Convert::StringToInt(rs.GetItem(i, "u_f.user_id"));
             fromUser.username = rs.GetItem(i, "u_f.username");
-            string reg = rs.GetItem(i, "u_f.reg_time");
             fromUser.regDate = reg.substr(i, reg.find(" "));
-            
             fromUser.signature = rs.GetItem(i, "u_f.signature");
             fromUser.gender = Convert::StringToInt(rs.GetItem(i, "u_f.gender"));
             fromUser.relation = static_cast<BuddyRelation>(Convert::StringToInt(rs.GetItem(i, "f.req_status")));
@@ -423,14 +424,13 @@ int DataService::RetrievePendingBuddyRequest(const std::string &userId, std::lis
         }
         for (int i = 0; i < rs.GetRows(); ++i) {
             IMUser user;
-            user.userId = atoi(rs.GetItem(0, "u_f.user_id").c_str());
-            user.username = rs.GetItem(i, "u_f.username");
             string reg = rs.GetItem(i, "u_f.reg_time");
+            user.userId = Convert::StringToInt(rs.GetItem(0, "u_f.user_id").c_str());
+            user.username = rs.GetItem(i, "u_f.username");
             user.regDate = reg.substr(i, reg.find(" "));
-            
             user.signature = rs.GetItem(i, "u_f.signature");
             user.gender = Convert::StringToInt(rs.GetItem(i, "u_f.gender"));
-            user.status = static_cast<BuddyStatus>(atoi(rs.GetItem(i, "u_f.status_id").c_str()));
+            user.status = static_cast<BuddyStatus>(Convert::StringToInt(rs.GetItem(i, "u_f.status_id").c_str()));
             user.statusName =  rs.GetItem(i, "s.status_name");
             result.push_back(user);
         }
