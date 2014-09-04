@@ -46,7 +46,8 @@ void RetrieveUnreadMsg::Execute(Session *s) {
 	DataService dao;
     std::list<IMMsg> msgs;
 	int ret = kErrCode000;
-    ret = dao.RetrieveUnreadMsg(userId, msgs);
+    //ret = dao.RetrieveUnreadMsg(userId, msgs);
+    ret = kErrCode006;
 	if (ret == kErrCode000) {
 		LOG_INFO<<"查询未读消息成功 userId: "<<userId <<" 未读消息条数: "<<msgs.size();
         uint16 cnt = static_cast<uint16>(msgs.size());    //总共多少

@@ -69,8 +69,7 @@ int DataService::UserLogin(const std::string& username, const std::string& pass,
         db.Open();
         stringstream ss;
         
-        
-        
+        ///查询用户密码是否正确
         ss<<"select a.user_id, a.username, a.reg_time, a.signature, a.gender, b.status_name from `user` as a, `status` as b " <<
         "where a.status_id = b.status_id and a.username='"<<
         username<<"' and a.password='"<<
@@ -82,12 +81,14 @@ int DataService::UserLogin(const std::string& username, const std::string& pass,
         
         ss.clear();
         ss.str("");
+        //更新在线
         ss<<"update user set status_id = "<<kBuddyOnline<<" where username = '"<<username<<"';";
         unsigned long long ret = db.ExecSQL(ss.str().c_str());
         (void)ret;
         
         ss.clear();
         ss.str("");
+        //TODO 去除此SQL
         ss<<"select a.user_id, a.username, a.reg_time, a.signature, a.gender, a.status_id, b.status_name from `user` as a, `status` as b " <<
         "where a.status_id = b.status_id and a.username='"<<
         username<<"' and a.password='"<<
@@ -118,11 +119,11 @@ int DataService::UserLogin(const std::string& username, const std::string& pass,
  @return kErrCode000 成功 kErrCode002 数据库错误
  */
 int DataService::UserLogout(const std::string& userId, Session *s) {
-    ///更新状态为离线
     MysqlDB db;
     try {
         db.Open();
         stringstream ss;
+        //更新状态为离线
         ss<<"update user set status_id ="<<kBuddyOffline<<" where user_id = '"<<userId<<"';";
         MysqlRecordset rs;
         unsigned long long ret = db.ExecSQL(ss.str().c_str());
@@ -141,18 +142,22 @@ int DataService::UserLogout(const std::string& userId, Session *s) {
  */
 int DataService::UserSearch(const std::string &username, Session *s, IMUser &user) {
     /*
-     select u.*,
-     (select
+     admin (1) 到 admin2(3) 不是好友
+     admin (1)到 admin3(3) 是好友
+    select u.*,
+    (select
      case COUNT(1)
      when 0 then '0'
      else '1'
      end
      from friend f
-     where f.friend_from=1 and f.friend_to=4
+     left join request r
+     on f.req_id = r.req_id
+     where f.friend_from=1 and f.friend_to=u.user_id and r.req_status = 4
      limit 1
      )  'is_friend'
-     from user u
-     where u.username = 'admin'
+    from user u
+    where u.username = 'admin3'
      */
     //TODO sql待改进
     IMUser sessionUser = s->GetIMUser();
@@ -165,6 +170,7 @@ int DataService::UserSearch(const std::string &username, Session *s, IMUser &use
         try {
             db.Open();
             stringstream ss;
+            //查询当前用户的资料并且将是否好友返回
             ss<<"select a.user_id, a.username, a.reg_time, a.signature, a.gender, a.status_id, b.status_name from `user` as a, `status` as b " <<
             "where a.status_id = b.status_id and a.username='"<<
             username<<"';";
@@ -212,6 +218,7 @@ int DataService::RequestAddBuddy(const std::string &from, const std::string &to)
         try {
             db.Open();
             stringstream ss;
+            //是否两帐户都存在
             ss<<"select user_id, username from `user` where username ='" <<
             from<<"' or username ='"<<
             to<<"';";
@@ -225,6 +232,7 @@ int DataService::RequestAddBuddy(const std::string &from, const std::string &to)
             
             ss.clear();
             ss.str("");
+            //查询是否为好友
             ss<<"select friend_id from friend where friend_from ='" <<
             fromId<<"' and friend_to = '"<<
             toId<<"' and req_status = " << kBuddyRequestAccepted <<";";
@@ -235,7 +243,8 @@ int DataService::RequestAddBuddy(const std::string &from, const std::string &to)
             
             ss.clear();
             ss.str("");
-            ss<<"insert into friend (friend_id, friend_from, friend_to, request_time, action_time, req_status) values (null, '"<<
+            //插入好友请求数据
+            ss<<"insert into friend (friend_id, friend_from, friend_to, req_time, action_time, req_status) values (null, '"<<
             fromId<<"', '"<<
             toId<<"', "<<
             " now(), "<<
@@ -365,7 +374,7 @@ int DataService::RetrieveUnreadMsg(const std::string &userId, std::list<IMMsg> &
             msg.from = fromUser;
             msg.text = rs.GetItem(i, "m.message");
             msg.sent = static_cast<int8>(Convert::StringToInt(rs.GetItem(i, "m.sent")));
-            msg.requestTime = rs.GetItem(i, "m.request_time");
+            msg.requestTime = rs.GetItem(i, "m.req_time");
             msg.sendTime = rs.GetItem(i, "m.send_time");
             
             result.push_back(msg);

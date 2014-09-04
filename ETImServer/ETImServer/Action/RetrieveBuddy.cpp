@@ -43,7 +43,8 @@ void RetrieveBuddyList::Execute(Session *s) {
 	DataService dao;
     list<IMUser> buddys;
 	int ret;
-	ret = dao.RetrieveBuddyList(userId, buddys);
+	//ret = dao.RetrieveBuddyList(userId, buddys);
+    ret = kErrCode006;
 	if (ret == kErrCode000) {
 		LOG_INFO<<"查询好友列表成功 userid: "<<userId <<" 好友数: "<<buddys.size();
         uint16 cnt = static_cast<uint16>(buddys.size());    //总共多少
