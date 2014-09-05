@@ -168,11 +168,15 @@ namespace etim {
         const std::list<IMUser> GetBuddys() const { return buddys_; }
         void AddBuddy(IMUser &user) { buddys_.push_back(user); }
         void ClearBuddys() { buddys_.clear(); }
+        ///请求好友
+        const std::list<IMUser> GetReqBuddys() const { return reqBuddys_; }
+        void AddReqBuddy(IMUser &user) { reqBuddys_.push_back(user); }
+        void ClearReqBuddys() { reqBuddys_.clear(); }
         
         ///消息
         const std::list<IMMsg> GetUnreadMsgs() const {return unreadMsgs_; }
         void AddUnreadMsg(IMMsg &msg) {unreadMsgs_.push_back(msg); }
-        
+        void ClearUnreadMsg() { unreadMsgs_.clear(); }
         
     private:
         std::auto_ptr<Socket> socket_;
@@ -193,6 +197,7 @@ namespace etim {
         IMUser      searchUser_;
         ///好友列表
         std::list<IMUser> buddys_;
+        std::list<IMUser> reqBuddys_;
         ///未读消息
         std::list<IMMsg> unreadMsgs_;
         

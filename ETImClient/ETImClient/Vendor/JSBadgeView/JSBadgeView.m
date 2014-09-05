@@ -236,7 +236,7 @@
     if (badgeText != _badgeText)
     {
         _badgeText = [badgeText copy];
-        
+        [self layoutSubviews];
         [self setNeedsDisplay];
     }
 }

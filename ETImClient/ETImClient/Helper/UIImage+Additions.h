@@ -26,4 +26,6 @@
 
 
 - (UIImage *)fixOrientation;
+///获取灰色图像
+- (UIImage *)grayImage;
 @end

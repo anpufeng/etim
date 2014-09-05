@@ -20,7 +20,7 @@
 
 
 typedef NS_ENUM(NSInteger, BuddyViewMenu) {
-    BuddyViewMenuNewFriend,
+    BuddyViewMenuNewFriend = 100,
     BuddyViewMenuMax
 };
 

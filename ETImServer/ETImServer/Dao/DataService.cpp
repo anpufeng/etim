@@ -176,7 +176,7 @@ int DataService::UserSearch(const std::string &username, Session *s, IMUser &use
             " and f.friend_to = u.user_id"<<
             " and r.req_status in ("<<(kBuddyRequestAccepted|kBuddyRequestNoSent)<<", "<<(kBuddyRequestAccepted|kBuddyRequestSent)<<")"<<
             " limit 1"<<
-            " )  'is_friend'"<<
+            " ) 'is_friend'"<<
             " from user u"<<
             " left join status s"<<
             " on u.status_id = s.status_id"<<
@@ -395,28 +395,36 @@ int DataService::RetrieveUnreadMsg(const std::string &userId, std::list<IMMsg> &
  */
 int DataService::RetrievePendingBuddyRequest(const std::string &userId, std::list<IMUser> &result) {
     /*
-     select distinct  u_f.*, s.status_name
-     from friend f
-     left join user u_f
-     on u_f.user_id = f.friend_from
+     select u_f.*, s.status_name
+     from (user u_t, user u_f)
+     left join friend f
+     on f.friend_to = u_t.user_id
+     left join request r
+     on r.req_id = f.req_id
      left join status s
-     on u_f.status_id = s.status_id
-     where f.friend_to = 4 and f.req_status = 0;
+     on s.status_id = u_f.status_id
+     where u_t.user_id = 2(发给谁的)
+     and r.req_status = 0(未发送的)
+     and u_f.user_id = f.friend_from
      */
+    
+    
     
     MysqlDB db;
     try {
         db.Open();
         stringstream ss;
-        ss<<"select distinct  u_f.*, s.status_name"<<
-        " from friend f"<<
-        " left join user u_f"<<
-        " on u_f.user_id = f.friend_from"<<
+        ss<<"select u_f.*, s.status_name"<<
+        " from (user u_t, user u_f)"<<
+        " left join friend f"<<
+        " on f.friend_to = u_t.user_id"<<
+        " left join request r"<<
+        " on r.req_id = f.req_id"<<
         " left join status s"<<
-        " on u_f.status_id = s.status_id"<<
-        " where f.friend_to = "<<userId<<
-        " and f.req_status = "<<kBuddyRequestNoSent<<
-        ";";
+        " on s.status_id = u_f.status_id"<<
+        " where u_t.user_id = "<<userId<<
+        " and r.req_status = "<<kBuddyRequestNoSent<<
+        " and u_f.user_id = f.friend_from;";
         MysqlRecordset rs;
         rs = db.QuerySQL(ss.str().c_str());
         if (rs.GetRows() < 1) {

@@ -29,11 +29,13 @@ namespace etim {
         ~Server();
 
         int Start();
+        void KickOut();
     private:
         static fd_set readFds_;
         
         int fdMax_;
         std::vector<Session *> sessions_;
+        timeval lastKick_;
     };
 
 }   //end etim

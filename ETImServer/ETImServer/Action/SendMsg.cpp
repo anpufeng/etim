@@ -84,6 +84,7 @@ void RetrieveUnreadMsg::Execute(Session *s) {
             
             s->Send(jos.Data(), jos.Length());
         }
+        //TODO 发送后更新消息状态
 
 	} else  {
 		error_code = ret;

@@ -32,6 +32,8 @@ namespace etim {
                                                             //CMD_RETRIEVE_PENDING_BUDDY_REQUEST)
     
 #define ERR_MSG_LENGTH      30              // 错误消息定长
+#define HEART_BEAT_SECONDS  30              //心中包发送间隔时间
+    
     ///请求头
     struct RequestHead
     {
@@ -94,7 +96,7 @@ namespace etim {
     public:
         Session(std::auto_ptr<Socket> &socket);
         ~Session();
-
+        //lhs rhs
     
     public:
         int GetFd() const { return socket_->GetFd(); }
@@ -110,12 +112,17 @@ namespace etim {
         ///设置用户信息
         void SetIMUser(IMUser &user) {user_ = user; }
         
+        ///获取上次操作时间
+        const timeval GetLastTime() const { return lastTime_; }
+        void SetLastTime(timeval &last) { lastTime_ = last; }
+        
     private:
         std::auto_ptr<Socket> socket_;
         uint16_t cmd_;
         char buffer_[2048];
         RequestPack* requestPack_;
         IMUser      user_;
+        timeval     lastTime_;
     };
 }   //end etim
 

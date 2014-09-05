@@ -33,6 +33,8 @@ using namespace std;
 }
 
 @property (nonatomic, strong) NSMutableArray *buddyList;
+///请求好友列表
+@property (nonatomic, strong) NSMutableArray *reqBuddyList;
 
 @end
 
@@ -48,6 +50,9 @@ using namespace std;
         self.title = @"好友列表";
         self.navigationItem.title = @"好友列表";
          [self.tabBarItem setFinishedSelectedImage:[UIImage imageNamed:@"tab_buddy_press"] withFinishedUnselectedImage:[UIImage imageNamed:@"tab_buddy_nor"]];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(responseToRetrieveBuddyListResult) name:notiNameFromCmd(CMD_RETRIEVE_BUDDY_LIST) object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(responseToRetrievePedingBuddyRequestResult) name:notiNameFromCmd(CMD_RETRIEVE_PENDING_BUDDY_REQUEST) object:nil];
+        [self addObserver:self forKeyPath:@"reqBuddyList" options:NSKeyValueObservingOptionNew context:nil];
 
     }
     return self;
@@ -57,8 +62,7 @@ using namespace std;
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(responseToRetrieveBuddyListResult) name:notiNameFromCmd(CMD_RETRIEVE_BUDDY_LIST) object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(responseToRetrieveBuddyRequestResult) name:notiNameFromCmd(CMD_RETRIEVE_PENDING_BUDDY_REQUEST) object:nil];
+
     [self createUI];
 }
 
@@ -135,14 +139,14 @@ using namespace std;
 }
 
 ///好友请求结果
-- (void)responseToRetrieveBuddyRequestResult {
+- (void)responseToRetrievePedingBuddyRequestResult {
     etim::Session *sess = [[Client sharedInstance] session];
     if (sess->GetRecvCmd() == CMD_RETRIEVE_PENDING_BUDDY_REQUEST) {
         if (sess->IsError()) {
             [[TWMessageBarManager sharedInstance] showMessageWithTitle:@"获取好友请求错误" description:stdStrToNsStr(sess->GetErrorMsg()) type:TWMessageBarMessageTypeError];
         } else {
             //好友请求列表成功
-            
+            self.reqBuddyList = [BuddyModel buddys:sess->GetReqBuddys()];
         }
     } else {
         [[TWMessageBarManager sharedInstance] showMessageWithTitle:@"获取好友请求错误" description:@"未知错误" type:TWMessageBarMessageTypeError];
@@ -163,6 +167,7 @@ using namespace std;
     switch (sender.menu) {
         case BuddyViewMenuNewFriend:
         {
+            self.reqBuddyList = nil;
             NewBuddyViewController *vc = [[NewBuddyViewController alloc] init];
             [self.navigationController pushViewController:vc animated:YES];
         }
@@ -171,6 +176,21 @@ using namespace std;
             
         default:
             break;
+    }
+}
+
+#pragma mark -
+#pragma mark observer 
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
+    if ([keyPath isEqualToString:@"reqBuddyList"]) {
+        BuddyTableHeaderView *headerView = (BuddyTableHeaderView *)self.tableView.tableHeaderView;
+        BadgeButton *badgeBtn = (BadgeButton *)[headerView viewWithTag:BuddyViewMenuNewFriend];
+        if ([self.reqBuddyList count]) {
+            [badgeBtn setBadge:[NSString stringWithFormat:@"%d", self.reqBuddyList.count]];
+        } else {
+            [badgeBtn setBadge:@"0"];
+        }
     }
 }
 - (void)didReceiveMemoryWarning
@@ -208,19 +228,19 @@ using namespace std;
         
         float margin = (RECT_WIDTH(self)/4.0f - 50)/2.0f;
         float labelWidth = RECT_WIDTH(self)/4.0f;
-        for (int i = 0; i < BuddyViewMenuMax; i++) {
-            BadgeButton *btn = [[BadgeButton alloc] initWithFrame:CGRectMake(margin + i * labelWidth, 10, 50, 50)];
+        for (int i = BuddyViewMenuNewFriend; i < BuddyViewMenuMax; i++) {
+            int realIndex = i-BuddyViewMenuNewFriend;
+            BadgeButton *btn = [[BadgeButton alloc] initWithFrame:CGRectMake(margin + realIndex * labelWidth, 10, 50, 50)];
             btn.tag = i;
-            [btn setImage:[UIImage imageNamed:images[i]] forState:UIControlStateNormal];
+            [btn setImage:[UIImage imageNamed:images[realIndex]] forState:UIControlStateNormal];
             [btn addTarget:self action:@selector(responseToBtn:) forControlEvents:UIControlEventTouchUpInside];
             [self addSubview:btn];
             
-            UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(i * labelWidth, RECT_MAX_Y(btn), labelWidth, 20)];
+            UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(realIndex * labelWidth, RECT_MAX_Y(btn), labelWidth, 20)];
             label.textAlignment = NSTextAlignmentCenter;
-            label.text = titles[i];
+            label.text = titles[realIndex];
             label.font = FONT(14);
             [self addSubview:label];
-            btn.badge = @"10";
         }
         
         UIImageView *lineImgView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 83, RECT_WIDTH(self), 1)];

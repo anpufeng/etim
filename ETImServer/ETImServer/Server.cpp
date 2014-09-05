@@ -10,11 +10,15 @@
 #include "Logging.h"
 #include "ActionManager.h"
 #include "Exception.h"
+#include <unistd.h>
+#include <signal.h>
 #include <sys/select.h>
 #include <sys/socket.h>
 #include <sys/types.h>
 #include <netinet/in.h>
 #include <arpa/inet.h>
+#include <sys/time.h>
+#include <time.h>
 
 using namespace etim;
 using namespace etim::pub;
@@ -36,22 +40,22 @@ Server::~Server() {
 
 int Server::Start() {
     LOG_INFO<<"服务器启动";
+    
     Socket soc;
     soc.Create();
     soc.Bind(nullptr);
     soc.Listen();
-    LOG_INFO<<"开始监听";
+    
     int listenFd = soc.GetFd();
     fdMax_ = listenFd;
+    gettimeofday(&lastKick_, NULL);
     
-    ///将监听fd加入到集合中
-
-    
-    
+    LOG_INFO<<"开始监听";
     //fd_set writeFds;
     
     while (1) {
-        FD_ZERO(&readFds_);
+        FD_ZERO(&readFds_);  //将监听fd加入到集合中
+        
         FD_SET(listenFd, &readFds_);
         
         typedef std::vector<Session *>::iterator iter;
@@ -62,7 +66,7 @@ int Server::Start() {
         }
         
         struct timeval timeout;
-        timeout.tv_sec = 3;
+        timeout.tv_sec = 5;
         timeout.tv_usec = 0;
         
         int ready = select(fdMax_ + 1, &readFds_, nullptr, nullptr, &timeout);
@@ -73,6 +77,7 @@ int Server::Start() {
         
         //继续监听
         if (ready <= 0) {
+            KickOut();
             continue;
         }
         
@@ -81,7 +86,7 @@ int Server::Start() {
             int connFd = soc.Accept();
             LOG_INFO<<"有新客户端连接 :";
             if (connFd == -1) {
-                printf("accept error");
+                LOG_ERROR<<"accept error"<<strerror(errno);
                 continue;
             }
             if (connFd > fdMax_) {
@@ -90,14 +95,20 @@ int Server::Start() {
             
             std::auto_ptr<Socket> connSoc(new Socket(connFd, 0));
             Session *s = new Session(connSoc);
+            timeval now;
+            gettimeofday(&now, NULL);
+            s->SetLastTime(now);
             sessions_.push_back(s);
         }
         
-        //检测是否有sesion有可读
+        //找出有可读sesion, 并执行相应操作
+        timeval now;
+        gettimeofday(&now, NULL);
         for (iter it = sessions_.begin(); it != sessions_.end();) {
             Session *s = *it;
             int fd = s->GetFd();
             if (FD_ISSET(fd, &readFds_)) {
+                s->SetLastTime(now);
                 ///取消事件
                 FD_CLR(fd, &readFds_);
                 int result = 1;
@@ -123,8 +134,36 @@ int Server::Start() {
                 ++it;
             }
         }
+        
+        //踢出
+        KickOut();
     } //end while
     
     return 0;
 }
 
+
+/*
+ //循环找出超时session, 同时将此session踢出
+ */
+void Server::KickOut() {
+    typedef std::vector<Session *>::iterator iter;
+    timeval now;
+    gettimeofday(&now, NULL);
+    if (!(now.tv_sec - lastKick_.tv_sec > HEART_BEAT_SECONDS)) {
+        return;
+    }
+    
+    for (iter it = sessions_.begin(); it != sessions_.end();) {
+        Session *s = *it;
+        long diff = now.tv_sec - s->GetLastTime().tv_sec;
+        if (diff > 3 * HEART_BEAT_SECONDS) {
+            LOG_INFO<<"客户端超时 socket userId: "<<s->GetIMUser().userId<<" 超时时间: "<<diff<<"s";
+            delete s;
+            sessions_.erase(std::remove(sessions_.begin(), sessions_.end(), s));
+        } else {
+            ++it;
+        }
+    }
+
+}

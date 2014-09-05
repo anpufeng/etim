@@ -68,6 +68,17 @@ namespace etim  {
         std::string     sendTime;
     };
     
+    ///请求
+    struct IMReq {
+        int                 reqId;
+        IMUser              from;
+        BuddyRequestStatus  status;
+        std::string         reqTime;
+        std::string         reqSendTime;
+        std::string         actionTime;
+        std::string         actionSendTime;
+    };
+    
 }   //end etim
 
 #endif
