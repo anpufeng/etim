@@ -30,6 +30,7 @@ namespace etim {
                                                             //CMD_RETRIEVE_BUDDY_LIST,
                                                             //CMD_RETRIEVE_UNREAD_MSG
                                                             //CMD_RETRIEVE_PENDING_BUDDY_REQUEST)
+#define CMD_RETRIEVE_ALL_BUDDY_REQUEST          0X000D      ///获取好友请求历史(包括同意和拒绝)
     
 #define ERR_MSG_LENGTH      30              // 错误消息定长
 #define HEART_BEAT_SECONDS  30              //心中包发送间隔时间

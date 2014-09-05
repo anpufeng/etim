@@ -34,6 +34,7 @@ ActionManager::ActionManager()
 	actions_[CMD_SEARCH_BUDDY] = new SearchBuddy;
     actions_[CMD_RETRIEVE_UNREAD_MSG] = new RetrieveUnreadMsg;
     actions_[CMD_RETRIEVE_PENDING_BUDDY_REQUEST] =  new RetrievePendingBuddyRequest;
+    actions_[CMD_RETRIEVE_ALL_BUDDY_REQUEST] = new RetrieveAllBuddyRequest;
 }
 
 ActionManager::~ActionManager()

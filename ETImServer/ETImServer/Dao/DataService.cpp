@@ -71,11 +71,11 @@ int DataService::UserLogin(const std::string& username, const std::string& pass,
         stringstream ss;
         
         ///查询用户密码是否正确
-        ss<<"select a.*, b.status_name from `user` as a, `status` as b" <<
+        ss<<"select a.*, b.status_name"<<
+        " from `user` as a, `status` as b" <<
         " where a.status_id = b.status_id"<<
-        " and a.username = '"<<
-        username<<"' and a.password = '"<<
-        pass<<"';";
+        " and a.username = '"<<username<<"'"<<
+        " and a.password = '"<<pass<<"';";
         MysqlRecordset rs;
 		rs = db.QuerySQL(ss.str().c_str());
 		if (rs.GetRows() < 1)
@@ -84,7 +84,8 @@ int DataService::UserLogin(const std::string& username, const std::string& pass,
         ss.clear();
         ss.str("");
         //更新在线
-        ss<<"update user set status_id = "<<kBuddyOnline<<" where username = '"<<username<<"';";
+        ss<<"update user set status_id = "<<kBuddyOnline<<
+        " where username = '"<<username<<"';";
         unsigned long long ret = db.ExecSQL(ss.str().c_str());
         (void)ret;
         
@@ -115,7 +116,8 @@ int DataService::UserLogout(const std::string& userId, Session *s) {
         db.Open();
         stringstream ss;
         //更新状态为离线
-        ss<<"update user set status_id ="<<kBuddyOffline<<" where user_id = '"<<userId<<"';";
+        ss<<"update user set status_id ="<<kBuddyOffline<<
+        " where user_id = '"<<userId<<"';";
         MysqlRecordset rs;
         unsigned long long ret = db.ExecSQL(ss.str().c_str());
         (void)ret;
@@ -217,9 +219,10 @@ int DataService::RequestAddBuddy(const std::string &from, const std::string &to)
             db.Open();
             stringstream ss;
             //是否两帐户都存在
-            ss<<"select user_id, username from `user` where username ='" <<
-            from<<"' or username ='"<<
-            to<<"';";
+            ss<<"select user_id, username"<<
+            " from `user`"<<
+            " where username ='" <<from<<"'"<<
+            " or username = '"<<to<<"';";
             MysqlRecordset rs;
             rs = db.QuerySQL(ss.str().c_str());
             if (rs.GetRows() != 2)
@@ -231,9 +234,11 @@ int DataService::RequestAddBuddy(const std::string &from, const std::string &to)
             ss.clear();
             ss.str("");
             //查询是否为好友
-            ss<<"select friend_id from friend where friend_from ='" <<
-            fromId<<"' and friend_to = '"<<
-            toId<<"' and req_status = " << kBuddyRequestAccepted <<";";
+            ss<<"select friend_id"<<
+            " from friend"<<
+            " where friend_from ='" <<fromId<<"'"<<
+            " and friend_to = '"<<toId<<"'"<<
+            " and req_status = " << kBuddyRequestAccepted <<";";
             
             rs = db.QuerySQL(ss.str().c_str());
             if (rs.GetRows())
@@ -408,8 +413,6 @@ int DataService::RetrievePendingBuddyRequest(const std::string &userId, std::lis
      and u_f.user_id = f.friend_from
      */
     
-    
-    
     MysqlDB db;
     try {
         db.Open();
@@ -441,6 +444,74 @@ int DataService::RetrievePendingBuddyRequest(const std::string &userId, std::lis
             user.status = static_cast<BuddyStatus>(Convert::StringToInt(rs.GetItem(i, "u_f.status_id").c_str()));
             user.statusName =  rs.GetItem(i, "s.status_name");
             result.push_back(user);
+        }
+    } catch (Exception &e) {
+        LOG_ERROR<<e.what();
+        return kErrCode002;
+    }
+    
+    return kErrCode000;
+}
+
+/**
+ 获取未处理好友请求(如果有多个请求,但有一个已经处理过:请求或拒绝,则认为无请求)
+ @param result 如果查询到了则通过result返回
+ @return kErrCode000 成功 kErrCode002数据库错误 kErrCode006 无请求数据
+ */
+int DataService::RetrieveAllBuddyRequest(const std::string &userId, std::list<IMReq> &result) {
+    /*
+     select u_f.*, r.*, s.status_name
+     from (user u_t, user u_f)
+     left join friend f
+     on f.friend_to = u_t.user_id
+     left join request r
+     on r.req_id = f.req_id
+     left join status s
+     on s.status_id = u_f.status_id
+     where u_t.user_id = 2(发给谁的)
+     and u_f.user_id = f.friend_from
+     */
+    
+    MysqlDB db;
+    try {
+        db.Open();
+        stringstream ss;
+        ss<<"select u_f.*, r.*, s.status_name"<<
+        " from (user u_t, user u_f)"<<
+        " left join friend f"<<
+        " on f.friend_to = u_t.user_id"<<
+        " left join request r"<<
+        " on r.req_id = f.req_id"<<
+        " left join status s"<<
+        " on s.status_id = u_f.status_id"<<
+        " where u_t.user_id = "<<userId<<
+        " and u_f.user_id = f.friend_from;";
+        MysqlRecordset rs;
+        rs = db.QuerySQL(ss.str().c_str());
+        if (rs.GetRows() < 1) {
+            return kErrCode006;
+        }
+        for (int i = 0; i < rs.GetRows(); ++i) {
+            IMReq req;
+            IMUser user;
+            string reg = rs.GetItem(i, "u_f.reg_time");
+            user.userId = Convert::StringToInt(rs.GetItem(0, "u_f.user_id").c_str());
+            user.username = rs.GetItem(i, "u_f.username");
+            user.regDate = reg.substr(i, reg.find(" "));
+            user.signature = rs.GetItem(i, "u_f.signature");
+            user.gender = Convert::StringToInt(rs.GetItem(i, "u_f.gender"));
+            user.status = static_cast<BuddyStatus>(Convert::StringToInt(rs.GetItem(i, "u_f.status_id").c_str()));
+            user.statusName =  rs.GetItem(i, "s.status_name");
+            
+            req.reqId = Convert::StringToInt(rs.GetItem(i, "r.req_id"));
+            req.from = user;
+            req.status = static_cast<BuddyRequestStatus>(Convert::StringToInt(rs.GetItem(i, "r.req_status").c_str()));
+            req.reqTime = rs.GetItem(i, "r.req_time");
+            req.reqSendTime = rs.GetItem(i, "r.req_send_time");;
+            req.actionTime = rs.GetItem(i, "r.action_time");;
+            req.actionSendTime = rs.GetItem(i, "r.action_send_time");;
+            
+            result.push_back(req);
         }
     } catch (Exception &e) {
         LOG_ERROR<<e.what();

@@ -28,7 +28,12 @@ namespace etim {
             virtual void DoRecv(Session &s);
         };
         
-        
+        ///获取好友请求记录
+        class RetrieveAllBuddyRequest : public Action {
+        public:
+            virtual void DoSend(Session& s);
+            virtual void DoRecv(Session &s);
+        };
  
     } //end action
 } //end etim

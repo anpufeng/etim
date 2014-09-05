@@ -13,7 +13,7 @@
 @interface BuddyTableViewCell () {
     UIImageView     *_iconImgView;
     UILabel         *_nameLabel;
-    UILabel         *_signatureLabel;
+    UILabel         *_descLabel;
 }
 
 @end
@@ -39,26 +39,26 @@
         _nameLabel.textColor = [UIColor blackColor];
         [self.contentView addSubview:_nameLabel];
         
-        _signatureLabel = [[UILabel alloc] initWithFrame:CGRectMake(RECT_ORIGIN_X(_nameLabel), RECT_MAX_Y(_nameLabel), RECT_WIDTH(self) - RECT_ORIGIN_X(_nameLabel), 25)];
-        _signatureLabel.font = FONT(14);
-        _signatureLabel.textColor = RGB_TO_UICOLOR(116, 116, 116);
-        _signatureLabel.backgroundColor = [UIColor clearColor];
-        [self.contentView addSubview:_signatureLabel];
+        _descLabel = [[UILabel alloc] initWithFrame:CGRectMake(RECT_ORIGIN_X(_nameLabel), RECT_MAX_Y(_nameLabel), RECT_WIDTH(self) - RECT_ORIGIN_X(_nameLabel), 25)];
+        _descLabel.font = FONT(14);
+        _descLabel.textColor = RGB_TO_UICOLOR(116, 116, 116);
+        _descLabel.backgroundColor = [UIColor clearColor];
+        [self.contentView addSubview:_descLabel];
     }
     return self;
 }
 
 - (void)update:(BuddyModel *)buddy {
-    /*
+    
     if (buddy.status == kBuddyOnline) {
-        self.backgroundColor = [UIColor whiteColor];
+        _iconImgView.image = [UIImage imageNamed:@"login_avatar_default"];
     } else {
-        self.backgroundColor = [UIColor grayColor];
+        _iconImgView.image = [[UIImage imageNamed:@"login_avatar_default"] grayImage];
     }
-     */
-    _iconImgView.image = [UIImage imageNamed:@"login_avatar_default"];
+    
+    
     _nameLabel.text = buddy.username;
-    _signatureLabel.text = buddy.signature;
+    _descLabel.text = buddy.signature;
     
 }
 - (void)awakeFromNib

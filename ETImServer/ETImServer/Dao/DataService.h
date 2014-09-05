@@ -28,6 +28,7 @@ namespace etim  {
         virtual int RetrieveBuddyList(const std::string &userId, std::list<IMUser> &result) = 0;
         virtual int RetrieveUnreadMsg(const std::string &userId, std::list<IMMsg> &result) = 0;
         virtual int RetrievePendingBuddyRequest(const std::string &userId, std::list<IMUser> &result) = 0;
+        virtual int RetrieveAllBuddyRequest(const std::string &userId, std::list<IMReq> &result) = 0;
     };
     
     
@@ -41,6 +42,7 @@ namespace etim  {
         int RetrieveBuddyList(const std::string &userId, std::list<IMUser> &result);
         int RetrieveUnreadMsg(const std::string &userId, std::list<IMMsg> &result);
         int RetrievePendingBuddyRequest(const std::string &userId, std::list<IMUser> &result);
+        int RetrieveAllBuddyRequest(const std::string &userId, std::list<IMReq> &result);
         
     public:
         int UpdateStatus(const std::string &username, BuddyStatus status);

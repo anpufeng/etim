@@ -110,6 +110,8 @@
 		AABF3CD6198636C0001C8DCA /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = AABF3CD4198636C0001C8DCA /* InfoPlist.strings */; };
 		AABF3CD8198636C0001C8DCA /* ETImClientTests.m in Sources */ = {isa = PBXBuildFile; fileRef = AABF3CD7198636C0001C8DCA /* ETImClientTests.m */; };
 		AACD74981994A1CB00254C55 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = AACD74971994A1CB00254C55 /* MBProgressHUD.m */; };
+		AAD7D44B19BA11C80028957C /* RequestTableViewCell.mm in Sources */ = {isa = PBXBuildFile; fileRef = AAD7D44A19BA11C80028957C /* RequestTableViewCell.mm */; };
+		AADF36A819BA1353009198A3 /* RequestModel.mm in Sources */ = {isa = PBXBuildFile; fileRef = AADF36A719BA1353009198A3 /* RequestModel.mm */; };
 		AAEBB81919B4308400AB3A07 /* ChatViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = AAEBB81819B4308400AB3A07 /* ChatViewController.mm */; };
 		AAF496A019B47585008A9372 /* Unread.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AAF4969E19B47585008A9372 /* Unread.cpp */; };
 		AAF61303198F5C9F00555364 /* Session.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AAF61301198F5C9F00555364 /* Session.cpp */; };
@@ -288,6 +290,10 @@
 		AABF3CD7198636C0001C8DCA /* ETImClientTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ETImClientTests.m; sourceTree = "<group>"; };
 		AACD74961994A1CB00254C55 /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
 		AACD74971994A1CB00254C55 /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
+		AAD7D44919BA11C80028957C /* RequestTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RequestTableViewCell.h; sourceTree = "<group>"; };
+		AAD7D44A19BA11C80028957C /* RequestTableViewCell.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = RequestTableViewCell.mm; sourceTree = "<group>"; };
+		AADF36A619BA1353009198A3 /* RequestModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RequestModel.h; sourceTree = "<group>"; };
+		AADF36A719BA1353009198A3 /* RequestModel.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = RequestModel.mm; sourceTree = "<group>"; };
 		AAEBB81719B4308400AB3A07 /* ChatViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatViewController.h; sourceTree = "<group>"; };
 		AAEBB81819B4308400AB3A07 /* ChatViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ChatViewController.mm; sourceTree = "<group>"; };
 		AAF4969E19B47585008A9372 /* Unread.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Unread.cpp; sourceTree = "<group>"; };
@@ -372,6 +378,8 @@
 			children = (
 				AA30A74F19B5592E006925F5 /* BuddyTableViewCell.h */,
 				AA30A75019B5592E006925F5 /* BuddyTableViewCell.mm */,
+				AAD7D44919BA11C80028957C /* RequestTableViewCell.h */,
+				AAD7D44A19BA11C80028957C /* RequestTableViewCell.mm */,
 			);
 			path = Buddy;
 			sourceTree = "<group>";
@@ -425,6 +433,8 @@
 			children = (
 				AA49BA4619B41A080058BFF3 /* BuddyModel.mm */,
 				AA49BA4719B41A080058BFF3 /* BuddyModel.h */,
+				AADF36A619BA1353009198A3 /* RequestModel.h */,
+				AADF36A719BA1353009198A3 /* RequestModel.mm */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -915,6 +925,7 @@
 				AAF61303198F5C9F00555364 /* Session.cpp in Sources */,
 				AA588BB41990B4EC00F08821 /* SwitchStatus.cpp in Sources */,
 				AA59F0B6198A4142009FD449 /* AccountViewController.mm in Sources */,
+				AAD7D44B19BA11C80028957C /* RequestTableViewCell.mm in Sources */,
 				AAA6DCD8198B918100EB948E /* Endian.cpp in Sources */,
 				AA9131ED199BA98B00524E8D /* BaseTableViewController.m in Sources */,
 				AA6D73D019B1E739006DBC6D /* BadgeButton.m in Sources */,
@@ -942,6 +953,7 @@
 				AAF613061990723A00555364 /* Exception.cpp in Sources */,
 				AA59F071198A1A59009FD449 /* BackViewController.m in Sources */,
 				AAA6DCDF198B918100EB948E /* Timestamp.cpp in Sources */,
+				AADF36A819BA1353009198A3 /* RequestModel.mm in Sources */,
 				AA7EB9981992674D000BD838 /* Client.mm in Sources */,
 				AA59F03C198A197B009FD449 /* UIImage+Additions.m in Sources */,
 				AA588BB21990B4EC00F08821 /* RetrieveBuddy.cpp in Sources */,

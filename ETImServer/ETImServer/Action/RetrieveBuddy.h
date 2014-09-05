@@ -26,6 +26,13 @@ namespace etim {
         public:
             virtual void Execute(Session *s);
         };
+        
+        ///获取好友请求记录
+        class RetrieveAllBuddyRequest : public Action {
+        public:
+            virtual void Execute(Session *s);
+        };
+        
     } //end action
 } //end etim
 #endif /* defined(__ETImServer__RetrieveBuddy__) */

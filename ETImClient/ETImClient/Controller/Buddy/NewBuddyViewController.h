@@ -8,7 +8,7 @@
 
 #import "BackTableViewController.h"
 
-///新朋友页面
+///好友请求历史记录
 
 @interface NewBuddyViewController : BackTableViewController
 

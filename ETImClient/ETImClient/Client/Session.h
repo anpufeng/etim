@@ -35,14 +35,14 @@ namespace etim {
                                                             //CMD_RETRIEVE_BUDDY_LIST,
                                                             //CMD_RETRIEVE_UNREAD_MSG
                                                             //CMD_RETRIEVE_PENDING_BUDDY_REQUEST)
-#define CMD_RETRIEVE_ALL_BUDDY_REQUEST          0X000D      ///获取好友请求历史包括同意和拒绝历史
+#define CMD_RETRIEVE_ALL_BUDDY_REQUEST          0X000D      ///获取好友请求历史(包括同意和拒绝)
     
-    static const std::string gCmdNoti[CMD_UNREAD+1] =
+    static const std::string gCmdNoti[CMD_RETRIEVE_ALL_BUDDY_REQUEST+1] =
         {"CMD_RETRIEVE_EVENT", "CMD_REGISTER", "CMD_LOGIN", /*0x0002*/
         "CMD_LOGOUT", "CMD_HEART_BEAT", "CMD_SEND_MSG",     /*0x0005*/
         "CMD_REQUEST_ADD_BUDDY", "CMD_SWITCH_STATUS", "CMD_RETRIEVE_BUDDY_LIST", /*0x0008*/
         "CMD_SEARCH_BUDDY", "CMD_RETRIEVE_UNREAD_MSG", "CMD_RETRIEVE_PENDING_BUDDY_REQUEST",  /*0x000B*/
-        "CMD_UNREAD"};
+        "CMD_UNREAD", "CMD_RETRIEVE_ALL_BUDDY_REQUEST"};
     
 #define ERR_MSG_LENGTH      30              // 错误消息定长
     ///请求头
