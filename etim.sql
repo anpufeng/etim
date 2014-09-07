@@ -1,17 +1,17 @@
 /*
  Navicat Premium Data Transfer
 
- Source Server         : localhost-mysql
+ Source Server         : localhost
  Source Server Type    : MySQL
- Source Server Version : 50619
+ Source Server Version : 50525
  Source Host           : localhost
  Source Database       : etim
 
  Target Server Type    : MySQL
- Target Server Version : 50619
+ Target Server Version : 50525
  File Encoding         : utf-8
 
- Date: 09/06/2014 00:44:41 AM
+ Date: 09/07/2014 08:56:38 AM
 */
 
 SET NAMES utf8;
@@ -22,18 +22,18 @@ SET FOREIGN_KEY_CHECKS = 0;
 -- ----------------------------
 DROP TABLE IF EXISTS `friend`;
 CREATE TABLE `friend` (
-  `friend_id` int(11) NOT NULL,
+  `friend_id` int(11) NOT NULL AUTO_INCREMENT,
   `friend_from` int(11) DEFAULT NULL COMMENT 'a from b, b是a的好友',
   `friend_to` int(11) DEFAULT NULL,
   `req_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`friend_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 --  Records of `friend`
 -- ----------------------------
 BEGIN;
-INSERT INTO `friend` VALUES ('1', '1', '2', '1'), ('2', '1', '3', '2'), ('3', '1', '2', '3');
+INSERT INTO `friend` VALUES ('1', '1', '2', '1'), ('2', '1', '3', '2'), ('3', '1', '2', '3'), ('4', '1', '4', '4'), ('5', '4', '1', '5');
 COMMIT;
 
 -- ----------------------------
@@ -63,13 +63,13 @@ CREATE TABLE `request` (
   `action_time` datetime NOT NULL COMMENT '接受或拒绝时间',
   `action_send_time` datetime NOT NULL COMMENT '请求或拒绝发送到原请求方的时间',
   PRIMARY KEY (`req_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 --  Records of `request`
 -- ----------------------------
 BEGIN;
-INSERT INTO `request` VALUES ('1', '0', '2014-09-04 17:27:40', '2014-09-04 17:27:40', '2014-09-04 17:27:40', '2014-09-04 17:27:40'), ('2', '4', '2014-09-04 17:32:07', '2014-09-04 17:32:07', '2014-09-04 17:32:07', '2014-09-04 17:32:07'), ('3', '4', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00');
+INSERT INTO `request` VALUES ('1', '0', '2014-09-04 17:27:40', '2014-09-04 17:27:40', '2014-09-04 17:27:40', '2014-09-04 17:27:40'), ('2', '4', '2014-09-04 17:32:07', '2014-09-04 17:32:07', '2014-09-04 17:32:07', '2014-09-04 17:32:07'), ('3', '4', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00'), ('4', '0', '2014-09-06 19:03:19', '2014-09-06 19:03:19', '2014-09-06 19:03:19', '2014-09-06 19:03:19'), ('5', '0', '2014-09-06 19:45:42', '2014-09-06 19:45:42', '2014-09-06 19:45:42', '2014-09-06 19:45:42');
 COMMIT;
 
 -- ----------------------------
@@ -110,6 +110,6 @@ CREATE TABLE `user` (
 --  Records of `user`
 -- ----------------------------
 BEGIN;
-INSERT INTO `user` VALUES ('1', 'admin', 'admin', '2014-09-04 17:13:02', '2014-09-04 17:13:02', '暂无签名', '0', '1'), ('2', 'admin2', 'admin', '2014-09-04 17:14:07', '2014-09-04 17:14:07', '暂无签名', '0', '4'), ('3', 'admin3', 'admin', '2014-09-04 17:14:23', '2014-09-04 17:14:23', '暂无签名', '0', '4'), ('4', 'admin4', 'admin', '2014-09-04 17:14:38', '2014-09-04 17:14:38', '暂无签名', '0', '4'), ('5', 'admin5', 'admin', '2014-09-04 17:14:46', '2014-09-04 17:14:46', '暂无签名', '0', '4');
+INSERT INTO `user` VALUES ('1', 'admin', 'admin', '2014-09-04 17:13:02', '2014-09-04 17:13:02', '暂无签名', '0', '4'), ('2', 'admin2', 'admin', '2014-09-04 17:14:07', '2014-09-04 17:14:07', '暂无签名', '0', '1'), ('3', 'admin3', 'admin', '2014-09-04 17:14:23', '2014-09-04 17:14:23', '暂无签名', '0', '4'), ('4', 'admin4', 'admin', '2014-09-04 17:14:38', '2014-09-04 17:14:38', '暂无签名', '0', '1'), ('5', 'admin5', 'admin', '2014-09-04 17:14:46', '2014-09-04 17:14:46', '暂无签名', '0', '4');
 COMMIT;
 
