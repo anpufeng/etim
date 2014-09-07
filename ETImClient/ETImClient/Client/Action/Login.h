@@ -26,6 +26,9 @@ namespace etim {
             virtual void DoSend(Session& s);
             virtual void DoRecv(Session &s);
         };
+        
+        
+ 
     } //end action
 } //end etim
 

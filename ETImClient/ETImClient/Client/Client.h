@@ -17,10 +17,19 @@
 
 ///根据cmd获取要发送的通知名
 inline NSString *notiNameFromCmd(const int16_t cmd) {
-    std::string noti = etim::gCmdNoti[cmd];
-    NSString *notiName = [[NSString alloc] initWithUTF8String:noti.c_str()];
-    
-    return notiName;
+    int cmdCount = sizeof(etim::gCmdNoti)/sizeof(etim::gCmdNoti[0]);
+    if (cmd < cmdCount) {
+        std::string noti = etim::gCmdNoti[cmd];
+        NSString *notiName = [[NSString alloc] initWithUTF8String:noti.c_str()];
+        
+        return notiName;
+
+    } else {
+        std::string noti = etim::gPushNoti[cmd-PUSH_BUDDY_UPDATE];
+        NSString *notiName = [[NSString alloc] initWithUTF8String:noti.c_str()];
+        
+        return notiName;
+    }
 }
 
 ///将std::string转换为NSString

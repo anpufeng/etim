@@ -43,7 +43,7 @@ void RetrieveBuddyList::Execute(Session *s) {
 	DataService dao;
     list<IMUser> buddys;
 	int ret;
-	ret = dao.RetrieveBuddyList(userId, buddys);
+	ret = dao.RetrieveBuddyList(userId, false, true, buddys);
 	if (ret == kErrCode00) {
 		LOG_INFO<<"查询好友列表成功 userid: "<<userId <<" 好友数: "<<buddys.size();
         uint16 cnt = static_cast<uint16>(buddys.size());    //总共多少
@@ -79,7 +79,7 @@ void RetrieveBuddyList::Execute(Session *s) {
 		error_code = ret;
         assert(error_code < kErrCodeMax);
 		strcpy(error_msg, gErrMsg[error_code].c_str());
-		LOG_ERROR<<"查询好友列表: "<<error_msg;
+		LOG_ERROR<<"查询好友列表:"<<error_msg<<" userId: "<<userId;
         
         OutStream jos;
         // 包头命令
@@ -154,7 +154,7 @@ void RetrievePendingBuddyRequest::Execute(Session *s) {
 		error_code = ret;
         assert(error_code < kErrCodeMax);
 		strcpy(error_msg, gErrMsg[error_code].c_str());
-		LOG_ERROR<<"查询好友请求列表: "<<error_msg;
+		LOG_ERROR<<"查询好友请求列表: "<<error_msg<<" userId: "<<userId;
         
         OutStream jos;
         // 包头命令

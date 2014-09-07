@@ -11,6 +11,7 @@
 
 #include <iostream>
 #include "Action.h"
+#include "DataService.h"
 
 namespace etim {
     namespace action {
@@ -18,6 +19,8 @@ namespace etim {
         class SwitchStatus : public Action {
         public:
             virtual void Execute(Session *s);
+            ///往客户端推送用户状态变化
+            void PushBuddyUpdate(etim::IMUser &user, etim::DataService &dao);
         };
     } //end action
 } //end etim

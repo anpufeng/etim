@@ -22,10 +22,10 @@ namespace etim  {
     public:
         virtual int UserRegister(const std::string& username, const std::string& pass) = 0;
         virtual int UserLogin(const std::string& username, const std::string& pass, IMUser &user) = 0;
-        virtual int UserLogout(const std::string& userId, Session *s) = 0;
+        virtual int UserLogout(const std::string& userId, IMUser &user) = 0;
         virtual int UserSearch(const std::string &username, Session *s, IMUser &user) = 0;
         virtual int RequestAddBuddy(const std::string &from, const std::string &to) = 0;
-        virtual int RetrieveBuddyList(const std::string &userId, std::list<IMUser> &result) = 0;
+        virtual int RetrieveBuddyList(const std::string &userId, bool online, bool my, std::list<IMUser> &result) = 0;
         virtual int RetrieveUnreadMsg(const std::string &userId, std::list<IMMsg> &result) = 0;
         virtual int RetrievePendingBuddyRequest(const std::string &userId, std::list<IMUser> &result) = 0;
         virtual int RetrieveAllBuddyRequest(const std::string &userId, std::list<IMReq> &result) = 0;
@@ -36,10 +36,10 @@ namespace etim  {
     public:
         int UserRegister(const std::string& username, const std::string& pass);
         int UserLogin(const std::string& username, const std::string& pass, IMUser &user);
-        int UserLogout(const std::string& userId, Session *s);
+        int UserLogout(const std::string& userId, IMUser &user);
         int UserSearch(const std::string &username, Session *s, IMUser &user);
         int RequestAddBuddy(const std::string &from, const std::string &to);
-        int RetrieveBuddyList(const std::string &userId, std::list<IMUser> &result);
+        int RetrieveBuddyList(const std::string &userId, bool online, bool my, std::list<IMUser> &result);
         int RetrieveUnreadMsg(const std::string &userId, std::list<IMMsg> &result);
         int RetrievePendingBuddyRequest(const std::string &userId, std::list<IMUser> &result);
         int RetrieveAllBuddyRequest(const std::string &userId, std::list<IMReq> &result);

@@ -20,6 +20,12 @@ namespace etim {
             virtual void DoSend(Session& s);
             virtual void DoRecv(Session &s);
         };
+        
+        class PushBuddyUpdate : public Action {
+        public:
+            virtual void DoSend(Session& s);
+            virtual void DoRecv(Session &s);
+        };
     } //end action
 } //end etim
 

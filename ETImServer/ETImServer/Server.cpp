@@ -19,6 +19,7 @@
 #include <arpa/inet.h>
 #include <sys/time.h>
 #include <time.h>
+#include <algorithm>
 
 using namespace etim;
 using namespace etim::pub;
@@ -47,7 +48,6 @@ int Server::Start() {
     soc.Listen();
     
     int listenFd = soc.GetFd();
-    fdMax_ = listenFd;
     gettimeofday(&lastKick_, NULL);
     
     LOG_INFO<<"开始监听";
@@ -55,13 +55,15 @@ int Server::Start() {
     
     while (1) {
         FD_ZERO(&readFds_);  //将监听fd加入到集合中
-        
         FD_SET(listenFd, &readFds_);
+        fdMax_ = listenFd;
         
-        typedef std::vector<Session *>::iterator iter;
         for (iter it = sessions_.begin(); it != sessions_.end(); ++it) {
             Session *s = *it;
             int fd = s->GetFd();
+            if (fd > fdMax_) {
+                fdMax_ = fd;
+            }
             FD_SET(fd, &readFds_);
         }
         
@@ -148,7 +150,6 @@ int Server::Start() {
  //循环找出超时session, 同时将此session踢出
  */
 void Server::KickOut() {
-    typedef std::vector<Session *>::iterator iter;
     timeval now;
     gettimeofday(&now, NULL);
     if (!(now.tv_sec - lastKick_.tv_sec > HEART_BEAT_SECONDS)) {
@@ -158,7 +159,7 @@ void Server::KickOut() {
     for (iter it = sessions_.begin(); it != sessions_.end();) {
         Session *s = *it;
         long diff = now.tv_sec - s->GetLastTime().tv_sec;
-        if (diff > 3 * HEART_BEAT_SECONDS) {
+        if (diff > 20 * HEART_BEAT_SECONDS) {
             LOG_INFO<<"客户端超时 socket userId: "<<s->GetIMUser().userId<<" 超时时间: "<<diff<<"s";
             //TODO 刷新用户状态
             delete s;
@@ -168,4 +169,13 @@ void Server::KickOut() {
         }
     }
 
+}
+
+Session *Server::FindSession(int userId) {
+    iter it =  find_if(sessions_.begin(), sessions_.end(), SessionFinder(userId));
+    if (it == sessions_.end()) {
+        return NULL;
+    } else {
+        return *it;
+    }
 }

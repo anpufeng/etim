@@ -32,6 +32,10 @@ namespace etim {
                                                             //CMD_RETRIEVE_PENDING_BUDDY_REQUEST)
 #define CMD_RETRIEVE_ALL_BUDDY_REQUEST          0X000D      ///获取好友请求历史(包括同意和拒绝)
     
+    
+#define PUSH_BUDDY_UPDATE                       0X0100      //服务器往客户推端送好友上线下线等状态变化
+#define PUSH_BUDDY_MSG                          0X0200      //服务器往客户推端送好友消息
+    
 #define ERR_MSG_LENGTH      30              // 错误消息定长
 #define HEART_BEAT_SECONDS  30              //心中包发送间隔时间
     
@@ -128,6 +132,7 @@ namespace etim {
     
     ///用于遍历session
     class SessionFinder {
+    public:
         SessionFinder(int userId) : userId_(userId) { }
     public:
         bool operator() (Session *s) {

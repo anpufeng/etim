@@ -37,12 +37,20 @@ namespace etim {
                                                             //CMD_RETRIEVE_PENDING_BUDDY_REQUEST)
 #define CMD_RETRIEVE_ALL_BUDDY_REQUEST          0X000D      ///获取好友请求历史(包括同意和拒绝)
     
-    static const std::string gCmdNoti[CMD_RETRIEVE_ALL_BUDDY_REQUEST+1] =
-        {"CMD_RETRIEVE_EVENT", "CMD_REGISTER", "CMD_LOGIN", /*0x0002*/
+#define PUSH_BUDDY_UPDATE                       0X0100      //服务器往客户推端送好友上线下线个人信息等变化
+#define PUSH_BUDDY_MSG                          0X0200      //服务器往客户推端送好友消息
+    
+    static const std::string gCmdNoti[CMD_RETRIEVE_ALL_BUDDY_REQUEST+1] = {
+        "CMD_RETRIEVE_EVENT", "CMD_REGISTER", "CMD_LOGIN", /*0x0002*/
         "CMD_LOGOUT", "CMD_HEART_BEAT", "CMD_SEND_MSG",     /*0x0005*/
         "CMD_REQUEST_ADD_BUDDY", "CMD_SWITCH_STATUS", "CMD_RETRIEVE_BUDDY_LIST", /*0x0008*/
         "CMD_SEARCH_BUDDY", "CMD_RETRIEVE_UNREAD_MSG", "CMD_RETRIEVE_PENDING_BUDDY_REQUEST",  /*0x000B*/
-        "CMD_UNREAD", "CMD_RETRIEVE_ALL_BUDDY_REQUEST"};
+        "CMD_UNREAD", "CMD_RETRIEVE_ALL_BUDDY_REQUEST"
+    };
+    
+    static const std::string gPushNoti[PUSH_BUDDY_MSG-PUSH_BUDDY_UPDATE+1] = {
+        "PUSH_BUDDY_UPDATE", "PUSH_BUDDY_MSG"
+    };
     
 #define ERR_MSG_LENGTH      30              // 错误消息定长
     ///请求头
@@ -154,6 +162,11 @@ namespace etim {
         ///设置搜索用户信息
         void SetSearchIMUser(IMUser &user) {searchUser_ = user; }
         
+        ///获取用户状态改变的好友信息
+        const IMUser GetStatusChangedBuddy() const { return stausChangedBuddy_; }
+        ///设置用户状态改变的好友信息
+        void SetStatusChangedBuddy(IMUser &user) { stausChangedBuddy_ = user; }
+        
         uint16_t GetFd() const { return socket_->GetFd(); }
         bool IsConnected() const { return isConnected_; }
         
@@ -200,6 +213,7 @@ namespace etim {
         BuddyStatus status_;
         IMUser      user_;
         IMUser      searchUser_;
+        IMUser      stausChangedBuddy_;
         ///好友列表
         std::list<IMUser> buddys_;
         std::list<IMUser> reqBuddys_;

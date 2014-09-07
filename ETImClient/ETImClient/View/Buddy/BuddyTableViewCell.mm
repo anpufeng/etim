@@ -56,7 +56,7 @@
     
     
     _nameLabel.text = buddy.username;
-    _descLabel.text = buddy.signature;
+    _descLabel.text = [NSString stringWithFormat:@"[%@] %@", buddy.statusName, buddy.signature];
     
 }
 - (void)awakeFromNib

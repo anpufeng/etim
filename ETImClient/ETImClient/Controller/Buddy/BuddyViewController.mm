@@ -41,7 +41,12 @@ using namespace std;
 @implementation BuddyViewController
 
 - (void)dealloc {
-        [[NSNotificationCenter defaultCenter] removeObserver:self name:notiNameFromCmd(CMD_RETRIEVE_BUDDY_LIST) object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:notiNameFromCmd(CMD_RETRIEVE_BUDDY_LIST)
+                                                  object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:notiNameFromCmd(PUSH_BUDDY_UPDATE)
+                                                  object:nil];
 }
 
 - (id)init
@@ -50,8 +55,19 @@ using namespace std;
         self.title = @"好友列表";
         self.navigationItem.title = @"好友列表";
          [self.tabBarItem setFinishedSelectedImage:[UIImage imageNamed:@"tab_buddy_press"] withFinishedUnselectedImage:[UIImage imageNamed:@"tab_buddy_nor"]];
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(responseToRetrieveBuddyListResult) name:notiNameFromCmd(CMD_RETRIEVE_BUDDY_LIST) object:nil];
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(responseToRetrievePedingBuddyRequestResult) name:notiNameFromCmd(CMD_RETRIEVE_PENDING_BUDDY_REQUEST) object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(responseToRetrieveBuddyListResult)
+                                                     name:notiNameFromCmd(CMD_RETRIEVE_BUDDY_LIST)
+                                                   object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(responseToRetrievePedingBuddyRequestResult)
+                                                     name:notiNameFromCmd(CMD_RETRIEVE_PENDING_BUDDY_REQUEST)
+                                                   object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(responseToPushBuddyStatusResult)
+                                                     name:notiNameFromCmd(PUSH_BUDDY_UPDATE)
+                                                   object:nil];
+        
         [self addObserver:self forKeyPath:@"reqBuddyList" options:NSKeyValueObservingOptionNew context:nil];
 
     }
@@ -150,6 +166,29 @@ using namespace std;
         }
     } else {
         [[TWMessageBarManager sharedInstance] showMessageWithTitle:@"获取好友请求错误" description:@"未知错误" type:TWMessageBarMessageTypeError];
+    }
+}
+
+///好友上线
+- (void)responseToPushBuddyStatusResult {
+    etim::Session *sess = [[Client sharedInstance] session];
+    if (sess->GetRecvCmd() == PUSH_BUDDY_UPDATE) {
+        if (sess->IsError()) {
+            [[TWMessageBarManager sharedInstance] showMessageWithTitle:@"获取服务器推送用户状态错误" description:stdStrToNsStr(sess->GetErrorMsg()) type:TWMessageBarMessageTypeError];
+        } else {
+            //好友请求列表成功
+            BuddyModel *changedBuddy = [[BuddyModel alloc] initWithUser:sess->GetStatusChangedBuddy()];
+            for (int i = 0; i < [self.buddyList count]; i++) {
+                BuddyModel *model = self.buddyList[i];
+                if (model.userId == changedBuddy.userId) {
+                    [self.buddyList replaceObjectAtIndex:i withObject:changedBuddy];
+                    [self.tableView reloadData];
+                    break;
+                }
+            }
+        }
+    } else {
+        [[TWMessageBarManager sharedInstance] showMessageWithTitle:@"获取服务器推送用户状态错误" description:@"未知错误" type:TWMessageBarMessageTypeError];
     }
 }
 

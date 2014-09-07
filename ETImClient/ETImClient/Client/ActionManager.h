@@ -25,6 +25,8 @@ namespace etim {
     public:
         bool SendPacket(Session &s);
         bool RecvPacket(Session &s);
+        
+    std::map<uint16_t, action::Action *> GetActions() const { return actions_; }
 
     private:
         std::map<uint16_t, action::Action *> actions_;

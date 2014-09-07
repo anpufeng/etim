@@ -15,6 +15,7 @@
 #include "Logging.h"
 #include "DataService.h"
 #include "DataStruct.h"
+#include "SwitchStatus.h"
 
 #include <sstream>
 #include <iomanip>
@@ -23,7 +24,6 @@ using namespace etim;
 using namespace etim::pub;
 using namespace etim::action;
 using namespace std;
-
 
 /**
  用户登录
@@ -58,8 +58,8 @@ void Login::Execute(Session *s) {
 	int16 error_code = kErrCode00;
 	char error_msg[ERR_MSG_LENGTH+1] = {0};
     
-    
 	// 实际的登录操作
+    //TODO 用户已登录判断
 	DataService dao;
     IMUser user;
     user.username = name;
@@ -72,7 +72,7 @@ void Login::Execute(Session *s) {
 		error_code = ret;
         assert(error_code < kErrCodeMax);
 		strcpy(error_msg, gErrMsg[error_code].c_str());
-		LOG_INFO<<error_msg <<name;
+		LOG_INFO<<"登录出错: "<<error_msg <<name;
 	}
     
 	OutStream jos;
@@ -99,6 +99,11 @@ void Login::Execute(Session *s) {
     FillOutPackage(jos, lengthPos, cmd);
      
 	s->Send(jos.Data(), jos.Length());
+    
+    if (ret == kErrCode00) {
+        SwitchStatus push;
+        push.PushBuddyUpdate(user, dao);
+    }
 }
 
 /**
@@ -115,16 +120,16 @@ void Logout::Execute(Session *s) {
     int16 error_code = kErrCode00;
 	char error_msg[ERR_MSG_LENGTH+1] = {0};
 	DataService dao;
-    IMUser user = s->GetIMUser();
+    IMUser user;
 	int ret = kErrCode00;
-    ret = dao.UserLogout(userId, s);
+    ret = dao.UserLogout(userId, user);
 	if (ret == kErrCode00) {
 		LOG_INFO<<"登出成功 userId: "<<userId;
 	} else  {
 		error_code = ret;
         assert(error_code < kErrCodeMax);
 		strcpy(error_msg, gErrMsg[error_code].c_str());
-		LOG_INFO<<error_msg;
+		LOG_ERROR<<"登出出错: "<<error_msg;
 	}
     
 	OutStream jos;
@@ -141,7 +146,11 @@ void Logout::Execute(Session *s) {
 	// 空包体
 
     FillOutPackage(jos, lengthPos, cmd);
-    
 	s->Send(jos.Data(), jos.Length());
+    
+    if (ret == kErrCode00) {
+        SwitchStatus push;
+        push.PushBuddyUpdate(user, dao);
+    }
 }
 

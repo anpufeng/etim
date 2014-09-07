@@ -30,12 +30,16 @@ namespace etim {
 
         int Start();
         void KickOut();
+        Session *FindSession(int userId);
     private:
+        typedef std::vector<Session *>::iterator iter;
         static fd_set readFds_;
         
         int fdMax_;
         std::vector<Session *> sessions_;
         timeval lastKick_;
+        
+        
     };
 
 }   //end etim

@@ -13,6 +13,8 @@
 #include "Session.h"
 #include "OutStream.h"
 #include "Endian.h"
+#include "Server.h"
+#include "Singleton.h"
 
 namespace etim {
     namespace action {

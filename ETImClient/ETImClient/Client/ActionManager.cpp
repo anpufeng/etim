@@ -40,6 +40,7 @@ ActionManager::ActionManager()
     actions_[CMD_RETRIEVE_PENDING_BUDDY_REQUEST] =  new RetrievePendingBuddyRequest;
     actions_[CMD_UNREAD] =  new Unread;
     actions_[CMD_RETRIEVE_ALL_BUDDY_REQUEST] =  new RetrieveAllBuddyRequest;
+    actions_[PUSH_BUDDY_UPDATE] = new PushBuddyUpdate;
 }
 
 ActionManager::~ActionManager()

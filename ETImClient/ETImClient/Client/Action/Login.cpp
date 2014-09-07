@@ -134,3 +134,4 @@ void Logout::DoRecv(etim::Session &s) {
 	s.SetErrorMsg(error_msg);
 }
 
+

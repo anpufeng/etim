@@ -32,7 +32,7 @@ int DataService::UserRegister(const std::string &username, const std::string &pa
         stringstream ss;
         ///查询是否用户名已存在
         ss<<"select username from user"<<
-        "where username = '"<<username<<"';";
+        " where username = '"<<username<<"';";
         MysqlRecordset rs;
 		rs = db.QuerySQL(ss.str().c_str());
 		if (rs.GetRows() >= 1)
@@ -89,6 +89,15 @@ int DataService::UserLogin(const std::string& username, const std::string& pass,
         unsigned long long ret = db.ExecSQL(ss.str().c_str());
         (void)ret;
         
+        ss.clear();
+        ss.str("");
+        ss<<"select a.*, b.status_name"<<
+        " from `user` as a, `status` as b" <<
+        " where a.status_id = b.status_id"<<
+        " and a.username = '"<<username<<"'"<<
+        " and a.password = '"<<pass<<"';";
+        rs = db.QuerySQL(ss.str().c_str());
+        
         string reg = rs.GetItem(0, "a.reg_time");
         user.userId = Convert::StringToInt(rs.GetItem(0, "a.user_id"));
 		user.regDate = reg.substr(0, reg.find(" "));
@@ -110,7 +119,7 @@ int DataService::UserLogin(const std::string& username, const std::string& pass,
  客户端主动退出, 后面客户端会断开SOCKET, 服务器会删除对应的SESSION
  @return kErrCode00 成功 kErrCode02 数据库错误
  */
-int DataService::UserLogout(const std::string& userId, Session *s) {
+int DataService::UserLogout(const std::string& userId, IMUser &user) {
     MysqlDB db;
     try {
         db.Open();
@@ -118,9 +127,30 @@ int DataService::UserLogout(const std::string& userId, Session *s) {
         //更新状态为离线
         ss<<"update user set status_id ="<<kBuddyOffline<<
         " where user_id = '"<<userId<<"';";
-        MysqlRecordset rs;
+        
         unsigned long long ret = db.ExecSQL(ss.str().c_str());
         (void)ret;
+        
+        ss.clear();
+        ss.str("");
+        ss<<"select a.*, b.status_name"<<
+        " from `user` as a, `status` as b" <<
+        " where a.status_id = b.status_id"<<
+        " and a.user_id = '"<<userId<<"';";
+        MysqlRecordset rs;
+		rs = db.QuerySQL(ss.str().c_str());
+		if (rs.GetRows() < 1)
+			return kErrCode02;
+        
+        string reg = rs.GetItem(0, "a.reg_time");
+        user.userId = Convert::StringToInt(rs.GetItem(0, "a.user_id"));
+        user.username = rs.GetItem(0, "a.username");
+		user.regDate = reg.substr(0, reg.find(" "));
+        user.signature = rs.GetItem(0, "a.signature");
+        user.gender = Convert::StringToInt(rs.GetItem(0, "a.gender"));
+        user.status = static_cast<BuddyStatus>(Convert::StringToInt(rs.GetItem(0, "a.status_id").c_str()));
+        user.statusName = rs.GetItem(0, "b.status_name");
+        user.relation = kBuddyRelationSelf;
     } catch (Exception &e) {
         LOG_ERROR<<e.what();
         return kErrCode02;
@@ -287,10 +317,12 @@ int DataService::RequestAddBuddy(const std::string &from, const std::string &to)
 
 /**
  获取好友列表
+ @param online 0表示所有,1表示只查询在线
+ @param my 1表示自己的好友, 0表示自己在谁的好友里面
  @param result 如果查询到了则通过result返回
  @return kErrCode00 成功 kErrCode02数据库错误 kErrCode06 无好友数据
  */
-int DataService::RetrieveBuddyList(const std::string &userId, std::list<IMUser> &result) {
+int DataService::RetrieveBuddyList(const std::string &userId, bool online, bool my, std::list<IMUser> &result) {
     /*
      select u_t.*, st.status_name
      from (user u_f, friend f, user u_t)
@@ -307,36 +339,81 @@ int DataService::RetrieveBuddyList(const std::string &userId, std::list<IMUser> 
     MysqlDB db;
     try {
         db.Open();
+        string status(" ");
+        if (online) {
+            if (my) {
+                status.append("and u_t.status_id not in (");
+            } else {
+                status.append("and u_f.status_id not in (");
+            }
+            
+            status.append(Convert::IntToString(kBuddyOffline));
+            status.append(")");
+        }
         stringstream ss;
-        ss<<"select u_t.*, st.status_name"<<
-        " from (user u_f, friend f, user u_t)"<<
-        " left join status st "<<
-        " on st.status_id = u_t.status_id"<<
-        " left join request r"<<
-        " on r.req_id = f.req_id"<<
-        " where u_f.user_id = f.friend_from"<<
-        " and u_t.user_id = f.friend_to"<<
-        " and u_f.user_id = "<<userId<<
-        " and r.req_status in ("<<(kBuddyRequestAccepted|kBuddyRequestNoSent)<<", "<<(kBuddyRequestAccepted|kBuddyRequestSent)<<")"<<
-        " order by u_t.user_id"
-        ";";
+        if (my) {
+            ss<<"select u_t.*, st.status_name"<<
+            " from (user u_f, friend f, user u_t)"<<
+            " left join status st "<<
+            " on st.status_id = u_t.status_id"<<
+            " left join request r"<<
+            " on r.req_id = f.req_id"<<
+            " where u_f.user_id = f.friend_from"<<
+            " and u_t.user_id = f.friend_to"<<
+            status<<
+            " and u_f.user_id = "<<userId<<
+            " and r.req_status in ("<<(kBuddyRequestAccepted|kBuddyRequestNoSent)<<", "<<(kBuddyRequestAccepted|kBuddyRequestSent)<<")"<<
+            " order by u_t.user_id"
+            ";";
+        } else {
+            ss<<"select u_f.*, st.status_name"<<
+            " from (user u_f, friend f, user u_t)"<<
+            " left join status st "<<
+            " on st.status_id = u_t.status_id"<<
+            " left join request r"<<
+            " on r.req_id = f.req_id"<<
+            " where u_f.user_id = f.friend_from"<<
+            " and u_t.user_id = f.friend_to"<<
+            status<<
+            " and u_t.user_id = "<<userId<<
+            " and r.req_status in ("<<(kBuddyRequestAccepted|kBuddyRequestNoSent)<<", "<<(kBuddyRequestAccepted|kBuddyRequestSent)<<")"<<
+            " order by u_t.user_id"
+            ";";
+        }
+        
         MysqlRecordset rs;
         rs = db.QuerySQL(ss.str().c_str());
         if (rs.GetRows() < 1) {
             return kErrCode06;
         }
-        for (int i = 0; i < rs.GetRows(); ++i) {
-            IMUser user;
-            string reg = rs.GetItem(i, "u_t.reg_time");
-            user.userId = Convert::StringToInt(rs.GetItem(0, "u_t.user_id").c_str());
-            user.username = rs.GetItem(i, "u_t.username");
-            user.regDate = reg.substr(i, reg.find(" "));
-            user.signature = rs.GetItem(i, "u_t.signature");
-            user.gender = Convert::StringToInt(rs.GetItem(i, "u_t.gender"));
-            user.status = static_cast<BuddyStatus>(Convert::StringToInt(rs.GetItem(i, "u_t.status_id").c_str()));
-            user.statusName =  rs.GetItem(i, "st.status_name");
-            result.push_back(user);
+        if (my) {
+            for (int i = 0; i < rs.GetRows(); ++i) {
+                IMUser user;
+                string reg = rs.GetItem(i, "u_t.reg_time");
+                user.userId = Convert::StringToInt(rs.GetItem(i, "u_t.user_id").c_str());
+                user.username = rs.GetItem(i, "u_t.username");
+                user.regDate = reg.substr(i, reg.find(" "));
+                user.signature = rs.GetItem(i, "u_t.signature");
+                user.gender = Convert::StringToInt(rs.GetItem(i, "u_t.gender"));
+                user.status = static_cast<BuddyStatus>(Convert::StringToInt(rs.GetItem(i, "u_t.status_id").c_str()));
+                user.statusName =  rs.GetItem(i, "st.status_name");
+                result.push_back(user);
+            }
+        } else {
+            for (int i = 0; i < rs.GetRows(); ++i) {
+                IMUser user;
+                string reg = rs.GetItem(i, "u_f.reg_time");
+                user.userId = Convert::StringToInt(rs.GetItem(i, "u_f.user_id").c_str());
+                user.username = rs.GetItem(i, "u_f.username");
+                user.regDate = reg.substr(i, reg.find(" "));
+                user.signature = rs.GetItem(i, "u_f.signature");
+                user.gender = Convert::StringToInt(rs.GetItem(i, "u_f.gender"));
+                user.status = static_cast<BuddyStatus>(Convert::StringToInt(rs.GetItem(i, "u_f.status_id").c_str()));
+                user.statusName =  rs.GetItem(i, "st.status_name");
+                result.push_back(user);
+            }
         }
+       
     } catch (Exception &e) {
         LOG_ERROR<<e.what();
         return kErrCode02;
