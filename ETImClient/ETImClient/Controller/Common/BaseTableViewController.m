@@ -47,6 +47,27 @@
 }
 
 
+- (UIView *)emptyTableView:(NSString *)info {
+    UIView *emptyView = [[UIView alloc] initWithFrame:self.tableView.bounds];
+    
+    UIImageView *emptyImgView = [[UIImageView alloc] initWithFrame:CGRectMake((RECT_WIDTH(emptyView) - 70)/2.0f,
+                                                                              (RECT_HEIGHT(emptyView) - 70)/2.0f - 40,
+                                                                              70,
+                                                                              70)];
+    emptyImgView.contentMode = UIViewContentModeCenter;
+    emptyImgView.image = [UIImage imageNamed:@"table_empty"];
+    
+    UILabel *infoLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, RECT_MAX_Y(emptyImgView), RECT_WIDTH(emptyView), 40)];
+    infoLabel.textAlignment = NSTextAlignmentCenter;
+    infoLabel.textColor = [UIColor grayColor];
+    infoLabel.font = FONT(14);
+    infoLabel.text = info;
+    
+    [emptyView addSubview:emptyImgView];
+    [emptyView addSubview:infoLabel];
+    
+    return emptyView;
+}
 
 - (void)didReceiveMemoryWarning
 {

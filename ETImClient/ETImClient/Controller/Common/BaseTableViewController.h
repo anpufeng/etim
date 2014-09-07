@@ -10,4 +10,6 @@
 
 @interface BaseTableViewController : UITableViewController
 
+- (UIView *)emptyTableView:(NSString *)info;
+
 @end

@@ -62,7 +62,7 @@ namespace etim  {
         int             msgId;
         IMUser          from;
         std::string     text;
-        int8            sent;
+        int8            sent;   //是否已发送
         std::string     requestTime;
         std::string     sendTime;
     };

@@ -8,6 +8,7 @@
 
 #import "NewBuddyViewController.h"
 #import "RequestTableViewCell.h"
+#import "RequestModel.h"
 
 #include "Client.h"
 #include "Singleton.h"
@@ -34,12 +35,13 @@ using namespace etim::pub;
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    self.title = @"添加好友";
+    self.title = @"新朋友";
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(responseToRetrieveAllBuddyRequestResult)
                                                  name:notiNameFromCmd(CMD_RETRIEVE_ALL_BUDDY_REQUEST)
                                                object:nil];
     [self createUI];
+    [[Client sharedInstance] pullWithCommand:CMD_RETRIEVE_ALL_BUDDY_REQUEST];
 }
 
 - (void)createUI {
@@ -89,12 +91,17 @@ using namespace etim::pub;
 - (void)responseToRetrieveAllBuddyRequestResult {
     [self.refreshControl endRefreshing];
     etim::Session *sess = [[Client sharedInstance] session];
-    if (sess->GetRecvCmd() == CMD_RETRIEVE_BUDDY_LIST) {
+    if (sess->GetRecvCmd() == CMD_RETRIEVE_ALL_BUDDY_REQUEST) {
         if (sess->IsError()) {
             [[TWMessageBarManager sharedInstance] showMessageWithTitle:@"获取好友请求列表错误" description:stdStrToNsStr(sess->GetErrorMsg()) type:TWMessageBarMessageTypeError];
         } else {
             //好友列表成功
-//            self.reqList = [RequestModel buddys:sess->GetBuddys()];
+            self.reqList = [RequestModel request:sess->GetAllReqs()];
+            if ([self.reqList count]) {
+                self.tableView.backgroundView = nil;
+            } else {
+                self.tableView.backgroundView = [self emptyTableView:@"暂无好友请求"];
+            }
             [self.tableView reloadData];
         }
     } else {

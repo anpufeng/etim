@@ -79,7 +79,7 @@ void Login::DoRecv(etim::Session &s) {
     s.SetErrorCode(error_code);
 	s.SetErrorMsg(error_msg);
     
-    if (error_code == kErrCode000) {
+    if (error_code == kErrCode00) {
         IMUser user;
         int rel;
         int status;

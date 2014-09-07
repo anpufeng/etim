@@ -34,7 +34,7 @@ Socket::~Socket() {
 bool Socket::Create() {
     fd_ = ::socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
     if (fd_ == -1) {
-        LOG_ERROR<<"create socket error" << strerror(errno);
+        LOG_FATAL<<"create socket error" << strerror(errno);
         return false;
     }
     
@@ -42,7 +42,7 @@ bool Socket::Create() {
     int val = 1;
     int result = ::setsockopt(fd_, SOL_SOCKET, SO_REUSEADDR, &val, sizeof(val));
     if (result == -1) {
-        LOG_ERROR<<"setsockopt error" << strerror(errno);
+        LOG_FATAL<<"setsockopt error" << strerror(errno);
     }
 
     return true;
@@ -55,8 +55,8 @@ bool Socket::Bind(char *ip) {
     addr.sin_addr.s_addr = INADDR_ANY;
     
     
-    if (::bind(fd_, (struct sockaddr*) &addr, sizeof(addr))) {
-        printf("bind error %s", strerror(errno));
+    if (::bind(fd_, (struct sockaddr*) &addr, sizeof(addr)) == -1) {
+        LOG_FATAL<<"bind error: "<<strerror(errno);
         return false;
     }
     
@@ -65,7 +65,7 @@ bool Socket::Bind(char *ip) {
 
 bool Socket::Listen() {
     if (::listen(fd_, 5) < 0) {
-        printf("listen error %s", strerror(errno));
+        LOG_FATAL<<"listen error: "<<strerror(errno);
     }
     
     return true;
@@ -81,7 +81,7 @@ int Socket::Accept() {
     int len = sizeof(struct sockaddr_in);
     int sock = ::accept(fd_, (struct sockaddr *)&clientAddr, (socklen_t *)&len);
 
-    printf("%d\n", clientAddr.sin_addr.s_addr);
+    //printf("%d\n", clientAddr.sin_addr.s_addr);
     LOG_INFO<<"accept 客户端IP "<<inet_ntoa(clientAddr.sin_addr);
 
     return sock;

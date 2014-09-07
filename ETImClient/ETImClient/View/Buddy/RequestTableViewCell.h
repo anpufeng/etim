@@ -10,8 +10,10 @@
 
 @class RequestModel;
 
+///NewBuddyViewController的request cell
+
 @interface RequestTableViewCell : BuddyTableViewCell
 
-- (void)update:(RequestModel *)request;
+- (void)update:(RequestModel *)req;
 
 @end

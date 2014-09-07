@@ -84,11 +84,12 @@ int Server::Start() {
         ///如果监听端口有可读
         if (FD_ISSET(listenFd, &readFds_)) {
             int connFd = soc.Accept();
-            LOG_INFO<<"有新客户端连接 :";
+            
             if (connFd == -1) {
                 LOG_ERROR<<"accept error"<<strerror(errno);
                 continue;
             }
+            LOG_INFO<<"有新客户端连接 :";
             if (connFd > fdMax_) {
                 fdMax_ = connFd;
             }
@@ -101,7 +102,7 @@ int Server::Start() {
             sessions_.push_back(s);
         }
         
-        //找出有可读sesion, 并执行相应操作
+        //找出有sesion->sock可读, 并执行相应操作
         timeval now;
         gettimeofday(&now, NULL);
         for (iter it = sessions_.begin(); it != sessions_.end();) {
@@ -159,6 +160,7 @@ void Server::KickOut() {
         long diff = now.tv_sec - s->GetLastTime().tv_sec;
         if (diff > 3 * HEART_BEAT_SECONDS) {
             LOG_INFO<<"客户端超时 socket userId: "<<s->GetIMUser().userId<<" 超时时间: "<<diff<<"s";
+            //TODO 刷新用户状态
             delete s;
             sessions_.erase(std::remove(sessions_.begin(), sessions_.end(), s));
         } else {

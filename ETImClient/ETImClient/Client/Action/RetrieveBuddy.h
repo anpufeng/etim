@@ -15,6 +15,7 @@
 namespace etim {
     namespace action {
         
+        ///获取好友列表
         class RetrieveBuddyList : public Action {
         public:
             virtual void DoSend(Session& s);

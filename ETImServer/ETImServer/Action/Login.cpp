@@ -55,7 +55,7 @@ void Login::Execute(Session *s) {
 	// 解密
 	idea.Crypt(ideaKey, (const unsigned char*)encryptedPass, (unsigned char *)pass, 16, false);
     
-	int16 error_code = kErrCode000;
+	int16 error_code = kErrCode00;
 	char error_msg[ERR_MSG_LENGTH+1] = {0};
     
     
@@ -65,7 +65,7 @@ void Login::Execute(Session *s) {
     user.username = name;
 	int ret;
 	ret = dao.UserLogin(name, pass, user);
-	if (ret == kErrCode000) {
+	if (ret == kErrCode00) {
         s->SetIMUser(user);
 		LOG_INFO<<"登录成功: "<<name;
 	} else  {
@@ -112,13 +112,13 @@ void Logout::Execute(Session *s) {
 	string userId;
 	jis>>userId;
 	
-    int16 error_code = kErrCode000;
+    int16 error_code = kErrCode00;
 	char error_msg[ERR_MSG_LENGTH+1] = {0};
 	DataService dao;
     IMUser user = s->GetIMUser();
-	int ret = kErrCode000;
+	int ret = kErrCode00;
     ret = dao.UserLogout(userId, s);
-	if (ret == kErrCode000) {
+	if (ret == kErrCode00) {
 		LOG_INFO<<"登出成功 userId: "<<userId;
 	} else  {
 		error_code = ret;

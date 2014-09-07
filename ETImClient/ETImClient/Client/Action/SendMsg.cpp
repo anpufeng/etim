@@ -83,7 +83,7 @@ void RetrieveUnreadMsg::DoRecv(etim::Session &s) {
      std::string     sendTime;
      };
      */
-    if (error_code == kErrCode000) {
+    if (error_code == kErrCode00) {
         
         for (uint16 i = 0; i < cnt; ++i) {
             InStream jis((const char*)s.GetResponsePack(), s.GetResponsePack()->head.len+sizeof(ResponseHead));

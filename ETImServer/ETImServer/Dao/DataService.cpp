@@ -22,7 +22,7 @@ using namespace std;
 
 
 /**
- @return kErrCode000 成功 kErrCode002数据库错误 kErrCode003 用户已经存在
+ @return kErrCode00 成功 kErrCode02数据库错误 kErrCode03 用户已经存在
  */
 int DataService::UserRegister(const std::string &username, const std::string &pass) {
     MysqlDB db;
@@ -36,7 +36,7 @@ int DataService::UserRegister(const std::string &username, const std::string &pa
         MysqlRecordset rs;
 		rs = db.QuerySQL(ss.str().c_str());
 		if (rs.GetRows() >= 1)
-			return kErrCode003;
+			return kErrCode03;
         
         ss.clear();
 		ss.str("");
@@ -55,14 +55,14 @@ int DataService::UserRegister(const std::string &username, const std::string &pa
         (void)ret;
     } catch (Exception &e) {
         LOG_ERROR<<e.what();
-        return kErrCode002;
+        return kErrCode02;
     }
     
-    return kErrCode000;
+    return kErrCode00;
 }
 
 /**
- @return kErrCode000 成功 kErrCode001 用户或密码出错 kErrCode002数据库错误
+ @return kErrCode00 成功 kErrCode01 用户或密码出错 kErrCode02数据库错误
  */
 int DataService::UserLogin(const std::string& username, const std::string& pass, IMUser &user) {
     MysqlDB db;
@@ -79,7 +79,7 @@ int DataService::UserLogin(const std::string& username, const std::string& pass,
         MysqlRecordset rs;
 		rs = db.QuerySQL(ss.str().c_str());
 		if (rs.GetRows() < 1)
-			return kErrCode001;
+			return kErrCode01;
         
         ss.clear();
         ss.str("");
@@ -100,15 +100,15 @@ int DataService::UserLogin(const std::string& username, const std::string& pass,
         
     } catch (Exception &e) {
         LOG_ERROR<<e.what();
-        return kErrCode002;
+        return kErrCode02;
     }
     
-    return kErrCode000;
+    return kErrCode00;
 }
 
 /**
  客户端主动退出, 后面客户端会断开SOCKET, 服务器会删除对应的SESSION
- @return kErrCode000 成功 kErrCode002 数据库错误
+ @return kErrCode00 成功 kErrCode02 数据库错误
  */
 int DataService::UserLogout(const std::string& userId, Session *s) {
     MysqlDB db;
@@ -123,15 +123,15 @@ int DataService::UserLogout(const std::string& userId, Session *s) {
         (void)ret;
     } catch (Exception &e) {
         LOG_ERROR<<e.what();
-        return kErrCode002;
+        return kErrCode02;
     }
-    return kErrCode000;
+    return kErrCode00;
 }
 
 
 /**
  @param user 如果查询到了则通过user返回
- @return kErrCode000 成功 kErrCode002数据库错误 kErrCode004 无此用户
+ @return kErrCode00 成功 kErrCode02数据库错误 kErrCode04 无此用户
  */
 int DataService::UserSearch(const std::string &username, Session *s, IMUser &user) {
     /*
@@ -157,7 +157,7 @@ int DataService::UserSearch(const std::string &username, Session *s, IMUser &use
     IMUser sessionUser = s->GetIMUser();
     if (s->GetIMUser().username == username) {
         user = s->GetIMUser();
-        return kErrCode000;
+        return kErrCode00;
     } else {
         LOG_INFO<<"查询的非当前用户";
         MysqlDB db;
@@ -186,7 +186,7 @@ int DataService::UserSearch(const std::string &username, Session *s, IMUser &use
             MysqlRecordset rs;
             rs = db.QuerySQL(ss.str().c_str());
             if (rs.GetRows() < 1)
-                return kErrCode004;
+                return kErrCode04;
             
             string reg = rs.GetItem(0, "u.reg_time");
             string userId = rs.GetItem(0, "u.user_id");
@@ -202,16 +202,16 @@ int DataService::UserSearch(const std::string &username, Session *s, IMUser &use
             
         } catch (Exception &e) {
             LOG_ERROR<<e.what();
-            return kErrCode002;
+            return kErrCode02;
         }
     }
-    return kErrCode000;
+    return kErrCode00;
 }
 
 /**
  添加好友请求
- @return kErrCode000 成功 kErrCode002数据库错误 kErrCode004 无此用户
- kErrCode005 已是好友
+ @return kErrCode00 成功 kErrCode02数据库错误 kErrCode04 无此用户
+ kErrCode05 已是好友
  */
 int DataService::RequestAddBuddy(const std::string &from, const std::string &to) {
         MysqlDB db;
@@ -219,54 +219,76 @@ int DataService::RequestAddBuddy(const std::string &from, const std::string &to)
             db.Open();
             stringstream ss;
             //是否两帐户都存在
-            ss<<"select user_id, username"<<
-            " from `user`"<<
-            " where username ='" <<from<<"'"<<
-            " or username = '"<<to<<"';";
+            ss<<"select * from ("<<
+            " select user_id from user where username ='"<<from<<"'"<<
+            " union all " <<
+            " select user_id from user where username ='"<<to<<"') uid;";
             MysqlRecordset rs;
             rs = db.QuerySQL(ss.str().c_str());
             if (rs.GetRows() != 2)
-                return kErrCode004;
+                return kErrCode04;
             
-            std::string fromId = rs.GetItem(0, "user_id");
-            std::string toId = rs.GetItem(1, "user_id");
+            std::string fromId = rs.GetItem(0, "uid.user_id");
+            std::string toId = rs.GetItem(1, "uid.user_id");
             
             ss.clear();
             ss.str("");
             //查询是否为好友
             ss<<"select friend_id"<<
-            " from friend"<<
+            " from friend, request"<<
             " where friend_from ='" <<fromId<<"'"<<
             " and friend_to = '"<<toId<<"'"<<
-            " and req_status = " << kBuddyRequestAccepted <<";";
+            " and req_status = " << (kBuddyRequestAccepted|kBuddyRequestNoSent) <<
+            " or req_status = "<<(kBuddyRequestAccepted|kBuddyRequestSent)<<";";
             
             rs = db.QuerySQL(ss.str().c_str());
             if (rs.GetRows())
-                return kErrCode005;
+                return kErrCode05;
             
-            ss.clear();
-            ss.str("");
             //插入好友请求数据
-            ss<<"insert into friend (friend_id, friend_from, friend_to, req_time, action_time, req_status) values (null, '"<<
-            fromId<<"', '"<<
-            toId<<"', "<<
-            " now(), "<<
-            " now(), "<<
-            kBuddyRequestNoSent<<");";
-            
-            unsigned long long ret = db.ExecSQL(ss.str().c_str());
-            (void)ret;
+            try {
+                ss.clear();
+                ss.str("");
+                db.StartTransaction();
+                ss<<"insert into request (req_id, req_status, req_time, req_send_time, action_time, action_send_time ) values"<<
+                " (null,"<<
+                kBuddyRequestNoSent<<","<<
+                "now(), "<<
+                "now(), "<<
+                "now(), "<<
+                "now() "<<
+                ");";
+                
+                unsigned long long ret = db.ExecSQL(ss.str().c_str());
+                unsigned long long reqId = db.GetInsertId();
+                
+                ss.clear();
+                ss.str("");
+                ss<<"insert into friend (friend_id, friend_from, friend_to, req_id) values"<<
+                " (null, "<<
+                fromId<<", "<<
+                toId<<", "<<
+                reqId<<
+                ");";
+                ret = db.ExecSQL(ss.str().c_str());
+                db.Commit();
+                
+            } catch (Exception &e) {
+                db.Rollback();
+                LOG_ERROR<<e.what();
+                return kErrCode02;
+            }
         } catch (Exception &e) {
             LOG_ERROR<<e.what();
-            return kErrCode002;
+            return kErrCode02;
         }
-    return kErrCode000;
+    return kErrCode00;
 }
 
 /**
  获取好友列表
  @param result 如果查询到了则通过result返回
- @return kErrCode000 成功 kErrCode002数据库错误 kErrCode006 无好友数据
+ @return kErrCode00 成功 kErrCode02数据库错误 kErrCode06 无好友数据
  */
 int DataService::RetrieveBuddyList(const std::string &userId, std::list<IMUser> &result) {
     /*
@@ -301,7 +323,7 @@ int DataService::RetrieveBuddyList(const std::string &userId, std::list<IMUser> 
         MysqlRecordset rs;
         rs = db.QuerySQL(ss.str().c_str());
         if (rs.GetRows() < 1) {
-            return kErrCode006;
+            return kErrCode06;
         }
         for (int i = 0; i < rs.GetRows(); ++i) {
             IMUser user;
@@ -317,16 +339,16 @@ int DataService::RetrieveBuddyList(const std::string &userId, std::list<IMUser> 
         }
     } catch (Exception &e) {
         LOG_ERROR<<e.what();
-        return kErrCode002;
+        return kErrCode02;
     }
 
-    return kErrCode000;
+    return kErrCode00;
 }
 
 /**
  获取未读消息
  @param result 如果查询到了则通过result返回
- @return kErrCode000 成功 kErrCode002数据库错误 kErrCode006 无未读数据
+ @return kErrCode00 成功 kErrCode02数据库错误 kErrCode06 无未读数据
  */
 
 int DataService::RetrieveUnreadMsg(const std::string &userId, std::list<IMMsg> &result) {
@@ -361,7 +383,7 @@ int DataService::RetrieveUnreadMsg(const std::string &userId, std::list<IMMsg> &
         MysqlRecordset rs;
         rs = db.QuerySQL(ss.str().c_str());
         if (rs.GetRows() < 1) {
-            return kErrCode006;
+            return kErrCode06;
         }
         for (int i = 0; i < rs.GetRows(); ++i) {
             IMUser fromUser;
@@ -387,16 +409,16 @@ int DataService::RetrieveUnreadMsg(const std::string &userId, std::list<IMMsg> &
         }
     } catch (Exception &e) {
         LOG_ERROR<<e.what();
-        return kErrCode002;
+        return kErrCode02;
     }
     
-    return kErrCode000;
+    return kErrCode00;
 }
 
 /**
  获取未处理好友请求(如果有多个请求,但有一个已经处理过:请求或拒绝,则认为无请求)
  @param result 如果查询到了则通过result返回
- @return kErrCode000 成功 kErrCode002数据库错误 kErrCode006 无未读数据
+ @return kErrCode00 成功 kErrCode02数据库错误 kErrCode06 无未读数据
  */
 int DataService::RetrievePendingBuddyRequest(const std::string &userId, std::list<IMUser> &result) {
     /*
@@ -431,7 +453,7 @@ int DataService::RetrievePendingBuddyRequest(const std::string &userId, std::lis
         MysqlRecordset rs;
         rs = db.QuerySQL(ss.str().c_str());
         if (rs.GetRows() < 1) {
-            return kErrCode006;
+            return kErrCode06;
         }
         for (int i = 0; i < rs.GetRows(); ++i) {
             IMUser user;
@@ -447,16 +469,16 @@ int DataService::RetrievePendingBuddyRequest(const std::string &userId, std::lis
         }
     } catch (Exception &e) {
         LOG_ERROR<<e.what();
-        return kErrCode002;
+        return kErrCode02;
     }
     
-    return kErrCode000;
+    return kErrCode00;
 }
 
 /**
  获取未处理好友请求(如果有多个请求,但有一个已经处理过:请求或拒绝,则认为无请求)
  @param result 如果查询到了则通过result返回
- @return kErrCode000 成功 kErrCode002数据库错误 kErrCode006 无请求数据
+ @return kErrCode00 成功 kErrCode02数据库错误 kErrCode06 无请求数据
  */
 int DataService::RetrieveAllBuddyRequest(const std::string &userId, std::list<IMReq> &result) {
     /*
@@ -489,7 +511,7 @@ int DataService::RetrieveAllBuddyRequest(const std::string &userId, std::list<IM
         MysqlRecordset rs;
         rs = db.QuerySQL(ss.str().c_str());
         if (rs.GetRows() < 1) {
-            return kErrCode006;
+            return kErrCode06;
         }
         for (int i = 0; i < rs.GetRows(); ++i) {
             IMReq req;
@@ -515,16 +537,18 @@ int DataService::RetrieveAllBuddyRequest(const std::string &userId, std::list<IM
         }
     } catch (Exception &e) {
         LOG_ERROR<<e.what();
-        return kErrCode002;
+        return kErrCode02;
     }
     
-    return kErrCode000;
+    return kErrCode00;
 }
 
 #pragma mark -
-#pragma mark private
-
-int UpdateStatus(const std::string &username, BuddyStatus status) {
+#pragma mark common method
+/*
+更新用户状态
+ */
+int DataService::UpdateUserStatus(const std::string &userId, BuddyStatus status) {
     return 0;
 }
 int SearchUserStatus(const std::string &username) {

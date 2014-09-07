@@ -13,7 +13,11 @@
 
 ///好友的cell
 
-@interface BuddyTableViewCell : UITableViewCell
+@interface BuddyTableViewCell : UITableViewCell {
+    UIImageView     *_iconImgView;
+    UILabel         *_nameLabel;
+    UILabel         *_descLabel;
+}
 
 - (void)update:(BuddyModel *)buddy;
 

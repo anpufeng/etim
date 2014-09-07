@@ -45,7 +45,7 @@ namespace etim  {
         int RetrieveAllBuddyRequest(const std::string &userId, std::list<IMReq> &result);
         
     public:
-        int UpdateStatus(const std::string &username, BuddyStatus status);
+        int UpdateUserStatus(const std::string &userId, BuddyStatus status);
         int SearchUserStatus(const std::string &username);
 
     };

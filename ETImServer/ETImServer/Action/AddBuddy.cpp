@@ -33,7 +33,7 @@ void RequestAddBuddy::Execute(Session *s) {
     jis>>fromName;
 	jis>>toName;
 	
-	int16 error_code = kErrCode000;
+	int16 error_code = kErrCode00;
 	char error_msg[ERR_MSG_LENGTH+1] = {0};
     
     
@@ -41,7 +41,7 @@ void RequestAddBuddy::Execute(Session *s) {
 	DataService dao;
 	int ret;
 	ret = dao.RequestAddBuddy(fromName, toName);
-	if (ret == kErrCode000) {
+	if (ret == kErrCode00) {
         strcpy(error_msg, "请求发送成功");
 		LOG_INFO<<"添加好友请求成功 from: "<<fromName<<" to: "<<toName;
 	} else {
@@ -80,7 +80,7 @@ void SearchBuddy::Execute(Session *s) {
 	string name;
 	jis>>name;
 	
-	int16 error_code = kErrCode000;
+	int16 error_code = kErrCode00;
 	char error_msg[ERR_MSG_LENGTH+1] = {0};
     
     
@@ -90,7 +90,7 @@ void SearchBuddy::Execute(Session *s) {
     user.username = name;
 	int ret;
 	ret = dao.UserSearch(name, s, user);
-	if (ret == kErrCode000) {
+	if (ret == kErrCode00) {
 		LOG_INFO<<"查询用户成功 查询名: "<<name;
 	} else {
 		error_code = ret;

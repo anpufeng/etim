@@ -50,7 +50,7 @@ void RetrieveBuddyList::DoRecv(etim::Session &s) {
 	char error_msg[ERR_MSG_LENGTH+1];
 	jis.ReadBytes(error_msg, ERR_MSG_LENGTH);
     
-    if (error_code == kErrCode000) {
+    if (error_code == kErrCode00) {
         s.ClearBuddys();
         
         for (uint16 i = 0; i < cnt; ++i) {
@@ -124,7 +124,7 @@ void RetrievePendingBuddyRequest::DoRecv(etim::Session &s) {
 	char error_msg[ERR_MSG_LENGTH+1];
 	jis.ReadBytes(error_msg, ERR_MSG_LENGTH);
     
-    if (error_code == kErrCode000) {
+    if (error_code == kErrCode00) {
         s.ClearReqBuddys();
         
         for (uint16 i = 0; i < cnt; ++i) {
@@ -198,8 +198,8 @@ void RetrieveAllBuddyRequest::DoRecv(etim::Session &s) {
 	char error_msg[ERR_MSG_LENGTH+1];
 	jis.ReadBytes(error_msg, ERR_MSG_LENGTH);
     
-    if (error_code == kErrCode000) {
-        s.ClearReqBuddys();
+    if (error_code == kErrCode00) {
+        s.ClearAllReqs();
         
         for (uint16 i = 0; i < cnt; ++i) {
             InStream jis((const char*)s.GetResponsePack(), s.GetResponsePack()->head.len+sizeof(ResponseHead));
@@ -211,10 +211,13 @@ void RetrieveAllBuddyRequest::DoRecv(etim::Session &s) {
             jis>>cnt>>seq>>error_code;
             char error_msg[ERR_MSG_LENGTH+1];
             jis.ReadBytes(error_msg, ERR_MSG_LENGTH);
-            
+
+            IMReq req;
             IMUser user;
             int rel;
             int status;
+            int reqStatus;
+            jis>>req.reqId;
             jis>>user.userId;
             jis>>user.username;
             jis>>user.regDate;
@@ -223,10 +226,18 @@ void RetrieveAllBuddyRequest::DoRecv(etim::Session &s) {
             jis>>rel;
             jis>>status;
             jis>>user.statusName;
+            jis>>reqStatus;
+            jis>>req.reqTime;
+            jis>>req.reqSendTime;
+            jis>>req.actionTime;
+            jis>>req.actionSendTime;
             
             user.relation = static_cast<BuddyRelation>(rel);
             user.status = static_cast<BuddyStatus>(status);
-            s.AddReqBuddy(user);
+            req.status = static_cast<BuddyRequestStatus>(reqStatus);
+            req.from = user;
+            
+            s.AddReq(req);
             
             if (seq == cnt - 1)
                 break;

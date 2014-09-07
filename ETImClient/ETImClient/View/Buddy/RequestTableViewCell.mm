@@ -7,6 +7,8 @@
 //
 
 #import "RequestTableViewCell.h"
+#import "RequestModel.h"
+#import "BuddyModel.h"
 
 @interface RequestTableViewCell () {
     UIButton            *_actionBtn;
@@ -33,8 +35,15 @@
     return self;
 }
 
-- (void)update:(RequestModel *)request {
+- (void)update:(RequestModel *)req {
+    if (req.from.status == kBuddyOnline) {
+        _iconImgView.image = [UIImage imageNamed:@"login_avatar_default"];
+    } else {
+        _iconImgView.image = [[UIImage imageNamed:@"login_avatar_default"] grayImage];
+    }
     
+    _nameLabel.text = req.from.username;
+    _descLabel.text = req.reqStatus;
 }
 
 /*

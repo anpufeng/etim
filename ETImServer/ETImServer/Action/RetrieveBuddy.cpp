@@ -35,7 +35,7 @@ void RetrieveBuddyList::Execute(Session *s) {
 	string userId;
 	jis>>userId;
 	
-	int16 error_code = kErrCode000;
+	int16 error_code = kErrCode00;
 	char error_msg[ERR_MSG_LENGTH+1] = {0};
     
     
@@ -44,7 +44,7 @@ void RetrieveBuddyList::Execute(Session *s) {
     list<IMUser> buddys;
 	int ret;
 	ret = dao.RetrieveBuddyList(userId, buddys);
-	if (ret == kErrCode000) {
+	if (ret == kErrCode00) {
 		LOG_INFO<<"查询好友列表成功 userid: "<<userId <<" 好友数: "<<buddys.size();
         uint16 cnt = static_cast<uint16>(buddys.size());    //总共多少
 		uint16 seq = 0;                                     //序列号
@@ -111,15 +111,15 @@ void RetrievePendingBuddyRequest::Execute(Session *s) {
 	string userId;
 	jis>>userId;
 	
-    int16 error_code = kErrCode000;
+    int16 error_code = kErrCode00;
 	char error_msg[ERR_MSG_LENGTH+1] = {0};
 	// 实际的用户请求获取操作
 	DataService dao;
     list<IMUser> reqBuddys;
 	int ret;
 	ret = dao.RetrievePendingBuddyRequest(userId, reqBuddys);
-	if (ret == kErrCode000) {
-		LOG_INFO<<"查询好友请求数成功 userid: "<<userId <<" 好友请求数: "<<reqBuddys.size();
+	if (ret == kErrCode00) {
+		LOG_INFO<<"查询待处理好友请求数成功 userid: "<<userId <<" 好友请求数: "<<reqBuddys.size();
         uint16 cnt = static_cast<uint16>(reqBuddys.size());    //总共多少
 		uint16 seq = 0;                                     //序列号
         list<IMUser>::const_iterator it;
@@ -185,15 +185,15 @@ void RetrieveAllBuddyRequest::Execute(Session *s) {
 	string userId;
 	jis>>userId;
 	
-    int16 error_code = kErrCode000;
+    int16 error_code = kErrCode00;
 	char error_msg[ERR_MSG_LENGTH+1] = {0};
 	// 实际的用户请求获取操作
 	DataService dao;
     list<IMReq> reqs;
 	int ret;
 	ret = dao.RetrieveAllBuddyRequest(userId, reqs);
-	if (ret == kErrCode000) {
-		LOG_INFO<<"查询好友请求数成功 userid: "<<userId <<" 好友请求数: "<<reqs.size();
+	if (ret == kErrCode00) {
+		LOG_INFO<<"查询好友请求历史记录成功 userid: "<<userId <<" 请求历史记录数: "<<reqs.size();
         uint16 cnt = static_cast<uint16>(reqs.size());    //总共多少
 		uint16 seq = 0;                                     //序列号
         list<IMReq>::const_iterator it;

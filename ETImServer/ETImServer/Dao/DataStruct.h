@@ -48,6 +48,7 @@ namespace etim  {
     
     ///用户
     struct IMUser {
+        IMUser():userId(0) {}
         int             userId;
         std::string     username;
         std::string     regDate;

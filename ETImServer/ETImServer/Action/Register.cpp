@@ -50,7 +50,7 @@ void Register::Execute(Session *s) {
 	// 解密
 	idea.Crypt(ideaKey, (const unsigned char*)encryptedPass, (unsigned char *)pass, 16, false);
     
-	int16 error_code = kErrCode000;
+	int16 error_code = kErrCode00;
 	char error_msg[ERR_MSG_LENGTH+1] = {0};
     
     
@@ -59,7 +59,7 @@ void Register::Execute(Session *s) {
     DataService dao;
      int ret;
      ret = dao.UserRegister(name, pass);
-     if (ret == kErrCode000) {
+     if (ret == kErrCode00) {
          LOG_INFO<<"注册成功 用户名: "<<name;
      } else {
          error_code = ret;

@@ -11,18 +11,6 @@
 
 using namespace etim;
 
-/*
- struct IMUser {
- std::string     userId;
- std::string     username;
- std::string     regDate;
- std::string     signature;
- int8            gender;
- BuddyRelation   relation;
- std::string     status;
- };
- */
-
 @implementation BuddyModel
 
 - (id)initWithUser:(etim::IMUser)user {
@@ -48,7 +36,7 @@ using namespace etim;
             self.username,
             self.regDate,
             self.signature,
-            self.gender ? @"男" : @"女",
+            [self buddyGender],
             self.statusName];
 }
 

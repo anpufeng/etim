@@ -69,25 +69,25 @@ namespace etim {
     
     ///包中带的错误码
     enum ErrCode {
-        kErrCode000, //000 success, 其它均为异常
-        kErrCode001,
-        kErrCode002,
-        kErrCode003,
-        kErrCode004,
-        kErrCode005,
-        kErrCode006,
-        kErrCode007,
-        kErrCode008,
-        kErrCode009,
-        kErrCode010,
-        kErrCode011,
+        kErrCode00, //00 success, 其它均为异常
+        kErrCode01,
+        kErrCode02,
+        kErrCode03,
+        kErrCode04,
+        kErrCode05,
+        kErrCode06,
+        kErrCode07,
+        kErrCode08,
+        kErrCode09,
+        kErrCode10,
+        kErrCode11,
         kErrCodeMax
     };
     
     ///错误信息
-    static const std::string gErrMsg[kErrCodeMax+1] = {"正常", "用户或密码错误", "数据库错误", /*kErrCode003*/"用户已经存在",
-        "无此用户", "已是好友", "没有数据", /*kErrCode007*/"kErrCode007",
-        "kErrCode008", "kErrCode009", "kErrCode010", /*kErrCode011*/"kErrCode011",
+    static const std::string gErrMsg[kErrCodeMax+1] = {"正常", "用户或密码错误", "数据库错误", /*kErrCode03*/"用户已经存在",
+        "无此用户", "已是好友", "没有数据", /*kErrCode07*/"kErrCode07",
+        "kErrCode08", "kErrCode09", "kErrCode10", /*kErrCode11*/"kErrCode11",
         /*kErrCodeMax*/"kErrCodeMax"};
     
    
@@ -124,6 +124,18 @@ namespace etim {
         RequestPack* requestPack_;
         IMUser      user_;
         timeval     lastTime_;
+    };
+    
+    ///用于遍历session
+    class SessionFinder {
+        SessionFinder(int userId) : userId_(userId) { }
+    public:
+        bool operator() (Session *s) {
+            return userId_ == s->GetIMUser().userId;
+        }
+        
+    private:
+        int userId_;
     };
 }   //end etim
 

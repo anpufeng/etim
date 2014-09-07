@@ -11,9 +11,7 @@
 
 
 @interface BuddyTableViewCell () {
-    UIImageView     *_iconImgView;
-    UILabel         *_nameLabel;
-    UILabel         *_descLabel;
+
 }
 
 @end

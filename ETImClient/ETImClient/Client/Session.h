@@ -89,25 +89,25 @@ namespace etim {
     
     ///包中带的错误码
     enum ErrCode {
-        kErrCode000, //000 success, 其它均为异常
-        kErrCode001,
-        kErrCode002,
-        kErrCode003,
-        kErrCode004,
-        kErrCode005,
-        kErrCode006,
-        kErrCode007,
-        kErrCode008,
-        kErrCode009,
-        kErrCode010,
-        kErrCode011,
+        kErrCode00, //000 success, 其它均为异常
+        kErrCode01,
+        kErrCode02,
+        kErrCode03,
+        kErrCode04,
+        kErrCode05,
+        kErrCode06,
+        kErrCode07,
+        kErrCode08,
+        kErrCode09,
+        kErrCode10,
+        kErrCode11,
         kErrCodeMax
     };
     
     ///错误信息
-    static const std::string gErrMsg[kErrCodeMax+1] = {"正常", "用户或密码错误", "数据库错误", /*kErrCode003*/"用户已经存在",
-        "无此用户", "已是好友", "没有数据", /*kErrCode007*/"kErrCode007",
-        "kErrCode008", "kErrCode009", "kErrCode010", /*kErrCode011*/"kErrCode011",
+    static const std::string gErrMsg[kErrCodeMax+1] = {"正常", "用户或密码错误", "数据库错误", /*kErrCode03*/"用户已经存在",
+        "无此用户", "已是好友", "没有数据", /*kErrCode07*/"kErrCode07",
+        "kErrCode08", "kErrCode09", "kErrCode10", /*kErrCode11*/"kErrCode11",
         /*kErrCodeMax*/"kErrCodeMax"};
     
     ///会话数据
@@ -162,7 +162,7 @@ namespace etim {
         
         int16 const GetErrorCode() const { return errCode_; }
         const std::string GetErrorMsg() const { return errMsg_;}
-        bool const IsError() const { return errCode_ != kErrCode000 && errCode_ != kErrCode006; }
+        bool const IsError() const { return errCode_ != kErrCode00 && errCode_ != kErrCode06; }
         
         ///好友
         const std::list<IMUser> GetBuddys() const { return buddys_; }
@@ -172,6 +172,11 @@ namespace etim {
         const std::list<IMUser> GetReqBuddys() const { return reqBuddys_; }
         void AddReqBuddy(IMUser &user) { reqBuddys_.push_back(user); }
         void ClearReqBuddys() { reqBuddys_.clear(); }
+        ///所有好友
+        const std::list<IMReq> GetAllReqs() const { return allReqs_; }
+        void AddReq(IMReq &req) { allReqs_.push_back(req); }
+        void ClearAllReqs() { allReqs_.clear(); }
+
         
         ///消息
         const std::list<IMMsg> GetUnreadMsgs() const {return unreadMsgs_; }
@@ -198,6 +203,7 @@ namespace etim {
         ///好友列表
         std::list<IMUser> buddys_;
         std::list<IMUser> reqBuddys_;
+        std::list<IMReq> allReqs_;
         ///未读消息
         std::list<IMMsg> unreadMsgs_;
         

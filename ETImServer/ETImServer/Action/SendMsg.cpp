@@ -40,15 +40,15 @@ void RetrieveUnreadMsg::Execute(Session *s) {
 	string userId;
 	jis>>userId;
 	
-    int16 error_code = kErrCode000;
+    int16 error_code = kErrCode00;
 	char error_msg[ERR_MSG_LENGTH+1] = {0};
 	//TODO 获取未读消息 查询数据库未读消息并send
 	DataService dao;
     std::list<IMMsg> msgs;
-	int ret = kErrCode000;
+	int ret = kErrCode00;
     //ret = dao.RetrieveUnreadMsg(userId, msgs);
-    ret = kErrCode006;
-	if (ret == kErrCode000) {
+    ret = kErrCode06;
+	if (ret == kErrCode00) {
 		LOG_INFO<<"查询未读消息成功 userId: "<<userId <<" 未读消息条数: "<<msgs.size();
         uint16 cnt = static_cast<uint16>(msgs.size());    //总共多少
 		uint16 seq = 0;                                     //序列号
