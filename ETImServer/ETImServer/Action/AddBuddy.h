@@ -25,6 +25,16 @@ namespace etim {
         public:
             virtual void Execute(Session *s);
         };
+        
+        class AcceptAddBuddy : public Action {
+        public:
+            virtual void Execute(Session *s);
+        };
+        
+        class RejectAddBuddy : public Action {
+        public:
+            virtual void Execute(Session *s);
+        };
     } //end action
 } //end etim
 

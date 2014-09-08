@@ -28,6 +28,20 @@ namespace etim {
             virtual void DoSend(Session &s);
             virtual void DoRecv(Session &s);
         };
+        
+        ///同意添加好友
+        class AcceptAddBuddy : public Action {
+        public:
+            virtual void DoSend(Session& s);
+            virtual void DoRecv(Session &s);
+        };
+        ///拒绝添加好友
+        class RejectAddBuddy : public Action {
+        public:
+            virtual void DoSend(Session& s);
+            virtual void DoRecv(Session &s);
+        };
+
     } //end action
 } //end etim
 

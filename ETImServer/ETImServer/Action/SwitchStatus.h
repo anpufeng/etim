@@ -22,6 +22,7 @@ namespace etim {
             ///往客户端推送用户状态变化
             void PushBuddyUpdate(etim::IMUser &user, etim::DataService &dao);
         };
+        
     } //end action
 } //end etim
 

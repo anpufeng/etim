@@ -36,6 +36,9 @@ namespace etim {
                                                             //CMD_RETRIEVE_UNREAD_MSG
                                                             //CMD_RETRIEVE_PENDING_BUDDY_REQUEST)
 #define CMD_RETRIEVE_ALL_BUDDY_REQUEST          0X000D      ///获取好友请求历史(包括同意和拒绝)
+#define CMD_ACCEPT_ADD_BUDDY                    0X000E      ///同意添加好友
+#define CMD_REJECT_ADD_BUDDY                    0X000E      ///拒绝添加好友
+    
     
 #define PUSH_BUDDY_UPDATE                       0X0100      //服务器往客户推端送好友上线下线个人信息等变化
 #define PUSH_BUDDY_MSG                          0X0200      //服务器往客户推端送好友消息

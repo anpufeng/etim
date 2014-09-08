@@ -12,6 +12,7 @@
 #include "MD5.h"
 #include "Idea.h"
 #include "Logging.h"
+#include "Endian.h"
 #include "DataService.h"
 #include "DataStruct.h"
 
@@ -48,7 +49,7 @@ void RequestAddBuddy::Execute(Session *s) {
 		error_code = ret;
         assert(error_code < kErrCodeMax);
 		strcpy(error_msg, gErrMsg[error_code].c_str());
-		LOG_ERROR<<error_msg;
+		LOG_INFO<<"添加好友请求成功 from: "<<fromName<<" to: "<<toName<<" "<<error_msg;
 	}
     
 	OutStream jos;
@@ -96,7 +97,7 @@ void SearchBuddy::Execute(Session *s) {
 		error_code = ret;
         assert(error_code < kErrCodeMax);
 		strcpy(error_msg, gErrMsg[error_code].c_str());
-		LOG_ERROR<<error_msg;
+		LOG_INFO<<"查询用户失败 查询名: "<<name<<" "<<error_msg;
 	}
     
 	OutStream jos;
@@ -123,4 +124,99 @@ void SearchBuddy::Execute(Session *s) {
     FillOutPackage(jos, lengthPos, cmd);
     
 	s->Send(jos.Data(), jos.Length());
+}
+
+void AcceptAddBuddy::Execute(Session *s) {
+    InStream jis(s->GetRequestPack()->buf, s->GetRequestPack()->head.len);
+	uint16 cmd = s->GetCmd();
+    
+	string reqId, fromId, addPeer;
+	jis>>reqId;
+    jis>>fromId;
+    jis>>addPeer;
+	
+	int16 error_code = kErrCode00;
+	char error_msg[ERR_MSG_LENGTH+1] = {0};
+    
+    
+	// 实际的搜索操作
+	DataService dao;
+	int ret;
+
+    int userId = s->GetIMUser().userId;
+    ret = dao.AcceptAddBuddy(fromId, Convert::IntToString(userId), reqId, static_cast<bool>(Convert::StringToInt(addPeer)));
+	if (ret == kErrCode00) {
+		LOG_INFO<<"接受用户 " <<(Convert::StringToInt(addPeer) ? "并且添加对方为好友" : "") <<
+                "fromUserId: "<<fromId<< "toUserId: "<<userId<< " 成功";
+	} else {
+		error_code = ret;
+        assert(error_code < kErrCodeMax);
+		strcpy(error_msg, gErrMsg[error_code].c_str());
+        LOG_INFO<<"接受用户 " <<(Convert::StringToInt(addPeer) ? "并且添加对方为好友" : "") <<
+        "fromUserId: "<<fromId<< "toUserId: "<<userId<< " 失败: "<<error_msg;
+	}
+    
+	OutStream jos;
+	// 包头命令
+	jos<<cmd;
+	size_t lengthPos = jos.Length();
+	jos.Skip(2);///留出2个字节空间用来后面存储包体长度+包尾(8)的长度
+	// 包头cnt、seq、error_code、error_msg
+	uint16 cnt = 0;
+	uint16 seq = 0;
+	jos<<cnt<<seq<<error_code;
+	jos.WriteBytes(error_msg, ERR_MSG_LENGTH);
+    
+	// 空包体
+    
+    FillOutPackage(jos, lengthPos, cmd);
+    
+	s->Send(jos.Data(), jos.Length());
+    //TODO 通知在线请求方添加成功
+}
+
+
+void RejectAddBuddy::Execute(Session *s) {
+    InStream jis(s->GetRequestPack()->buf, s->GetRequestPack()->head.len);
+	uint16 cmd = s->GetCmd();
+    
+	string reqId, fromId;
+	jis>>reqId;
+    jis>>fromId;
+	
+	int16 error_code = kErrCode00;
+	char error_msg[ERR_MSG_LENGTH+1] = {0};
+    
+    
+	// 实际的数据操作
+	DataService dao;
+    int userId = s->GetIMUser().userId;
+	int ret = dao.RejectAddBuddy(fromId, Convert::IntToString(userId), reqId);
+
+	if (ret == kErrCode00) {
+		LOG_INFO<<"拒绝用户 " << "fromUserId: "<<fromId<< "toUserId: "<<userId<< " 添加好友成功";
+	} else {
+		error_code = ret;
+        assert(error_code < kErrCodeMax);
+		strcpy(error_msg, gErrMsg[error_code].c_str());
+        LOG_INFO<<"拒绝用户 " << "fromUserId: "<<fromId<< "toUserId: "<<userId<< " 添加好友失败: "<<error_msg;
+	}
+    
+	OutStream jos;
+	// 包头命令
+	jos<<cmd;
+	size_t lengthPos = jos.Length();
+	jos.Skip(2);///留出2个字节空间用来后面存储包体长度+包尾(8)的长度
+	// 包头cnt、seq、error_code、error_msg
+	uint16 cnt = 0;
+	uint16 seq = 0;
+	jos<<cnt<<seq<<error_code;
+	jos.WriteBytes(error_msg, ERR_MSG_LENGTH);
+    
+    ///空包体
+    
+    FillOutPackage(jos, lengthPos, cmd);
+    
+	s->Send(jos.Data(), jos.Length());
+    //TODO 通知在线请求方被拒绝
 }

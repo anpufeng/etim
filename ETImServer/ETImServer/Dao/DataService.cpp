@@ -22,6 +22,7 @@ using namespace std;
 
 
 /**
+ 用户注册
  @return kErrCode00 成功 kErrCode02数据库错误 kErrCode03 用户已经存在
  */
 int DataService::UserRegister(const std::string &username, const std::string &pass) {
@@ -62,6 +63,7 @@ int DataService::UserRegister(const std::string &username, const std::string &pa
 }
 
 /**
+ 用户登录
  @return kErrCode00 成功 kErrCode01 用户或密码出错 kErrCode02数据库错误
  */
 int DataService::UserLogin(const std::string& username, const std::string& pass, IMUser &user) {
@@ -160,6 +162,7 @@ int DataService::UserLogout(const std::string& userId, IMUser &user) {
 
 
 /**
+ 查询用户
  @param user 如果查询到了则通过user返回
  @return kErrCode00 成功 kErrCode02数据库错误 kErrCode04 无此用户
  */
@@ -312,6 +315,30 @@ int DataService::RequestAddBuddy(const std::string &from, const std::string &to)
             LOG_ERROR<<e.what();
             return kErrCode02;
         }
+    return kErrCode00;
+}
+
+/**
+ 接受好友请求
+ @param from 请求方id
+ @param to 本方id
+ @param req request记录id
+ @param peer 0表示不添加对方 ,1表示添加对方
+
+ @return kErrCode00 成功 kErrCode02数据库错误 kErrCode06 无好友数据
+ */
+int DataService::AcceptAddBuddy(const std::string &from, const std::string &to, const std::string req, bool peer) {
+    return kErrCode00;
+}
+
+/**
+ 拒绝好友请求
+ @param from 请求方id
+ @param to 本方id
+ @param req request记录id
+ @return kErrCode00 成功 kErrCode02数据库错误 kErrCode06 无好友数据
+ */
+int DataService::RejectAddBuddy(const std::string &from, const std::string &to, const std::string req) {
     return kErrCode00;
 }
 
