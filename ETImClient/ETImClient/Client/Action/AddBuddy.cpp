@@ -152,7 +152,7 @@ void RejectAddBuddy::DoSend(Session &s) {
 	size_t lengthPos = jos.Length();
 	jos.Skip(2);
     
-	// 要查找的用户名
+	// req及对方信息
     string reqId = s.GetAttribute("reqId");
 	string fromId = s.GetAttribute("fromId");
 	jos<<reqId;

@@ -7,6 +7,7 @@
 //
 
 #include "AddBuddy.h"
+#include "PushService.h"
 #include "OutStream.h"
 #include "InStream.h"
 #include "MD5.h"
@@ -139,12 +140,13 @@ void AcceptAddBuddy::Execute(Session *s) {
 	char error_msg[ERR_MSG_LENGTH+1] = {0};
     
     
-	// 实际的搜索操作
+	// 添加
 	DataService dao;
 	int ret;
-
+    bool peer =  static_cast<bool>(Convert::StringToInt(addPeer));
     int userId = s->GetIMUser().userId;
-    ret = dao.AcceptAddBuddy(fromId, Convert::IntToString(userId), reqId, static_cast<bool>(Convert::StringToInt(addPeer)));
+    IMUser fromUser;
+    ret = dao.AcceptAddBuddy(fromId, Convert::IntToString(userId), reqId, peer, fromUser);
 	if (ret == kErrCode00) {
 		LOG_INFO<<"接受用户 " <<(Convert::StringToInt(addPeer) ? "并且添加对方为好友" : "") <<
                 "fromUserId: "<<fromId<< "toUserId: "<<userId<< " 成功";
@@ -167,12 +169,25 @@ void AcceptAddBuddy::Execute(Session *s) {
 	jos<<cnt<<seq<<error_code;
 	jos.WriteBytes(error_msg, ERR_MSG_LENGTH);
     
-	// 空包体
+	// 包体
+    jos<<fromUser.userId;
+	jos<<fromUser.username;
+    jos<<fromUser.regDate;
+    jos<<fromUser.signature;
+    jos<<fromUser.gender;
+    jos<<fromUser.relation;
+    jos<<fromUser.status;
+    jos<<fromUser.statusName;
     
     FillOutPackage(jos, lengthPos, cmd);
     
 	s->Send(jos.Data(), jos.Length());
-    //TODO 通知在线请求方添加成功
+    if (ret == kErrCode00) {
+        
+        PushService push;
+        //通知在线请求方同意结果
+        push.PushBuddyRequestResult(s->GetIMUser(), Convert::StringToInt(fromId), true, peer, dao);
+    }
 }
 
 
@@ -188,18 +203,18 @@ void RejectAddBuddy::Execute(Session *s) {
 	char error_msg[ERR_MSG_LENGTH+1] = {0};
     
     
-	// 实际的数据操作
+	// 拒绝
 	DataService dao;
     int userId = s->GetIMUser().userId;
 	int ret = dao.RejectAddBuddy(fromId, Convert::IntToString(userId), reqId);
 
 	if (ret == kErrCode00) {
-		LOG_INFO<<"拒绝用户 " << "fromUserId: "<<fromId<< "toUserId: "<<userId<< " 添加好友成功";
+		LOG_INFO<<"拒绝用户 " << "fromUserId: "<<fromId<< " toUserId: "<<userId<< " 添加好友成功";
 	} else {
 		error_code = ret;
         assert(error_code < kErrCodeMax);
 		strcpy(error_msg, gErrMsg[error_code].c_str());
-        LOG_INFO<<"拒绝用户 " << "fromUserId: "<<fromId<< "toUserId: "<<userId<< " 添加好友失败: "<<error_msg;
+        LOG_INFO<<"拒绝用户 " << "fromUserId: "<<fromId<< " toUserId: "<<userId<< " 添加好友失败: "<<error_msg;
 	}
     
 	OutStream jos;
@@ -218,5 +233,11 @@ void RejectAddBuddy::Execute(Session *s) {
     FillOutPackage(jos, lengthPos, cmd);
     
 	s->Send(jos.Data(), jos.Length());
-    //TODO 通知在线请求方被拒绝
+    
+    if (ret == kErrCode00) {
+        //通知在线请求方被拒绝结果
+        PushService push;
+        push.PushBuddyRequestResult(s->GetIMUser(), Convert::StringToInt(fromId), false, false, dao);
+
+    }
 }

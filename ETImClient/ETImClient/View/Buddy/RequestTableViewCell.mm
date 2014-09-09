@@ -7,6 +7,7 @@
 //
 
 #import "RequestTableViewCell.h"
+#import "IndexPathButton.h"
 #import "RequestModel.h"
 #import "BuddyModel.h"
 
@@ -14,8 +15,8 @@
 
 }
 
-@property (nonatomic, readwrite, strong) UIButton *rejectBtn;
-@property (nonatomic, readwrite, strong) UIButton *acceptBtn;
+@property (nonatomic, readwrite, strong) IndexPathButton *rejectBtn;
+@property (nonatomic, readwrite, strong) IndexPathButton *acceptBtn;
 @property (nonatomic, readwrite, strong) RequestModel *req;
 
 @end
@@ -35,13 +36,13 @@
     if (self) {
         // Initialization code
         
-        _rejectBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        _rejectBtn = [IndexPathButton buttonWithType:UIButtonTypeCustom];
         _rejectBtn.frame = CGRectMake(RECT_WIDTH(self) - 120, 15, 50, 30);
         [_rejectBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
         _rejectBtn.titleLabel.font = FONT(14);
         [self.contentView addSubview:_rejectBtn];
         
-        _acceptBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        _acceptBtn = [IndexPathButton buttonWithType:UIButtonTypeCustom];
         _acceptBtn.frame = CGRectMake(RECT_MAX_X(_rejectBtn) + 10, RECT_ORIGIN_Y(_rejectBtn), RECT_WIDTH(_rejectBtn), RECT_HEIGHT(_rejectBtn));
         [_acceptBtn setTitleColor:_rejectBtn.tintColor forState:UIControlStateNormal];
         _acceptBtn.titleLabel.font = _rejectBtn.titleLabel.font;
@@ -55,8 +56,11 @@
     return self;
 }
 
-- (void)update:(RequestModel *)req {
+- (void)update:(RequestModel *)req indexPath:(NSIndexPath *)indexPath {
     self.req = req;
+    _acceptBtn.indexPath = indexPath;
+    _rejectBtn.indexPath = indexPath;
+    
     if (req.from.status == kBuddyOnline) {
         _iconImgView.image = [UIImage imageNamed:@"login_avatar_default"];
     } else {
@@ -88,7 +92,7 @@
             break;
             
             
-        case kBuddyRequestReject: case (kBuddyRequestRejectSent):
+        case kBuddyRequestRejected: case (kBuddyRequestRejectedSent):
         {
             _rejectBtn.hidden = YES;
             [_acceptBtn setTitle:@"已拒绝" forState:UIControlStateNormal];

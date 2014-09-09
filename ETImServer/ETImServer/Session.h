@@ -31,10 +31,13 @@ namespace etim {
                                                             //CMD_RETRIEVE_UNREAD_MSG
                                                             //CMD_RETRIEVE_PENDING_BUDDY_REQUEST)
 #define CMD_RETRIEVE_ALL_BUDDY_REQUEST          0X000D      ///获取好友请求历史(包括同意和拒绝)
+#define CMD_ACCEPT_ADD_BUDDY                    0X000E      ///同意添加好友
+#define CMD_REJECT_ADD_BUDDY                    0X000F      ///拒绝添加好友
     
     
-#define PUSH_BUDDY_UPDATE                       0X0100      //服务器往客户推端送好友上线下线等状态变化
-#define PUSH_BUDDY_MSG                          0X0200      //服务器往客户推端送好友消息
+#define PUSH_BUDDY_UPDATE                       0X0100      //往客户推端送好友上线下线等状态变化
+#define PUSH_BUDDY_MSG                          0X0101      //往客户推端送好友消息
+#define PUSH_BUDDY_REQUEST_RESULT               0X0102      //往客户端推送好友请求结果
     
 #define ERR_MSG_LENGTH      30              // 错误消息定长
 #define HEART_BEAT_SECONDS  30              //心中包发送间隔时间
@@ -90,7 +93,7 @@ namespace etim {
     
     ///错误信息
     static const std::string gErrMsg[kErrCodeMax+1] = {"正常", "用户或密码错误", "数据库错误", /*kErrCode03*/"用户已经存在",
-        "无此用户", "已是好友", "没有数据", /*kErrCode07*/"kErrCode07",
+        "无此用户", "已是好友", "没有数据", /*kErrCode07*/"已经在对方好友列表,此记录已失效",
         "kErrCode08", "kErrCode09", "kErrCode10", /*kErrCode11*/"kErrCode11",
         /*kErrCodeMax*/"kErrCodeMax"};
     

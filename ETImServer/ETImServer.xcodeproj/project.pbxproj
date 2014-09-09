@@ -32,6 +32,7 @@
 		AABF3C9E19863690001C8DCA /* Main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AABF3C9D19863690001C8DCA /* Main.cpp */; };
 		AABF3CA019863690001C8DCA /* ETImServer.1 in CopyFiles */ = {isa = PBXBuildFile; fileRef = AABF3C9F19863690001C8DCA /* ETImServer.1 */; };
 		AACD74931994773F00254C55 /* MysqlDB.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AACD74911994773F00254C55 /* MysqlDB.cpp */; };
+		AACF5CCD19BE8E14008D9E80 /* PushService.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AACF5CCB19BE8E14008D9E80 /* PushService.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -102,6 +103,8 @@
 		AACD74911994773F00254C55 /* MysqlDB.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MysqlDB.cpp; sourceTree = "<group>"; };
 		AACD74921994773F00254C55 /* MysqlDB.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MysqlDB.h; sourceTree = "<group>"; };
 		AACD7494199478AA00254C55 /* DataStruct.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DataStruct.h; sourceTree = "<group>"; };
+		AACF5CCB19BE8E14008D9E80 /* PushService.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PushService.cpp; sourceTree = "<group>"; };
+		AACF5CCC19BE8E14008D9E80 /* PushService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PushService.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -163,6 +166,8 @@
 				AA7004DE19889D8D005D5FC1 /* SwitchStatus.h */,
 				AA7004E019889E2E005D5FC1 /* RetrieveBuddy.cpp */,
 				AA7004E119889E2E005D5FC1 /* RetrieveBuddy.h */,
+				AACF5CCB19BE8E14008D9E80 /* PushService.cpp */,
+				AACF5CCC19BE8E14008D9E80 /* PushService.h */,
 			);
 			path = Action;
 			sourceTree = "<group>";
@@ -273,6 +278,7 @@
 				AA59F0231988C4CC009FD449 /* Endian.cpp in Sources */,
 				AA7004E219889E2E005D5FC1 /* RetrieveBuddy.cpp in Sources */,
 				AA420BAC19863F4200D1117F /* Server.cpp in Sources */,
+				AACF5CCD19BE8E14008D9E80 /* PushService.cpp in Sources */,
 				AA7004D019889AF4005D5FC1 /* ActionManager.cpp in Sources */,
 				AA7004DC19889D3C005D5FC1 /* AddBuddy.cpp in Sources */,
 				AA59F01D1988BD23009FD449 /* MD5.cpp in Sources */,

@@ -323,11 +323,86 @@ int DataService::RequestAddBuddy(const std::string &from, const std::string &to)
  @param from 请求方id
  @param to 本方id
  @param req request记录id
- @param peer 0表示不添加对方 ,1表示添加对方
-
- @return kErrCode00 成功 kErrCode02数据库错误 kErrCode06 无好友数据
+ @param peer false表示不添加对方 ,true表示添加对方
+ @param fromUser 用于返回最新请求最新信息(主要是否在线)
+ @return kErrCode00 成功 kErrCode02数据库错误 kErrCode07 已经在对方好友列表(跟此条req无关,存在其它request表示已是好友)
  */
-int DataService::AcceptAddBuddy(const std::string &from, const std::string &to, const std::string req, bool peer) {
+int DataService::AcceptAddBuddy(const std::string &from, const std::string &to, const std::string req, const bool peer, IMUser &fromUser) {
+    MysqlDB db;
+    try {
+        db.Open();
+        stringstream ss;
+        //查询是否已是好友 正常情况下不会出现
+        //因为之前search的时候已经过滤了,返回对应了对应的relation
+        ss<<"select u.*, s.*"<<
+        " from friend f"<<
+        " left join user u"<<
+        " on f.friend_from = u.user_id"<<
+        " left join status s"<<
+        " on s.status_id = u.status_id"<<
+        " left join request r"<<
+        " on r.req_id = f.req_id"<<
+        " where f.friend_from = "<<from<<
+        " and f.friend_to = "<<to<<
+        " and r.req_status in ("<<(kBuddyRequestNoSent|kBuddyRequestAccepted)<<", "<<(kBuddyRequestNoSent|kBuddyRequestSent)<<");";
+        MysqlRecordset rs;
+        rs = db.QuerySQL(ss.str().c_str());
+        if (rs.GetRows())
+            return kErrCode07;
+        
+        string reg = rs.GetItem(0, "u.reg_time");
+        fromUser.userId = Convert::StringToInt(to);
+        fromUser.username = rs.GetItem(0, "u.username");
+        fromUser.regDate = reg.substr(0, reg.find(" "));
+        fromUser.signature = rs.GetItem(0, "u.signature");
+        fromUser.gender = Convert::StringToInt(rs.GetItem(0, "u.gender"));
+        fromUser.status = static_cast<BuddyStatus>(Convert::StringToInt(rs.GetItem(0, "u.status_id").c_str()));
+        fromUser.statusName =  rs.GetItem(0, "s.status_name");
+        
+        ss.clear();
+        ss.str("");
+        //更新
+        if (peer) {
+            try {
+                db.StartTransaction();
+                //request table
+                ss<<"insert into request (req_id, req_status, req_time, req_send_time, action_time, action_send_time ) values"<<
+                " (null,"<<
+                (kBuddyRequestAccepted|kBuddyRequestSent)<<","<<
+                "now(), "<<
+                "now(), "<<
+                "now(), "<<
+                "now() "<<
+                ");";
+                
+                //friend table
+                unsigned long long reqId = db.GetInsertId();
+                ss.clear();
+                ss.str("");
+                ss<<"insert into friend (friend_id, friend_from, friend_to, req_id) values"<<
+                " (null,"<<
+                to<<", "<<
+                from<<", "<<
+                reqId<<
+                ");";
+                db.Commit();
+            } catch (Exception &e) {
+                db.Rollback();
+                LOG_ERROR<<e.what();
+                return kErrCode02;
+            }
+        } else {
+            ss<<"update request"<<
+            " set req_status = "<<(kBuddyRequestNoSent|kBuddyRequestAccepted)<<","<<
+            " action_time = now()"<<
+            " where req_id = "<<req<<";";
+            unsigned long long ret = db.ExecSQL(ss.str().c_str());
+            (void)ret;
+        }
+    } catch (Exception &e) {
+        LOG_ERROR<<e.what();
+        return kErrCode02;
+    }
     return kErrCode00;
 }
 
@@ -336,9 +411,41 @@ int DataService::AcceptAddBuddy(const std::string &from, const std::string &to, 
  @param from 请求方id
  @param to 本方id
  @param req request记录id
- @return kErrCode00 成功 kErrCode02数据库错误 kErrCode06 无好友数据
+ @return kErrCode00 成功 kErrCode02数据库错误 kErrCode07 已经在对方好友列表(跟此条req无关,存在其它request表示已是好友)
  */
 int DataService::RejectAddBuddy(const std::string &from, const std::string &to, const std::string req) {
+    MysqlDB db;
+    try {
+        db.Open();
+        stringstream ss;
+        //查询是否已是好友 正常情况下不会出现
+        //因为之前search的时候已经过滤了,返回对应了对应的relation
+        ss<<"select f.friend_id"<<
+        " from friend f"<<
+        " left join request r"<<
+        " on r.req_id = f.req_id"<<
+        " where f.friend_from = "<<from<<
+        " and f.friend_to = "<<to<<
+        " and r.req_status in ("<<(kBuddyRequestNoSent|kBuddyRequestRejected)<<", "<<(kBuddyRequestNoSent|kBuddyRequestRejected)<<");";
+        MysqlRecordset rs;
+        rs = db.QuerySQL(ss.str().c_str());
+        if (rs.GetRows())
+            return kErrCode07;
+        
+        ss.clear();
+        ss.str("");
+        //更新
+        
+        ss<<"update request"<<
+        " set req_status = "<<(kBuddyRequestNoSent|kBuddyRequestRejected)<<","<<
+        " action_time = now()"<<
+        " where req_id = "<<req<<";";
+        unsigned long long ret = db.ExecSQL(ss.str().c_str());
+        (void)ret;
+    } catch (Exception &e) {
+        LOG_ERROR<<e.what();
+        return kErrCode02;
+    }
     return kErrCode00;
 }
 
@@ -349,7 +456,7 @@ int DataService::RejectAddBuddy(const std::string &from, const std::string &to, 
  @param result 如果查询到了则通过result返回
  @return kErrCode00 成功 kErrCode02数据库错误 kErrCode06 无好友数据
  */
-int DataService::RetrieveBuddyList(const std::string &userId, bool online, bool my, std::list<IMUser> &result) {
+int DataService::RetrieveBuddyList(const std::string &userId, const bool online, const bool my, std::list<IMUser> &result) {
     /*
      select u_t.*, st.status_name
      from (user u_f, friend f, user u_t)

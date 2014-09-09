@@ -111,6 +111,7 @@
 		AABF3CD6198636C0001C8DCA /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = AABF3CD4198636C0001C8DCA /* InfoPlist.strings */; };
 		AABF3CD8198636C0001C8DCA /* ETImClientTests.m in Sources */ = {isa = PBXBuildFile; fileRef = AABF3CD7198636C0001C8DCA /* ETImClientTests.m */; };
 		AACD74981994A1CB00254C55 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = AACD74971994A1CB00254C55 /* MBProgressHUD.m */; };
+		AACF5CD019BF01D8008D9E80 /* IndexPathButton.m in Sources */ = {isa = PBXBuildFile; fileRef = AACF5CCF19BF01D8008D9E80 /* IndexPathButton.m */; };
 		AAD7D44B19BA11C80028957C /* RequestTableViewCell.mm in Sources */ = {isa = PBXBuildFile; fileRef = AAD7D44A19BA11C80028957C /* RequestTableViewCell.mm */; };
 		AADF36A819BA1353009198A3 /* RequestModel.mm in Sources */ = {isa = PBXBuildFile; fileRef = AADF36A719BA1353009198A3 /* RequestModel.mm */; };
 		AAEBB81919B4308400AB3A07 /* ChatViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = AAEBB81819B4308400AB3A07 /* ChatViewController.mm */; };
@@ -292,6 +293,8 @@
 		AABF3CD7198636C0001C8DCA /* ETImClientTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ETImClientTests.m; sourceTree = "<group>"; };
 		AACD74961994A1CB00254C55 /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
 		AACD74971994A1CB00254C55 /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
+		AACF5CCE19BF01D8008D9E80 /* IndexPathButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IndexPathButton.h; sourceTree = "<group>"; };
+		AACF5CCF19BF01D8008D9E80 /* IndexPathButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IndexPathButton.m; sourceTree = "<group>"; };
 		AAD7D44919BA11C80028957C /* RequestTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RequestTableViewCell.h; sourceTree = "<group>"; };
 		AAD7D44A19BA11C80028957C /* RequestTableViewCell.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = RequestTableViewCell.mm; sourceTree = "<group>"; };
 		AADF36A619BA1353009198A3 /* RequestModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RequestModel.h; sourceTree = "<group>"; };
@@ -625,6 +628,8 @@
 				AA665F7E19A8E9B100FCF5C6 /* LeftMarginTextField.m */,
 				AA6D73CE19B1E739006DBC6D /* BadgeButton.h */,
 				AA6D73CF19B1E739006DBC6D /* BadgeButton.m */,
+				AACF5CCE19BF01D8008D9E80 /* IndexPathButton.h */,
+				AACF5CCF19BF01D8008D9E80 /* IndexPathButton.m */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -959,6 +964,7 @@
 				AAA6DCDF198B918100EB948E /* Timestamp.cpp in Sources */,
 				AADF36A819BA1353009198A3 /* RequestModel.mm in Sources */,
 				AA7EB9981992674D000BD838 /* Client.mm in Sources */,
+				AACF5CD019BF01D8008D9E80 /* IndexPathButton.m in Sources */,
 				AA59F03C198A197B009FD449 /* UIImage+Additions.m in Sources */,
 				AA588BB21990B4EC00F08821 /* RetrieveBuddy.cpp in Sources */,
 				AA665F7F19A8E9B100FCF5C6 /* LeftMarginTextField.m in Sources */,

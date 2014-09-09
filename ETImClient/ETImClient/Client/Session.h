@@ -37,11 +37,12 @@ namespace etim {
                                                             //CMD_RETRIEVE_PENDING_BUDDY_REQUEST)
 #define CMD_RETRIEVE_ALL_BUDDY_REQUEST          0X000D      ///获取好友请求历史(包括同意和拒绝)
 #define CMD_ACCEPT_ADD_BUDDY                    0X000E      ///同意添加好友
-#define CMD_REJECT_ADD_BUDDY                    0X000E      ///拒绝添加好友
+#define CMD_REJECT_ADD_BUDDY                    0X000F      ///拒绝添加好友
     
     
 #define PUSH_BUDDY_UPDATE                       0X0100      //服务器往客户推端送好友上线下线个人信息等变化
-#define PUSH_BUDDY_MSG                          0X0200      //服务器往客户推端送好友消息
+#define PUSH_BUDDY_MSG                          0X0101      //服务器往客户推端送好友消息
+#define PUSH_BUDDY_REQUEST_RESULT               0X0102      //往客户端推送好友请求结果
     
     static const std::string gCmdNoti[CMD_RETRIEVE_ALL_BUDDY_REQUEST+1] = {
         "CMD_RETRIEVE_EVENT", "CMD_REGISTER", "CMD_LOGIN", /*0x0002*/
@@ -51,8 +52,8 @@ namespace etim {
         "CMD_UNREAD", "CMD_RETRIEVE_ALL_BUDDY_REQUEST"
     };
     
-    static const std::string gPushNoti[PUSH_BUDDY_MSG-PUSH_BUDDY_UPDATE+1] = {
-        "PUSH_BUDDY_UPDATE", "PUSH_BUDDY_MSG"
+    static const std::string gPushNoti[PUSH_BUDDY_REQUEST_RESULT-PUSH_BUDDY_UPDATE+1] = {
+        "PUSH_BUDDY_UPDATE", "PUSH_BUDDY_MSG", "PUSH_BUDDY_REQUEST_RESULT"
     };
     
 #define ERR_MSG_LENGTH      30              // 错误消息定长

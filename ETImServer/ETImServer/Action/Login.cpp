@@ -15,7 +15,7 @@
 #include "Logging.h"
 #include "DataService.h"
 #include "DataStruct.h"
-#include "SwitchStatus.h"
+#include "PushService.h"
 
 #include <sstream>
 #include <iomanip>
@@ -101,7 +101,7 @@ void Login::Execute(Session *s) {
 	s->Send(jos.Data(), jos.Length());
     
     if (ret == kErrCode00) {
-        SwitchStatus push;
+        PushService push;
         push.PushBuddyUpdate(user, dao);
     }
 }
@@ -149,7 +149,7 @@ void Logout::Execute(Session *s) {
 	s->Send(jos.Data(), jos.Length());
     
     if (ret == kErrCode00) {
-        SwitchStatus push;
+        PushService push;
         push.PushBuddyUpdate(user, dao);
     }
 }

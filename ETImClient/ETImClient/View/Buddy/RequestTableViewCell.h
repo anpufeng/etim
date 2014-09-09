@@ -24,6 +24,6 @@ typedef NS_ENUM(NSInteger, RequestAction) {
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier target:(id)target action:(SEL)action;
 
-- (void)update:(RequestModel *)req;
+- (void)update:(RequestModel *)req indexPath:(NSIndexPath *)indexPath;
 
 @end

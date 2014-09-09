@@ -24,9 +24,9 @@ enum BuddyRelation {
 enum BuddyRequestStatus {
     kBuddyRequestNoSent     = 0,                //请求未发送(用户未在线或其它原因)
     kBuddyRequestSent       = 1 << 0,           //1请求已发送 用户还未响应
-    kBuddyRequestReject     = 1 << 1,           //2用户拒绝添加为好友
+    kBuddyRequestRejected   = 1 << 1,           //2用户拒绝添加为好友
     kBuddyRequestAccepted   = 1 << 2            //3用户接受添加为好友
-                                                //拒绝并且未发送请求方kBuddyRequestNoSent|kBuddyRequestReject
+                                                //拒绝并且未发送请求方kBuddyRequestNoSent|kBuddyRequestRejected
                                                 //同意且发送到请求方kBuddyRequestSent|kBuddyRequestAccepted
 };
 

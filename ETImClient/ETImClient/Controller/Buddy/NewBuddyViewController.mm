@@ -8,7 +8,9 @@
 
 #import "NewBuddyViewController.h"
 #import "RequestTableViewCell.h"
+#import "IndexPathButton.h"
 #import "RequestModel.h"
+#import "BuddyModel.h"
 
 #include "Client.h"
 #include "Singleton.h"
@@ -71,7 +73,7 @@ using namespace etim::pub;
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
     
-    [cell update:self.reqList[indexPath.row]];
+    [cell update:self.reqList[indexPath.row] indexPath:indexPath];
     
     return cell;
 }
@@ -107,12 +109,22 @@ using namespace etim::pub;
 }
 
 ///同意拒绝
-- (void)responseToRequestAction:(UIButton *)sender {
+- (void)responseToRequestAction:(IndexPathButton *)sender {
     if (sender.tag == RequestActionReject) {
-        ETLOG(@"RequestActionReject");
+        RequestModel *req = self.reqList[sender.indexPath.row];
+        etim::Session *sess = [[Client sharedInstance] session];
+        sess->Clear();
+        sess->SetSendCmd(CMD_REJECT_ADD_BUDDY);
+        sess->SetAttribute("reqId", Convert::IntToString(req.reqId));
+        sess->SetAttribute("fromId", Convert::IntToString(req.from.userId));
+        [[Client sharedInstance] doAction:*sess];
+        /*
+        string reqId = s.GetAttribute("reqId");
+        string fromId = s.GetAttribute("fromId");
+         */
     } else if (sender.tag == RequestActionAccept) {
         ETLOG(@"RequestActionAccept");
-        UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"接受请求" delegate:self cancelButtonTitle:@"cancelButtonTitle" destructiveButtonTitle:@"destructiveButtonTitle" otherButtonTitles:@"other1", @"other2", nil];
+        UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"接受好友请求" delegate:self cancelButtonTitle:nil destructiveButtonTitle:@"取消" otherButtonTitles:@"同意好友请求", @"同意并添加对方为好友", nil];
         [actionSheet showInView:self.view];
     }
 }
@@ -121,7 +133,11 @@ using namespace etim::pub;
 #pragma mark actionsheet delegate
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
-    ETLOG(@"action sheet buttonIndex: %d", buttonIndex);
+    if (buttonIndex == 1) {
+        ETLOG(@"同意好友请求");
+    } else if (buttonIndex == 2) {
+        ETLOG(@"同意并添加对方为好友");
+    }
 }
 
 - (void)didReceiveMemoryWarning
