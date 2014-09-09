@@ -150,11 +150,15 @@ int Server::Start() {
  //循环找出超时session, 同时将此session踢出
  */
 void Server::KickOut() {
+    LOG_INFO<<"准备判断kickout";
     timeval now;
     gettimeofday(&now, NULL);
     if (!(now.tv_sec - lastKick_.tv_sec > HEART_BEAT_SECONDS)) {
+        LOG_INFO<<"kickout 周期未到";
         return;
     }
+    lastKick_ = now;
+    LOG_INFO<<"kickout 找出超时会话";
     
     for (iter it = sessions_.begin(); it != sessions_.end();) {
         Session *s = *it;

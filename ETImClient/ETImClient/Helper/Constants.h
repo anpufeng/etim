@@ -14,8 +14,10 @@
 extern const float kStatusBarHeight;
 extern const float kNavigationBarHeight;
 extern const float kTabBarHeight;
-
-
+extern const float kCommonBtnHeight44;
+extern const float kCommonCellHeight50;
+extern const float kCommonCellHeight44;
+extern const float kCommonCellHeight60;
 
 
 extern NSString *const kServerAddress;

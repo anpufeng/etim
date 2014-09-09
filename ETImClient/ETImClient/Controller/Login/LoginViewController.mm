@@ -91,7 +91,7 @@ using namespace etim::pub;
     _pwdTextField.delegate = self;
     [scrollView addSubview:_pwdTextField];
     
-    _loginBtn = [[UIButton alloc] initWithFrame:CGRectMake((RECT_WIDTH(self.view) - 290)/2.0f, RECT_MAX_Y(_pwdTextField) + 20, 290, 44)];
+    _loginBtn = [[UIButton alloc] initWithFrame:CGRectMake((RECT_WIDTH(self.view) - 290)/2.0f, RECT_MAX_Y(_pwdTextField) + 20, 290, kCommonBtnHeight44)];
     [_loginBtn setBackgroundImage:IMAGE_PNG(@"login_btn_blue_nor") forState:UIControlStateNormal];
     [_loginBtn setBackgroundImage:IMAGE_PNG(@"login_btn_blue_press") forState:UIControlStateHighlighted];
     [_loginBtn setBackgroundImage:IMAGE_PNG(@"login_btn_blue_press") forState:UIControlStateSelected];
@@ -99,7 +99,7 @@ using namespace etim::pub;
     
     [scrollView addSubview:_loginBtn];
     
-    _regBtn = [[UIButton alloc] initWithFrame:CGRectMake(RECT_WIDTH(self.view) - 100, RECT_HEIGHT(self.view) - 50, 80, 44)];
+    _regBtn = [[UIButton alloc] initWithFrame:CGRectMake(RECT_WIDTH(self.view) - 100, RECT_HEIGHT(self.view) - 50, 80, kCommonBtnHeight44)];
     [_regBtn setTitle:@"--注册--" forState:UIControlStateNormal];
     [_regBtn addTarget:self action:@selector(responseToRegBtn:) forControlEvents:UIControlEventTouchUpInside];
 

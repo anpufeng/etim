@@ -40,19 +40,19 @@ using namespace etim;
             result = @"请求已发送";
             break;
             
-        case (kBuddyRequestReject|kBuddyRequestNoSent):
+        case (kBuddyRequestReject):
             result = @"请求已拒绝未发送到请求方";
             break;
             
-        case (kBuddyRequestReject|kBuddyRequestSent):
+        case (kBuddyRequestRejectSent):
             result = @"请求已拒绝已发送请求方向";
             break;
             
-        case (kBuddyRequestAccepted|kBuddyRequestNoSent):
+        case (kBuddyRequestAccepted):
             result = @"请求已同意未发送到请求方";
             break;
             
-        case (kBuddyRequestAccepted|kBuddyRequestSent):
+        case (kBuddyRequestAcceptedSent):
             result = @"请求已同意已发送到请求方";
             break;
             

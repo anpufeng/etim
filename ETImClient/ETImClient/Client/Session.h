@@ -185,7 +185,7 @@ namespace etim {
         const std::list<IMUser> GetReqBuddys() const { return reqBuddys_; }
         void AddReqBuddy(IMUser &user) { reqBuddys_.push_back(user); }
         void ClearReqBuddys() { reqBuddys_.clear(); }
-        ///所有好友
+        ///所有请求好友记录
         const std::list<IMReq> GetAllReqs() const { return allReqs_; }
         void AddReq(IMReq &req) { allReqs_.push_back(req); }
         void ClearAllReqs() { allReqs_.clear(); }

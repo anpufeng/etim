@@ -18,7 +18,7 @@
 using namespace etim;
 using namespace etim::pub;
 
-@interface NewBuddyViewController ()
+@interface NewBuddyViewController () <UIActionSheetDelegate>
 
 @property (nonatomic, strong) NSMutableArray *reqList;
 
@@ -40,8 +40,9 @@ using namespace etim::pub;
                                              selector:@selector(responseToRetrieveAllBuddyRequestResult)
                                                  name:notiNameFromCmd(CMD_RETRIEVE_ALL_BUDDY_REQUEST)
                                                object:nil];
-    [self createUI];
+    self.refreshControl = nil;
     [[Client sharedInstance] pullWithCommand:CMD_RETRIEVE_ALL_BUDDY_REQUEST];
+    [self createUI];
 }
 
 - (void)createUI {
@@ -56,14 +57,18 @@ using namespace etim::pub;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 50;
+    return kCommonCellHeight60;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     static NSString *identifier = @"requestCell";
     RequestTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
     if (!cell) {
-        cell = [[RequestTableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:identifier];
+        cell = [[RequestTableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle
+                                           reuseIdentifier:identifier
+                                                    target:self
+                                                    action:@selector(responseToRequestAction:)];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
     
     [cell update:self.reqList[indexPath.row]];
@@ -72,21 +77,13 @@ using namespace etim::pub;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    /*
-    BuddyModel *buddy = self.buddyList[indexPath.row];
-    ChatViewController *vc = [[ChatViewController alloc] init];
-    [self.navigationController pushViewController:vc animated:YES];
-     */
+
 }
 
 
 
 #pragma mark -
 #pragma mark response
-
-- (void)responseToRefresh {
-    [[Client sharedInstance] pullWithCommand:CMD_RETRIEVE_ALL_BUDDY_REQUEST];
-}
 
 - (void)responseToRetrieveAllBuddyRequestResult {
     [self.refreshControl endRefreshing];
@@ -107,6 +104,24 @@ using namespace etim::pub;
     } else {
         [[TWMessageBarManager sharedInstance] showMessageWithTitle:@"获取好友请求列表错误" description:@"未知错误" type:TWMessageBarMessageTypeError];
     }
+}
+
+///同意拒绝
+- (void)responseToRequestAction:(UIButton *)sender {
+    if (sender.tag == RequestActionReject) {
+        ETLOG(@"RequestActionReject");
+    } else if (sender.tag == RequestActionAccept) {
+        ETLOG(@"RequestActionAccept");
+        UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"接受请求" delegate:self cancelButtonTitle:@"cancelButtonTitle" destructiveButtonTitle:@"destructiveButtonTitle" otherButtonTitles:@"other1", @"other2", nil];
+        [actionSheet showInView:self.view];
+    }
+}
+
+#pragma mark -
+#pragma mark actionsheet delegate
+
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
+    ETLOG(@"action sheet buttonIndex: %d", buttonIndex);
 }
 
 - (void)didReceiveMemoryWarning

@@ -91,7 +91,7 @@ using namespace etim::pub;
     if (indexPath.row == 0) {
         return 60;
     }
-    return 44;
+    return kCommonCellHeight44;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
