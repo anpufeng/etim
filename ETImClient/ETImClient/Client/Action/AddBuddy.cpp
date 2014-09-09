@@ -112,3 +112,57 @@ void SearchBuddy::DoRecv(etim::Session &s) {
 	s.SetErrorCode(error_code);
 	s.SetErrorMsg(error_msg);
 }
+
+void AcceptAddBuddy::DoSend(Session &s) {
+    OutStream jos;
+    
+	// 包头命令
+	uint16 cmd = CMD_ACCEPT_ADD_BUDDY;
+	jos<<cmd;
+    
+	// 预留两个字节包头len（包体+包尾长度）
+	size_t lengthPos = jos.Length();
+	jos.Skip(2);
+    
+	// 要查找的用户名
+    string reqId = s.GetAttribute("reqId");
+	string fromId = s.GetAttribute("fromId");
+    string addPeer = s.GetAttribute("addPeer");
+	jos<<reqId;
+    jos<<fromId;
+    jos<<addPeer;
+    
+	FillOutPackage(jos, lengthPos, cmd);
+    
+	s.Send(jos.Data(), jos.Length());	// 发送请求包
+}
+
+void AcceptAddBuddy::DoRecv(etim::Session &s) {
+    
+}
+
+void RejectAddBuddy::DoSend(Session &s) {
+    OutStream jos;
+    
+	// 包头命令
+	uint16 cmd = CMD_REJECT_ADD_BUDDY;
+	jos<<cmd;
+    
+	// 预留两个字节包头len（包体+包尾长度）
+	size_t lengthPos = jos.Length();
+	jos.Skip(2);
+    
+	// 要查找的用户名
+    string reqId = s.GetAttribute("reqId");
+	string fromId = s.GetAttribute("fromId");
+	jos<<reqId;
+    jos<<fromId;
+    
+	FillOutPackage(jos, lengthPos, cmd);
+    
+	s.Send(jos.Data(), jos.Length());	// 发送请求包
+}
+
+void RejectAddBuddy::DoRecv(etim::Session &s) {
+  
+}

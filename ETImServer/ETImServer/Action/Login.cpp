@@ -72,7 +72,7 @@ void Login::Execute(Session *s) {
 		error_code = ret;
         assert(error_code < kErrCodeMax);
 		strcpy(error_msg, gErrMsg[error_code].c_str());
-		LOG_INFO<<"登录出错: "<<error_msg <<name;
+		LOG_INFO<<"登录出错: "<<error_msg <<"name: "<<name;
 	}
     
 	OutStream jos;
@@ -129,7 +129,7 @@ void Logout::Execute(Session *s) {
 		error_code = ret;
         assert(error_code < kErrCodeMax);
 		strcpy(error_msg, gErrMsg[error_code].c_str());
-		LOG_ERROR<<"登出出错: "<<error_msg;
+		LOG_ERROR<<"登出出错: "<<error_msg<<" userId: "<<userId;
 	}
     
 	OutStream jos;

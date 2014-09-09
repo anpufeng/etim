@@ -79,7 +79,7 @@ void RetrieveBuddyList::Execute(Session *s) {
 		error_code = ret;
         assert(error_code < kErrCodeMax);
 		strcpy(error_msg, gErrMsg[error_code].c_str());
-		LOG_ERROR<<"查询好友列表:"<<error_msg<<" userId: "<<userId;
+		LOG_INFO<<"查询好友列表失败: "<<error_msg<<" userId: "<<userId;
         
         OutStream jos;
         // 包头命令
@@ -154,7 +154,7 @@ void RetrievePendingBuddyRequest::Execute(Session *s) {
 		error_code = ret;
         assert(error_code < kErrCodeMax);
 		strcpy(error_msg, gErrMsg[error_code].c_str());
-		LOG_ERROR<<"查询好友请求列表: "<<error_msg<<" userId: "<<userId;
+		LOG_INFO<<"查询好友请求列表失败: "<<error_msg<<" userId: "<<userId;
         
         OutStream jos;
         // 包头命令
@@ -208,17 +208,6 @@ void RetrieveAllBuddyRequest::Execute(Session *s) {
             jos<<cnt<<seq<<error_code;
             seq++;
             jos.WriteBytes(error_msg, ERR_MSG_LENGTH);
-            /*
-             struct IMReq {
-             int                 reqId;
-             IMUser              from;
-             BuddyRequestStatus  status;
-             std::string         reqTime;
-             std::string         reqSendTime;
-             std::string         actionTime;
-             std::string         actionSendTime;
-             };
-             */
             // 包体
             jos<<it->reqId;
             jos<<it->from.userId;
@@ -243,7 +232,7 @@ void RetrieveAllBuddyRequest::Execute(Session *s) {
 		error_code = ret;
         assert(error_code < kErrCodeMax);
 		strcpy(error_msg, gErrMsg[error_code].c_str());
-		LOG_ERROR<<"查询好友所有请求列表: "<<error_msg;
+		LOG_INFO<<"查询好友所有请求列表失败: "<<error_msg<<" userId: "<<userId;
         
         OutStream jos;
         // 包头命令

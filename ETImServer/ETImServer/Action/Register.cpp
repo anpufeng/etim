@@ -65,7 +65,7 @@ void Register::Execute(Session *s) {
          error_code = ret;
          assert(error_code < kErrCodeMax);
          strcpy(error_msg, gErrMsg[error_code].c_str());
-         LOG_INFO<<error_msg;
+         LOG_INFO<<"注册失败: "<<error_msg<<" 用户名: ", name;
      }
     
 	OutStream jos;
