@@ -7,6 +7,7 @@
 //
 
 #import "NewBuddyViewController.h"
+#import "BuddyViewController.h"
 #import "RequestTableViewCell.h"
 #import "IndexPathButton.h"
 #import "RequestModel.h"
@@ -22,7 +23,9 @@ using namespace etim::pub;
 
 @interface NewBuddyViewController () <UIActionSheetDelegate>
 
+@property (nonatomic, strong) BuddyViewController *buddyVC;
 @property (nonatomic, strong) NSMutableArray *reqList;
+@property (nonatomic, strong) RequestModel *actionRequest;
 
 @end
 
@@ -30,6 +33,14 @@ using namespace etim::pub;
 
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self name:notiNameFromCmd(CMD_RETRIEVE_ALL_BUDDY_REQUEST) object:nil];
+}
+
+- (id)initWithBuddyViewController:(BuddyViewController *)vc {
+    if (self = [super init]) {
+        self.buddyVC = vc;
+    }
+    
+    return self;
 }
 
 - (void)viewDidLoad
@@ -41,6 +52,10 @@ using namespace etim::pub;
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(responseToRetrieveAllBuddyRequestResult)
                                                  name:notiNameFromCmd(CMD_RETRIEVE_ALL_BUDDY_REQUEST)
+                                               object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(responseToRejectAddBuddyResult)
+                                                 name:notiNameFromCmd(CMD_REJECT_ADD_BUDDY)
                                                object:nil];
     self.refreshControl = nil;
     [[Client sharedInstance] pullWithCommand:CMD_RETRIEVE_ALL_BUDDY_REQUEST];
@@ -78,17 +93,10 @@ using namespace etim::pub;
     return cell;
 }
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-
-}
-
-
-
 #pragma mark -
 #pragma mark response
 
 - (void)responseToRetrieveAllBuddyRequestResult {
-    [self.refreshControl endRefreshing];
     etim::Session *sess = [[Client sharedInstance] session];
     if (sess->GetRecvCmd() == CMD_RETRIEVE_ALL_BUDDY_REQUEST) {
         if (sess->IsError()) {
@@ -108,15 +116,15 @@ using namespace etim::pub;
     }
 }
 
-///同意拒绝
+///同意/拒绝操作
 - (void)responseToRequestAction:(IndexPathButton *)sender {
+    self.actionRequest = self.reqList[sender.indexPath.row];
     if (sender.tag == RequestActionReject) {
-        RequestModel *req = self.reqList[sender.indexPath.row];
         etim::Session *sess = [[Client sharedInstance] session];
         sess->Clear();
         sess->SetSendCmd(CMD_REJECT_ADD_BUDDY);
-        sess->SetAttribute("reqId", Convert::IntToString(req.reqId));
-        sess->SetAttribute("fromId", Convert::IntToString(req.from.userId));
+        sess->SetAttribute("reqId", Convert::IntToString(self.actionRequest.reqId));
+        sess->SetAttribute("fromId", Convert::IntToString(self.actionRequest.from.userId));
         [[Client sharedInstance] doAction:*sess];
         /*
         string reqId = s.GetAttribute("reqId");
@@ -126,6 +134,38 @@ using namespace etim::pub;
         ETLOG(@"RequestActionAccept");
         UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"接受好友请求" delegate:self cancelButtonTitle:nil destructiveButtonTitle:@"取消" otherButtonTitles:@"同意好友请求", @"同意并添加对方为好友", nil];
         [actionSheet showInView:self.view];
+    }
+}
+
+///拒绝结果
+- (void)responseToRejectAddBuddyResult {
+    etim::Session *sess = [[Client sharedInstance] session];
+    if (sess->GetRecvCmd() == CMD_REJECT_ADD_BUDDY) {
+        if (sess->IsError()) {
+            [[TWMessageBarManager sharedInstance] showMessageWithTitle:@"拒绝好友请求错误" description:stdStrToNsStr(sess->GetErrorMsg()) type:TWMessageBarMessageTypeError];
+        } else {
+            self.actionRequest.status = kBuddyRequestRejected;
+            [self.tableView reloadData];
+        }
+    } else {
+        [[TWMessageBarManager sharedInstance] showMessageWithTitle:@"拒绝好友请求错误" description:@"未知错误" type:TWMessageBarMessageTypeError];
+    }
+}
+
+///同意结果
+- (void)responseToAcceptAddBuddyResult {
+    etim::Session *sess = [[Client sharedInstance] session];
+    if (sess->GetRecvCmd() == CMD_ACCEPT_ADD_BUDDY) {
+        if (sess->IsError()) {
+            [[TWMessageBarManager sharedInstance] showMessageWithTitle:@"拒绝好友请求错误" description:stdStrToNsStr(sess->GetErrorMsg()) type:TWMessageBarMessageTypeError];
+        } else {
+            self.actionRequest.status = kBuddyRequestAccepted;
+            [self.tableView reloadData];
+            //将此好友添加到好友列表
+            [self.buddyVC addBuddy:self.actionRequest.from];
+        }
+    } else {
+        [[TWMessageBarManager sharedInstance] showMessageWithTitle:@"拒绝好友请求错误" description:@"未知错误" type:TWMessageBarMessageTypeError];
     }
 }
 

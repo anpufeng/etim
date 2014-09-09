@@ -15,6 +15,8 @@
 
 }
 
+- (void)addBuddy:(BuddyModel *)buddy;
+
 @end
 
 

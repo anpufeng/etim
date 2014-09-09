@@ -91,6 +91,36 @@
             endingLineNumber = "417"
             landmarkName = "DataService::RejectAddBuddy(const std::string &amp;from, const std::string &amp;to, const std::string req)"
             landmarkType = "5">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "etim::DataService::RetrieveBuddyList(std::__1::basic_string&lt;char, std::__1::char_traits&lt;char&gt;, std::__1::allocator&lt;char&gt; &gt; const&amp;, bool, bool, std::__1::list&lt;etim::IMUser, std::__1::allocator&lt;etim::IMUser&gt; &gt;&amp;)"
+                  moduleName = "ETImServer"
+                  urlString = "file:///Users/ethan/Documents/Projects/etinstantmessage/ETImServer/ETImServer/Dao/DataService.cpp"
+                  timestampString = "431955245.056715"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "417"
+                  endingLineNumber = "417"
+                  offsetFromSymbolStart = "13186">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "etim::DataService::RetrieveBuddyList(std::__1::basic_string&lt;char, std::__1::char_traits&lt;char&gt;, std::__1::allocator&lt;char&gt; &gt; const&amp;, bool, bool, std::__1::list&lt;etim::IMUser, std::__1::allocator&lt;etim::IMUser&gt; &gt;&amp;)"
+                  moduleName = "ETImServer"
+                  urlString = "file:///Users/ethan/Documents/Projects/etinstantmessage/ETImServer/ETImServer/Dao/DataService.cpp"
+                  timestampString = "431955245.057147"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "417"
+                  endingLineNumber = "417"
+                  offsetFromSymbolStart = "13215">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy

@@ -33,7 +33,7 @@ using namespace std;
 }
 
 @property (nonatomic, strong) NSMutableArray *buddyList;
-///请求好友列表
+///请求好友列表(仅包括一些未处理的不同USER的request, 不同于NewBuddyViewController的reqList
 @property (nonatomic, strong) NSMutableArray *reqBuddyList;
 
 @end
@@ -69,6 +69,7 @@ using namespace std;
                                                    object:nil];
         
         [self addObserver:self forKeyPath:@"reqBuddyList" options:NSKeyValueObservingOptionNew context:nil];
+        [self addObserver:self forKeyPath:@"buddyList" options:NSKeyValueObservingOptionNew context:nil];
 
     }
     return self;
@@ -103,6 +104,10 @@ using namespace std;
     
     UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithCustomView:addBtn];
     self.navigationItem.rightBarButtonItems = @[spaceItem, item];
+}
+
+- (void)addBuddy:(BuddyModel *)buddy {
+    [self.buddyList addObject:buddy];
 }
 
 #pragma mark -
@@ -147,7 +152,6 @@ using namespace std;
         } else {
             //好友列表成功
             self.buddyList = [BuddyModel buddys:sess->GetBuddys()];
-            [self.tableView reloadData];
         }
     } else {
         [[TWMessageBarManager sharedInstance] showMessageWithTitle:@"获取好友列表错误" description:@"未知错误" type:TWMessageBarMessageTypeError];
@@ -230,6 +234,15 @@ using namespace std;
         } else {
             [badgeBtn setBadge:@"0"];
         }
+    }
+    
+    if ([keyPath isEqualToString:@"buddyList"]) {
+        if ([self.buddyList count]) {
+            self.tableView.backgroundView = nil;
+        } else {
+            self.tableView.backgroundView = [self emptyTableView:@"暂无好友"];
+        }
+         [self.tableView reloadData];
     }
 }
 - (void)didReceiveMemoryWarning

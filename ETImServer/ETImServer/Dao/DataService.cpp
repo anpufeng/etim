@@ -411,7 +411,7 @@ int DataService::AcceptAddBuddy(const std::string &from, const std::string &to, 
  @param from 请求方id
  @param to 本方id
  @param req request记录id
- @return kErrCode00 成功 kErrCode02数据库错误 kErrCode07 已经在对方好友列表(跟此条req无关,存在其它request表示已是好友)
+ @return kErrCode00 成功 kErrCode02数据库错误
  */
 int DataService::RejectAddBuddy(const std::string &from, const std::string &to, const std::string req) {
     MysqlDB db;
@@ -430,7 +430,8 @@ int DataService::RejectAddBuddy(const std::string &from, const std::string &to, 
         MysqlRecordset rs;
         rs = db.QuerySQL(ss.str().c_str());
         if (rs.GetRows())
-            return kErrCode07;
+            return kErrCode00;
+            //return kErrCode07;
         
         ss.clear();
         ss.str("");

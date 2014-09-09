@@ -145,7 +145,7 @@ void AcceptAddBuddy::Execute(Session *s) {
 	int ret;
     bool peer =  static_cast<bool>(Convert::StringToInt(addPeer));
     int userId = s->GetIMUser().userId;
-    IMUser fromUser;
+    IMUser fromUser;    // 用于返回最新请求最新信息(主要是否在线)
     ret = dao.AcceptAddBuddy(fromId, Convert::IntToString(userId), reqId, peer, fromUser);
 	if (ret == kErrCode00) {
 		LOG_INFO<<"接受用户 " <<(Convert::StringToInt(addPeer) ? "并且添加对方为好友" : "") <<

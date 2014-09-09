@@ -8,8 +8,12 @@
 
 #import "BackTableViewController.h"
 
+@class BuddyViewController;
+
 ///好友请求历史记录
 
 @interface NewBuddyViewController : BackTableViewController
+
+- (id)initWithBuddyViewController:(BuddyViewController *)vc;
 
 @end
