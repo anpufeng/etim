@@ -216,12 +216,12 @@ void RejectAddBuddy::Execute(Session *s) {
 	int ret = dao.RejectAddBuddy(fromId, Convert::IntToString(userId), reqId);
 
 	if (ret == kErrCode00) {
-		LOG_INFO<<"拒绝用户 " << "fromUserId: "<<fromId<< " toUserId: "<<userId<< " 添加好友成功";
+		LOG_INFO<<"拒绝用户 " << "fromUserId: "<<fromId<< " toUserId: "<<userId<< " 成功";
 	} else {
 		error_code = ret;
         assert(error_code < kErrCodeMax);
 		strcpy(error_msg, gErrMsg[error_code].c_str());
-        LOG_INFO<<"拒绝用户 " << "fromUserId: "<<fromId<< " toUserId: "<<userId<< " 添加好友失败: "<<error_msg;
+        LOG_INFO<<"拒绝用户 " << "fromUserId: "<<fromId<< " toUserId: "<<userId<< " 失败: "<<error_msg;
 	}
     
 	OutStream jos;

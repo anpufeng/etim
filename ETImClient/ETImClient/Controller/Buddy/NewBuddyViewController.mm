@@ -176,13 +176,14 @@ using namespace etim::pub;
      */
     etim::Session *sess = [[Client sharedInstance] session];
     sess->Clear();
-    sess->SetSendCmd(CMD_REJECT_ADD_BUDDY);
+    sess->SetSendCmd(CMD_ACCEPT_ADD_BUDDY);
     sess->SetAttribute("reqId", Convert::IntToString(self.actionRequest.reqId));
     sess->SetAttribute("fromId", Convert::IntToString(self.actionRequest.from.userId));
     if (buttonIndex == 1) {
         ETLOG(@"同意好友请求");
-        sess->SetAttribute("fromId", Convert::IntToString(self.actionRequest.from.userId));
+        sess->SetAttribute("addPeer", "0");
     } else if (buttonIndex == 2) {
+        sess->SetAttribute("addPeer", "1");
         ETLOG(@"同意并添加对方为好友");
     }
     [[Client sharedInstance] doAction:*sess];

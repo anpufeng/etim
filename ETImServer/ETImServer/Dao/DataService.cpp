@@ -167,26 +167,6 @@ int DataService::UserLogout(const std::string& userId, IMUser &user) {
  @return kErrCode00 成功 kErrCode02数据库错误 kErrCode04 无此用户
  */
 int DataService::UserSearch(const std::string &username, Session *s, IMUser &user) {
-    /*
-     admin (1) 到 admin2(2) 不是好友
-     admin (1)到 admin3(3) 是好友
-     select  u.*, s.status_name,
-     (select
-     case COUNT(1)
-     when 0 then '0'
-     else '1'
-     end
-     from friend f
-     left join request r
-     on f.req_id = r.req_id
-     where f.friend_from=1 and f.friend_to=u.user_id and r.req_status = 4
-     limit 1
-     )  'is_friend'
-     from user u
-     left join status s
-     on u.status_id = s.status_id
-     where u.username = 'admin3'
-     */
     IMUser sessionUser = s->GetIMUser();
     if (s->GetIMUser().username == username) {
         user = s->GetIMUser();
@@ -346,12 +326,22 @@ int DataService::AcceptAddBuddy(const std::string &from, const std::string &to, 
         " on r.req_id = f.req_id"<<
         " where f.friend_from = "<<from<<
         " and f.friend_to = "<<to<<
-        " and r.req_status in ("<<(kBuddyRequestNoSent|kBuddyRequestAccepted)<<", "<<(kBuddyRequestNoSent|kBuddyRequestSent)<<");";
+        " and r.req_status in ("<<(kBuddyRequestNoSent|kBuddyRequestAccepted)<<", "<<(kBuddyRequestSent|kBuddyRequestAccepted)<<");";
         MysqlRecordset rs;
         rs = db.QuerySQL(ss.str().c_str());
         if (rs.GetRows())
             return kErrCode07;
         
+        ss.clear();
+        ss.str("");
+        ss<<"select u.*, s.*"<<
+        " from user u"<<
+        " left join status s"<<
+        " on s.status_id = u.user_id"<<
+        " where u.user_id ="<<from;
+        rs = db.QuerySQL(ss.str().c_str());
+        if (!rs.GetRows())
+            return kErrCode04;
         string reg = rs.GetItem(0, "u.reg_time");
         fromUser.userId = Convert::StringToInt(to);
         fromUser.username = rs.GetItem(0, "u.username");
@@ -428,12 +418,11 @@ int DataService::RejectAddBuddy(const std::string &from, const std::string &to, 
         " on r.req_id = f.req_id"<<
         " where f.friend_from = "<<from<<
         " and f.friend_to = "<<to<<
-        " and r.req_status in ("<<(kBuddyRequestNoSent|kBuddyRequestRejected)<<", "<<(kBuddyRequestNoSent|kBuddyRequestRejected)<<");";
+        " and r.req_status in ("<<(kBuddyRequestNoSent|kBuddyRequestAccepted)<<", "<<(kBuddyRequestSent|kBuddyRequestAccepted)<<");";
         MysqlRecordset rs;
         rs = db.QuerySQL(ss.str().c_str());
         if (rs.GetRows())
-            return kErrCode00;
-            //return kErrCode07;
+            return kErrCode07;
         
         ss.clear();
         ss.str("");
@@ -566,19 +555,6 @@ int DataService::RetrieveBuddyList(const std::string &userId, const bool online,
  */
 
 int DataService::RetrieveUnreadMsg(const std::string &userId, std::list<IMMsg> &result) {
-    /*
-     select m.*, u_f.*, s.status_name, f.req_status from message m
-     left join user u_t
-     on u_t.user_id = m.msg_to
-     left join user u_f
-     on u_f.user_id = m.msg_from
-     left join status s
-     on u_f.status_id = s.status_id
-     left join friend f
-     on f.friend_from = 1 and f.friend_to = u_f.user_id
-     where u_t.user_id = 1 and m.sent = 0;
-
-     */
     MysqlDB db;
     try {
         db.Open();
@@ -635,20 +611,6 @@ int DataService::RetrieveUnreadMsg(const std::string &userId, std::list<IMMsg> &
  @return kErrCode00 成功 kErrCode02数据库错误 kErrCode06 无未读数据
  */
 int DataService::RetrievePendingBuddyRequest(const std::string &userId, std::list<IMUser> &result) {
-    /*
-     select u_f.*, s.status_name
-     from (user u_t, user u_f)
-     left join friend f
-     on f.friend_to = u_t.user_id
-     left join request r
-     on r.req_id = f.req_id
-     left join status s
-     on s.status_id = u_f.status_id
-     where u_t.user_id = 2(发给谁的)
-     and r.req_status = 0(未发送的)
-     and u_f.user_id = f.friend_from
-     */
-    
     MysqlDB db;
     try {
         db.Open();
@@ -713,19 +675,7 @@ int DataService::RetrievePendingBuddyRequest(const std::string &userId, std::lis
  @return kErrCode00 成功 kErrCode02数据库错误 kErrCode06 无请求数据
  */
 int DataService::RetrieveAllBuddyRequest(const std::string &userId, std::list<IMReq> &result) {
-    /*
-     select u_f.*, r.*, s.status_name
-     from (user u_t, user u_f)
-     left join friend f
-     on f.friend_to = u_t.user_id
-     left join request r
-     on r.req_id = f.req_id
-     left join status s
-     on s.status_id = u_f.status_id
-     where u_t.user_id = 2(发给谁的)
-     and u_f.user_id = f.friend_from
-     */
-    
+
     MysqlDB db;
     try {
         db.Open();
