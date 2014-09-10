@@ -33,7 +33,7 @@ using namespace etim::pub;
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(responseToRegResult) name:notiNameFromCmd(CMD_REGISTER) object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(responseToReg) name:notiNameFromCmd(CMD_REGISTER) object:nil];
     [self createUI];
 }
 
@@ -101,7 +101,7 @@ using namespace etim::pub;
 }
 
 ///注册结果
-- (void)responseToRegResult {
+- (void)responseToReg {
     [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
     etim::Session *sess = [[Client sharedInstance] session];
     if (sess->GetRecvCmd() == CMD_REGISTER) {

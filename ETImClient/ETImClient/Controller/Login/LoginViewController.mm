@@ -46,7 +46,7 @@ using namespace etim::pub;
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(responseToLoginResult) name:notiNameFromCmd(CMD_LOGIN) object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(responseToLogin) name:notiNameFromCmd(CMD_LOGIN) object:nil];
     [self createUI];
 }
 
@@ -132,7 +132,7 @@ using namespace etim::pub;
     [self.navigationController pushViewController:vc animated:YES];
 }
 
-- (void)responseToLoginResult {
+- (void)responseToLogin {
     [MBProgressHUD hideHUDForView:self.view animated:YES];
     etim::Session *sess = [[Client sharedInstance] session];
     if (sess->GetRecvCmd() == CMD_LOGIN) {

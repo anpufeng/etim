@@ -149,7 +149,7 @@ void RetrievePendingBuddyRequest::Execute(Session *s) {
             
             s->Send(jos.Data(), jos.Length());
         }
-        //TODO 发送后更新request状态
+        //发送后更新request状态(暂时在RetrievePendingBuddyRequest里面处理了)
 	} else {
 		error_code = ret;
         assert(error_code < kErrCodeMax);

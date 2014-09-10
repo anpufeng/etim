@@ -243,10 +243,12 @@ int DataService::UserSearch(const std::string &username, Session *s, IMUser &use
 
 /**
  添加好友请求
+ @param toId 用来返回对方的userId
+ @param reqId 用来返回request id
  @return kErrCode00 成功 kErrCode02数据库错误 kErrCode04 无此用户
  kErrCode05 已是好友
  */
-int DataService::RequestAddBuddy(const std::string &from, const std::string &to) {
+int DataService::RequestAddBuddy(const std::string &from, const std::string &to, std::string &toId, std::string &reqId) {
         MysqlDB db;
         try {
             db.Open();
@@ -262,7 +264,7 @@ int DataService::RequestAddBuddy(const std::string &from, const std::string &to)
                 return kErrCode04;
             
             std::string fromId = rs.GetItem(0, "uid.user_id");
-            std::string toId = rs.GetItem(1, "uid.user_id");
+            toId = rs.GetItem(1, "uid.user_id");
             
             ss.clear();
             ss.str("");
@@ -293,7 +295,7 @@ int DataService::RequestAddBuddy(const std::string &from, const std::string &to)
                 ");";
                 
                 unsigned long long ret = db.ExecSQL(ss.str().c_str());
-                unsigned long long reqId = db.GetInsertId();
+                reqId = Convert::IntToString(static_cast<int>(db.GetInsertId()));
                 
                 ss.clear();
                 ss.str("");
@@ -651,7 +653,7 @@ int DataService::RetrievePendingBuddyRequest(const std::string &userId, std::lis
     try {
         db.Open();
         stringstream ss;
-        ss<<"select u_f.*, s.status_name"<<
+        ss<<"select u_f.*, s.status_name, r.req_id"<<
         " from (user u_t, user u_f)"<<
         " left join friend f"<<
         " on f.friend_to = u_t.user_id"<<
@@ -667,18 +669,36 @@ int DataService::RetrievePendingBuddyRequest(const std::string &userId, std::lis
         if (rs.GetRows() < 1) {
             return kErrCode06;
         }
-        for (int i = 0; i < rs.GetRows(); ++i) {
-            IMUser user;
-            string reg = rs.GetItem(i, "u_f.reg_time");
-            user.userId = Convert::StringToInt(rs.GetItem(0, "u_f.user_id").c_str());
-            user.username = rs.GetItem(i, "u_f.username");
-            user.regDate = reg.substr(i, reg.find(" "));
-            user.signature = rs.GetItem(i, "u_f.signature");
-            user.gender = Convert::StringToInt(rs.GetItem(i, "u_f.gender"));
-            user.status = static_cast<BuddyStatus>(Convert::StringToInt(rs.GetItem(i, "u_f.status_id").c_str()));
-            user.statusName =  rs.GetItem(i, "s.status_name");
-            result.push_back(user);
+        
+        try {
+            db.StartTransaction();
+            for (int i = 0; i < rs.GetRows(); ++i) {
+                string reqId = rs.GetItem(i, "r.req_id");
+                ss.clear();
+                ss.str("");
+                ss<<"update request"<<
+                " set req_send_time = now()"<<
+                " where req_id = "<<reqId<<";";
+                
+                IMUser user;
+                string reg = rs.GetItem(i, "u_f.reg_time");
+                user.userId = Convert::StringToInt(rs.GetItem(0, "u_f.user_id").c_str());
+                user.username = rs.GetItem(i, "u_f.username");
+                user.regDate = reg.substr(i, reg.find(" "));
+                user.signature = rs.GetItem(i, "u_f.signature");
+                user.gender = Convert::StringToInt(rs.GetItem(i, "u_f.gender"));
+                user.status = static_cast<BuddyStatus>(Convert::StringToInt(rs.GetItem(i, "u_f.status_id").c_str()));
+                user.statusName =  rs.GetItem(i, "s.status_name");
+                result.push_back(user);
+            }
+            db.Commit();
+        } catch (Exception &e) {
+            LOG_ERROR<<e.what();
+            db.Rollback();
+            return kErrCode02;
         }
+        
+        
     } catch (Exception &e) {
         LOG_ERROR<<e.what();
         return kErrCode02;
@@ -761,8 +781,45 @@ int DataService::RetrieveAllBuddyRequest(const std::string &userId, std::list<IM
 更新用户状态
  */
 int DataService::UpdateUserStatus(const std::string &userId, BuddyStatus status) {
-    return 0;
+    return kErrCode00;
 }
-int SearchUserStatus(const std::string &username) {
-    return 0;
+int DataService::SearchUserStatus(const std::string &username) {
+    return kErrCode00;
+}
+
+///更新request_action 时间
+int DataService::UpdateActionSendTime(const::string reqId) {
+    MysqlDB db;
+    try {
+        db.Open();
+        stringstream ss;
+        ss<<"update request"<<
+        " set action_send_time = now()"<<
+        " where req_id = "<<reqId<<";";
+        unsigned long long ret = db.ExecSQL(ss.str().c_str());
+        (void)ret;
+    } catch (Exception &e) {
+        LOG_ERROR<<e.what();
+        return kErrCode02;
+    }
+
+    return kErrCode00;
+}
+
+///更新request_send 时间
+int DataService::UpdateRequestSendTime(const std::string reqId) {
+    MysqlDB db;
+    try {
+        db.Open();
+        stringstream ss;
+        ss<<"update request"<<
+        " set req_send_time = now()"<<
+        " where req_id = "<<reqId<<";";
+        unsigned long long ret = db.ExecSQL(ss.str().c_str());
+        (void)ret;
+    } catch (Exception &e) {
+        LOG_ERROR<<e.what();
+        return kErrCode02;
+    }
+    return kErrCode00;
 }

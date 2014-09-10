@@ -37,7 +37,7 @@ using namespace etim::pub;
     
     self.title = @"添加好友";
     [[NSNotificationCenter defaultCenter] addObserver:self
-                                              selector:@selector(responseToSearchBuddyResult)
+                                              selector:@selector(responseToSearchBuddy)
                                                   name:notiNameFromCmd(CMD_SEARCH_BUDDY)
                                                 object:nil];
     [self createUI];
@@ -78,7 +78,7 @@ using namespace etim::pub;
 #pragma mark -
 #pragma mark response
 
-- (void)responseToSearchBuddyResult {
+- (void)responseToSearchBuddy {
     [MBProgressHUD hideHUDForView:self.view animated:YES];
     etim::Session *sess = [[Client sharedInstance] session];
     if (sess->GetRecvCmd() == CMD_SEARCH_BUDDY) {

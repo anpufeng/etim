@@ -32,8 +32,15 @@ namespace etim {
              *@param from 源请求方userId
              *@param accept 是否接受
              *@param peer 是否添加对方为好友
+             *@param reqId request id
              **/
-            void PushBuddyRequestResult(const etim::IMUser &user, const int from, bool accept, bool peer, etim::DataService &dao);
+            void PushBuddyRequestResult(const etim::IMUser &user, const int from, bool accept, bool peer, const std::string &reqId, etim::DataService &dao);
+            /**
+             *@param user 本session的用户
+             *@param to 对方id
+             *@param reqId request id
+             */
+            void PushRequestAddBuddy(const etim::IMUser &user, const std::string &to, const std::string &reqId, etim::DataService &dao);
         };
         
     } //end action

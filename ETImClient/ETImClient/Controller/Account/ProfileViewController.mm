@@ -37,7 +37,7 @@ using namespace etim::pub;
         self.user = user;
         if (self.user.relation == kBuddyRelationStranger) {
             [[NSNotificationCenter defaultCenter] addObserver:self
-                                                     selector:@selector(responseToRequestAddBuddyResult)
+                                                     selector:@selector(responseToRequestAddBuddy)
                                                          name:notiNameFromCmd(CMD_REQUEST_ADD_BUDDY)
                                                        object:nil];
         }
@@ -172,7 +172,7 @@ using namespace etim::pub;
     }
 }
 
-- (void)responseToRequestAddBuddyResult {
+- (void)responseToRequestAddBuddy {
     [MBProgressHUD hideHUDForView:self.view animated:YES];
     etim::Session *sess = [[Client sharedInstance] session];
     if (sess->GetRecvCmd() == CMD_REQUEST_ADD_BUDDY) {

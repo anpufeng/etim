@@ -56,17 +56,26 @@ using namespace std;
         self.navigationItem.title = @"好友列表";
          [self.tabBarItem setFinishedSelectedImage:[UIImage imageNamed:@"tab_buddy_press"] withFinishedUnselectedImage:[UIImage imageNamed:@"tab_buddy_nor"]];
         [[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(responseToRetrieveBuddyListResult)
+                                                 selector:@selector(responseToRetrieveBuddyList)
                                                      name:notiNameFromCmd(CMD_RETRIEVE_BUDDY_LIST)
                                                    object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(responseToRetrievePedingBuddyRequestResult)
+                                                 selector:@selector(responseToRetrievePedingBuddyRequest)
                                                      name:notiNameFromCmd(CMD_RETRIEVE_PENDING_BUDDY_REQUEST)
                                                    object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(responseToPushBuddyStatusResult)
+                                                 selector:@selector(responseToPushBuddyStatus)
                                                      name:notiNameFromCmd(PUSH_BUDDY_UPDATE)
                                                    object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(responseToPushBuddyRequestResult)
+                                                     name:notiNameFromCmd(PUSH_BUDDY_REQUEST_RESULT)
+                                                   object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(responseToPushRequestAddBuddy)
+                                                     name:notiNameFromCmd(PUSH_REQUEST_ADD_BUDDY)
+                                                   object:nil];
+        
         
         [self addObserver:self forKeyPath:@"reqBuddyList" options:NSKeyValueObservingOptionNew context:nil];
         [self addObserver:self forKeyPath:@"buddyList" options:NSKeyValueObservingOptionNew context:nil];
@@ -143,7 +152,7 @@ using namespace std;
 #pragma mark response
 
 ///好友列表结果
-- (void)responseToRetrieveBuddyListResult {
+- (void)responseToRetrieveBuddyList {
     [self.refreshControl endRefreshing];
     etim::Session *sess = [[Client sharedInstance] session];
     if (sess->GetRecvCmd() == CMD_RETRIEVE_BUDDY_LIST) {
@@ -158,8 +167,8 @@ using namespace std;
     }
 }
 
-///好友请求结果
-- (void)responseToRetrievePedingBuddyRequestResult {
+///好友请求列表
+- (void)responseToRetrievePedingBuddyRequest {
     etim::Session *sess = [[Client sharedInstance] session];
     if (sess->GetRecvCmd() == CMD_RETRIEVE_PENDING_BUDDY_REQUEST) {
         if (sess->IsError()) {
@@ -174,7 +183,7 @@ using namespace std;
 }
 
 ///好友上线
-- (void)responseToPushBuddyStatusResult {
+- (void)responseToPushBuddyStatus {
     etim::Session *sess = [[Client sharedInstance] session];
     if (sess->GetRecvCmd() == PUSH_BUDDY_UPDATE) {
         if (sess->IsError()) {
@@ -196,16 +205,57 @@ using namespace std;
     }
 }
 
+///好友请求结果
+- (void)responseToPushBuddyRequestResult {
+    etim::Session *sess = [[Client sharedInstance] session];
+    if (sess->GetRecvCmd() == PUSH_BUDDY_REQUEST_RESULT) {
+        if (sess->IsError()) {
+            [[TWMessageBarManager sharedInstance] showMessageWithTitle:@"获取服务器推送用户请求结果错误" description:stdStrToNsStr(sess->GetErrorMsg()) type:TWMessageBarMessageTypeError];
+        } else {
+            [[TWMessageBarManager sharedInstance] showMessageWithTitle:@"获取服务器推送用户请求结果" description:@"成功" type:TWMessageBarMessageTypeSuccess];
+        }
+    } else {
+        [[TWMessageBarManager sharedInstance] showMessageWithTitle:@"获取服务器推送用户请求结果错误" description:@"未知错误" type:TWMessageBarMessageTypeError];
+    }
+}
+
+///有好友请求通知
+- (void)responseToPushRequestAddBuddy {
+    etim::Session *sess = [[Client sharedInstance] session];
+    if (sess->GetRecvCmd() == PUSH_REQUEST_ADD_BUDDY) {
+        if (sess->IsError()) {
+            [[TWMessageBarManager sharedInstance] showMessageWithTitle:@"获取服务器推送用户请求错误" description:stdStrToNsStr(sess->GetErrorMsg()) type:TWMessageBarMessageTypeError];
+        } else {
+            
+            [[TWMessageBarManager sharedInstance] showMessageWithTitle:@"获取服务器推送用户请求" description:@"成功" type:TWMessageBarMessageTypeSuccess];
+            NSMutableArray *tempReqList = [BuddyModel buddys:sess->GetReqBuddys()];
+            [self willChangeValueForKey:@"reqBuddyList"];
+            if (!self.reqBuddyList) {
+                self.reqBuddyList = [NSMutableArray array];
+                [self.reqBuddyList addObjectsFromArray:tempReqList];
+            } else {
+                [self.reqBuddyList addObjectsFromArray:tempReqList];
+                //TODO 去重(因为可能有多条请求来自同一人)
+            }
+            [self didChangeValueForKey:@"reqBuddyList"];
+        }
+    } else {
+        [[TWMessageBarManager sharedInstance] showMessageWithTitle:@"获取服务器推送用户请求错误" description:@"未知错误" type:TWMessageBarMessageTypeError];
+    }
+}
+
 - (void)responseToRefresh {
   
     [[Client sharedInstance] pullWithCommand:CMD_RETRIEVE_BUDDY_LIST];
 }
 
+///搜索添加好友
 - (void)responseToAddContactBtn:(UIButton *)sender {
     AddBuddyViewController *vc = [[AddBuddyViewController alloc] init];
     [self.navigationController pushViewController:vc animated:YES];
 }
 
+///
 - (void)responseToBuddyMenu:(BuddyTableHeaderView *)sender {
     switch (sender.menu) {
         case BuddyViewMenuNewFriend:

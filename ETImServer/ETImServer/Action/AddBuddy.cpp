@@ -42,7 +42,9 @@ void RequestAddBuddy::Execute(Session *s) {
 	// 实际的添加操作
 	DataService dao;
 	int ret;
-	ret = dao.RequestAddBuddy(fromName, toName);
+    string toId;
+    string reqId;
+	ret = dao.RequestAddBuddy(fromName, toName, toId, reqId);
 	if (ret == kErrCode00) {
         strcpy(error_msg, "请求发送成功");
 		LOG_INFO<<"添加好友请求成功 from: "<<fromName<<" to: "<<toName;
@@ -69,7 +71,12 @@ void RequestAddBuddy::Execute(Session *s) {
     FillOutPackage(jos, lengthPos, cmd);
     
 	s->Send(jos.Data(), jos.Length());
-    //TODO 如果用户在线要将请求信息发送给用户  (直接遍历vector, 此效率待改进)
+    if (ret == kErrCode00) {
+        
+        PushService push;
+        //通知在线请求方同意结果
+        push.PushRequestAddBuddy(s->GetIMUser(), toId, reqId, dao);
+    }
 }
 
 
@@ -145,7 +152,7 @@ void AcceptAddBuddy::Execute(Session *s) {
 	int ret;
     bool peer =  static_cast<bool>(Convert::StringToInt(addPeer));
     int userId = s->GetIMUser().userId;
-    IMUser fromUser;    // 用于返回最新请求最新信息(主要是否在线)
+    IMUser fromUser;    // 用于返回请求方最新资料(主要是否在线)
     ret = dao.AcceptAddBuddy(fromId, Convert::IntToString(userId), reqId, peer, fromUser);
 	if (ret == kErrCode00) {
 		LOG_INFO<<"接受用户 " <<(Convert::StringToInt(addPeer) ? "并且添加对方为好友" : "") <<
@@ -186,7 +193,7 @@ void AcceptAddBuddy::Execute(Session *s) {
         
         PushService push;
         //通知在线请求方同意结果
-        push.PushBuddyRequestResult(s->GetIMUser(), Convert::StringToInt(fromId), true, peer, dao);
+        push.PushBuddyRequestResult(s->GetIMUser(), Convert::StringToInt(fromId), true, peer, reqId, dao);
     }
 }
 
@@ -237,7 +244,7 @@ void RejectAddBuddy::Execute(Session *s) {
     if (ret == kErrCode00) {
         //通知在线请求方被拒绝结果
         PushService push;
-        push.PushBuddyRequestResult(s->GetIMUser(), Convert::StringToInt(fromId), false, false, dao);
+        push.PushBuddyRequestResult(s->GetIMUser(), Convert::StringToInt(fromId), false, false, reqId, dao);
 
     }
 }

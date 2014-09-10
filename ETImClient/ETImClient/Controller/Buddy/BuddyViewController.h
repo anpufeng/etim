@@ -9,6 +9,8 @@
 #import "BaseViewController.h"
 #import "BaseTableViewController.h"
 
+@class BuddyModel;
+
 ///好友页面
 
 @interface BuddyViewController : BaseTableViewController <UITableViewDataSource, UITableViewDelegate> {

@@ -43,8 +43,9 @@ namespace etim {
 #define PUSH_BUDDY_UPDATE                       0X0100      //服务器往客户推端送好友上线下线个人信息等变化
 #define PUSH_BUDDY_MSG                          0X0101      //服务器往客户推端送好友消息
 #define PUSH_BUDDY_REQUEST_RESULT               0X0102      //往客户端推送好友请求结果
+#define PUSH_REQUEST_ADD_BUDDY                  0X0103      //往客户端推送好友请求
     
-    static const std::string gCmdNoti[CMD_RETRIEVE_ALL_BUDDY_REQUEST+1] = {
+    static const std::string gCmdNoti[CMD_REJECT_ADD_BUDDY+1] = {
         "CMD_RETRIEVE_EVENT", "CMD_REGISTER", "CMD_LOGIN", /*0x0002*/
         "CMD_LOGOUT", "CMD_HEART_BEAT", "CMD_SEND_MSG",     /*0x0005*/
         "CMD_REQUEST_ADD_BUDDY", "CMD_SWITCH_STATUS", "CMD_RETRIEVE_BUDDY_LIST", /*0x0008*/
@@ -52,8 +53,9 @@ namespace etim {
         "CMD_UNREAD", "CMD_RETRIEVE_ALL_BUDDY_REQUEST"
     };
     
-    static const std::string gPushNoti[PUSH_BUDDY_REQUEST_RESULT-PUSH_BUDDY_UPDATE+1] = {
-        "PUSH_BUDDY_UPDATE", "PUSH_BUDDY_MSG", "PUSH_BUDDY_REQUEST_RESULT"
+    static const std::string gPushNoti[PUSH_REQUEST_ADD_BUDDY-PUSH_BUDDY_UPDATE+1] = {
+        "PUSH_BUDDY_UPDATE", "PUSH_BUDDY_MSG", "PUSH_BUDDY_REQUEST_RESULT", /*0X0102*/
+        "PUSH_REQUEST_ADD_BUDDY"
     };
     
 #define ERR_MSG_LENGTH      30              // 错误消息定长

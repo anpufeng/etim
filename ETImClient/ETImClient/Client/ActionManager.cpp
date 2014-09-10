@@ -16,6 +16,7 @@
 #include "AddBuddy.h"
 #include "SwitchStatus.h"
 #include "RetrieveBuddy.h"
+#include "RecvPush.h"
 #include "Unread.h"
 #include "InStream.h"
 
@@ -44,6 +45,8 @@ ActionManager::ActionManager()
     actions_[CMD_REJECT_ADD_BUDDY] =  new RejectAddBuddy;
     
     actions_[PUSH_BUDDY_UPDATE] = new PushBuddyUpdate;
+    actions_[PUSH_BUDDY_REQUEST_RESULT] = new PushBuddyRequest;
+    actions_[PUSH_REQUEST_ADD_BUDDY] = new PushRequestAddBuddy;
     
 }
 
@@ -77,7 +80,7 @@ bool ActionManager::RecvPacket(Session &s)
 	if (actions_.find(cmd) != actions_.end()) {
 		actions_[cmd]->DoRecv(s);
 		return true;
-	}
+	} 
     
     LOG_FATAL<<"没有对应的命令处理类";
     return false;

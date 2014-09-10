@@ -84,6 +84,7 @@
 		AA6D73C919B16B9C006DBC6D /* add_icon_friend@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AA6D73C819B16B9C006DBC6D /* add_icon_friend@2x.png */; };
 		AA6D73D019B1E739006DBC6D /* BadgeButton.m in Sources */ = {isa = PBXBuildFile; fileRef = AA6D73CF19B1E739006DBC6D /* BadgeButton.m */; };
 		AA7EB9981992674D000BD838 /* Client.mm in Sources */ = {isa = PBXBuildFile; fileRef = AA7EB9971992674D000BD838 /* Client.mm */; };
+		AA9106CC19C045590008926E /* RecvPush.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AA9106CA19C045580008926E /* RecvPush.cpp */; };
 		AA9131E519990F3900524E8D /* 37x-Checkmark.png in Resources */ = {isa = PBXBuildFile; fileRef = AA9131E319990F3900524E8D /* 37x-Checkmark.png */; };
 		AA9131E619990F3900524E8D /* 37x-Checkmark@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AA9131E419990F3900524E8D /* 37x-Checkmark@2x.png */; };
 		AA9131ED199BA98B00524E8D /* BaseTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA9131EC199BA98B00524E8D /* BaseTableViewController.m */; };
@@ -245,6 +246,8 @@
 		AA6D73CF19B1E739006DBC6D /* BadgeButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BadgeButton.m; sourceTree = "<group>"; };
 		AA7EB9961992674D000BD838 /* Client.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Client.h; sourceTree = "<group>"; };
 		AA7EB9971992674D000BD838 /* Client.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = Client.mm; sourceTree = "<group>"; };
+		AA9106CA19C045580008926E /* RecvPush.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = RecvPush.cpp; sourceTree = "<group>"; };
+		AA9106CB19C045590008926E /* RecvPush.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecvPush.h; sourceTree = "<group>"; };
 		AA9131E319990F3900524E8D /* 37x-Checkmark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "37x-Checkmark.png"; sourceTree = "<group>"; };
 		AA9131E419990F3900524E8D /* 37x-Checkmark@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "37x-Checkmark@2x.png"; sourceTree = "<group>"; };
 		AA9131EB199BA98B00524E8D /* BaseTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseTableViewController.h; sourceTree = "<group>"; };
@@ -466,6 +469,8 @@
 				AA588BAC1990B4EC00F08821 /* SwitchStatus.h */,
 				AAF4969E19B47585008A9372 /* Unread.cpp */,
 				AAF4969F19B47585008A9372 /* Unread.h */,
+				AA9106CA19C045580008926E /* RecvPush.cpp */,
+				AA9106CB19C045590008926E /* RecvPush.h */,
 			);
 			path = Action;
 			sourceTree = "<group>";
@@ -968,6 +973,7 @@
 				AA59F03C198A197B009FD449 /* UIImage+Additions.m in Sources */,
 				AA588BB21990B4EC00F08821 /* RetrieveBuddy.cpp in Sources */,
 				AA665F7F19A8E9B100FCF5C6 /* LeftMarginTextField.m in Sources */,
+				AA9106CC19C045590008926E /* RecvPush.cpp in Sources */,
 				AA588BAD1990B4EC00F08821 /* Action.cpp in Sources */,
 				AA98798219B6E281002AE2AF /* OnlineViewController.mm in Sources */,
 				AA665F7C19A8E66300FCF5C6 /* TextFieldTableViewCell.m in Sources */,

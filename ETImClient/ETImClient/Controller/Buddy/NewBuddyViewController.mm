@@ -50,11 +50,11 @@ using namespace etim::pub;
     
     self.title = @"新朋友";
     [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(responseToRetrieveAllBuddyRequestResult)
+                                             selector:@selector(responseToRetrieveAllBuddyRequest)
                                                  name:notiNameFromCmd(CMD_RETRIEVE_ALL_BUDDY_REQUEST)
                                                object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(responseToRejectAddBuddyResult)
+                                             selector:@selector(responseToRejectAddBuddy)
                                                  name:notiNameFromCmd(CMD_REJECT_ADD_BUDDY)
                                                object:nil];
     self.refreshControl = nil;
@@ -96,7 +96,7 @@ using namespace etim::pub;
 #pragma mark -
 #pragma mark response
 
-- (void)responseToRetrieveAllBuddyRequestResult {
+- (void)responseToRetrieveAllBuddyRequest {
     etim::Session *sess = [[Client sharedInstance] session];
     if (sess->GetRecvCmd() == CMD_RETRIEVE_ALL_BUDDY_REQUEST) {
         if (sess->IsError()) {
@@ -126,10 +126,6 @@ using namespace etim::pub;
         sess->SetAttribute("reqId", Convert::IntToString(self.actionRequest.reqId));
         sess->SetAttribute("fromId", Convert::IntToString(self.actionRequest.from.userId));
         [[Client sharedInstance] doAction:*sess];
-        /*
-        string reqId = s.GetAttribute("reqId");
-        string fromId = s.GetAttribute("fromId");
-         */
     } else if (sender.tag == RequestActionAccept) {
         ETLOG(@"RequestActionAccept");
         UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"接受好友请求" delegate:self cancelButtonTitle:nil destructiveButtonTitle:@"取消" otherButtonTitles:@"同意好友请求", @"同意并添加对方为好友", nil];
@@ -138,7 +134,7 @@ using namespace etim::pub;
 }
 
 ///拒绝结果
-- (void)responseToRejectAddBuddyResult {
+- (void)responseToRejectAddBuddy {
     etim::Session *sess = [[Client sharedInstance] session];
     if (sess->GetRecvCmd() == CMD_REJECT_ADD_BUDDY) {
         if (sess->IsError()) {
@@ -153,7 +149,7 @@ using namespace etim::pub;
 }
 
 ///同意结果
-- (void)responseToAcceptAddBuddyResult {
+- (void)responseToAcceptAddBuddy {
     etim::Session *sess = [[Client sharedInstance] session];
     if (sess->GetRecvCmd() == CMD_ACCEPT_ADD_BUDDY) {
         if (sess->IsError()) {
@@ -173,11 +169,23 @@ using namespace etim::pub;
 #pragma mark actionsheet delegate
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
+    /*
+     string reqId = s.GetAttribute("reqId");
+     string fromId = s.GetAttribute("fromId");
+     string addPeer = s.GetAttribute("addPeer");
+     */
+    etim::Session *sess = [[Client sharedInstance] session];
+    sess->Clear();
+    sess->SetSendCmd(CMD_REJECT_ADD_BUDDY);
+    sess->SetAttribute("reqId", Convert::IntToString(self.actionRequest.reqId));
+    sess->SetAttribute("fromId", Convert::IntToString(self.actionRequest.from.userId));
     if (buttonIndex == 1) {
         ETLOG(@"同意好友请求");
+        sess->SetAttribute("fromId", Convert::IntToString(self.actionRequest.from.userId));
     } else if (buttonIndex == 2) {
         ETLOG(@"同意并添加对方为好友");
     }
+    [[Client sharedInstance] doAction:*sess];
 }
 
 - (void)didReceiveMemoryWarning

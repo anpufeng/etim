@@ -78,7 +78,7 @@ void PushService::PushBuddyUpdate(const etim::IMUser &user, etim::DataService &d
     }
 }
 
-void PushService::PushBuddyRequestResult(const etim::IMUser &user, const int from, bool accept, bool peer, etim::DataService &dao) {
+void PushService::PushBuddyRequestResult(const etim::IMUser &user, const int from, bool accept, bool peer, const std::string &reqId, etim::DataService &dao) {
     uint16 cnt = 0;
 	uint16 seq = 0;
     uint16 cmd = PUSH_BUDDY_REQUEST_RESULT;;
@@ -116,8 +116,51 @@ void PushService::PushBuddyRequestResult(const etim::IMUser &user, const int fro
         FillOutPackage(jos, lengthPos, cmd);
         
         s->Send(jos.Data(), jos.Length());
+        //更新ACTION SEND time
+        dao.UpdateActionSendTime(reqId);
         LOG_INFO<<"通知在线请求方我的结果, userId: "<<user.userId<<" 请求方 from: "<<from;
     } else {
         LOG_INFO<<"无在线请求方要通知 userId: "<<user.userId<<" 请求方 from: "<<from;
     }
+}
+
+void PushService::PushRequestAddBuddy(const etim::IMUser &user, const std::string &to, const std::string &reqId, etim::DataService &dao) {
+    uint16 cnt = 0;
+	uint16 seq = 0;
+    uint16 cmd = PUSH_REQUEST_ADD_BUDDY;
+    Session *s;
+    int16 error_code = kErrCode00;
+	char error_msg[ERR_MSG_LENGTH+1] = {0};
+    s = Singleton<Server>::Instance().FindSession(Convert::StringToInt(to));
+    if (s) {
+        OutStream jos;
+        // 包头命令
+        jos<<cmd;
+        size_t lengthPos = jos.Length();
+        jos.Skip(2);///留出2个字节空间用来后面存储包体长度+包尾(8)的长度
+        // 包头cnt、seq、error_code、error_msg
+        jos<<cnt<<seq<<error_code;
+        jos.WriteBytes(error_msg, ERR_MSG_LENGTH);
+        
+        // 包体
+        jos<<user.userId;
+        jos<<user.username;
+        jos<<user.regDate;
+        jos<<user.signature;
+        jos<<user.gender;
+//        jos<<user.relation;
+        jos<<kBuddyRelationStranger;
+        jos<<user.status;
+        jos<<user.statusName;
+        
+        FillOutPackage(jos, lengthPos, cmd);
+        
+        s->Send(jos.Data(), jos.Length());
+        //更新request_send发出时间
+        dao.UpdateRequestSendTime(reqId);
+        LOG_INFO<<"通知在线请求方我请求加为好友, userId: "<<user.userId<<" 对方 to: "<<to;
+    } else {
+        LOG_INFO<<"对方不在线, 对方登录后会从服务器拉取请求信息, userId: "<<user.userId<<" 对方 to: "<<to;
+    }
+
 }
