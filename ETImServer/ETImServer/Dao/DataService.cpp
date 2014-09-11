@@ -253,8 +253,8 @@ int DataService::RequestAddBuddy(const std::string &from, const std::string &to,
             " from friend, request"<<
             " where friend_from ='" <<fromId<<"'"<<
             " and friend_to = '"<<toId<<"'"<<
-            " and req_status = " << (kBuddyRequestAccepted|kBuddyRequestNoSent) <<
-            " or req_status = "<<(kBuddyRequestAccepted|kBuddyRequestSent)<<";";
+            " and req_status in (" << (kBuddyRequestAccepted|kBuddyRequestNoSent) <<","<<
+            (kBuddyRequestAccepted|kBuddyRequestSent)<<");";
             
             rs = db.QuerySQL(ss.str().c_str());
             if (rs.GetRows())
@@ -355,6 +355,7 @@ int DataService::AcceptAddBuddy(const std::string &from, const std::string &to, 
         ss.str("");
         //更新
         if (peer) {
+            //TODO 查询是否from已经是TO的好友 与上面那个相反 如果已是好友不需要理会PEER
             try {
                 db.StartTransaction();
                 //request table
@@ -366,6 +367,7 @@ int DataService::AcceptAddBuddy(const std::string &from, const std::string &to, 
                 "now(), "<<
                 "now() "<<
                 ");";
+                unsigned long long ret = db.ExecSQL(ss.str().c_str());
                 
                 //friend table
                 unsigned long long reqId = db.GetInsertId();
@@ -377,6 +379,7 @@ int DataService::AcceptAddBuddy(const std::string &from, const std::string &to, 
                 from<<", "<<
                 reqId<<
                 ");";
+                ret = db.ExecSQL(ss.str().c_str());
                 db.Commit();
             } catch (Exception &e) {
                 db.Rollback();

@@ -156,13 +156,13 @@ void AcceptAddBuddy::Execute(Session *s) {
     ret = dao.AcceptAddBuddy(fromId, Convert::IntToString(userId), reqId, peer, fromUser);
 	if (ret == kErrCode00) {
 		LOG_INFO<<"接受用户 " <<(Convert::StringToInt(addPeer) ? "并且添加对方为好友" : "") <<
-                "fromUserId: "<<fromId<< "toUserId: "<<userId<< " 成功";
+                "fromUserId: "<<fromId<< " toUserId: "<<userId<< " 成功";
 	} else {
 		error_code = ret;
         assert(error_code < kErrCodeMax);
 		strcpy(error_msg, gErrMsg[error_code].c_str());
         LOG_INFO<<"接受用户 " <<(Convert::StringToInt(addPeer) ? "并且添加对方为好友" : "") <<
-        "fromUserId: "<<fromId<< "toUserId: "<<userId<< " 失败: "<<error_msg;
+        "fromUserId: "<<fromId<< " toUserId: "<<userId<< " 失败: "<<error_msg;
 	}
     
 	OutStream jos;

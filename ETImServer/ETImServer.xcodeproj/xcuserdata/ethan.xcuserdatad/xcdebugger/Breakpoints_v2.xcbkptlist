@@ -20,22 +20,6 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ETImServer/Dao/DataService.cpp"
-            timestampString = "432050337.952884"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "254"
-            endingLineNumber = "254"
-            landmarkName = "DataService::RequestAddBuddy(const std::string &amp;from, const std::string &amp;to, std::string &amp;toId, std::string &amp;reqId)"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "ETImServer/Dao/DataService.cpp"
             timestampString = "431762813.820442"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
@@ -52,11 +36,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ETImServer/Dao/DataService.cpp"
-            timestampString = "432051472.805064"
+            timestampString = "432141708.962004"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "407"
-            endingLineNumber = "407">
+            startingLineNumber = "410"
+            endingLineNumber = "410">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -66,11 +50,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ETImServer/Dao/DataService.cpp"
-            timestampString = "432051472.805064"
+            timestampString = "432141708.962004"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "422"
-            endingLineNumber = "422"
+            startingLineNumber = "425"
+            endingLineNumber = "425"
             landmarkName = "DataService::RejectAddBuddy(const std::string &amp;from, const std::string &amp;to, const std::string req)"
             landmarkType = "5">
          </BreakpointContent>
@@ -82,11 +66,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ETImServer/Dao/DataService.cpp"
-            timestampString = "432051472.805064"
+            timestampString = "432141708.962004"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "428"
-            endingLineNumber = "428"
+            startingLineNumber = "431"
+            endingLineNumber = "431"
             landmarkName = "DataService::RejectAddBuddy(const std::string &amp;from, const std::string &amp;to, const std::string req)"
             landmarkType = "5">
          </BreakpointContent>
@@ -97,45 +81,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "ETImServer/Action/PushService.cpp"
-            timestampString = "431949670.179917"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "83"
-            endingLineNumber = "83"
-            landmarkName = "PushService::PushBuddyRequestResult(const etim::IMUser &amp;user, const int from, bool accept, bool peer, const std::string &amp;reqId, etim::DataService &amp;dao)"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
             filePath = "ETImServer/Dao/DataService.cpp"
-            timestampString = "432050814.369333"
+            timestampString = "432141708.962004"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "315"
-            endingLineNumber = "315"
+            startingLineNumber = "359"
+            endingLineNumber = "359"
             landmarkName = "DataService::AcceptAddBuddy(const std::string &amp;from, const std::string &amp;to, const std::string req, const bool peer, IMUser &amp;fromUser)"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "ETImServer/Action/RetrieveBuddy.cpp"
-            timestampString = "432103429.67489"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "72"
-            endingLineNumber = "72"
-            landmarkName = "RetrieveBuddyList::Execute(Session *s)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
