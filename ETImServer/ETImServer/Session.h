@@ -124,6 +124,7 @@ namespace etim {
         ///获取上次操作时间
         const timeval GetLastTime() const { return lastTime_; }
         void SetLastTime(timeval &last) { lastTime_ = last; }
+        bool operator==(const Session &rhs) const { return user_.userId == rhs.GetIMUser().userId; };
         
     private:
         std::auto_ptr<Socket> socket_;

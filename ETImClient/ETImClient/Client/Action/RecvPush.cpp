@@ -36,10 +36,6 @@ void PushBuddyUpdate::DoRecv(etim::Session &s) {
 	char error_msg[ERR_MSG_LENGTH+1];
 	jis.ReadBytes(error_msg, ERR_MSG_LENGTH);
     
-    
-    s.SetErrorCode(error_code);
-	s.SetErrorMsg(error_msg);
-    
     if (error_code == kErrCode00) {
         IMUser user;
         int rel;
@@ -58,14 +54,16 @@ void PushBuddyUpdate::DoRecv(etim::Session &s) {
         
         s.SetStatusChangedBuddy(user);
     }
+    s.SetErrorCode(error_code);
+	s.SetErrorMsg(error_msg);
 }
 
 
-void PushBuddyRequest::DoSend(Session& s) {
+void PushBuddyRequestResult::DoSend(Session& s) {
     //empty
 }
 
-void PushBuddyRequest::DoRecv(etim::Session &s) {
+void PushBuddyRequestResult::DoRecv(etim::Session &s) {
 	InStream jis((const char*)s.GetResponsePack(), s.GetResponsePack()->head.len+sizeof(ResponseHead));
 	// 跳过cmd、len
 	jis.Skip(4);
@@ -76,10 +74,6 @@ void PushBuddyRequest::DoRecv(etim::Session &s) {
     
 	char error_msg[ERR_MSG_LENGTH+1];
 	jis.ReadBytes(error_msg, ERR_MSG_LENGTH);
-    
-    
-    s.SetErrorCode(error_code);
-	s.SetErrorMsg(error_msg);
     
     if (error_code == kErrCode00) {
         IMUser user;
@@ -100,8 +94,14 @@ void PushBuddyRequest::DoRecv(etim::Session &s) {
         
         user.relation = static_cast<BuddyRelation>(rel);
         user.status = static_cast<BuddyStatus>(status);
-        //TODO 更新请求通知 如果接受还要更新好友列表
+        if (accept) {
+            //如果同意添加到好友列表
+            s.ClearBuddys();
+            s.AddBuddy(user);
+        }
     }
+    s.SetErrorCode(error_code);
+	s.SetErrorMsg(error_msg);
 }
 
 void PushRequestAddBuddy::DoSend(Session& s) {
@@ -120,10 +120,6 @@ void PushRequestAddBuddy::DoRecv(etim::Session &s) {
 	char error_msg[ERR_MSG_LENGTH+1];
 	jis.ReadBytes(error_msg, ERR_MSG_LENGTH);
     
-    
-    s.SetErrorCode(error_code);
-	s.SetErrorMsg(error_msg);
-    
     if (error_code == kErrCode00) {
         IMUser user;
         int rel;
@@ -139,7 +135,11 @@ void PushRequestAddBuddy::DoRecv(etim::Session &s) {
         
         user.relation = static_cast<BuddyRelation>(rel);
         user.status = static_cast<BuddyStatus>(status);
+        //清空并新加一个通知对象, 同时去重
         s.ClearReqBuddys();
         s.AddReqBuddy(user);
     }
+    
+    s.SetErrorCode(error_code);
+	s.SetErrorMsg(error_msg);
 }

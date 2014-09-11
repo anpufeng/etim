@@ -19,6 +19,8 @@
 
 #include <sstream>
 #include <iomanip>
+#include <sys/time.h>
+#include <time.h>
 
 using namespace etim;
 using namespace etim::pub;
@@ -87,14 +89,16 @@ void Login::Execute(Session *s) {
 	jos.WriteBytes(error_msg, ERR_MSG_LENGTH);
     
 	// 包体
-    jos<<user.userId;
-	jos<<user.username;
-    jos<<user.regDate;
-    jos<<user.signature;
-    jos<<user.gender;
-    jos<<user.relation;
-    jos<<user.status;
-    jos<<user.statusName;
+    if (ret == kErrCode00) {
+        jos<<user.userId;
+        jos<<user.username;
+        jos<<user.regDate;
+        jos<<user.signature;
+        jos<<user.gender;
+        jos<<user.relation;
+        jos<<user.status;
+        jos<<user.statusName;
+    }
     
     FillOutPackage(jos, lengthPos, cmd);
      
@@ -122,7 +126,7 @@ void Logout::Execute(Session *s) {
 	DataService dao;
     IMUser user;
 	int ret = kErrCode00;
-    ret = dao.UserLogout(userId, user);
+    ret = dao.UserLogout(userId, user); ///数据库已更新为offline
 	if (ret == kErrCode00) {
 		LOG_INFO<<"登出成功 userId: "<<userId;
 	} else  {
@@ -152,5 +156,12 @@ void Logout::Execute(Session *s) {
         PushService push;
         push.PushBuddyUpdate(user, dao);
     }
+    
+    //删除此会话通过KICKOUT删除 如果此时删除 会影响正在循环的server中的vector<Session *> sessions_;
+    //同时也会抛出recv 0异常在SERVER中删除
+    timeval now;
+    gettimeofday(&now, NULL);
+    now.tv_sec = now.tv_sec - HEART_BEAT_SECONDS * 30;
+    s->SetLastTime(now);
 }
 

@@ -75,10 +75,6 @@ void Login::DoRecv(etim::Session &s) {
 	char error_msg[ERR_MSG_LENGTH+1];
 	jis.ReadBytes(error_msg, ERR_MSG_LENGTH);
     
-    
-    s.SetErrorCode(error_code);
-	s.SetErrorMsg(error_msg);
-    
     if (error_code == kErrCode00) {
         IMUser user;
         int rel;
@@ -94,9 +90,10 @@ void Login::DoRecv(etim::Session &s) {
         
         user.relation = static_cast<BuddyRelation>(rel);
         user.status = static_cast<BuddyStatus>(status);
-        
         s.SetIMUser(user);
     }
+    s.SetErrorCode(error_code);
+	s.SetErrorMsg(error_msg);
 }
 
 void Logout::DoSend(Session& s) {

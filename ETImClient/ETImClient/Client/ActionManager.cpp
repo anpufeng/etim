@@ -45,7 +45,7 @@ ActionManager::ActionManager()
     actions_[CMD_REJECT_ADD_BUDDY] =  new RejectAddBuddy;
     
     actions_[PUSH_BUDDY_UPDATE] = new PushBuddyUpdate;
-    actions_[PUSH_BUDDY_REQUEST_RESULT] = new PushBuddyRequest;
+    actions_[PUSH_BUDDY_REQUEST_RESULT] = new PushBuddyRequestResult;
     actions_[PUSH_REQUEST_ADD_BUDDY] = new PushRequestAddBuddy;
     
 }

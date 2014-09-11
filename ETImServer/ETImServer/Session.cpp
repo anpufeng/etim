@@ -13,6 +13,7 @@
 #include "MD5.h"
 #include "Idea.h"
 #include "ActionManager.h"
+#include "DataService.h"
 
 using namespace etim;
 using namespace etim::pub;
@@ -22,6 +23,11 @@ Session::Session(std::auto_ptr<Socket> &socket) : socket_(socket) {
 }
 
 Session::~Session() {
+    if (user_.userId) {
+        DataService dao;
+        dao.UpdateUserStatus(Convert::IntToString(user_.userId), kBuddyOffline);
+    }
+    
     LOG_INFO<<"~Session析构函数";
 }
 

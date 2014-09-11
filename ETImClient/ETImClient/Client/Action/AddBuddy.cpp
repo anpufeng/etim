@@ -93,8 +93,6 @@ void SearchBuddy::DoRecv(etim::Session &s) {
     
 	char error_msg[ERR_MSG_LENGTH+1];
 	jis.ReadBytes(error_msg, ERR_MSG_LENGTH);
-    s.SetErrorCode(error_code);
-	s.SetErrorMsg(error_msg);
     
     if (error_code == kErrCode00) {
         IMUser user;
@@ -113,6 +111,8 @@ void SearchBuddy::DoRecv(etim::Session &s) {
         
         s.SetSearchIMUser(user);
     }
+    s.SetErrorCode(error_code);
+	s.SetErrorMsg(error_msg);
 }
 
 void AcceptAddBuddy::DoSend(Session &s) {
@@ -150,23 +150,29 @@ void AcceptAddBuddy::DoRecv(etim::Session &s) {
     
 	char error_msg[ERR_MSG_LENGTH+1];
 	jis.ReadBytes(error_msg, ERR_MSG_LENGTH);
-    
-    IMUser user;
-    int rel;
-    int status;
-    jis>>user.userId;
-    jis>>user.username;
-    jis>>user.regDate;
-    jis>>user.signature;
-    jis>>user.gender;
-    jis>>rel;
-    jis>>status;
-    jis>>user.statusName;
-    user.relation = static_cast<BuddyRelation>(rel);
-    user.status = static_cast<BuddyStatus>(status);
-    
-    s.SetSearchIMUser(user);
-	s.SetErrorCode(error_code);
+    if (error_code == kErrCode00) {
+        IMUser user;
+        int rel;
+        int status;
+        string addPeer;
+        jis>>user.userId;
+        jis>>user.username;
+        jis>>user.regDate;
+        jis>>user.signature;
+        jis>>user.gender;
+        jis>>rel;
+        jis>>status;
+        jis>>user.statusName;
+        jis>>addPeer;
+        user.relation = static_cast<BuddyRelation>(rel);
+        user.status = static_cast<BuddyStatus>(status);
+        //TODO 服务器返回接收成功对方可以添加我为好友如果有添加对方 那么我要将此USER添加进我的好友列表
+        s.ClearBuddys();
+        if (Convert::StringToInt(addPeer)) {
+            s.AddBuddy(user);
+        }
+    }
+   	s.SetErrorCode(error_code);
 	s.SetErrorMsg(error_msg);
 }
 

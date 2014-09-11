@@ -117,7 +117,7 @@ void PushService::PushBuddyRequestResult(const etim::IMUser &user, const int fro
         
         s->Send(jos.Data(), jos.Length());
         //更新ACTION SEND time
-        dao.UpdateActionSendTime(reqId);
+        dao.UpdateActionSendTime(reqId, accept);
         LOG_INFO<<"通知在线请求方我的结果, userId: "<<user.userId<<" 请求方 from: "<<from;
     } else {
         LOG_INFO<<"无在线请求方要通知 userId: "<<user.userId<<" 请求方 from: "<<from;

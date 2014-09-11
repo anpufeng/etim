@@ -47,6 +47,8 @@ using namespace std;
     [[NSNotificationCenter defaultCenter] removeObserver:self
                                                     name:notiNameFromCmd(PUSH_BUDDY_UPDATE)
                                                   object:nil];
+    [self removeObserver:self forKeyPath:@"buddyList"];
+    [self removeObserver:self forKeyPath:@"reqBuddyList"];
 }
 
 - (id)init
@@ -115,8 +117,10 @@ using namespace std;
     self.navigationItem.rightBarButtonItems = @[spaceItem, item];
 }
 
-- (void)addBuddy:(BuddyModel *)buddy {
-    [self.buddyList addObject:buddy];
+- (void)addBuddys:(NSMutableArray *)buddys {
+    [self willChangeValueForKey:@"buddyList"];
+    [self.buddyList addObjectsFromArray:buddys];
+    [self didChangeValueForKey:@"buddyList"];
 }
 
 #pragma mark -
@@ -182,14 +186,14 @@ using namespace std;
     }
 }
 
-///好友上线
+///好友上下线或资料变动
 - (void)responseToPushBuddyStatus {
     etim::Session *sess = [[Client sharedInstance] session];
     if (sess->GetRecvCmd() == PUSH_BUDDY_UPDATE) {
         if (sess->IsError()) {
             [[TWMessageBarManager sharedInstance] showMessageWithTitle:@"获取服务器推送用户状态错误" description:stdStrToNsStr(sess->GetErrorMsg()) type:TWMessageBarMessageTypeError];
         } else {
-            //好友请求列表成功
+            //成功
             BuddyModel *changedBuddy = [[BuddyModel alloc] initWithUser:sess->GetStatusChangedBuddy()];
             for (int i = 0; i < [self.buddyList count]; i++) {
                 BuddyModel *model = self.buddyList[i];
@@ -213,6 +217,10 @@ using namespace std;
             [[TWMessageBarManager sharedInstance] showMessageWithTitle:@"获取服务器推送用户请求结果错误" description:stdStrToNsStr(sess->GetErrorMsg()) type:TWMessageBarMessageTypeError];
         } else {
             [[TWMessageBarManager sharedInstance] showMessageWithTitle:@"获取服务器推送用户请求结果" description:@"成功" type:TWMessageBarMessageTypeSuccess];
+            [self willChangeValueForKey:@"buddyList"];
+            NSMutableArray *acceptedBuddy = [BuddyModel buddys:sess->GetBuddys()];
+            [self.buddyList addObjectsFromArray:acceptedBuddy];
+            [self didChangeValueForKey:@"buddyList"];
         }
     } else {
         [[TWMessageBarManager sharedInstance] showMessageWithTitle:@"获取服务器推送用户请求结果错误" description:@"未知错误" type:TWMessageBarMessageTypeError];
@@ -261,7 +269,7 @@ using namespace std;
         case BuddyViewMenuNewFriend:
         {
             self.reqBuddyList = nil;
-            NewBuddyViewController *vc = [[NewBuddyViewController alloc] init];
+            NewBuddyViewController *vc = [[NewBuddyViewController alloc] initWithBuddyViewController:self];
             [self.navigationController pushViewController:vc animated:YES];
         }
             break;

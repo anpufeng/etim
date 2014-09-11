@@ -51,7 +51,7 @@ namespace etim  {
     public:
         int UpdateUserStatus(const std::string &userId, BuddyStatus status);
         int SearchUserStatus(const std::string &username);
-        int UpdateActionSendTime(const std::string reqId);
+        int UpdateActionSendTime(const std::string reqId, bool accept);
         int UpdateRequestSendTime(const std::string reqId);
 
 

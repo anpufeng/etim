@@ -120,17 +120,17 @@ void SearchBuddy::Execute(Session *s) {
 	jos.WriteBytes(error_msg, ERR_MSG_LENGTH);
     
 	// 包体
-    jos<<user.userId;
-	jos<<user.username;
-    jos<<user.regDate;
-    jos<<user.signature;
-    jos<<user.gender;
-    jos<<user.relation;
-    jos<<user.status;
-    jos<<user.statusName;
-    
+    if (ret == kErrCode00) {
+        jos<<user.userId;
+        jos<<user.username;
+        jos<<user.regDate;
+        jos<<user.signature;
+        jos<<user.gender;
+        jos<<user.relation;
+        jos<<user.status;
+        jos<<user.statusName;
+    }
     FillOutPackage(jos, lengthPos, cmd);
-    
 	s->Send(jos.Data(), jos.Length());
 }
 
@@ -177,18 +177,21 @@ void AcceptAddBuddy::Execute(Session *s) {
 	jos.WriteBytes(error_msg, ERR_MSG_LENGTH);
     
 	// 包体
-    jos<<fromUser.userId;
-	jos<<fromUser.username;
-    jos<<fromUser.regDate;
-    jos<<fromUser.signature;
-    jos<<fromUser.gender;
-    jos<<fromUser.relation;
-    jos<<fromUser.status;
-    jos<<fromUser.statusName;
-    
+    if (ret == kErrCode00) {
+        jos<<fromUser.userId;
+        jos<<fromUser.username;
+        jos<<fromUser.regDate;
+        jos<<fromUser.signature;
+        jos<<fromUser.gender;
+        jos<<fromUser.relation;
+        jos<<fromUser.status;
+        jos<<fromUser.statusName;
+        jos<<addPeer;
+    }
+ 
     FillOutPackage(jos, lengthPos, cmd);
-    
 	s->Send(jos.Data(), jos.Length());
+    
     if (ret == kErrCode00) {
         
         PushService push;

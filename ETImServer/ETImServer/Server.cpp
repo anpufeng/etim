@@ -52,7 +52,6 @@ int Server::Start() {
     
     LOG_INFO<<"开始监听";
     //fd_set writeFds;
-    
     while (1) {
         FD_ZERO(&readFds_);  //将监听fd加入到集合中
         FD_SET(listenFd, &readFds_);
@@ -124,8 +123,7 @@ int Server::Start() {
                     if (result == 0) {
                         //服务端关闭此session
                         LOG_INFO<<"客户端关闭socket userId: "<<s->GetIMUser().userId;
-                        delete s;
-                        sessions_.erase(std::remove(sessions_.begin(), sessions_.end(), s));
+                        DeleteSession(s);
                     } else {
                         ++it;
                         //TODO 其它出错的处理
@@ -162,9 +160,7 @@ void Server::KickOut() {
         long diff = now.tv_sec - s->GetLastTime().tv_sec;
         if (diff > 20 * HEART_BEAT_SECONDS) {
             LOG_INFO<<"客户端超时 socket userId: "<<s->GetIMUser().userId<<" 超时时间: "<<diff<<"s";
-            //TODO 刷新用户状态
-            delete s;
-            sessions_.erase(std::remove(sessions_.begin(), sessions_.end(), s));
+            DeleteSession(s);
         } else {
             ++it;
         }
@@ -179,4 +175,9 @@ Session *Server::FindSession(int userId) {
     } else {
         return *it;
     }
+}
+
+void Server::DeleteSession(Session *s) {
+    delete s;
+    sessions_.erase(std::remove(sessions_.begin(), sessions_.end(), s));
 }

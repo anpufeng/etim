@@ -57,6 +57,10 @@ using namespace etim::pub;
                                              selector:@selector(responseToRejectAddBuddy)
                                                  name:notiNameFromCmd(CMD_REJECT_ADD_BUDDY)
                                                object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(responseToAcceptAddBuddy)
+                                                 name:notiNameFromCmd(CMD_ACCEPT_ADD_BUDDY)
+                                               object:nil];
     self.refreshControl = nil;
     [[Client sharedInstance] pullWithCommand:CMD_RETRIEVE_ALL_BUDDY_REQUEST];
     [self createUI];
@@ -155,10 +159,11 @@ using namespace etim::pub;
         if (sess->IsError()) {
             [[TWMessageBarManager sharedInstance] showMessageWithTitle:@"拒绝好友请求错误" description:stdStrToNsStr(sess->GetErrorMsg()) type:TWMessageBarMessageTypeError];
         } else {
+            //同时请求也添加对方为好友
             self.actionRequest.status = kBuddyRequestAccepted;
             [self.tableView reloadData];
-            //将此好友添加到好友列表
-            [self.buddyVC addBuddy:self.actionRequest.from];
+            NSMutableArray *addedPeer = [BuddyModel buddys:sess->GetBuddys()];
+            [self.buddyVC addBuddys:addedPeer];
         }
     } else {
         [[TWMessageBarManager sharedInstance] showMessageWithTitle:@"拒绝好友请求错误" description:@"未知错误" type:TWMessageBarMessageTypeError];

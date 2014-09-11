@@ -31,6 +31,7 @@ namespace etim {
         int Start();
         void KickOut();
         Session *FindSession(int userId);
+        void DeleteSession(Session *s);
     private:
         typedef std::vector<Session *>::iterator iter;
         static fd_set readFds_;
@@ -38,8 +39,6 @@ namespace etim {
         int fdMax_;
         std::vector<Session *> sessions_;
         timeval lastKick_;
-        
-        
     };
 
 }   //end etim

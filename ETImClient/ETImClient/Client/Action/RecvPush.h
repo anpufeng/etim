@@ -16,20 +16,21 @@ namespace etim {
     namespace action {
         
 
-        ///接受用户状态更新
+        ///接收服务器推送的用户状态更新
         class PushBuddyUpdate : public Action {
         public:
             virtual void DoSend(Session& s);
             virtual void DoRecv(Session &s);
         };
         
-        ///接受好友请求更新
-        class PushBuddyRequest : public Action {
+        ///接收服务器推送的好友请求结果
+        class PushBuddyRequestResult : public Action {
         public:
             virtual void DoSend(Session& s);
             virtual void DoRecv(Session &s);
         };
         
+        ///接收服务器推送的好友请求
         class PushRequestAddBuddy : public Action {
         public:
             virtual void DoSend(Session& s);

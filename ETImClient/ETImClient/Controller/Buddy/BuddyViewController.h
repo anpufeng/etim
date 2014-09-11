@@ -17,7 +17,7 @@
 
 }
 
-- (void)addBuddy:(BuddyModel *)buddy;
+- (void)addBuddys:(NSMutableArray *)buddys;
 
 @end
 
