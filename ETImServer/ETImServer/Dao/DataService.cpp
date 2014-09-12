@@ -189,7 +189,7 @@ int DataService::UserSearch(const std::string &username, Session *s, IMUser &use
             " on f.req_id = r.req_id"<<
             " where f.friend_from = "<<sessionUser.userId<<
             " and f.friend_to = u.user_id"<<
-            " and r.req_status in ("<<(kBuddyRequestAccepted|kBuddyRequestNoSent)<<", "<<(kBuddyRequestAccepted|kBuddyRequestSent)<<")"<<
+            " and r.req_status in ("<<kBuddyRequestAccepted<<", "<<kBuddyRequestAcceptedSent<<")"<<
             " limit 1"<<
             " ) 'is_friend'"<<
             " from user u"<<
@@ -253,8 +253,8 @@ int DataService::RequestAddBuddy(const std::string &from, const std::string &to,
             " from friend, request"<<
             " where friend_from ='" <<fromId<<"'"<<
             " and friend_to = '"<<toId<<"'"<<
-            " and req_status in (" << (kBuddyRequestAccepted|kBuddyRequestNoSent) <<","<<
-            (kBuddyRequestAccepted|kBuddyRequestSent)<<");";
+            " and req_status in (" << kBuddyRequestAccepted <<","<<
+            kBuddyRequestAcceptedSent<<");";
             
             rs = db.QuerySQL(ss.str().c_str());
             if (rs.GetRows())
@@ -326,18 +326,19 @@ int DataService::AcceptAddBuddy(const std::string &from, const std::string &to, 
         " on r.req_id = f.req_id"<<
         " where f.friend_from = "<<from<<
         " and f.friend_to = "<<to<<
-        " and r.req_status in ("<<(kBuddyRequestNoSent|kBuddyRequestAccepted)<<", "<<(kBuddyRequestSent|kBuddyRequestAccepted)<<");";
+        " and r.req_status in ("<<kBuddyRequestAccepted<<", "<<kBuddyRequestAcceptedSent<<");";
         MysqlRecordset rs;
         rs = db.QuerySQL(ss.str().c_str());
         if (rs.GetRows())
             return kErrCode07;
         
+        //查询请求方信息
         ss.clear();
         ss.str("");
         ss<<"select u.*, s.*"<<
         " from user u"<<
         " left join status s"<<
-        " on s.status_id = u.user_id"<<
+        " on s.status_id = u.status_id"<<
         " where u.user_id ="<<from;
         rs = db.QuerySQL(ss.str().c_str());
         if (!rs.GetRows())
@@ -353,46 +354,69 @@ int DataService::AcceptAddBuddy(const std::string &from, const std::string &to, 
         
         ss.clear();
         ss.str("");
-        //更新
+        
+        //更新请求结果
+        ss<<"update request"<<
+        " set req_status = "<<kBuddyRequestAccepted<<","<<
+        " action_time = now()"<<
+        " where req_id = "<<req<<";";
+        unsigned long long ret = db.ExecSQL(ss.str().c_str());
+        (void)ret;
+
+        ss.clear();
+        ss.str("");
+        //插入新好友
         if (peer) {
-            //TODO 查询是否from已经是TO的好友 与上面那个相反 如果已是好友不需要理会PEER
-            try {
-                db.StartTransaction();
-                //request table
-                ss<<"insert into request (req_id, req_status, req_time, req_send_time, action_time, action_send_time ) values"<<
-                " (null,"<<
-                (kBuddyRequestAccepted|kBuddyRequestSent)<<","<<
-                "now(), "<<
-                "now(), "<<
-                "now(), "<<
-                "now() "<<
-                ");";
-                unsigned long long ret = db.ExecSQL(ss.str().c_str());
-                
-                //friend table
-                unsigned long long reqId = db.GetInsertId();
-                ss.clear();
-                ss.str("");
-                ss<<"insert into friend (friend_id, friend_from, friend_to, req_id) values"<<
-                " (null,"<<
-                to<<", "<<
-                from<<", "<<
-                reqId<<
-                ");";
-                ret = db.ExecSQL(ss.str().c_str());
-                db.Commit();
-            } catch (Exception &e) {
-                db.Rollback();
-                LOG_ERROR<<e.what();
-                return kErrCode02;
+            ss<<"select u.*, s.*"<<
+            " from friend f"<<
+            " left join user u"<<
+            " on f.friend_from = u.user_id"<<
+            " left join status s"<<
+            " on s.status_id = u.status_id"<<
+            " left join request r"<<
+            " on r.req_id = f.req_id"<<
+            " where f.friend_from = "<<to<<
+            " and f.friend_to = "<<from<<
+            " and r.req_status in ("<<kBuddyRequestAccepted<<", "<<kBuddyRequestAcceptedSent<<");";
+            MysqlRecordset rs;
+            rs = db.QuerySQL(ss.str().c_str());
+            
+            ss.clear();
+            ss.str("");
+            if (rs.GetRows()) {
+                ///对方已是我好友 只需更新就可以了,不用添加对方
+            } else {
+                try {
+                    db.StartTransaction();
+                    //插入新好友 request
+                    ss<<"insert into request (req_id, req_status, req_time, req_send_time, action_time, action_send_time ) values"<<
+                    " (null,"<<
+                    kBuddyRequestAccepted<<","<<
+                    "now(), "<<
+                    "now(), "<<
+                    "now(), "<<
+                    "now() "<<
+                    ");";
+                    unsigned long long ret = db.ExecSQL(ss.str().c_str());
+                    
+                    //插入新好友 friend table
+                    unsigned long long reqId = db.GetInsertId();
+                    ss.clear();
+                    ss.str("");
+                    ss<<"insert into friend (friend_id, friend_from, friend_to, req_id) values"<<
+                    " (null,"<<
+                    to<<", "<<
+                    from<<", "<<
+                    reqId<<
+                    ");";
+                    ret = db.ExecSQL(ss.str().c_str());
+                    db.Commit();
+                } catch (Exception &e) {
+                    db.Rollback();
+                    LOG_ERROR<<e.what();
+                    return kErrCode02;
+                }
             }
-        } else {
-            ss<<"update request"<<
-            " set req_status = "<<(kBuddyRequestNoSent|kBuddyRequestAccepted)<<","<<
-            " action_time = now()"<<
-            " where req_id = "<<req<<";";
-            unsigned long long ret = db.ExecSQL(ss.str().c_str());
-            (void)ret;
         }
     } catch (Exception &e) {
         LOG_ERROR<<e.what();
@@ -421,7 +445,7 @@ int DataService::RejectAddBuddy(const std::string &from, const std::string &to, 
         " on r.req_id = f.req_id"<<
         " where f.friend_from = "<<from<<
         " and f.friend_to = "<<to<<
-        " and r.req_status in ("<<(kBuddyRequestNoSent|kBuddyRequestAccepted)<<", "<<(kBuddyRequestSent|kBuddyRequestAccepted)<<");";
+        " and r.req_status in ("<<kBuddyRequestAccepted<<", "<<kBuddyRequestAcceptedSent<<");";
         MysqlRecordset rs;
         rs = db.QuerySQL(ss.str().c_str());
         if (rs.GetRows())
@@ -432,7 +456,7 @@ int DataService::RejectAddBuddy(const std::string &from, const std::string &to, 
         //更新
         
         ss<<"update request"<<
-        " set req_status = "<<(kBuddyRequestNoSent|kBuddyRequestRejected)<<","<<
+        " set req_status = "<<kBuddyRequestRejected<<","<<
         " action_time = now()"<<
         " where req_id = "<<req<<";";
         unsigned long long ret = db.ExecSQL(ss.str().c_str());
@@ -491,7 +515,7 @@ int DataService::RetrieveBuddyList(const std::string &userId, const bool online,
             " and u_t.user_id = f.friend_to"<<
             status<<
             " and u_f.user_id = "<<userId<<
-            " and r.req_status in ("<<(kBuddyRequestAccepted|kBuddyRequestNoSent)<<", "<<(kBuddyRequestAccepted|kBuddyRequestSent)<<")"<<
+            " and r.req_status in ("<<kBuddyRequestAccepted<<", "<<kBuddyRequestAcceptedSent<<")"<<
             " order by u_t.user_id"
             ";";
         } else {
@@ -505,7 +529,7 @@ int DataService::RetrieveBuddyList(const std::string &userId, const bool online,
             " and u_t.user_id = f.friend_to"<<
             status<<
             " and u_t.user_id = "<<userId<<
-            " and r.req_status in ("<<(kBuddyRequestAccepted|kBuddyRequestNoSent)<<", "<<(kBuddyRequestAccepted|kBuddyRequestSent)<<")"<<
+            " and r.req_status in ("<<kBuddyRequestAccepted<<", "<<kBuddyRequestAcceptedSent<<")"<<
             " order by u_t.user_id"
             ";";
         }
@@ -643,12 +667,16 @@ int DataService::RetrievePendingBuddyRequest(const std::string &userId, std::lis
                 int status = Convert::StringToInt(rs.GetItem(i, "r.req_status"));
                 int newStatus = status|kBuddyRequestSent;
                 
+                
                 ss.clear();
                 ss.str("");
                 ss<<"update request"<<
                 " set req_send_time = now(),"<<
-                " set req_status = "<<newStatus<<
+                " req_status = "<<newStatus<<
                 " where req_id = "<<reqId<<";";
+                
+                unsigned long long ret = db.ExecSQL(ss.str().c_str());
+                (void)ret;
                 
                 IMUser user;
                 string reg = rs.GetItem(i, "u_f.reg_time");
@@ -769,9 +797,9 @@ int DataService::UpdateActionSendTime(const std::string reqId, bool accept) {
         db.Open();
         int status;
         if (accept) {
-            status = kBuddyRequestSent|kBuddyRequestAccepted;
+            status = kBuddyRequestAcceptedSent;
         } else {
-            status = kBuddyRequestSent|kBuddyRequestRejected;
+            status = kBuddyRequestRejectedSent;
         }
         stringstream ss;
         ss<<"update request"<<

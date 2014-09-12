@@ -18,21 +18,21 @@ namespace etim {
         ///获取好友列表
         class RetrieveBuddyList : public Action {
         public:
-            virtual void DoSend(Session& s);
+            virtual void DoSend(Session& s, sendarg arg);
             virtual void DoRecv(Session &s);
         };
         
         ///未处理的请求好友
         class RetrievePendingBuddyRequest : public Action {
         public:
-            virtual void DoSend(Session& s);
+            virtual void DoSend(Session& s, sendarg arg);
             virtual void DoRecv(Session &s);
         };
         
         ///获取好友请求记录
         class RetrieveAllBuddyRequest : public Action {
         public:
-            virtual void DoSend(Session& s);
+            virtual void DoSend(Session& s, sendarg arg);
             virtual void DoRecv(Session &s);
         };
  

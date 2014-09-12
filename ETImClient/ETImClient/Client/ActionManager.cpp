@@ -58,12 +58,11 @@ ActionManager::~ActionManager()
 	}
 }
 
-bool ActionManager::SendPacket(Session &s)
+bool ActionManager::SendPacket(Session &s, etim::uint16 cmd, sendarg arg)
 {
     //TODO 处理异常
-	uint16_t cmd = s.GetSendCmd();
 	if (actions_.find(cmd) != actions_.end()) {
-		actions_[cmd]->DoSend(s);
+		actions_[cmd]->DoSend(s, arg);
 		return true;
 	}
     

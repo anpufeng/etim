@@ -7,12 +7,15 @@
 //
 
 /**
- 遇到的问题主要是多个命令连续发的时候会产生SESSION被改变而这时上一个命令可能还未发出(因为发送用异步, 虽然BLOCK所在线程是SERIAL的 , 主线程先于发送执行)
+09 - 01 遇到的问题主要是多个命令连续发的时候会产生SESSION被改变而这时上一个命令可能还未发出(因为发送用异步, 虽然BLOCK所在线程是SERIAL的 , 主线程先于发送执行)
  所以导致发的CMD及PARAM被改变 后面考虑做成OPERATIONQUQUE 每次把CMD及PARAM存到
  NSOPERATION去执行 解决命令顺序问题
  */
 
 #import "Client.h"
+#import "SendOperation.h"
+#import "Reachability.h"
+
 #include "Socket.h"
 #include "Logging.h"
 #include "ActionManager.h"
@@ -24,6 +27,7 @@
 
 using namespace etim;
 using namespace etim::pub;
+using namespace etim::action;
 using namespace std;
 
 
@@ -32,6 +36,7 @@ using namespace std;
     etim::Session *_session;
 }
 
+@property (nonatomic, strong) Reachability *hostReachability;
 
 @end
 
@@ -61,12 +66,17 @@ static dispatch_once_t predicate;
 
 - (void)dealloc {
     ETLOG(@"======= Client DEALLOC ========");
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:kReachabilityChangedNotification object:nil];
     delete _session;
 }
 
 - (id)init {
     if (self = [super init]) {
-        _actionQueue = dispatch_queue_create("clientSend", NULL);
+        self.hostReachability = [Reachability reachabilityWithHostName:@"www.baidu.com"];
+        [self.hostReachability startNotifier];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reachabilityChanged:) name:kReachabilityChangedNotification object:nil];
+        
+        _sendQueue = [[NSOperationQueue alloc] init];
         _recvQueue = dispatch_queue_create("clientRecv", NULL);
         std::auto_ptr<Socket> connSoc(new Socket(-1, 0));
         ///令人头痛的命名冲突
@@ -82,24 +92,38 @@ static dispatch_once_t predicate;
 }
 
 - (void)pullUnread {
-    
     [self pullWithCommand:CMD_UNREAD];
 }
 
 ///只有参数为userId时的命令操作
 - (void)pullWithCommand:(uint16)cmd {
-    _session->Clear();
-    _session->SetSendCmd(cmd);
-    _session->SetAttribute("userId", Convert::IntToString(_session->GetIMUser().userId));
-    [self doAction:*_session];
+    NSMutableDictionary *param = [NSMutableDictionary dictionary];
+    string value = Convert::IntToString(_session->GetIMUser().userId);
+    [param setObject:stdStrToNsStr(value) forKey:@"userId"];
+    [self doAction:*_session cmd:cmd param:param];
 }
  
 
 #pragma mark -
 #pragma mark send & recv action
 
-- (void)doAction:(etim::Session &)s {
+- (void)doAction:(etim::Session &)s cmd:(etim::uint16)cmd param:(NSMutableDictionary *)params {
     if (s.IsConnected()) {
+        try {
+            ETLOG(@"发送cmd: 0X%04X, 通知名称: %@", cmd, notiNameFromCmd(cmd));
+            ETLOG(@"发送参数 %@", params);
+            SendOperation *operation = [[SendOperation alloc] initWithCmd:cmd params:params];
+            [_sendQueue addOperation:operation];
+        } catch (Exception &e) {
+            ETLOG(@"出错发送cmd: 0X%04X, 通知名称: %@", cmd, notiNameFromCmd(cmd));
+            s.SetErrorCode(kErrCodeMax);
+            s.SetErrorMsg(e.what());
+            dispatch_sync(dispatch_get_main_queue(), ^{
+                [[NSNotificationCenter defaultCenter] postNotificationName:notiNameFromCmd(cmd) object:nil];
+            });
+
+        }
+        /*
         __weak Client *wself = self;
         dispatch_async(_actionQueue, ^{
             if (!wself)
@@ -126,10 +150,11 @@ static dispatch_once_t predicate;
             }
             
         });
+         */
     } else {
         s.SetErrorCode(kErrCodeMax);
         s.SetErrorMsg("无服务器连接");
-        [[NSNotificationCenter defaultCenter] postNotificationName:notiNameFromCmd(s.GetSendCmd()) object:nil];
+        [[NSNotificationCenter defaultCenter] postNotificationName:notiNameFromCmd(cmd) object:nil];
     }
    
 }
@@ -158,19 +183,20 @@ static dispatch_once_t predicate;
                         ///TODO 关闭客户端socket并进行重连
                         LOG_ERROR<<"服务端关闭或超时";
                         [[TWMessageBarManager sharedInstance] showMessageWithTitle:@"服务器错误" description:@"服务端关闭" type:TWMessageBarMessageTypeError];
-                        
+                        /*
                         s.SetErrorCode(kErrCodeMax);
                         s.SetErrorMsg(e.what());
                         dispatch_async(dispatch_get_main_queue(), ^{
-                            [[NSNotificationCenter defaultCenter] postNotificationName:notiNameFromCmd(s.GetSendCmd()) object:nil];
+                            [[NSNotificationCenter defaultCenter] postNotificationName:notiNameFromCmd(s.GetRecvCmd()) object:nil];
                         });
-
+                         */
                         break;
                     } else if (e.GetReceived() == -1) {
-                        LOG_ERROR<<"接收出错";
+                        LOG_ERROR<<e.what();
                     } else {
                         s.SetErrorCode(kErrCodeMax);
                         s.SetErrorMsg(e.what());
+                        LOG_ERROR<<e.what();
                         dispatch_sync(dispatch_get_main_queue(), ^{
                             [[NSNotificationCenter defaultCenter] postNotificationName:notiNameFromCmd(s.GetRecvCmd()) object:nil];
                         });
@@ -189,7 +215,32 @@ static dispatch_once_t predicate;
     } else {
         s.SetErrorCode(kErrCodeMax);
         s.SetErrorMsg("无服务器连接");
-        [[NSNotificationCenter defaultCenter] postNotificationName:notiNameFromCmd(s.GetSendCmd()) object:nil];
+        [[NSNotificationCenter defaultCenter] postNotificationName:notiNameFromCmd(s.GetRecvCmd()) object:nil];
+    }
+}
+
+/*!
+ * Called by Reachability whenever status changes.
+ */
+- (void) reachabilityChanged:(NSNotification *)note
+{
+	Reachability* curReach = [note object];
+	NSParameterAssert([curReach isKindOfClass:[Reachability class]]);
+    NetworkStatus netStatus = [curReach currentReachabilityStatus];
+    switch (netStatus)
+    {
+        case NotReachable:        {
+            
+            break;
+        }
+            
+        case ReachableViaWWAN:        {
+           
+            break;
+        }
+        case ReachableViaWiFi:        {
+            break;
+        }
     }
 }
 

@@ -19,7 +19,7 @@ namespace etim {
         ///发送消息
         class SendMsg : public Action {
         public:
-            virtual void DoSend(Session& s);
+            virtual void DoSend(Session& s, sendarg arg);
             virtual void DoRecv(Session &s);
         };
         
@@ -27,7 +27,7 @@ namespace etim {
         ///请求未读消息
         class RetrieveUnreadMsg : public Action {
         public:
-            virtual void DoSend(Session& s);
+            virtual void DoSend(Session& s, sendarg arg);
             virtual void DoRecv(Session &s);
         };
     } //end action

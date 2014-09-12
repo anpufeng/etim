@@ -11,6 +11,7 @@
 
 #import "UIColor+Additions.h"
 #import "UIImage+Additions.h"
+#import "NSString+PJR.h"
 
 ///版本及屏幕类
 #define IOS7                                    ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7.0)

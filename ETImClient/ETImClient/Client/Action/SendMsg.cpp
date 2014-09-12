@@ -18,7 +18,7 @@ using namespace etim::action;
 using namespace::etim::pub;
 using namespace std;
 
-void SendMsg::DoSend(Session& s) {
+void SendMsg::DoSend(Session& s, sendarg arg) {
 
 }
 
@@ -27,7 +27,7 @@ void SendMsg::DoRecv(etim::Session &s) {
     
 }
 
-void RetrieveUnreadMsg::DoSend(Session& s) {
+void RetrieveUnreadMsg::DoSend(Session& s, sendarg arg) {
     OutStream jos;
     
 	// 包头命令
@@ -39,7 +39,7 @@ void RetrieveUnreadMsg::DoSend(Session& s) {
 	jos.Skip(2);
     
 	// 要查找的用户id
-	string userId = s.GetAttribute("userId");
+	string userId = arg["userId"];
 	jos<<userId;
     
 	FillOutPackage(jos, lengthPos, cmd);

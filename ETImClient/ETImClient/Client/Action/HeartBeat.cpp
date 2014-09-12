@@ -12,7 +12,7 @@ using namespace etim;
 using namespace etim::action;
 
 
-void HeartBeat::DoSend(Session& s) {
+void HeartBeat::DoSend(Session& s, sendarg arg) {
     
 }
 

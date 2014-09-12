@@ -158,7 +158,7 @@ void Server::KickOut() {
     for (iter it = sessions_.begin(); it != sessions_.end();) {
         Session *s = *it;
         long diff = now.tv_sec - s->GetLastTime().tv_sec;
-        if (diff > 20 * HEART_BEAT_SECONDS) {
+        if (diff > 3 * HEART_BEAT_SECONDS) {
             LOG_INFO<<"客户端超时 socket userId: "<<s->GetIMUser().userId<<" 超时时间: "<<diff<<"s";
             DeleteSession(s);
         } else {

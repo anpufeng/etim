@@ -113,11 +113,10 @@ using namespace etim::pub;
         ProfileViewController *vc = [[ProfileViewController alloc] initWithUser:sess->GetIMUser()];
         [self.navigationController pushViewController:vc animated:YES];
     } else {
-        sess->Clear();
-        sess->SetSendCmd(CMD_SEARCH_BUDDY);
-        sess->SetAttribute("name", nsStrToStdStr(textField.text));
         [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-        [[Client sharedInstance] doAction:*sess];
+        NSMutableDictionary *param = [NSMutableDictionary dictionary];
+        [param setObject:textField.text forKey:@"name"];
+        [[Client sharedInstance] doAction:*sess cmd:CMD_SEARCH_BUDDY param:param];
     }
    
     

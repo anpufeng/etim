@@ -18,27 +18,27 @@ namespace etim {
         ///添加好友
         class RequestAddBuddy : public Action {
         public:
-            virtual void DoSend(Session& s);
+            virtual void DoSend(Session& s, sendarg arg);
             virtual void DoRecv(Session &s);
         };
         
         ///查找
         class SearchBuddy : public Action {
         public:
-            virtual void DoSend(Session &s);
+            virtual void DoSend(Session &s, sendarg arg);
             virtual void DoRecv(Session &s);
         };
         
         ///同意添加好友
         class AcceptAddBuddy : public Action {
         public:
-            virtual void DoSend(Session& s);
+            virtual void DoSend(Session& s, sendarg arg);
             virtual void DoRecv(Session &s);
         };
         ///拒绝添加好友
         class RejectAddBuddy : public Action {
         public:
-            virtual void DoSend(Session& s);
+            virtual void DoSend(Session& s, sendarg arg);
             virtual void DoRecv(Session &s);
         };
 

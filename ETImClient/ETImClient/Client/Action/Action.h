@@ -16,12 +16,12 @@
 
 namespace etim {
     namespace action {
-
+    typedef std::map<std::string, std::string> sendarg;
     ///所有操作的基类
     class Action {
         
     public:
-        virtual void DoSend(Session& s) = 0;
+        virtual void DoSend(Session& s, sendarg arg) = 0;
         virtual void DoRecv(Session &s) = 0;
         virtual ~Action() {};
         

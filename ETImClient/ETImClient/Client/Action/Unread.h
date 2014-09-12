@@ -19,7 +19,7 @@ namespace etim {
         
         class Unread : public Action {
         public:
-            virtual void DoSend(Session& s);
+            virtual void DoSend(Session& s, sendarg arg);
             virtual void DoRecv(Session &s);
         };
         

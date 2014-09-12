@@ -20,7 +20,7 @@ using namespace::etim::pub;
 using namespace std;
 
 
-void Register::DoSend(Session& s) {
+void Register::DoSend(Session& s, sendarg arg) {
     OutStream jos;
     
 	// 包头命令
@@ -32,12 +32,12 @@ void Register::DoSend(Session& s) {
 	jos.Skip(2);
     
 	// 柜员登录名
-	string name = s.GetAttribute("name");
+	string name = arg["name"];
     transform(name.begin(),name.end(), name.begin(), ::tolower);
 	jos<<name;
     
 	// 密码
-	string pass = s.GetAttribute("pass");
+	string pass = arg["pass"];
 	unsigned char ideaKey[16];
 	unsigned char buf[2];
 	buf[0] = (cmd >> 8) & 0xff;

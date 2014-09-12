@@ -20,7 +20,7 @@ using namespace etim::action;
 using namespace::etim::pub;
 using namespace std;
 
-void RequestAddBuddy::DoSend(Session& s) {
+void RequestAddBuddy::DoSend(Session& s, sendarg arg) {
     OutStream jos;
     
 	// 包头命令
@@ -32,8 +32,8 @@ void RequestAddBuddy::DoSend(Session& s) {
 	jos.Skip(2);
     
 	// 要查找的用户名
-	string fromName = s.GetAttribute("friend_from");
-    string toName = s.GetAttribute("friend_to");
+	string fromName = arg["friend_from"];
+    string toName = arg["friend_to"];
     transform(fromName.begin(), fromName.end(), fromName.begin(), ::tolower);
     transform(toName.begin(), toName.end(), toName.begin(), ::tolower);
 	jos<<fromName;
@@ -61,7 +61,7 @@ void RequestAddBuddy::DoRecv(etim::Session &s) {
 }
 
 
-void SearchBuddy::DoSend(Session &s) {
+void SearchBuddy::DoSend(Session &s, sendarg arg) {
     OutStream jos;
     
 	// 包头命令
@@ -73,7 +73,7 @@ void SearchBuddy::DoSend(Session &s) {
 	jos.Skip(2);
     
 	// 要查找的用户名
-	string name = s.GetAttribute("name");
+	string name = arg["name"];
     transform(name.begin(),name.end(), name.begin(), ::tolower);
 	jos<<name;
 
@@ -115,7 +115,7 @@ void SearchBuddy::DoRecv(etim::Session &s) {
 	s.SetErrorMsg(error_msg);
 }
 
-void AcceptAddBuddy::DoSend(Session &s) {
+void AcceptAddBuddy::DoSend(Session &s, sendarg arg) {
     OutStream jos;
     
 	// 包头命令
@@ -127,9 +127,9 @@ void AcceptAddBuddy::DoSend(Session &s) {
 	jos.Skip(2);
     
 	// 要查找的用户名
-    string reqId = s.GetAttribute("reqId");
-	string fromId = s.GetAttribute("fromId");
-    string addPeer = s.GetAttribute("addPeer");
+    string reqId = arg["reqId"];
+	string fromId = arg["fromId"];
+    string addPeer = arg["addPeer"];
 	jos<<reqId;
     jos<<fromId;
     jos<<addPeer;
@@ -176,7 +176,7 @@ void AcceptAddBuddy::DoRecv(etim::Session &s) {
 	s.SetErrorMsg(error_msg);
 }
 
-void RejectAddBuddy::DoSend(Session &s) {
+void RejectAddBuddy::DoSend(Session &s, sendarg arg) {
     OutStream jos;
     
 	// 包头命令
@@ -188,8 +188,8 @@ void RejectAddBuddy::DoSend(Session &s) {
 	jos.Skip(2);
     
 	// req及对方信息
-    string reqId = s.GetAttribute("reqId");
-	string fromId = s.GetAttribute("fromId");
+    string reqId = arg["reqId"];
+	string fromId = arg["fromId"];
 	jos<<reqId;
     jos<<fromId;
     

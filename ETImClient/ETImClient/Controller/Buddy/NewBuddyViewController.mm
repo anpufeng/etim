@@ -62,8 +62,8 @@ using namespace etim::pub;
                                                  name:notiNameFromCmd(CMD_ACCEPT_ADD_BUDDY)
                                                object:nil];
     self.refreshControl = nil;
-    [[Client sharedInstance] pullWithCommand:CMD_RETRIEVE_ALL_BUDDY_REQUEST];
     [self createUI];
+    [[Client sharedInstance] pullWithCommand:CMD_RETRIEVE_ALL_BUDDY_REQUEST];
 }
 
 - (void)createUI {
@@ -125,11 +125,10 @@ using namespace etim::pub;
     self.actionRequest = self.reqList[sender.indexPath.row];
     if (sender.tag == RequestActionReject) {
         etim::Session *sess = [[Client sharedInstance] session];
-        sess->Clear();
-        sess->SetSendCmd(CMD_REJECT_ADD_BUDDY);
-        sess->SetAttribute("reqId", Convert::IntToString(self.actionRequest.reqId));
-        sess->SetAttribute("fromId", Convert::IntToString(self.actionRequest.from.userId));
-        [[Client sharedInstance] doAction:*sess];
+        NSMutableDictionary *param = [NSMutableDictionary dictionary];
+        [param setObject:[NSString stringWithFormat:@"%d", self.actionRequest.reqId] forKey:@"reqId"];
+        [param setObject:[NSString stringWithFormat:@"%d", self.actionRequest.from.userId] forKey:@"fromId"];
+        [[Client sharedInstance] doAction:*sess cmd:CMD_REJECT_ADD_BUDDY param:param];
     } else if (sender.tag == RequestActionAccept) {
         ETLOG(@"RequestActionAccept");
         UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"接受好友请求" delegate:self cancelButtonTitle:nil destructiveButtonTitle:@"取消" otherButtonTitles:@"同意好友请求", @"同意并添加对方为好友", nil];
@@ -174,24 +173,19 @@ using namespace etim::pub;
 #pragma mark actionsheet delegate
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
-    /*
-     string reqId = s.GetAttribute("reqId");
-     string fromId = s.GetAttribute("fromId");
-     string addPeer = s.GetAttribute("addPeer");
-     */
     etim::Session *sess = [[Client sharedInstance] session];
-    sess->Clear();
     sess->SetSendCmd(CMD_ACCEPT_ADD_BUDDY);
-    sess->SetAttribute("reqId", Convert::IntToString(self.actionRequest.reqId));
-    sess->SetAttribute("fromId", Convert::IntToString(self.actionRequest.from.userId));
+    NSMutableDictionary *param = [NSMutableDictionary dictionary];
+    [param setObject:[NSString stringWithFormat:@"%d", self.actionRequest.reqId] forKey:@"reqId"];
+    [param setObject:[NSString stringWithFormat:@"%d", self.actionRequest.from.userId] forKey:@"fromId"];
     if (buttonIndex == 1) {
         ETLOG(@"同意好友请求");
-        sess->SetAttribute("addPeer", "0");
+        [param setObject:@"0" forKey:@"addPeer"];
     } else if (buttonIndex == 2) {
-        sess->SetAttribute("addPeer", "1");
+        [param setObject:@"1" forKey:@"addPeer"];
         ETLOG(@"同意并添加对方为好友");
     }
-    [[Client sharedInstance] doAction:*sess];
+    [[Client sharedInstance] doAction:*sess cmd:CMD_ACCEPT_ADD_BUDDY param:param];
 }
 
 - (void)didReceiveMemoryWarning

@@ -93,11 +93,10 @@ using namespace etim::pub;
     [_pwdTextField resignFirstResponder];
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     etim::Session *sess = [[Client sharedInstance] session];
-    sess->Clear();
-    sess->SetSendCmd(CMD_REGISTER);
-    sess->SetAttribute("name", nsStrToStdStr(_nameTextField.text));
-    sess->SetAttribute("pass", nsStrToStdStr(_pwdTextField.text));
-    [[Client sharedInstance] doAction:*sess];
+    NSMutableDictionary *param = [NSMutableDictionary dictionary];
+    [param setObject:_nameTextField.text forKey:@"name"];
+    [param setObject:_pwdTextField.text forKey:@"pass"];
+    [[Client sharedInstance] doAction:*sess cmd:CMD_REGISTER param:param];
 }
 
 ///注册结果

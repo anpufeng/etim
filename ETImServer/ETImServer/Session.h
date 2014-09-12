@@ -41,7 +41,7 @@ namespace etim {
 #define PUSH_REQUEST_ADD_BUDDY                  0X0103      //往客户端推送好友请求   
     
 #define ERR_MSG_LENGTH      30              // 错误消息定长
-#define HEART_BEAT_SECONDS  30              //心中包发送间隔时间
+#define HEART_BEAT_SECONDS  30              //心中包发送间隔时间(S)
     
     ///请求头
     struct RequestHead

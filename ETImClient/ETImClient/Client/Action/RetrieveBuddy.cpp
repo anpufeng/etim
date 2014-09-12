@@ -19,7 +19,7 @@ using namespace etim::action;
 using namespace::etim::pub;
 using namespace std;
 
-void RetrieveBuddyList::DoSend(Session& s) {
+void RetrieveBuddyList::DoSend(Session& s, sendarg arg) {
     OutStream jos;
     
 	// 包头命令
@@ -30,7 +30,7 @@ void RetrieveBuddyList::DoSend(Session& s) {
 	size_t lengthPos = jos.Length();
 	jos.Skip(2);
 
-	string userId = s.GetAttribute("userId");
+	string userId = arg["userId"];
 	jos<<userId;
     
 	FillOutPackage(jos, lengthPos, cmd);
@@ -90,7 +90,7 @@ void RetrieveBuddyList::DoRecv(etim::Session &s) {
 }
 
 
-void RetrievePendingBuddyRequest::DoSend(Session& s) {
+void RetrievePendingBuddyRequest::DoSend(Session& s, sendarg arg) {
     OutStream jos;
     
 	// 包头命令
@@ -102,7 +102,7 @@ void RetrievePendingBuddyRequest::DoSend(Session& s) {
 	jos.Skip(2);
     
 	// 要查找的用户名
-	string name = s.GetAttribute("userId");
+	string name = arg["userId"];
     transform(name.begin(),name.end(), name.begin(), ::tolower);
 	jos<<name;
     
@@ -164,7 +164,7 @@ void RetrievePendingBuddyRequest::DoRecv(etim::Session &s) {
 }
 
 
-void RetrieveAllBuddyRequest::DoSend(Session& s) {
+void RetrieveAllBuddyRequest::DoSend(Session& s, sendarg arg) {
     OutStream jos;
     
 	// 包头命令
@@ -176,7 +176,7 @@ void RetrieveAllBuddyRequest::DoSend(Session& s) {
 	jos.Skip(2);
     
 	// 要查找的用户名
-	string name = s.GetAttribute("userId");
+	string name = arg["userId"];
     transform(name.begin(),name.end(), name.begin(), ::tolower);
 	jos<<name;
     

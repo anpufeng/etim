@@ -15,7 +15,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "59"
             endingLineNumber = "59"
-            landmarkName = "Register::DoSend(Session&amp; s)"
+            landmarkName = "Register::DoSend(Session&amp; s, sendarg arg)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -31,7 +31,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "61"
             endingLineNumber = "61"
-            landmarkName = "Login::DoSend(Session&amp; s)"
+            landmarkName = "Login::DoSend(Session&amp; s, sendarg arg)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -84,11 +84,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ETImClient/Client/Client.mm"
-            timestampString = "431412507.763604"
+            timestampString = "432188398.399481"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "172"
-            endingLineNumber = "172"
+            startingLineNumber = "190"
+            endingLineNumber = "190"
             landmarkName = "-doRecv:"
             landmarkType = "5">
          </BreakpointContent>
@@ -100,11 +100,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ETImClient/Controller/Buddy/BuddyViewController.mm"
-            timestampString = "432117845.480801"
+            timestampString = "432195514.004201"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "166"
-            endingLineNumber = "166"
+            startingLineNumber = "179"
+            endingLineNumber = "179"
             landmarkName = "-responseToRetrieveBuddyList"
             landmarkType = "5">
          </BreakpointContent>
@@ -116,11 +116,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ETImClient/Controller/Buddy/NewBuddyViewController.mm"
-            timestampString = "432141718.131115"
+            timestampString = "432184682.146963"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "163"
-            endingLineNumber = "163"
+            startingLineNumber = "156"
+            endingLineNumber = "156"
             landmarkName = "-responseToAcceptAddBuddy"
             landmarkType = "5">
          </BreakpointContent>
@@ -148,11 +148,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ETImClient/Controller/Buddy/BuddyViewController.mm"
-            timestampString = "432117845.480801"
+            timestampString = "432195514.004201"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "121"
-            endingLineNumber = "121"
+            startingLineNumber = "136"
+            endingLineNumber = "136"
             landmarkName = "-addBuddys:"
             landmarkType = "5">
          </BreakpointContent>
@@ -163,13 +163,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "ETImClient/Controller/Buddy/NewBuddyViewController.mm"
-            timestampString = "432141801.777865"
+            filePath = "ETImClient/View/Buddy/BuddyTableViewCell.mm"
+            timestampString = "432188502.473901"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "125"
-            endingLineNumber = "125"
-            landmarkName = "-responseToRequestAction:"
+            startingLineNumber = "51"
+            endingLineNumber = "51"
+            landmarkName = "-update:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

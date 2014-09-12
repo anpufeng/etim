@@ -23,7 +23,7 @@ namespace etim {
     class ActionManager {
         friend class pub::Singleton<ActionManager>;
     public:
-        bool SendPacket(Session &s);
+        bool SendPacket(Session &s, etim::uint16 cmd, etim::action::sendarg arg);
         bool RecvPacket(Session &s);
         
     std::map<uint16_t, action::Action *> GetActions() const { return actions_; }

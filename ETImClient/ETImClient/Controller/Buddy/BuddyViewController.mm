@@ -118,9 +118,22 @@ using namespace std;
 }
 
 - (void)addBuddys:(NSMutableArray *)buddys {
-    [self willChangeValueForKey:@"buddyList"];
-    [self.buddyList addObjectsFromArray:buddys];
-    [self didChangeValueForKey:@"buddyList"];
+    NSMutableArray *tmp = [NSMutableArray array];
+    for (int i = 0; i < [buddys count]; i++) {
+        BuddyModel *newBuddy = buddys[i];
+        for (int j = 0; j < [self.buddyList count]; j++) {
+            BuddyModel *oldBuddy = self.buddyList[j];
+            if (newBuddy.userId == oldBuddy.userId) {
+                break;
+            }
+        }
+        [tmp addObject:newBuddy];
+    }
+    if ([tmp count]) {
+        [self willChangeValueForKey:@"buddyList"];
+        [self.buddyList addObjectsFromArray:tmp];
+        [self didChangeValueForKey:@"buddyList"];
+    }
 }
 
 #pragma mark -

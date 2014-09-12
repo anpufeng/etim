@@ -25,7 +25,7 @@ Session::Session(std::auto_ptr<Socket> &socket) : socket_(socket), isConnected_(
         if (socket_->Connect(HOST_SERVER, HOST_PORT))  {
             isConnected_ = true;
         } else {
-            
+            isConnected_ = false;
         }
     }
     responsePack_ = (ResponsePack*)buffer_;
@@ -36,7 +36,6 @@ Session::~Session() {
 }
 
 void Session::Clear() {
-    request_.clear();
     response_.clear();
     //errCode_ = 0;
 }
@@ -63,10 +62,12 @@ void Session::Recv() {
 		return;
     
 	ret = socket_->RecvN(responsePack_->buf, len);
-	if (ret == 0)
-		throw Exception("服务器断开");
+    if (ret == 0)
+		throw RecvException(strerror(errno), ret);
+    else if (ret == -1)
+        throw RecvException(strerror(errno), ret);
 	else if (ret != len)
-		throw Exception("接收数据包出错");
+		throw RecvException(std::string("接收数据包出错").c_str(), ret);
     
 	// 计算hash
 	unsigned char hash[16];
@@ -94,17 +95,4 @@ const string& Session::GetResponse(const string& k)
 	return response_[k];
 }
 
-void Session::SetAttribute(const string& k, const string& v)
-{
-	request_[k] = v;
-}
-
-const string& Session::GetAttribute(const string& k)
-{
-	return request_[k];
-}
-
-void Session::SetIMUser(IMUser &user) {
-    user_ = user;
-}
 

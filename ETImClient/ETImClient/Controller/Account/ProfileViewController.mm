@@ -153,11 +153,10 @@ using namespace etim::pub;
         {
             [MBProgressHUD showHUDAddedTo:self.view animated:YES];
             etim::Session *sess = [[Client sharedInstance] session];
-            sess->Clear();
-            sess->SetSendCmd(CMD_REQUEST_ADD_BUDDY);
-            sess->SetAttribute("friend_from", sess->GetIMUser().username);
-            sess->SetAttribute("friend_to", self.user.username);
-            [[Client sharedInstance] doAction:*sess];
+            NSMutableDictionary *param = [NSMutableDictionary dictionary];
+            [param setObject:stdStrToNsStr(sess->GetIMUser().username) forKey:@"friend_from"];
+            [param setObject:stdStrToNsStr(self.user.username) forKey:@"friend_to"];
+            [[Client sharedInstance] doAction:*sess cmd:CMD_REQUEST_ADD_BUDDY param:param];
         }
             break;
             

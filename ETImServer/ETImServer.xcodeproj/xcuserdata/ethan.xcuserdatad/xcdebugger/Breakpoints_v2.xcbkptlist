@@ -36,11 +36,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ETImServer/Dao/DataService.cpp"
-            timestampString = "432141708.962004"
+            timestampString = "432196675.639247"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "410"
-            endingLineNumber = "410">
+            startingLineNumber = "434"
+            endingLineNumber = "434">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -50,11 +50,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ETImServer/Dao/DataService.cpp"
-            timestampString = "432141708.962004"
+            timestampString = "432196675.639247"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "425"
-            endingLineNumber = "425"
+            startingLineNumber = "449"
+            endingLineNumber = "449"
             landmarkName = "DataService::RejectAddBuddy(const std::string &amp;from, const std::string &amp;to, const std::string req)"
             landmarkType = "5">
          </BreakpointContent>
@@ -66,11 +66,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ETImServer/Dao/DataService.cpp"
-            timestampString = "432141708.962004"
+            timestampString = "432196675.639247"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "431"
-            endingLineNumber = "431"
+            startingLineNumber = "455"
+            endingLineNumber = "455"
             landmarkName = "DataService::RejectAddBuddy(const std::string &amp;from, const std::string &amp;to, const std::string req)"
             landmarkType = "5">
          </BreakpointContent>
@@ -82,12 +82,44 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ETImServer/Dao/DataService.cpp"
-            timestampString = "432141708.962004"
+            timestampString = "432188605.546748"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "359"
-            endingLineNumber = "359"
+            startingLineNumber = "313"
+            endingLineNumber = "313"
             landmarkName = "DataService::AcceptAddBuddy(const std::string &amp;from, const std::string &amp;to, const std::string req, const bool peer, IMUser &amp;fromUser)"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ETImServer/Dao/DataService.cpp"
+            timestampString = "432196675.639247"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "642"
+            endingLineNumber = "642"
+            landmarkName = "DataService::RetrievePendingBuddyRequest(const std::string &amp;userId, std::list&lt;IMUser&gt; &amp;result)"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ETImServer/Dao/MysqlDB.cpp"
+            timestampString = "432195624.652814"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "68"
+            endingLineNumber = "68"
+            landmarkName = "MysqlDB::QuerySQL(const char* sql)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

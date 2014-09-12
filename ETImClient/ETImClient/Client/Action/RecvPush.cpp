@@ -20,7 +20,7 @@ using namespace etim::action;
 using namespace::etim::pub;
 using namespace std;
 
-void PushBuddyUpdate::DoSend(Session& s) {
+void PushBuddyUpdate::DoSend(Session& s, sendarg arg) {
     //empty
 }
 
@@ -59,7 +59,7 @@ void PushBuddyUpdate::DoRecv(etim::Session &s) {
 }
 
 
-void PushBuddyRequestResult::DoSend(Session& s) {
+void PushBuddyRequestResult::DoSend(Session& s, sendarg arg) {
     //empty
 }
 
@@ -104,7 +104,7 @@ void PushBuddyRequestResult::DoRecv(etim::Session &s) {
 	s.SetErrorMsg(error_msg);
 }
 
-void PushRequestAddBuddy::DoSend(Session& s) {
+void PushRequestAddBuddy::DoSend(Session& s, sendarg arg) {
     //empty
 }
 

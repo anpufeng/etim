@@ -23,6 +23,7 @@
 		AA110108198B61DD008811E4 /* icon-info@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AA110102198B61DD008811E4 /* icon-info@2x.png */; };
 		AA110109198B61DD008811E4 /* icon-success.png in Resources */ = {isa = PBXBuildFile; fileRef = AA110103198B61DD008811E4 /* icon-success.png */; };
 		AA11010A198B61DD008811E4 /* icon-success@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AA110104198B61DD008811E4 /* icon-success@2x.png */; };
+		AA12CC0619C28080003BF55A /* SendOperation.mm in Sources */ = {isa = PBXBuildFile; fileRef = AA12CC0519C28080003BF55A /* SendOperation.mm */; };
 		AA30A74C19B49FC8006925F5 /* line@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AA30A74B19B49FC8006925F5 /* line@2x.png */; };
 		AA30A75119B5592E006925F5 /* BuddyTableViewCell.mm in Sources */ = {isa = PBXBuildFile; fileRef = AA30A75019B5592E006925F5 /* BuddyTableViewCell.mm */; };
 		AA30A75519B55DFB006925F5 /* MsgViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = AA30A75419B55DFB006925F5 /* MsgViewController.mm */; };
@@ -84,6 +85,7 @@
 		AA6D73C719B168C9006DBC6D /* BackTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA6D73C619B168C9006DBC6D /* BackTableViewController.m */; };
 		AA6D73C919B16B9C006DBC6D /* add_icon_friend@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AA6D73C819B16B9C006DBC6D /* add_icon_friend@2x.png */; };
 		AA6D73D019B1E739006DBC6D /* BadgeButton.m in Sources */ = {isa = PBXBuildFile; fileRef = AA6D73CF19B1E739006DBC6D /* BadgeButton.m */; };
+		AA7D661519C2E90300488EFC /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = AA7D661419C2E90300488EFC /* Reachability.m */; };
 		AA7EB9981992674D000BD838 /* Client.mm in Sources */ = {isa = PBXBuildFile; fileRef = AA7EB9971992674D000BD838 /* Client.mm */; };
 		AA9106CC19C045590008926E /* RecvPush.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AA9106CA19C045580008926E /* RecvPush.cpp */; };
 		AA9131E519990F3900524E8D /* 37x-Checkmark.png in Resources */ = {isa = PBXBuildFile; fileRef = AA9131E319990F3900524E8D /* 37x-Checkmark.png */; };
@@ -151,6 +153,8 @@
 		AA110102198B61DD008811E4 /* icon-info@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-info@2x.png"; sourceTree = "<group>"; };
 		AA110103198B61DD008811E4 /* icon-success.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-success.png"; sourceTree = "<group>"; };
 		AA110104198B61DD008811E4 /* icon-success@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-success@2x.png"; sourceTree = "<group>"; };
+		AA12CC0419C28080003BF55A /* SendOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SendOperation.h; sourceTree = "<group>"; };
+		AA12CC0519C28080003BF55A /* SendOperation.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SendOperation.mm; sourceTree = "<group>"; };
 		AA30A74B19B49FC8006925F5 /* line@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "line@2x.png"; sourceTree = "<group>"; };
 		AA30A74F19B5592E006925F5 /* BuddyTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BuddyTableViewCell.h; sourceTree = "<group>"; };
 		AA30A75019B5592E006925F5 /* BuddyTableViewCell.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = BuddyTableViewCell.mm; sourceTree = "<group>"; };
@@ -247,6 +251,8 @@
 		AA6D73C819B16B9C006DBC6D /* add_icon_friend@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "add_icon_friend@2x.png"; sourceTree = "<group>"; };
 		AA6D73CE19B1E739006DBC6D /* BadgeButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BadgeButton.h; sourceTree = "<group>"; };
 		AA6D73CF19B1E739006DBC6D /* BadgeButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BadgeButton.m; sourceTree = "<group>"; };
+		AA7D661319C2E90300488EFC /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
+		AA7D661419C2E90300488EFC /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
 		AA7EB9961992674D000BD838 /* Client.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Client.h; sourceTree = "<group>"; };
 		AA7EB9971992674D000BD838 /* Client.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = Client.mm; sourceTree = "<group>"; };
 		AA9106CA19C045580008926E /* RecvPush.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = RecvPush.cpp; sourceTree = "<group>"; };
@@ -535,6 +541,8 @@
 				AA59F038198A197B009FD449 /* UIColor+Additions.m */,
 				AA59F039198A197B009FD449 /* UIImage+Additions.h */,
 				AA59F03A198A197B009FD449 /* UIImage+Additions.m */,
+				AA7D661319C2E90300488EFC /* Reachability.h */,
+				AA7D661419C2E90300488EFC /* Reachability.m */,
 				AA59F032198A15F0009FD449 /* Constants.h */,
 				AA59F033198A15F0009FD449 /* Constants.m */,
 				AA59F036198A1684009FD449 /* Macro.h */,
@@ -785,6 +793,8 @@
 				AA7EB9961992674D000BD838 /* Client.h */,
 				AA7EB9971992674D000BD838 /* Client.mm */,
 				AA9131EE199CE7C100524E8D /* DataStruct.h */,
+				AA12CC0419C28080003BF55A /* SendOperation.h */,
+				AA12CC0519C28080003BF55A /* SendOperation.mm */,
 			);
 			path = Client;
 			sourceTree = "<group>";
@@ -978,6 +988,8 @@
 				AACF5CD019BF01D8008D9E80 /* IndexPathButton.m in Sources */,
 				AA59F03C198A197B009FD449 /* UIImage+Additions.m in Sources */,
 				AA588BB21990B4EC00F08821 /* RetrieveBuddy.cpp in Sources */,
+				AA7D661519C2E90300488EFC /* Reachability.m in Sources */,
+				AA12CC0619C28080003BF55A /* SendOperation.mm in Sources */,
 				AA665F7F19A8E9B100FCF5C6 /* LeftMarginTextField.m in Sources */,
 				AA9106CC19C045590008926E /* RecvPush.cpp in Sources */,
 				AA588BAD1990B4EC00F08821 /* Action.cpp in Sources */,

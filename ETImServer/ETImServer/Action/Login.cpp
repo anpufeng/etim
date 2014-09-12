@@ -159,9 +159,11 @@ void Logout::Execute(Session *s) {
     
     //删除此会话通过KICKOUT删除 如果此时删除 会影响正在循环的server中的vector<Session *> sessions_;
     //同时也会抛出recv 0异常在SERVER中删除
+    /*
     timeval now;
     gettimeofday(&now, NULL);
     now.tv_sec = now.tv_sec - HEART_BEAT_SECONDS * 30;
     s->SetLastTime(now);
+     */
 }
 

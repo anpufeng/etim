@@ -137,16 +137,11 @@ namespace etim {
         ///获取接收操作命令
         uint16_t GetRecvCmd() const { return responsePack_->head.cmd; }
         
-        std::map<std::string, std::string> GetRequest() const { return request_; }
         ///将返回值加入
         void SetResponse(const std::string& k, const std::string& v);
         ///获取返回值
         const std::string& GetResponse(const std::string& k);
         
-        ///将要请求的参加加入
-        void SetAttribute(const std::string& k, const std::string& v);
-        ///获取某个请求参数值
-        const std::string& GetAttribute(const std::string& k);
         ///获取响应包
         ResponsePack* GetResponsePack() const { return responsePack_; }
         
@@ -161,7 +156,7 @@ namespace etim {
         ///获取用户信息
         const IMUser GetIMUser() const { return user_; }
         ///设置用户信息
-        void SetIMUser(IMUser &user);
+        void SetIMUser(IMUser &user) {  user_ = user; };
         
         ///获取搜索用户信息
         const IMUser GetSearchIMUser() const { return searchUser_; }
@@ -211,7 +206,7 @@ namespace etim {
         
         
         uint16_t cmd_;
-        std::map<std::string, std::string> request_;
+
         std::map<std::string, std::string> response_;
         int16_t errCode_;
         std::string errMsg_;
@@ -222,7 +217,9 @@ namespace etim {
         IMUser      stausChangedBuddy_;
         ///好友列表
         std::list<IMUser> buddys_;
+        ///请求用户列表
         std::list<IMUser> reqBuddys_;
+        ///所有请求列表
         std::list<IMReq> allReqs_;
         ///未读消息
         std::list<IMMsg> unreadMsgs_;

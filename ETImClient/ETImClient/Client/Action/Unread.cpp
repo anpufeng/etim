@@ -21,7 +21,7 @@ using namespace::etim::pub;
 using namespace std;
 
 
-void Unread::DoSend(Session& s) {
+void Unread::DoSend(Session& s, sendarg arg) {
     OutStream jos;
     
 	// 包头命令
@@ -33,7 +33,7 @@ void Unread::DoSend(Session& s) {
 	jos.Skip(2);
     
 	// 用户id
-	string name = s.GetAttribute("userId");
+	string name = arg["userId"];
 	jos<<name;
     
 	FillOutPackage(jos, lengthPos, cmd);;

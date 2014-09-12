@@ -20,7 +20,7 @@ using namespace etim::action;
 using namespace::etim::pub;
 using namespace std;
 
-void SwitchStatus::DoSend(Session& s) {
+void SwitchStatus::DoSend(Session& s, sendarg arg) {
     
 }
 

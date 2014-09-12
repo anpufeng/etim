@@ -30,12 +30,12 @@ public:
 
 	unsigned int GetRows() const
 	{
-		return rows_.size();
+		return static_cast<unsigned int>(rows_.size());
 	}
 
 	unsigned int GetCols() const
 	{
-		return fields_.size();
+		return static_cast<unsigned int>(fields_.size());
 	}
 
 	unsigned int GetFieldIndex(const std::string &name) const
