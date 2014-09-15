@@ -85,6 +85,22 @@
 		AA6D73C719B168C9006DBC6D /* BackTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA6D73C619B168C9006DBC6D /* BackTableViewController.m */; };
 		AA6D73C919B16B9C006DBC6D /* add_icon_friend@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AA6D73C819B16B9C006DBC6D /* add_icon_friend@2x.png */; };
 		AA6D73D019B1E739006DBC6D /* BadgeButton.m in Sources */ = {isa = PBXBuildFile; fileRef = AA6D73CF19B1E739006DBC6D /* BadgeButton.m */; };
+		AA6F5F9519C6821300076E6B /* ChatViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = AA6F5F9419C6821300076E6B /* ChatViewController.mm */; };
+		AA6F5F9819C6825100076E6B /* MsgTableViewCell.mm in Sources */ = {isa = PBXBuildFile; fileRef = AA6F5F9719C6825100076E6B /* MsgTableViewCell.mm */; };
+		AA6F5F9B19C682A700076E6B /* MsgModel.mm in Sources */ = {isa = PBXBuildFile; fileRef = AA6F5F9A19C682A700076E6B /* MsgModel.mm */; };
+		AA6F5F9E19C6BC6700076E6B /* ChatTableViewCell.mm in Sources */ = {isa = PBXBuildFile; fileRef = AA6F5F9D19C6BC6700076E6B /* ChatTableViewCell.mm */; };
+		AA6F5FAC19C6BF8600076E6B /* chat_bottom_bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AA6F5FA019C6BF8600076E6B /* chat_bottom_bg@2x.png */; };
+		AA6F5FAD19C6BF8600076E6B /* chat_bottom_smile_nor@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AA6F5FA119C6BF8600076E6B /* chat_bottom_smile_nor@2x.png */; };
+		AA6F5FAE19C6BF8600076E6B /* chat_bottom_smile_press@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AA6F5FA219C6BF8600076E6B /* chat_bottom_smile_press@2x.png */; };
+		AA6F5FAF19C6BF8600076E6B /* chat_bottom_textfield@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AA6F5FA319C6BF8600076E6B /* chat_bottom_textfield@2x.png */; };
+		AA6F5FB019C6BF8600076E6B /* chat_bottom_up_nor@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AA6F5FA419C6BF8600076E6B /* chat_bottom_up_nor@2x.png */; };
+		AA6F5FB119C6BF8600076E6B /* chat_bottom_up_press@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AA6F5FA519C6BF8600076E6B /* chat_bottom_up_press@2x.png */; };
+		AA6F5FB219C6BF8600076E6B /* chat_bottom_voice_nor@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AA6F5FA619C6BF8600076E6B /* chat_bottom_voice_nor@2x.png */; };
+		AA6F5FB319C6BF8600076E6B /* chat_bottom_voice_press@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AA6F5FA719C6BF8600076E6B /* chat_bottom_voice_press@2x.png */; };
+		AA6F5FB419C6BF8600076E6B /* chat_recive_nor@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AA6F5FA819C6BF8600076E6B /* chat_recive_nor@2x.png */; };
+		AA6F5FB519C6BF8600076E6B /* chat_recive_press_pic@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AA6F5FA919C6BF8600076E6B /* chat_recive_press_pic@2x.png */; };
+		AA6F5FB619C6BF8600076E6B /* chat_send_nor@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AA6F5FAA19C6BF8600076E6B /* chat_send_nor@2x.png */; };
+		AA6F5FB719C6BF8600076E6B /* chat_send_press_pic@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AA6F5FAB19C6BF8600076E6B /* chat_send_press_pic@2x.png */; };
 		AA7D661519C2E90300488EFC /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = AA7D661419C2E90300488EFC /* Reachability.m */; };
 		AA7EB9981992674D000BD838 /* Client.mm in Sources */ = {isa = PBXBuildFile; fileRef = AA7EB9971992674D000BD838 /* Client.mm */; };
 		AA9106CC19C045590008926E /* RecvPush.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AA9106CA19C045580008926E /* RecvPush.cpp */; };
@@ -120,7 +136,6 @@
 		AACF5CD019BF01D8008D9E80 /* IndexPathButton.m in Sources */ = {isa = PBXBuildFile; fileRef = AACF5CCF19BF01D8008D9E80 /* IndexPathButton.m */; };
 		AAD7D44B19BA11C80028957C /* RequestTableViewCell.mm in Sources */ = {isa = PBXBuildFile; fileRef = AAD7D44A19BA11C80028957C /* RequestTableViewCell.mm */; };
 		AADF36A819BA1353009198A3 /* RequestModel.mm in Sources */ = {isa = PBXBuildFile; fileRef = AADF36A719BA1353009198A3 /* RequestModel.mm */; };
-		AAEBB81919B4308400AB3A07 /* ChatViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = AAEBB81819B4308400AB3A07 /* ChatViewController.mm */; };
 		AAF496A019B47585008A9372 /* Unread.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AAF4969E19B47585008A9372 /* Unread.cpp */; };
 		AAF61303198F5C9F00555364 /* Session.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AAF61301198F5C9F00555364 /* Session.cpp */; };
 		AAF613061990723A00555364 /* Exception.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AAF613041990723A00555364 /* Exception.cpp */; };
@@ -253,6 +268,26 @@
 		AA6D73C819B16B9C006DBC6D /* add_icon_friend@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "add_icon_friend@2x.png"; sourceTree = "<group>"; };
 		AA6D73CE19B1E739006DBC6D /* BadgeButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BadgeButton.h; sourceTree = "<group>"; };
 		AA6D73CF19B1E739006DBC6D /* BadgeButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BadgeButton.m; sourceTree = "<group>"; };
+		AA6F5F9319C6821300076E6B /* ChatViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatViewController.h; sourceTree = "<group>"; };
+		AA6F5F9419C6821300076E6B /* ChatViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ChatViewController.mm; sourceTree = "<group>"; };
+		AA6F5F9619C6825100076E6B /* MsgTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MsgTableViewCell.h; sourceTree = "<group>"; };
+		AA6F5F9719C6825100076E6B /* MsgTableViewCell.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MsgTableViewCell.mm; sourceTree = "<group>"; };
+		AA6F5F9919C682A700076E6B /* MsgModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MsgModel.h; sourceTree = "<group>"; };
+		AA6F5F9A19C682A700076E6B /* MsgModel.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MsgModel.mm; sourceTree = "<group>"; };
+		AA6F5F9C19C6BC6700076E6B /* ChatTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatTableViewCell.h; sourceTree = "<group>"; };
+		AA6F5F9D19C6BC6700076E6B /* ChatTableViewCell.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ChatTableViewCell.mm; sourceTree = "<group>"; };
+		AA6F5FA019C6BF8600076E6B /* chat_bottom_bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "chat_bottom_bg@2x.png"; sourceTree = "<group>"; };
+		AA6F5FA119C6BF8600076E6B /* chat_bottom_smile_nor@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "chat_bottom_smile_nor@2x.png"; sourceTree = "<group>"; };
+		AA6F5FA219C6BF8600076E6B /* chat_bottom_smile_press@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "chat_bottom_smile_press@2x.png"; sourceTree = "<group>"; };
+		AA6F5FA319C6BF8600076E6B /* chat_bottom_textfield@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "chat_bottom_textfield@2x.png"; sourceTree = "<group>"; };
+		AA6F5FA419C6BF8600076E6B /* chat_bottom_up_nor@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "chat_bottom_up_nor@2x.png"; sourceTree = "<group>"; };
+		AA6F5FA519C6BF8600076E6B /* chat_bottom_up_press@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "chat_bottom_up_press@2x.png"; sourceTree = "<group>"; };
+		AA6F5FA619C6BF8600076E6B /* chat_bottom_voice_nor@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "chat_bottom_voice_nor@2x.png"; sourceTree = "<group>"; };
+		AA6F5FA719C6BF8600076E6B /* chat_bottom_voice_press@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "chat_bottom_voice_press@2x.png"; sourceTree = "<group>"; };
+		AA6F5FA819C6BF8600076E6B /* chat_recive_nor@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "chat_recive_nor@2x.png"; sourceTree = "<group>"; };
+		AA6F5FA919C6BF8600076E6B /* chat_recive_press_pic@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "chat_recive_press_pic@2x.png"; sourceTree = "<group>"; };
+		AA6F5FAA19C6BF8600076E6B /* chat_send_nor@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "chat_send_nor@2x.png"; sourceTree = "<group>"; };
+		AA6F5FAB19C6BF8600076E6B /* chat_send_press_pic@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "chat_send_press_pic@2x.png"; sourceTree = "<group>"; };
 		AA7D661319C2E90300488EFC /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
 		AA7D661419C2E90300488EFC /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
 		AA7EB9961992674D000BD838 /* Client.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Client.h; sourceTree = "<group>"; };
@@ -315,8 +350,6 @@
 		AAD7D44A19BA11C80028957C /* RequestTableViewCell.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = RequestTableViewCell.mm; sourceTree = "<group>"; };
 		AADF36A619BA1353009198A3 /* RequestModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RequestModel.h; sourceTree = "<group>"; };
 		AADF36A719BA1353009198A3 /* RequestModel.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = RequestModel.mm; sourceTree = "<group>"; };
-		AAEBB81719B4308400AB3A07 /* ChatViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatViewController.h; sourceTree = "<group>"; };
-		AAEBB81819B4308400AB3A07 /* ChatViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ChatViewController.mm; sourceTree = "<group>"; };
 		AAF4969E19B47585008A9372 /* Unread.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Unread.cpp; sourceTree = "<group>"; };
 		AAF4969F19B47585008A9372 /* Unread.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Unread.h; sourceTree = "<group>"; };
 		AAF61301198F5C9F00555364 /* Session.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Session.cpp; sourceTree = "<group>"; };
@@ -411,6 +444,10 @@
 		AA30A74E19B55913006925F5 /* Chat */ = {
 			isa = PBXGroup;
 			children = (
+				AA6F5F9619C6825100076E6B /* MsgTableViewCell.h */,
+				AA6F5F9719C6825100076E6B /* MsgTableViewCell.mm */,
+				AA6F5F9C19C6BC6700076E6B /* ChatTableViewCell.h */,
+				AA6F5F9D19C6BC6700076E6B /* ChatTableViewCell.mm */,
 			);
 			path = Chat;
 			sourceTree = "<group>";
@@ -420,6 +457,8 @@
 			children = (
 				AA30A75319B55DFB006925F5 /* MsgViewController.h */,
 				AA30A75419B55DFB006925F5 /* MsgViewController.mm */,
+				AA6F5F9319C6821300076E6B /* ChatViewController.h */,
+				AA6F5F9419C6821300076E6B /* ChatViewController.mm */,
 			);
 			path = Message;
 			sourceTree = "<group>";
@@ -459,6 +498,8 @@
 				AA49BA4719B41A080058BFF3 /* BuddyModel.h */,
 				AADF36A619BA1353009198A3 /* RequestModel.h */,
 				AADF36A719BA1353009198A3 /* RequestModel.mm */,
+				AA6F5F9919C682A700076E6B /* MsgModel.h */,
+				AA6F5F9A19C682A700076E6B /* MsgModel.mm */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -595,8 +636,6 @@
 				AA665F7219A8D86A00FCF5C6 /* AddBuddyViewController.mm */,
 				AA6D73C219B1673B006DBC6D /* NewBuddyViewController.h */,
 				AA6D73C319B1673B006DBC6D /* NewBuddyViewController.mm */,
-				AAEBB81719B4308400AB3A07 /* ChatViewController.h */,
-				AAEBB81819B4308400AB3A07 /* ChatViewController.mm */,
 			);
 			path = Buddy;
 			sourceTree = "<group>";
@@ -619,6 +658,7 @@
 		AA59F094198A20AE009FD449 /* Image */ = {
 			isa = PBXGroup;
 			children = (
+				AA6F5F9F19C6BF7E00076E6B /* Message */,
 				AA33752C19A89E29005BD678 /* Buddy */,
 				AA3374F919A86EB8005BD678 /* Icon */,
 				AA1100E2198B3BFA008811E4 /* Common */,
@@ -665,6 +705,25 @@
 				AA65387519AF6B67003B64B0 /* JSBadgeView.m */,
 			);
 			path = JSBadgeView;
+			sourceTree = "<group>";
+		};
+		AA6F5F9F19C6BF7E00076E6B /* Message */ = {
+			isa = PBXGroup;
+			children = (
+				AA6F5FA019C6BF8600076E6B /* chat_bottom_bg@2x.png */,
+				AA6F5FA119C6BF8600076E6B /* chat_bottom_smile_nor@2x.png */,
+				AA6F5FA219C6BF8600076E6B /* chat_bottom_smile_press@2x.png */,
+				AA6F5FA319C6BF8600076E6B /* chat_bottom_textfield@2x.png */,
+				AA6F5FA419C6BF8600076E6B /* chat_bottom_up_nor@2x.png */,
+				AA6F5FA519C6BF8600076E6B /* chat_bottom_up_press@2x.png */,
+				AA6F5FA619C6BF8600076E6B /* chat_bottom_voice_nor@2x.png */,
+				AA6F5FA719C6BF8600076E6B /* chat_bottom_voice_press@2x.png */,
+				AA6F5FA819C6BF8600076E6B /* chat_recive_nor@2x.png */,
+				AA6F5FA919C6BF8600076E6B /* chat_recive_press_pic@2x.png */,
+				AA6F5FAA19C6BF8600076E6B /* chat_send_nor@2x.png */,
+				AA6F5FAB19C6BF8600076E6B /* chat_send_press_pic@2x.png */,
+			);
+			path = Message;
 			sourceTree = "<group>";
 		};
 		AAA6DCC3198B918100EB948E /* Public */ = {
@@ -883,10 +942,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AA6F5FAC19C6BF8600076E6B /* chat_bottom_bg@2x.png in Resources */,
 				AA33752819A871A5005BD678 /* Icon.png in Resources */,
 				AA59F098198A2250009FD449 /* login_bg_ip5@2x.jpg in Resources */,
 				AA59F099198A2250009FD449 /* login_bg@2x.jpg in Resources */,
 				AA1100EC198B3C01008811E4 /* tab_buddy_press@2x.png in Resources */,
+				AA6F5FB719C6BF8600076E6B /* chat_send_press_pic@2x.png in Resources */,
 				AA110108198B61DD008811E4 /* icon-info@2x.png in Resources */,
 				AA11010A198B61DD008811E4 /* icon-success@2x.png in Resources */,
 				AA9131E619990F3900524E8D /* 37x-Checkmark@2x.png in Resources */,
@@ -902,8 +963,13 @@
 				AA30A74C19B49FC8006925F5 /* line@2x.png in Resources */,
 				AA110106198B61DD008811E4 /* icon-error@2x.png in Resources */,
 				AA59F0A3198A2C5D009FD449 /* login_avatar_default@2x.png in Resources */,
+				AA6F5FB019C6BF8600076E6B /* chat_bottom_up_nor@2x.png in Resources */,
+				AA6F5FB519C6BF8600076E6B /* chat_recive_press_pic@2x.png in Resources */,
+				AA6F5FAD19C6BF8600076E6B /* chat_bottom_smile_nor@2x.png in Resources */,
+				AA6F5FB419C6BF8600076E6B /* chat_recive_nor@2x.png in Resources */,
 				AA59F0A5198A3187009FD449 /* login_textfield@2x.png in Resources */,
 				AA1100F1198B3C01008811E4 /* tab_recent_nor@2x.png in Resources */,
+				AA6F5FB619C6BF8600076E6B /* chat_send_nor@2x.png in Resources */,
 				AA33752619A871A5005BD678 /* Icon-Small.png in Resources */,
 				AA110105198B61DD008811E4 /* icon-error.png in Resources */,
 				AA665F9019AA1D1A00FCF5C6 /* pdi_bottom_edit_btn_press@2x.png in Resources */,
@@ -913,8 +979,11 @@
 				AA33752719A871A5005BD678 /* Icon-Small@2x.png in Resources */,
 				AA6D73C919B16B9C006DBC6D /* add_icon_friend@2x.png in Resources */,
 				AA665F9119AA1D1A00FCF5C6 /* pdi_bottom_edit_btn_nor@2x.png in Resources */,
+				AA6F5FAE19C6BF8600076E6B /* chat_bottom_smile_press@2x.png in Resources */,
 				AA1100EB198B3C01008811E4 /* tab_buddy_nor@2x.png in Resources */,
 				AA59F0A8198A3667009FD449 /* login_btn_blue_nor@2x.png in Resources */,
+				AA6F5FB219C6BF8600076E6B /* chat_bottom_voice_nor@2x.png in Resources */,
+				AA6F5FAF19C6BF8600076E6B /* chat_bottom_textfield@2x.png in Resources */,
 				AA59F0A9198A3667009FD449 /* login_btn_blue_press@2x.png in Resources */,
 				AAAFF3B319BB097100E6F3F2 /* table_empty@2x.png in Resources */,
 				AA3374F819A86877005BD678 /* common_btn_red_press@2x.png in Resources */,
@@ -925,7 +994,9 @@
 				AA665F8D19AA138300FCF5C6 /* contact_to_chat_btn_press@2x.png in Resources */,
 				AA665F7719A8DF0F00FCF5C6 /* MetroUI-Folder-OS-OS-Linux-icon2.png in Resources */,
 				AA3374F719A86877005BD678 /* common_btn_red_nor@2x.png in Resources */,
+				AA6F5FB319C6BF8600076E6B /* chat_bottom_voice_press@2x.png in Resources */,
 				AA3374F419A8681A005BD678 /* common_btn_green_press@2x.png in Resources */,
+				AA6F5FB119C6BF8600076E6B /* chat_bottom_up_press@2x.png in Resources */,
 				AA1100EF198B3C01008811E4 /* tab_qworld_nor@2x.png in Resources */,
 				AA33752419A871A5005BD678 /* Icon-120.png in Resources */,
 				AA1100F0198B3C01008811E4 /* tab_qworld_press@2x.png in Resources */,
@@ -975,7 +1046,6 @@
 				AA30A75119B5592E006925F5 /* BuddyTableViewCell.mm in Sources */,
 				AAA6DCD9198B918100EB948E /* Idea.cpp in Sources */,
 				AAA6DCE2198B962E00EB948E /* Socket.cpp in Sources */,
-				AAEBB81919B4308400AB3A07 /* ChatViewController.mm in Sources */,
 				AA49BA4819B41A080058BFF3 /* BuddyModel.mm in Sources */,
 				AA59F09C198A25C6009FD449 /* LoginViewController.mm in Sources */,
 				AA446E7719C18A340033C5A0 /* NSString+PJR.m in Sources */,
@@ -985,16 +1055,19 @@
 				AA588BB31990B4EC00F08821 /* SendMsg.cpp in Sources */,
 				AA59F073198A1A59009FD449 /* BaseTabBarViewController.m in Sources */,
 				AABF3CBF198636C0001C8DCA /* main.m in Sources */,
+				AA6F5F9819C6825100076E6B /* MsgTableViewCell.mm in Sources */,
 				AAF496A019B47585008A9372 /* Unread.cpp in Sources */,
 				AA665F8219A961EF00FCF5C6 /* ProfileViewController.mm in Sources */,
 				AA588BAF1990B4EC00F08821 /* HeartBeat.cpp in Sources */,
 				AAF613061990723A00555364 /* Exception.cpp in Sources */,
 				AA59F071198A1A59009FD449 /* BackViewController.m in Sources */,
 				AAA6DCDF198B918100EB948E /* Timestamp.cpp in Sources */,
+				AA6F5F9519C6821300076E6B /* ChatViewController.mm in Sources */,
 				AADF36A819BA1353009198A3 /* RequestModel.mm in Sources */,
 				AA7EB9981992674D000BD838 /* Client.mm in Sources */,
 				AACF5CD019BF01D8008D9E80 /* IndexPathButton.m in Sources */,
 				AA59F03C198A197B009FD449 /* UIImage+Additions.m in Sources */,
+				AA6F5F9E19C6BC6700076E6B /* ChatTableViewCell.mm in Sources */,
 				AA588BB21990B4EC00F08821 /* RetrieveBuddy.cpp in Sources */,
 				AA7D661519C2E90300488EFC /* Reachability.m in Sources */,
 				AA12CC0619C28080003BF55A /* SendOperation.mm in Sources */,
@@ -1006,6 +1079,7 @@
 				AA59F09F198A25EA009FD449 /* RegViewController.mm in Sources */,
 				AAA6DCDB198B918100EB948E /* Logging.cpp in Sources */,
 				AA588BAE1990B4EC00F08821 /* AddBuddy.cpp in Sources */,
+				AA6F5F9B19C682A700076E6B /* MsgModel.mm in Sources */,
 				AA59F034198A15F0009FD449 /* Constants.m in Sources */,
 				AA6D73C419B1673B006DBC6D /* NewBuddyViewController.mm in Sources */,
 			);

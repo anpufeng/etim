@@ -68,7 +68,10 @@
 - (BOOL)isVAlidPhoneNumber;
 - (BOOL)isValidUrl;
 
+//add by ethan
 
+///求字符串所占size
+- (CGSize)sizeWithFont:(UIFont *)font maxSize:(CGSize)maxSize;
 
 
 
