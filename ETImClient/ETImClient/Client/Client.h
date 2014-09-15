@@ -15,6 +15,7 @@
 #include "Session.h"
 #include "Endian.h"
 
+
 ///根据cmd获取要发送的通知名
 inline NSString *notiNameFromCmd(const int16_t cmd) {
     int cmdCount = sizeof(etim::gCmdNoti)/sizeof(etim::gCmdNoti[0]);
@@ -48,6 +49,7 @@ inline std::string nsStrToStdStr(NSString *str) {
 }
 
 
+
 + (Client *)sharedInstance;
 ///销毁单例
 + (void)sharedDealloc;
@@ -60,6 +62,7 @@ inline std::string nsStrToStdStr(NSString *str) {
 ///获取消息, 登录成功后获取最新消息(好友信息, 聊天信息等)
 - (void)pullUnread;
 - (void)pullWithCommand:(etim::uint16)cmd;
+- (void)startReachabilityNoti;
 @end
 
 #endif  //end

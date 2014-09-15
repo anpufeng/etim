@@ -21,18 +21,36 @@ using namespace etim::pub;
 using namespace std;
 
 Session::Session(std::auto_ptr<Socket> &socket) : socket_(socket), isConnected_(false) {
-    if (socket_->Create()) {
-        if (socket_->Connect(HOST_SERVER, HOST_PORT))  {
-            isConnected_ = true;
-        } else {
-            isConnected_ = false;
-        }
-    }
+    Connect();
     responsePack_ = (ResponsePack*)buffer_;
 }
 
 Session::~Session() {
     LOG_INFO<<"~Session 析构函数";
+    Close();
+}
+
+void Session::Close() {
+    if (!isConnected_) return;
+    
+        isConnected_ = false;
+        socket_->Close();
+}
+bool Session::Connect() {
+    if (isConnected_) return true;
+    
+    if (socket_->Create()) {
+        if (socket_->Connect(HOST_SERVER, HOST_PORT))  {
+            isConnected_ = true;
+        } else {
+            isConnected_ = false;
+            socket_->Close();
+        }
+    } else {
+        LOG_FATAL<<"无法创建socket";
+    }
+    
+    return isConnected_;
 }
 
 void Session::Clear() {

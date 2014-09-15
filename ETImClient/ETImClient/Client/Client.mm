@@ -30,6 +30,7 @@ using namespace etim::pub;
 using namespace etim::action;
 using namespace std;
 
+#define kBgQueue dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)
 
 @interface Client () {
     @private
@@ -37,6 +38,8 @@ using namespace std;
 }
 
 @property (nonatomic, strong) Reachability *hostReachability;
+@property (nonatomic, assign) BOOL isLogin;
+@property (nonatomic, assign) BOOL isLogout;
 
 @end
 
@@ -67,14 +70,24 @@ static dispatch_once_t predicate;
 - (void)dealloc {
     ETLOG(@"======= Client DEALLOC ========");
     [[NSNotificationCenter defaultCenter] removeObserver:self name:kReachabilityChangedNotification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:kNoConnectionNotification object:nil];
+    [_sendQueue cancelAllOperations];
     delete _session;
 }
 
 - (id)init {
     if (self = [super init]) {
         self.hostReachability = [Reachability reachabilityWithHostName:@"www.baidu.com"];
-        [self.hostReachability startNotifier];
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reachabilityChanged:) name:kReachabilityChangedNotification object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(reachabilityChanged:)
+                                                     name:kReachabilityChangedNotification
+                                                   object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(showNoConnection:)
+                                                     name:kNoConnectionNotification
+                                                   object:nil];
+        self.isLogin = NO;
+        self.isLogout = YES;
         
         _sendQueue = [[NSOperationQueue alloc] init];
         _recvQueue = dispatch_queue_create("clientRecv", NULL);
@@ -87,12 +100,26 @@ static dispatch_once_t predicate;
     return self;
 }
 
+- (void)startReachabilityNoti {
+    [self.hostReachability startNotifier];
+}
+
 - (etim::Session *)session {
     return _session;
 }
 
 - (void)pullUnread {
     [self pullWithCommand:CMD_UNREAD];
+}
+
+- (void)autoLogin {
+    if (self.isLogin)
+        return;
+    
+    NSMutableDictionary *param = [NSMutableDictionary dictionary];
+    [param setObject:@"admin1" forKey:@"name"];
+    [param setObject:@"admin" forKey:@"pass"];
+    [self doAction:*_session cmd:CMD_LOGIN param:param];
 }
 
 ///只有参数为userId时的命令操作
@@ -173,6 +200,16 @@ static dispatch_once_t predicate;
                     ///必须dispatch_sync,不然如果多个命令连续的话会导致重新发出相同的最后一个命令名称
                     dispatch_sync(dispatch_get_main_queue(), ^{
                         ETLOG(@"接收cmd: 0X%04X, 通知名称: %@", s.GetRecvCmd(), notiNameFromCmd(s.GetRecvCmd()));
+                        if (s.GetRecvCmd() == CMD_LOGIN && !s.IsError()) {
+                            wself.isLogin = YES;
+                            wself.isLogout = NO;
+                        }
+                        
+                        if (s.GetRecvCmd() == CMD_LOGOUT && !s.IsError()) {
+                            wself.isLogout = YES;
+                            wself.isLogin = NO;
+                        }
+                        
                         [[NSNotificationCenter defaultCenter] postNotificationName:notiNameFromCmd(s.GetRecvCmd()) object:nil];
                     });
                 } catch (RecvException &e) {
@@ -183,6 +220,15 @@ static dispatch_once_t predicate;
                         ///TODO 关闭客户端socket并进行重连
                         LOG_ERROR<<"服务端关闭或超时";
                         [[TWMessageBarManager sharedInstance] showMessageWithTitle:@"服务器错误" description:@"服务端关闭" type:TWMessageBarMessageTypeError];
+                        if (!wself)
+                            break;
+                        wself.isLogin = NO;
+                        if (wself.isLogout) {
+                            
+                        } else {
+                            [wself autoLogin];
+                        }
+
                         /*
                         s.SetErrorCode(kErrCodeMax);
                         s.SetErrorMsg(e.what());
@@ -215,33 +261,48 @@ static dispatch_once_t predicate;
     } else {
         s.SetErrorCode(kErrCodeMax);
         s.SetErrorMsg("无服务器连接");
-        [[NSNotificationCenter defaultCenter] postNotificationName:notiNameFromCmd(s.GetRecvCmd()) object:nil];
+        [[NSNotificationCenter defaultCenter] postNotificationName:kNoConnectionNotification object:nil];
     }
 }
 
 /*!
  * Called by Reachability whenever status changes.
  */
-- (void) reachabilityChanged:(NSNotification *)note
+- (void)reachabilityChanged:(NSNotification *)note
 {
 	Reachability* curReach = [note object];
 	NSParameterAssert([curReach isKindOfClass:[Reachability class]]);
     NetworkStatus netStatus = [curReach currentReachabilityStatus];
+    __weak Client *wself = self;
     switch (netStatus)
     {
         case NotReachable:        {
-            
+            _session->Close();
+            wself.isLogin = NO;
             break;
         }
             
-        case ReachableViaWWAN:        {
-           
-            break;
-        }
-        case ReachableViaWiFi:        {
+        case ReachableViaWWAN:
+        case ReachableViaWiFi: {
+            dispatch_async(kBgQueue, ^{
+                if (_session->Connect()) {
+                    [wself autoLogin];
+                }
+            });
             break;
         }
     }
+}
+
+- (void)showNoConnection:(NSNotification *)note {
+    Reachability *reach = [Reachability reachabilityWithHostName:@"www.baidu.com"];
+    NSLog(@"status : %d", reach.currentReachabilityStatus);
+    if (reach.currentReachabilityStatus == NotReachable) {
+        [[TWMessageBarManager sharedInstance] showMessageWithTitle:@"网络错误" description:@"无网络连接" type:TWMessageBarMessageTypeError];
+    } else {
+        [[TWMessageBarManager sharedInstance] showMessageWithTitle:@"服务器错误" description:@"无法连接至服务器" type:TWMessageBarMessageTypeError];
+    }
+    
 }
 
 @end

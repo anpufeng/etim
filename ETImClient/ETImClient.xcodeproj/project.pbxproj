@@ -91,6 +91,8 @@
 		AA9131E519990F3900524E8D /* 37x-Checkmark.png in Resources */ = {isa = PBXBuildFile; fileRef = AA9131E319990F3900524E8D /* 37x-Checkmark.png */; };
 		AA9131E619990F3900524E8D /* 37x-Checkmark@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AA9131E419990F3900524E8D /* 37x-Checkmark@2x.png */; };
 		AA9131ED199BA98B00524E8D /* BaseTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA9131EC199BA98B00524E8D /* BaseTableViewController.m */; };
+		AA92BE0C19C3DADD002AED49 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA92BE0B19C3DADD002AED49 /* SystemConfiguration.framework */; };
+		AA92BE0E19C3DAE2002AED49 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA92BE0D19C3DAE2002AED49 /* CFNetwork.framework */; };
 		AA98798219B6E281002AE2AF /* OnlineViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = AA98798119B6E281002AE2AF /* OnlineViewController.mm */; };
 		AAA6DCD8198B918100EB948E /* Endian.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AAA6DCC4198B918100EB948E /* Endian.cpp */; };
 		AAA6DCD9198B918100EB948E /* Idea.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AAA6DCC6198B918100EB948E /* Idea.cpp */; };
@@ -262,6 +264,8 @@
 		AA9131EB199BA98B00524E8D /* BaseTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseTableViewController.h; sourceTree = "<group>"; };
 		AA9131EC199BA98B00524E8D /* BaseTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseTableViewController.m; sourceTree = "<group>"; };
 		AA9131EE199CE7C100524E8D /* DataStruct.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataStruct.h; sourceTree = "<group>"; };
+		AA92BE0B19C3DADD002AED49 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		AA92BE0D19C3DAE2002AED49 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		AA98798019B6E281002AE2AF /* OnlineViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OnlineViewController.h; sourceTree = "<group>"; };
 		AA98798119B6E281002AE2AF /* OnlineViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = OnlineViewController.mm; sourceTree = "<group>"; };
 		AAA6DCC4198B918100EB948E /* Endian.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Endian.cpp; sourceTree = "<group>"; };
@@ -326,6 +330,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AA92BE0E19C3DAE2002AED49 /* CFNetwork.framework in Frameworks */,
+				AA92BE0C19C3DADD002AED49 /* SystemConfiguration.framework in Frameworks */,
 				AABF3CB5198636C0001C8DCA /* CoreGraphics.framework in Frameworks */,
 				AABF3CB7198636C0001C8DCA /* UIKit.framework in Frameworks */,
 				AABF3CB3198636C0001C8DCA /* Foundation.framework in Frameworks */,
@@ -714,6 +720,8 @@
 		AABF3CB1198636C0001C8DCA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				AA92BE0D19C3DAE2002AED49 /* CFNetwork.framework */,
+				AA92BE0B19C3DADD002AED49 /* SystemConfiguration.framework */,
 				AABF3CB2198636C0001C8DCA /* Foundation.framework */,
 				AABF3CB4198636C0001C8DCA /* CoreGraphics.framework */,
 				AABF3CB6198636C0001C8DCA /* UIKit.framework */,
