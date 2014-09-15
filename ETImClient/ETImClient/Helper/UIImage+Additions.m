@@ -64,6 +64,18 @@
     //    return newimg;
 }
 
++ (UIImage *)resizeImage:(NSString *)imageName cached:(BOOL)cache
+{
+    UIImage *image = nil;
+    if (cache) {
+        image = [UIImage imageNamed:imageName];
+    } else {
+        image = IMAGE_PNG(imageName);
+    }
+    CGFloat imageW = image.size.width * 0.5;
+    CGFloat imageH = image.size.height * 0.5;
+    return [image resizableImageWithCapInsets:UIEdgeInsetsMake(imageH, imageW, imageH, imageW) resizingMode:UIImageResizingModeTile];
+}
 
 - (UIImage *)fixOrientation {
     

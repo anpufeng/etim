@@ -19,7 +19,22 @@ using namespace::etim::pub;
 using namespace std;
 
 void SendMsg::DoSend(Session& s, sendarg arg) {
-
+    OutStream jos;
+	// 包头命令
+	uint16 cmd = CMD_SEND_MSG;
+	jos<<cmd;
+    
+	// 预留两个字节包头len（包体+包尾长度）
+	size_t lengthPos = jos.Length();
+	jos.Skip(2);
+    
+	// 对方的userId
+	string userId = arg["to"];
+    string text = arg["text"];
+	jos<<userId;
+    
+	FillOutPackage(jos, lengthPos, cmd);
+	s.Send(jos.Data(), jos.Length());	// 发送请求包
 }
 
 
@@ -58,33 +73,8 @@ void RetrieveUnreadMsg::DoRecv(etim::Session &s) {
     
 	char error_msg[ERR_MSG_LENGTH+1];
 	jis.ReadBytes(error_msg, ERR_MSG_LENGTH);
-
     
-    /*
-     ///用户
-     struct IMUser {
-     int             userId;
-     std::string     username;
-     std::string     regDate;
-     std::string     signature;
-     int8            gender;
-     BuddyRelation   relation;
-     BuddyStatus     status;
-     std::string     statusName;
-     };
-     
-     ///消息
-     struct IMMsg {
-     int             msgId;
-     IMUser          from;
-     std::string     text;
-     int8            sent;
-     std::string     requestTime;
-     std::string     sendTime;
-     };
-     */
     if (error_code == kErrCode00) {
-        
         for (uint16 i = 0; i < cnt; ++i) {
             InStream jis((const char*)s.GetResponsePack(), s.GetResponsePack()->head.len+sizeof(ResponseHead));
             // 跳过cmd、len

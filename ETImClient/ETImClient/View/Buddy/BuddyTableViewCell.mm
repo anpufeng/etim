@@ -47,13 +47,11 @@
 }
 
 - (void)update:(BuddyModel *)buddy {
-    
     if (buddy.status == kBuddyOnline) {
         _iconImgView.image = [UIImage imageNamed:@"login_avatar_default"];
     } else {
         _iconImgView.image = [[UIImage imageNamed:@"login_avatar_default"] grayImage];
     }
-    
     
     _nameLabel.text = buddy.username;
     _descLabel.text = [NSString stringWithFormat:@"[%@] %@", buddy.statusName, buddy.signature];

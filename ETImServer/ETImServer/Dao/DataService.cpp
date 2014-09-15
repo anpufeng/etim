@@ -586,7 +586,7 @@ int DataService::RetrieveUnreadMsg(const std::string &userId, std::list<IMMsg> &
     try {
         db.Open();
         stringstream ss;
-        ss<<"select m.*, u_f.*, s.status_name, f.req_status from message m"<<
+        ss<<"select m.*, u_f.*, s.status_name, r.req_status from message m"<<
         " left join user u_t"<<
         " on u_t.user_id = m.msg_to"<<
         " left join user u_f "<<
@@ -594,7 +594,10 @@ int DataService::RetrieveUnreadMsg(const std::string &userId, std::list<IMMsg> &
         " left join status s"<<
         " on u_f.status_id = s.status_id"<<
         " left join friend f"<<
-        " on f.friend_from = " <<userId<< " and f.friend_to = u_f.user_id"<<
+        " on f.friend_from = u_f.user_id"<<
+        " and f.friend_to = u_t.user_id "<<
+        " left join request r"<<
+        " on r.req_id = f.req_id"<<
         " where u_t.user_id = "<<userId<<
         " and m.sent = "<<kMsgUnsent<<";";
         MysqlRecordset rs;
@@ -610,7 +613,18 @@ int DataService::RetrieveUnreadMsg(const std::string &userId, std::list<IMMsg> &
             fromUser.regDate = reg.substr(i, reg.find(" "));
             fromUser.signature = rs.GetItem(i, "u_f.signature");
             fromUser.gender = Convert::StringToInt(rs.GetItem(i, "u_f.gender"));
-            fromUser.relation = static_cast<BuddyRelation>(Convert::StringToInt(rs.GetItem(i, "f.req_status")));
+            string relation = rs.GetItem(i, "r.req_status");
+            if (relation.length()) {
+                BuddyRequestStatus status = static_cast<BuddyRequestStatus>(Convert::StringToInt(relation));
+                if (status == kBuddyRequestAccepted || status == kBuddyRequestAcceptedSent) {
+                    fromUser.relation = kBuddyRelationFriend;
+                } else {
+                    fromUser.relation = kBuddyRelationStranger;
+                }
+            } else {
+                fromUser.relation = kBuddyRelationStranger;
+            }
+            
             fromUser.status =  static_cast<BuddyStatus>(Convert::StringToInt(rs.GetItem(i, "u_f.status_id")));
             fromUser.statusName = rs.GetItem(i, "s.status_name");
 
