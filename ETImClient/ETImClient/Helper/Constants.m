@@ -21,7 +21,7 @@ const float kCommonCellHeight60 = 60;
 
 NSString *const kServerAddress = @"8.8.8.8";
 
-
+NSString *const kNoConnectionNotification = @"NoConnectionNotification";
 
 @implementation Constants
 

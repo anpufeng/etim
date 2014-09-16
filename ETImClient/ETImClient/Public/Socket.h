@@ -9,9 +9,9 @@
 #ifndef __ETImServer__Socket__
 #define __ETImServer__Socket__
 
-//#define HOST_SERVER                "192.168.0.126"
+#define HOST_SERVER                "192.168.0.126"
 //#define HOST_SERVER                "127.0.0.1"
-#define HOST_SERVER                "172.31.0.20"
+//#define HOST_SERVER                "172.31.0.20"
 #define HOST_PORT                   8888
 
 #include <iostream>
@@ -33,8 +33,6 @@ public:
     int Accept();
     bool Connect(char *ip, unsigned short port);
     void Close();
-    int Send();
-    int Recv();
     int SendN(const char* buf, size_t len);
     int RecvN(char* buf, size_t len);
     int GetFd() const { return fd_; }

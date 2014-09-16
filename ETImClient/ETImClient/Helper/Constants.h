@@ -22,7 +22,7 @@ extern const float kCommonCellHeight60;
 
 extern NSString *const kServerAddress;
 ///示例, 服务器的请求API都单独拉出来
-extern NSString *const kGetHospitalList;
+
 
 //enum
 
@@ -36,6 +36,7 @@ typedef enum {
 
 
 //notification
+extern NSString *const kNoConnectionNotification;  ///示例
 
 @interface Constants : NSObject
 

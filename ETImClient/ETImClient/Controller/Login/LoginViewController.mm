@@ -119,11 +119,14 @@ using namespace etim::pub;
         return;
     }
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    etim::Session *sess = [[Client sharedInstance] session];
-    NSMutableDictionary *param = [NSMutableDictionary dictionary];
-    [param setObject:_nameTextField.text forKey:@"name"];
-    [param setObject:_pwdTextField.text forKey:@"pass"];
-    [[Client sharedInstance] doAction:*sess cmd:CMD_LOGIN param:param];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        etim::Session *sess = [[Client sharedInstance] session];
+        NSMutableDictionary *param = [NSMutableDictionary dictionary];
+        [param setObject:_nameTextField.text forKey:@"name"];
+        [param setObject:_pwdTextField.text forKey:@"pass"];
+        [[Client sharedInstance] doAction:*sess cmd:CMD_LOGIN param:param];
+    });
+   
 }
 
 - (void)responseToRegBtn:(UIButton *)sender {
@@ -142,9 +145,11 @@ using namespace etim::pub;
             BaseTabBarViewController *tabbar = [[BaseTabBarViewController alloc] init];
             [[[UIApplication sharedApplication] keyWindow] setRootViewController:tabbar];
             [[Client sharedInstance] pullUnread];
+            [[Client sharedInstance] startReachabilityNoti];
         }
     } else {
         [[TWMessageBarManager sharedInstance] showMessageWithTitle:@"登录错误" description:@"未知错误" type:TWMessageBarMessageTypeError];
+        [Client sharedDealloc];
     }
 }
 

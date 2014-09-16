@@ -26,13 +26,10 @@ Socket::Socket(int fd, short port) : fd_(fd), port_(port) {
 }
 
 Socket::~Socket() {
-    if (IsValid()) {
-        LOG_INFO<<"~Socket析构:   关闭fd";
-        ::close(fd_);
-    } else {
-        LOG_INFO<<"~Socket析构:   无可用fd";
-    }
+    Close();
+    LOG_INFO<<"~Socket 析构";
 }
+
 
 bool Socket::Create() {
     fd_ = ::socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
@@ -112,6 +109,12 @@ bool Socket::Connect(char *ip, unsigned short port) {
     }
     
 	return true;
+}
+
+void Socket::Close() {
+    if (IsValid()) {
+        ::close(fd_);
+    }
 }
     
 int Socket::SendN(const char *buf, size_t len) {

@@ -145,7 +145,8 @@ namespace etim {
         
         ///获取响应包
         ResponsePack* GetResponsePack() const { return responsePack_; }
-        
+        void Close();
+        bool Connect();
         ///还原状态
         void Clear();
         ///发送打包数据
