@@ -72,6 +72,7 @@
 
 ///求字符串所占size
 - (CGSize)sizeWithFont:(UIFont *)font maxSize:(CGSize)maxSize;
++ (NSString *)uuid;
 
 
 

@@ -1204,6 +1204,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer: pin lin (VQ873F9G68)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ETImClient/ETImClient-Prefix.pch";
 				INFOPLIST_FILE = "ETImClient/ETImClient-Info.plist";

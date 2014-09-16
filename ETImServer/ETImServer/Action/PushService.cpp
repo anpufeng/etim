@@ -164,3 +164,55 @@ void PushService::PushRequestAddBuddy(const etim::IMUser &user, const std::strin
     }
 
 }
+
+void PushService::PushSendMsg(const std::string &from, const std::string &to, etim::DataService &dao) {
+    int ret;
+    uint16 cmd = PUSH_SEND_MSG;
+    Session *s;
+    int16 error_code = kErrCode00;
+	char error_msg[ERR_MSG_LENGTH+1] = {0};
+    s = Singleton<Server>::Instance().FindSession(Convert::StringToInt(to));
+    std::list<IMMsg> msgs;
+    if (s) {
+        ret = dao.RetrieveUnreadMsg(to, msgs);
+        if (ret == kErrCode00) {
+            uint16 cnt = static_cast<uint16>(msgs.size());    //总共多少
+            uint16 seq = 0;                                     //序列号
+            list<IMMsg>::const_iterator it;
+            for (it = msgs.begin(); it != msgs.end(); ++it) {
+                OutStream jos;
+                // 包头命令
+                jos<<cmd;
+                size_t lengthPos = jos.Length();
+                jos.Skip(2);///留出2个字节空间用来后面存储包体长度+包尾(8)的长度
+                // 包头cnt、seq、error_code、error_msg
+                
+                jos<<cnt<<seq<<error_code;
+                seq++;
+                jos.WriteBytes(error_msg, ERR_MSG_LENGTH);
+                
+                // 包体
+                jos<<it->msgId;
+                jos<<it->fromId;
+                jos<<it->fromName;
+                jos<<it->toId;
+                jos<<it->toName;
+                jos<<it->text;
+                jos<<it->sent;
+                jos<<it->requestTime;
+                jos<<it->sendTime;
+                LOG_INFO<<it->sendTime;
+                FillOutPackage(jos, lengthPos, cmd);
+
+                s->Send(jos.Data(), jos.Length());
+            }
+            LOG_INFO<<"用户在线 userId :"<<to<<" 已推送";
+        } else {
+            assert(error_code < kErrCodeMax);
+            strcpy(error_msg, gErrMsg[error_code].c_str());
+            LOG_ERROR<<"用户在线 查询未读消息失败: "<<error_msg <<" from userId: "<<from<<" to userId: "<<to;
+        }
+    } else {
+        LOG_INFO<<"用户不在线 userId :"<<to<<" 不需要推送";
+    }
+}

@@ -49,7 +49,7 @@
     /**
      unread = {
      oneMsg {
-     buddy->    BuddyModel,
+     fromId->    fromId,
      msgs->   {MsgModel, MsgModel, MsgModel}
      }
      
@@ -58,17 +58,20 @@
      }
      }
      */
-    BuddyModel *buddy = [msg objectForKey:@"buddy"];
+
     NSMutableArray *msgs = [msg objectForKey:@"msgs"];
     MsgModel *lastMsg = [msgs lastObject];
     
+    /*
     if (buddy.status == kBuddyOnline) {
         _iconImgView.image = [UIImage imageNamed:@"login_avatar_default"];
     } else {
         _iconImgView.image = [[UIImage imageNamed:@"login_avatar_default"] grayImage];
     }
+     */
     
-    _nameLabel.text = [NSString stringWithFormat:@"[%@] %@", buddy.username, buddy.statusName]; ;
+    _iconImgView.image = [UIImage imageNamed:@"login_avatar_default"];
+    _nameLabel.text = [NSString stringWithFormat:@"%@", lastMsg.fromName]; ;
     _descLabel.text = lastMsg.text;
     _badgeLabel.textColor = [UIColor redColor];
     _badgeLabel.text = [NSString stringWithFormat:@"%d", [msgs count]];

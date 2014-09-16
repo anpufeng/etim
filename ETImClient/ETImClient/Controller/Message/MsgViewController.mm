@@ -85,7 +85,7 @@ using namespace std;
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     NSMutableDictionary *dic = self.msgList[indexPath.row];
-    ChatViewController *vc = [[ChatViewController alloc] initWithMsgs:[dic objectForKey:@"msgs"] peer:[dic objectForKey:@"user"]];
+    ChatViewController *vc = [[ChatViewController alloc] initWithMsgs:[dic objectForKey:@"msgs"]];
     [self.navigationController pushViewController:vc animated:YES];
 }
 
@@ -96,7 +96,7 @@ using namespace std;
     /**
      unread = {
         oneMsg {
-            user->    BuddyModel,
+            fromId->    fromId,
             msgs->   {MsgModel, MsgModel, MsgModel}
         }
      
@@ -115,8 +115,8 @@ using namespace std;
             //有添加过未读 找出存在的
             for (int j = 0; j < [self.msgList count]; j++) {
                 NSMutableDictionary *dic = self.msgList[j];
-                BuddyModel *buddy = [dic objectForKey:@"buddy"];
-                if (buddy.userId == msg.from.userId) {
+                NSString *fromId = [dic objectForKey:@"fromId"];
+                if (fromId.intValue == msg.fromId) {
                     NSMutableArray *buddyMsgs = [dic objectForKey:@"msgs"];
                     [buddyMsgs addObject:msg];
                     exist = YES;
@@ -129,7 +129,7 @@ using namespace std;
                 NSMutableDictionary *dic = [NSMutableDictionary dictionary];
                 NSMutableArray *buddyMsgs = [NSMutableArray array];
                 [buddyMsgs addObject:msg];
-                [dic setObject:msg.from forKey:@"buddy"];
+                [dic setObject:INT_TO_STRING(msg.fromId) forKey:@"fromId"];
                 [dic setObject:buddyMsgs forKey:@"msgs"];
                 [self.msgList addObject:dic];
             }
@@ -138,7 +138,7 @@ using namespace std;
             NSMutableDictionary *dic = [NSMutableDictionary dictionary];
             NSMutableArray *buddyMsgs = [NSMutableArray array];
             [buddyMsgs addObject:msg];
-            [dic setObject:msg.from forKey:@"buddy"];
+            [dic setObject:INT_TO_STRING(msg.fromId) forKey:@"fromId"];
             [dic setObject:buddyMsgs forKey:@"msgs"];
             [self.msgList addObject:dic];
         }

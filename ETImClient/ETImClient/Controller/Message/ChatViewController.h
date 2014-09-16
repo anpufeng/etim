@@ -12,6 +12,6 @@
 
 @interface ChatViewController : BackViewController <UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate>
 
-- (id)initWithMsgs:(NSMutableArray *)msgs peer:(BuddyModel *)peer;
+- (id)initWithMsgs:(NSMutableArray *)msgs;
 
 @end

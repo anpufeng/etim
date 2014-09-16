@@ -30,19 +30,26 @@ using namespace std;
 }
 
 @property (nonatomic, strong) NSMutableArray *chatList;
+//存储发送消息对应的行
+@property (nonatomic, strong) NSMutableDictionary *sentDic;
 @property (nonatomic, strong) BuddyModel *user;
-@property (nonatomic, strong) BuddyModel *peer;
+@property (nonatomic, assign) int toId;
+@property (nonatomic, copy) NSString *toName;
 
 @end
 
 @implementation ChatViewController
 
-- (id)initWithMsgs:(NSMutableArray *)msgs peer:(BuddyModel *)peer {
+- (void)dealloc {
+     [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+- (id)initWithMsgs:(NSMutableArray *)msgs {
     if (self = [super init]) {
         /**
          unread = {
          oneMsg {
-         user->    BuddyModel,
+         fromId->    fromId,
          msgs->   {MsgModel, MsgModel, MsgModel}
          }
          
@@ -51,6 +58,7 @@ using namespace std;
          }
          }
          */
+        self.toId = 0;
         self.chatList = [NSMutableArray array];
         
         for (MsgModel *model in msgs) {
@@ -61,19 +69,28 @@ using namespace std;
             model.showTime = YES;
             cellFrame.message = model;
             [self.chatList addObject:cellFrame];
+            if (!self.toId) {
+                self.toId = model.fromId;
+                self.toName = model.fromName;
+            }
         }
         
         etim::Session *sess = [[Client sharedInstance] session];
         self.user = [[BuddyModel alloc] initWithUser:sess->GetIMUser()];
-        self.peer = peer;
+        self.sentDic = [NSMutableDictionary dictionary];
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(responseToSendMsg)
+                                                     name:notiNameFromCmd(CMD_SEND_MSG)
+                                                   object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(responseToPushSendMsg)
+                                                     name:notiNameFromCmd(PUSH_SEND_MSG)
+                                                   object:nil];
+
     }
     
     return self;
-}
-
-- (void)dealloc
-{
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (void)viewDidLoad
@@ -85,7 +102,7 @@ using namespace std;
                                              selector:@selector(keyboardWillChange:)
                                                  name:UIKeyboardWillChangeFrameNotification
                                                object:nil];
-
+    self.title = self.toName;
     [self createUI];
 }
 
@@ -134,6 +151,8 @@ using namespace std;
     textField.background = [UIImage imageNamed:@"chat_bottom_textfield"];
     textField.delegate = self;
     [_barImgView addSubview:textField];
+    NSIndexPath *lastPath = [NSIndexPath indexPathForRow:self.chatList.count - 1 inSection:0];
+    [_tableView scrollToRowAtIndexPath:lastPath atScrollPosition:UITableViewScrollPositionBottom animated:NO];
 }
 
 
@@ -166,11 +185,51 @@ using namespace std;
 }
 
 #pragma mark -
+#pragma mark response
+///发送消息结果
+- (void)responseToSendMsg {
+    etim::Session *sess = [[Client sharedInstance] session];
+    if (sess->GetRecvCmd() == CMD_SEND_MSG) {
+        if (sess->IsError()) {
+            [[TWMessageBarManager sharedInstance] showMessageWithTitle:@"发送消息失败" description:stdStrToNsStr(sess->GetErrorMsg()) type:TWMessageBarMessageTypeError];
+        } else {
+            //好友列表成功
+            //self.buddyList = [BuddyModel buddys:sess->GetBuddys()];
+        }
+    } else {
+        [[TWMessageBarManager sharedInstance] showMessageWithTitle:@"发送消息错误" description:@"未知错误" type:TWMessageBarMessageTypeError];
+    }
+}
+
+///收到对方消息
+- (void)responseToPushSendMsg {
+    etim::Session *sess = [[Client sharedInstance] session];
+    if (sess->GetRecvCmd() == PUSH_SEND_MSG) {
+        if (sess->IsError()) {
+            [[TWMessageBarManager sharedInstance] showMessageWithTitle:@"接收消息失败" description:stdStrToNsStr(sess->GetErrorMsg()) type:TWMessageBarMessageTypeError];
+        } else {
+            MsgModel *newMsg = [[MsgModel alloc] initWithMsg:sess->GetPushSendMsg()];
+            ChatCellFrame *cellFrame = [[ChatCellFrame alloc] init];
+            ChatCellFrame *lastCellFrame = [self.chatList lastObject];
+            //    message.showTime = ![lastCellFrame.message.time isEqualToString:message.time];
+            newMsg.showTime = YES;
+            cellFrame.message = newMsg;
+            //4.添加进去，并且刷新数据
+            [self.chatList addObject:cellFrame];
+            [_tableView reloadData];
+            NSIndexPath *lastPath = [NSIndexPath indexPathForRow:self.chatList.count - 1 inSection:0];
+            [_tableView scrollToRowAtIndexPath:lastPath atScrollPosition:UITableViewScrollPositionBottom animated:YES];
+        }
+    } else {
+        [[TWMessageBarManager sharedInstance] showMessageWithTitle:@"接收消息错误" description:@"未知错误" type:TWMessageBarMessageTypeError];
+    }
+}
+
+#pragma mark -
 #pragma mark uitextfield delegate
 
-- (BOOL)textFieldShouldReturn:(UITextField *)textField
+- (BOOL)textFieldShouldReturn:(LeftMarginTextField *)textField
 {
-    
     //1.获得时间
     NSDate *senddate=[NSDate date];
     NSDateFormatter *dateformatter=[[NSDateFormatter alloc] init];
@@ -180,6 +239,10 @@ using namespace std;
     //2.创建一个MessageModel类
     MsgModel *message = [[MsgModel alloc] init];
     message.text = textField.text;
+    message.fromId = self.user.userId;
+    message.fromName = self.user.username;
+    message.toId = self.toId;
+    message.toName = self.toName;
     message.requestTime = locationString;
     message.source = kMsgSourceSelf;
     
@@ -198,14 +261,18 @@ using namespace std;
     NSIndexPath *lastPath = [NSIndexPath indexPathForRow:self.chatList.count - 1 inSection:0];
     [_tableView scrollToRowAtIndexPath:lastPath atScrollPosition:UITableViewScrollPositionBottom animated:YES];
     
-    textField.text = @"";
-    
+    NSString *uuid = [NSString uuid];
+    [self.sentDic  setObject:lastPath forKey:uuid];
     etim::Session *sess = [[Client sharedInstance] session];
     NSMutableDictionary *param = [NSMutableDictionary dictionary];
-    [param setObject:[NSString stringWithFormat:@"%d", self.peer.userId] forKey:@"to"];
+    [param setObject:[NSString stringWithFormat:@"%d", self.user.userId] forKey:@"from"];
+    [param setObject:[NSString stringWithFormat:@"%d", self.toId] forKey:@"to"];
     [param setObject:textField.text forKey:@"text"];
+    [param setObject:uuid forKey:@"uuid"];
     
     [[Client sharedInstance] doAction:*sess cmd:CMD_SEND_MSG param:param];
+    
+    textField.text = @"";
     
     return YES;
 }

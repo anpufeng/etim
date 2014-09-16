@@ -7,6 +7,7 @@
 //
 
 #include "SendMsg.h"
+#include "PushService.h"
 #include "OutStream.h"
 #include "InStream.h"
 #include "MD5.h"
@@ -24,7 +25,59 @@ using namespace etim::action;
 using namespace std;
 
 void SendMsg::Execute(Session *s) {
+    InStream jis(s->GetRequestPack()->buf, s->GetRequestPack()->head.len);
+	uint16 cmd = s->GetCmd();
     
+	// 登录id
+    string from;
+	string to;
+    string text;
+    string uuid;
+    jis>>from;
+	jis>>to;
+    jis>>text;
+    jis>>uuid;
+	
+    int16 error_code = kErrCode00;
+	char error_msg[ERR_MSG_LENGTH+1] = {0};
+	DataService dao;
+    IMMsg msg;
+	int ret = kErrCode00;
+    int msgId;
+    ret = dao.SendMsg(from, to, text, msgId);
+	if (ret == kErrCode00) {
+		LOG_INFO<<"发送记录插入 userId: "<<from;
+	} else  {
+		error_code = ret;
+        assert(error_code < kErrCodeMax);
+		strcpy(error_msg, gErrMsg[error_code].c_str());
+		LOG_ERROR<<"发送记录插入出错: "<<error_msg<<" userId: "<<from;
+	}
+    
+	OutStream jos;
+	// 包头命令
+	jos<<cmd;
+	size_t lengthPos = jos.Length();
+	jos.Skip(2);///留出2个字节空间用来后面存储包体长度+包尾(8)的长度
+	// 包头cnt、seq、error_code、error_msg
+	uint16 cnt = 0;
+	uint16 seq = 0;
+	jos<<cnt<<seq<<error_code;
+	jos.WriteBytes(error_msg, ERR_MSG_LENGTH);
+    
+	// 包体
+    if (ret == kErrCode00) {
+        jos<<msgId;
+        jos<<uuid;
+    }
+    
+    FillOutPackage(jos, lengthPos, cmd);
+	s->Send(jos.Data(), jos.Length());
+    
+    if (ret == kErrCode00) {
+        PushService push;
+        push.PushSendMsg(from, to, dao);
+    }
 }
 
 
@@ -42,7 +95,6 @@ void RetrieveUnreadMsg::Execute(Session *s) {
 	
     int16 error_code = kErrCode00;
 	char error_msg[ERR_MSG_LENGTH+1] = {0};
-	//TODO 获取未读消息 查询数据库未读消息并send
 	DataService dao;
     std::list<IMMsg> msgs;
 	int ret = kErrCode00;
@@ -66,14 +118,10 @@ void RetrieveUnreadMsg::Execute(Session *s) {
             
             // 包体
             jos<<it->msgId;
-            jos<<it->from.userId;
-            jos<<it->from.username;
-            jos<<it->from.regDate;
-            jos<<it->from.signature;
-            jos<<it->from.gender;
-            jos<<it->from.relation;
-            jos<<it->from.status;
-            jos<<it->from.statusName;
+            jos<<it->fromId;
+            jos<<it->fromName;
+            jos<<it->toId;
+            jos<<it->toName;
             jos<<it->text;
             jos<<it->sent;
             jos<<it->requestTime;

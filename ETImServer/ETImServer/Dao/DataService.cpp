@@ -586,7 +586,7 @@ int DataService::RetrieveUnreadMsg(const std::string &userId, std::list<IMMsg> &
     try {
         db.Open();
         stringstream ss;
-        ss<<"select m.*, u_f.*, s.status_name, r.req_status from message m"<<
+        ss<<"select m.*, u_f.*, u_t.*, s.status_name, r.req_status from message m"<<
         " left join user u_t"<<
         " on u_t.user_id = m.msg_to"<<
         " left join user u_f "<<
@@ -599,46 +599,56 @@ int DataService::RetrieveUnreadMsg(const std::string &userId, std::list<IMMsg> &
         " left join request r"<<
         " on r.req_id = f.req_id"<<
         " where u_t.user_id = "<<userId<<
-        " and m.sent = "<<kMsgUnsent<<";";
+        " and m.sent = "<<kMsgUnsent<<" order by m.req_time;";
         MysqlRecordset rs;
         rs = db.QuerySQL(ss.str().c_str());
         if (rs.GetRows() < 1) {
-            return kErrCode06;
+            //如果没数据则获取最近10条(忽略未读或已读)
+            ss.clear();
+            ss.str("");
+            ss<<"select m.*, u_f.*, u_t.*, s.status_name, r.req_status from message m"<<
+            " left join user u_t"<<
+            " on u_t.user_id = m.msg_to"<<
+            " left join user u_f "<<
+            " on u_f.user_id = m.msg_from"<<
+            " left join status s"<<
+            " on u_f.status_id = s.status_id"<<
+            " left join friend f"<<
+            " on f.friend_from = u_f.user_id"<<
+            " and f.friend_to = u_t.user_id "<<
+            " left join request r"<<
+            " on r.req_id = f.req_id"<<
+            " where u_t.user_id = "<<userId<<
+            " or u_f.user_id = "<<userId<<
+            " order by m.req_time limit 10;";
+            rs = db.QuerySQL(ss.str().c_str());
+            if (rs.GetRows() < 1) {
+                return kErrCode06;
+            }
         }
         for (int i = 0; i < rs.GetRows(); ++i) {
-            IMUser fromUser;
-            string reg = rs.GetItem(i, "u_f.reg_time");
-            fromUser.userId = Convert::StringToInt(rs.GetItem(i, "u_f.user_id"));
-            fromUser.username = rs.GetItem(i, "u_f.username");
-            fromUser.regDate = reg.substr(i, reg.find(" "));
-            fromUser.signature = rs.GetItem(i, "u_f.signature");
-            fromUser.gender = Convert::StringToInt(rs.GetItem(i, "u_f.gender"));
-            string relation = rs.GetItem(i, "r.req_status");
-            if (relation.length()) {
-                BuddyRequestStatus status = static_cast<BuddyRequestStatus>(Convert::StringToInt(relation));
-                if (status == kBuddyRequestAccepted || status == kBuddyRequestAcceptedSent) {
-                    fromUser.relation = kBuddyRelationFriend;
-                } else {
-                    fromUser.relation = kBuddyRelationStranger;
-                }
-            } else {
-                fromUser.relation = kBuddyRelationStranger;
-            }
-            
-            fromUser.status =  static_cast<BuddyStatus>(Convert::StringToInt(rs.GetItem(i, "u_f.status_id")));
-            fromUser.statusName = rs.GetItem(i, "s.status_name");
-
             IMMsg msg;
             msg.msgId = Convert::StringToInt(rs.GetItem(i, "m.msg_id"));
-            msg.from = fromUser;
+            msg.fromId = Convert::StringToInt(rs.GetItem(i, "u_f.user_id"));
+            msg.fromName = rs.GetItem(i, "u_f.username");
+            msg.toId = Convert::StringToInt(rs.GetItem(i, "u_t.user_id"));
+            msg.toName = rs.GetItem(i, "u_t.username");
             msg.text = rs.GetItem(i, "m.message");
             msg.sent = static_cast<int8>(Convert::StringToInt(rs.GetItem(i, "m.sent")));
             msg.requestTime = rs.GetItem(i, "m.req_time");
             msg.sendTime = rs.GetItem(i, "m.send_time");
             
             result.push_back(msg);
-            //TODO 更新SENT状态
         }
+        
+        //更新状态
+        ss.clear();
+        ss.str("");
+        ss<<"update message m set m.sent = "<<kMsgSent<<
+        " where m.msg_to = "<<userId<<
+        " and m.sent = "<<kMsgUnsent<<";";
+        unsigned long long ret = db.ExecSQL(ss.str().c_str());
+        
     } catch (Exception &e) {
         LOG_ERROR<<e.what();
         return kErrCode02;
@@ -767,6 +777,43 @@ int DataService::RetrieveAllBuddyRequest(const std::string &userId, std::list<IM
             
             result.push_back(req);
         }
+    } catch (Exception &e) {
+        LOG_ERROR<<e.what();
+        return kErrCode02;
+    }
+    
+    return kErrCode00;
+}
+
+/**
+ 用户发送消息
+ @param from 发送方userid
+ @param to 要发的userid
+ @param text 发送文本
+ @param msg 消息通过此返回
+ @return kErrCode00 成功 kErrCode02数据库错误
+ */
+
+int DataService::SendMsg(const std::string &from, const std::string &to, const std::string text, int &msgId) {
+    MysqlDB db;
+    
+    try {
+        db.Open();
+        stringstream ss;
+        ss<<"insert into message (msg_id, msg_from, msg_to, req_time, send_time, sent, message) values (null, '"<<
+        from<<"', '"<<
+        to<<"', "<<
+        " now(), "<<
+        " now(), "<<
+        kMsgUnsent<<", '"<<
+        text<<"');";
+        
+        unsigned long long ret = db.ExecSQL(ss.str().c_str());
+        if (!ret) {
+            return kErrCode02;
+        }
+        
+        msgId = static_cast<int>(db.GetInsertId());
     } catch (Exception &e) {
         LOG_ERROR<<e.what();
         return kErrCode02;

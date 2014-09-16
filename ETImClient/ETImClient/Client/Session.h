@@ -44,6 +44,7 @@ namespace etim {
 #define PUSH_BUDDY_MSG                          0X0101      //服务器往客户推端送好友消息
 #define PUSH_BUDDY_REQUEST_RESULT               0X0102      //往客户端推送好友请求结果
 #define PUSH_REQUEST_ADD_BUDDY                  0X0103      //往客户端推送好友请求
+#define PUSH_SEND_MSG                           0X0104      //往客户端推送消息
     
     static const std::string gCmdNoti[CMD_REJECT_ADD_BUDDY+1] = {
         "CMD_RETRIEVE_EVENT", "CMD_REGISTER", "CMD_LOGIN", /*0x0002*/
@@ -53,7 +54,7 @@ namespace etim {
         "CMD_UNREAD", "CMD_RETRIEVE_ALL_BUDDY_REQUEST", "CMD_ACCEPT_ADD_BUDDY", "CMD_REJECT_ADD_BUDDY" /*0X000F*/
     };
     
-    static const std::string gPushNoti[PUSH_REQUEST_ADD_BUDDY-PUSH_BUDDY_UPDATE+1] = {
+    static const std::string gPushNoti[PUSH_SEND_MSG-PUSH_BUDDY_UPDATE+1] = {
         "PUSH_BUDDY_UPDATE", "PUSH_BUDDY_MSG", "PUSH_BUDDY_REQUEST_RESULT", /*0X0102*/
         "PUSH_REQUEST_ADD_BUDDY"
     };
@@ -168,6 +169,9 @@ namespace etim {
         ///设置用户状态改变的好友信息
         void SetStatusChangedBuddy(IMUser &user) { stausChangedBuddy_ = user; }
         
+        const IMMsg GetPushSendMsg() const { return pushSendMsg_; }
+        void SetPushSendMsg(IMMsg &msg) { pushSendMsg_ = msg; }
+        
         uint16_t GetFd() const { return socket_->GetFd(); }
         bool IsConnected() const { return isConnected_; }
         
@@ -215,6 +219,8 @@ namespace etim {
         IMUser      user_;
         IMUser      searchUser_;
         IMUser      stausChangedBuddy_;
+        ///接收来的消息
+        IMMsg       pushSendMsg_;
         ///好友列表
         std::list<IMUser> buddys_;
         ///请求用户列表

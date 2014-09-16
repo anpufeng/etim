@@ -36,11 +36,18 @@ namespace etim {
              **/
             void PushBuddyRequestResult(const etim::IMUser &user, const int from, bool accept, bool peer, const std::string &reqId, etim::DataService &dao);
             /**
+             往客户端推送好友请求信息
              *@param user 本session的用户
              *@param to 对方id
              *@param reqId request id
              */
             void PushRequestAddBuddy(const etim::IMUser &user, const std::string &to, const std::string &reqId, etim::DataService &dao);
+            /**
+             往客户端推送好友发送的消息
+             *@param from 发送方id
+             *@param to 对方id
+             */
+            void PushSendMsg(const std::string &from, const std::string &to, etim::DataService &dao);
         };
         
     } //end action

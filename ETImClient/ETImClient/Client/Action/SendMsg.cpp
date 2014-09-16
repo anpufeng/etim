@@ -28,10 +28,14 @@ void SendMsg::DoSend(Session& s, sendarg arg) {
 	size_t lengthPos = jos.Length();
 	jos.Skip(2);
     
-	// 对方的userId
-	string userId = arg["to"];
+	string from = arg["from"];
+	string to = arg["to"];
     string text = arg["text"];
-	jos<<userId;
+    string uuid = arg["uuid"];
+    jos<<from;
+	jos<<to;
+    jos<<text;
+    jos<<uuid;
     
 	FillOutPackage(jos, lengthPos, cmd);
 	s.Send(jos.Data(), jos.Length());	// 发送请求包
@@ -39,7 +43,26 @@ void SendMsg::DoSend(Session& s, sendarg arg) {
 
 
 void SendMsg::DoRecv(etim::Session &s) {
+    InStream jis((const char*)s.GetResponsePack(), s.GetResponsePack()->head.len+sizeof(ResponseHead));
+	// 跳过cmd、len
+	jis.Skip(4);
+	uint16 cnt;
+	uint16 seq;
+	int16 error_code;
+	jis>>cnt>>seq>>error_code;
     
+	char error_msg[ERR_MSG_LENGTH+1];
+	jis.ReadBytes(error_msg, ERR_MSG_LENGTH);
+    
+    if (error_code == kErrCode00) {
+        int msgId;
+        string uuid;
+        jis>>msgId;
+        jis>>uuid;
+    }
+    s.SetErrorCode(error_code);
+	s.SetErrorMsg(error_msg);
+
 }
 
 void RetrieveUnreadMsg::DoSend(Session& s, sendarg arg) {
@@ -87,26 +110,15 @@ void RetrieveUnreadMsg::DoRecv(etim::Session &s) {
             jis.ReadBytes(error_msg, ERR_MSG_LENGTH);
             
             IMMsg msg;
-            IMUser user;
-            int rel;
-            int status;
             jis>>msg.msgId;
-            jis>>user.userId;
-            jis>>user.username;
-            jis>>user.regDate;
-            jis>>user.signature;
-            jis>>user.gender;
-            jis>>rel;
-            jis>>status;
-            jis>>user.statusName;
+            jis>>msg.fromId;
+            jis>>msg.fromName;
+            jis>>msg.toId;
+            jis>>msg.toName;
             jis>>msg.text;
             jis>>msg.sent;
             jis>>msg.requestTime;
             jis>>msg.sendTime;
-            
-            user.relation = static_cast<BuddyRelation>(rel);
-            user.status = static_cast<BuddyStatus>(status);
-            msg.from = user;
             s.AddUnreadMsg(msg);
             
             if (seq == cnt - 1)

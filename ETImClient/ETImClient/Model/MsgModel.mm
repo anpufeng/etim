@@ -19,7 +19,10 @@ using namespace etim;
 - (id)initWithMsg:(etim::IMMsg)msg {
     if (self = [super init]) {
         self.msgId = msg.msgId;
-        self.from = [[BuddyModel alloc] initWithUser:msg.from];
+        self.fromId = msg.fromId;
+        self.toId = msg.toId;
+        self.fromName = stdStrToNsStr(msg.fromName);
+        self.toName = stdStrToNsStr(msg.toName);
         self.text = stdStrToNsStr(msg.text);
         self.requestTime = stdStrToNsStr(msg.requestTime);
         self.sendTime = stdStrToNsStr(msg.sendTime);
@@ -45,8 +48,8 @@ using namespace etim;
 - (NSString *)description {
     return [NSString stringWithFormat:@"消息id: %06d, 从用户 %d  名字:%@, 发送时间: %@",
             self.msgId,
-            self.from.userId,
-            self.from.username,
+            self.fromId,
+            self.fromName,
             self.requestTime];
 }
 @end

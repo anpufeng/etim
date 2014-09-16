@@ -38,7 +38,8 @@ namespace etim {
 #define PUSH_BUDDY_UPDATE                       0X0100      //往客户推端送好友上线下线等状态变化
 #define PUSH_BUDDY_MSG                          0X0101      //往客户推端送好友消息
 #define PUSH_BUDDY_REQUEST_RESULT               0X0102      //往客户端推送好友请求结果
-#define PUSH_REQUEST_ADD_BUDDY                  0X0103      //往客户端推送好友请求   
+#define PUSH_REQUEST_ADD_BUDDY                  0X0103      //往客户端推送好友请求
+#define PUSH_SEND_MSG                           0X0104      //往客户端推送消息
     
 #define ERR_MSG_LENGTH      30              // 错误消息定长
 #define HEART_BEAT_SECONDS  30              //心中包发送间隔时间(S)

@@ -62,7 +62,10 @@ namespace etim  {
     ///消息
     struct IMMsg {
         int             msgId;
-        IMUser          from;
+        int             fromId;
+        std::string     fromName;
+        int             toId;
+        std::string     toName;
         std::string     text;
         int8            sent;
         std::string     requestTime;

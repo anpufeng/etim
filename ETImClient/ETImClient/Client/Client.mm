@@ -13,8 +13,10 @@
  */
 
 #import "Client.h"
+#import "BuddyModel.h"
 #import "SendOperation.h"
 #import "Reachability.h"
+
 
 #include "Socket.h"
 #include "Logging.h"
@@ -89,6 +91,21 @@ static dispatch_once_t predicate;
 
 - (etim::Session *)session {
     return _session;
+}
+
+- (BuddyModel *)user {
+    if (!self.user) {
+        self.user = [[BuddyModel alloc] initWithUser:_session->GetIMUser()];
+        
+        return self.user;
+    } else {
+        if (self.user.userId == _session->GetIMUser().userId) {
+            return self.user;
+        } else {
+            self.user = [[BuddyModel alloc] initWithUser:_session->GetIMUser()];
+            return self.user;
+        }
+    }
 }
 
 - (void)pullUnread {

@@ -42,11 +42,14 @@ inline std::string nsStrToStdStr(NSString *str) {
     return std::string(str.UTF8String);
 }
 
+@class BuddyModel;
+
 @interface Client : NSObject {
     NSOperationQueue *_sendQueue;
     dispatch_queue_t _recvQueue;
 }
 
+@property (nonatomic, strong) BuddyModel *user;
 
 + (Client *)sharedInstance;
 ///销毁单例

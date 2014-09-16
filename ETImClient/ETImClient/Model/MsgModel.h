@@ -25,7 +25,10 @@ typedef NS_ENUM(NSInteger, MsgSource) {
 @interface MsgModel : NSObject
 
 @property (nonatomic, assign) int msgId;
-@property (nonatomic, strong) BuddyModel *from;
+@property (nonatomic, assign) int fromId;
+@property (nonatomic, assign) int toId;
+@property (nonatomic, copy) NSString *fromName;
+@property (nonatomic, copy) NSString *toName;
 @property (nonatomic, copy) NSString *text;
 @property (nonatomic, assign) etim::int8 sent;
 @property (nonatomic, copy) NSString *requestTime;
