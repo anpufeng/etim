@@ -2,7 +2,7 @@
 #define MUDUO_BASE_LOGGING_H
 
 #include "Logging.h"
-#include "TimeStamp.h"
+#include "Timestamp.h"
 #include "LogStream.h"
 
 /**

@@ -9,6 +9,7 @@
 #import "AccountViewController.h"
 #import "ProfileViewController.h"
 #import "SignatureViewController.h"
+#import "BuddyModel.h"
 #import "AppDelegate.h"
 
 #include "Client.h"
@@ -96,7 +97,7 @@ using namespace etim::pub;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    IMUser user = [[Client sharedInstance] session]->GetIMUser();
+    BuddyModel *user = [Client sharedInstance].user;
     if (indexPath.row == 0) {
         static NSString *identifier = @"profileHeadCell";
         ProfileHeadTableViewCell *headCell = [tableView dequeueReusableCellWithIdentifier:identifier];
@@ -120,10 +121,10 @@ using namespace etim::pub;
         commonCell.keyLabel.text = self.accountKeyList[index];
         switch (index) {
             case 0:
-                commonCell.valueLabel.text = stdStrToNsStr(user.signature);
+                commonCell.valueLabel.text = user.signature;
                 break;
             case 1:
-                commonCell.valueLabel.text = stdStrToNsStr(user.regDate);
+                commonCell.valueLabel.text = user.signature;
                 break;
             case 2:
                 commonCell.valueLabel.text = [NSString stringWithFormat:@"%d", user.gender];
@@ -142,7 +143,7 @@ using namespace etim::pub;
     UIViewController *vc = nil;
     switch (indexPath.row) {
         case 0:
-            vc = [[ProfileViewController alloc] initWithUser:[[Client sharedInstance] session]->GetIMUser()];
+            vc = [[ProfileViewController alloc] initWithUser:[Client sharedInstance].user];
             break;
         case 1:
             vc = [[SignatureViewController alloc] init];

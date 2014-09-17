@@ -20,6 +20,7 @@ using namespace etim;
         self.regDate = stdStrToNsStr(user.regDate);
         self.signature = stdStrToNsStr(user.signature);
         self.gender = user.gender;
+        self.relation = user.relation;
         self.status = user.status;
         self.statusName = stdStrToNsStr(user.statusName);
     }

@@ -37,7 +37,7 @@
         BaseNavigationController *msgNav = [[BaseNavigationController alloc] initWithRootViewController:msg];
         BaseNavigationController *momentsNav = [[BaseNavigationController alloc] initWithRootViewController:moments];
         BaseNavigationController *accountNav = [[BaseNavigationController alloc] initWithRootViewController:account];
-        self.viewControllers = @[buddyNav, msgNav, momentsNav, accountNav];
+        self.viewControllers = @[msgNav, buddyNav, momentsNav, accountNav];
     }
     
     return self;

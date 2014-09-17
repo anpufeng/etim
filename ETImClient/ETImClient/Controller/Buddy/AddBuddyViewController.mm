@@ -10,6 +10,7 @@
 #import "TextFieldTableViewCell.h"
 #import "ProfileViewController.h"
 #import "LeftMarginTextField.h"
+#import "BuddyModel.h"
 
 #include "Client.h"
 #include "Singleton.h"
@@ -85,7 +86,9 @@ using namespace etim::pub;
         if (sess->IsError()) {
             [[TWMessageBarManager sharedInstance] showMessageWithTitle:@"查找结果" description:stdStrToNsStr(sess->GetErrorMsg()) type:TWMessageBarMessageTypeInfo];
         } else {
-            ProfileViewController *vc = [[ProfileViewController alloc] initWithUser:sess->GetSearchIMUser()];
+            IMUser searchUser = sess->GetSearchIMUser();
+            BuddyModel *searchBuddy = [[BuddyModel alloc] initWithUser:searchUser];
+            ProfileViewController *vc = [[ProfileViewController alloc] initWithUser:searchBuddy];
             [self.navigationController pushViewController:vc animated:YES];
         }
     } else {
@@ -108,9 +111,10 @@ using namespace etim::pub;
     
     [textField resignFirstResponder];
     
+    Client *client = [Client sharedInstance];
     etim::Session *sess = [[Client sharedInstance] session];
-    if ([stdStrToNsStr(sess->GetIMUser().username) isEqualToString:[textField.text lowercaseString]]) {
-        ProfileViewController *vc = [[ProfileViewController alloc] initWithUser:sess->GetIMUser()];
+    if ([client.user.username isEqualToString:[textField.text lowercaseString]]) {
+        ProfileViewController *vc = [[ProfileViewController alloc] initWithUser:client.user];
         [self.navigationController pushViewController:vc animated:YES];
     } else {
         [MBProgressHUD showHUDAddedTo:self.view animated:YES];

@@ -548,6 +548,7 @@ int DataService::RetrieveBuddyList(const std::string &userId, const bool online,
                 user.regDate = reg.substr(i, reg.find(" "));
                 user.signature = rs.GetItem(i, "u_t.signature");
                 user.gender = Convert::StringToInt(rs.GetItem(i, "u_t.gender"));
+                user.relation = kBuddyRelationFriend;
                 user.status = static_cast<BuddyStatus>(Convert::StringToInt(rs.GetItem(i, "u_t.status_id").c_str()));
                 user.statusName =  rs.GetItem(i, "st.status_name");
                 result.push_back(user);
@@ -561,6 +562,7 @@ int DataService::RetrieveBuddyList(const std::string &userId, const bool online,
                 user.regDate = reg.substr(i, reg.find(" "));
                 user.signature = rs.GetItem(i, "u_f.signature");
                 user.gender = Convert::StringToInt(rs.GetItem(i, "u_f.gender"));
+                user.relation = kBuddyRelationFriend;
                 user.status = static_cast<BuddyStatus>(Convert::StringToInt(rs.GetItem(i, "u_f.status_id").c_str()));
                 user.statusName =  rs.GetItem(i, "st.status_name");
                 result.push_back(user);

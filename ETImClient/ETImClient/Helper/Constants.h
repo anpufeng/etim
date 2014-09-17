@@ -36,7 +36,8 @@ typedef enum {
 
 
 //notification
-extern NSString *const kNoConnectionNotification;  ///示例
+extern NSString *const kNoConnectionNotification;
+extern NSString *const kJumpToChatNotification;
 
 @interface Constants : NSObject
 

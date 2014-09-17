@@ -12,6 +12,6 @@
 
 @interface ChatViewController : BackViewController <UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate>
 
-- (id)initWithMsgs:(NSMutableArray *)msgs;
+- (id)initWithMsgs:(NSMutableArray *)msgs toId:(int)to toName:(NSString *)name;
 
 @end

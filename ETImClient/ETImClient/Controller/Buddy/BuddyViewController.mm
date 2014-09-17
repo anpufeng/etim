@@ -11,7 +11,7 @@
 #import "NewBuddyViewController.h"
 #import "BuddyTableViewCell.h"
 #import "BaseTabBarViewController.h"
-#import "ChatViewController.h"
+#import "ProfileViewController.h"
 #import "BuddyModel.h"
 #import "BadgeButton.h"
 #import "MBProgressHUD.h"
@@ -161,7 +161,7 @@ using namespace std;
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     BuddyModel *buddy = self.buddyList[indexPath.row];
-    ChatViewController *vc = [[ChatViewController alloc] init];
+    ProfileViewController *vc = [[ProfileViewController alloc] initWithUser:buddy];
     [self.navigationController pushViewController:vc animated:YES];
 }
 

@@ -35,6 +35,8 @@ using namespace std;
 @property (nonatomic, strong) BuddyModel *user;
 @property (nonatomic, assign) int toId;
 @property (nonatomic, copy) NSString *toName;
+//所有CELL高度和 避免一开始会话少时键盘上移
+@property (nonatomic, assign) CGFloat totalCellHeight;
 
 @end
 
@@ -44,7 +46,7 @@ using namespace std;
      [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
-- (id)initWithMsgs:(NSMutableArray *)msgs {
+- (id)initWithMsgs:(NSMutableArray *)msgs toId:(int)to toName:(NSString *)name {
     if (self = [super init]) {
         /**
          unread = {
@@ -60,6 +62,11 @@ using namespace std;
          */
         self.toId = 0;
         self.chatList = [NSMutableArray array];
+        self.user =  [Client sharedInstance].user;
+        self.sentDic = [NSMutableDictionary dictionary];
+        self.toId = to;
+        self.toName = name;
+        self.totalCellHeight = 0;
         
         for (MsgModel *model in msgs) {
             ChatCellFrame *lastFrame = [self.chatList lastObject];
@@ -69,15 +76,10 @@ using namespace std;
             model.showTime = YES;
             cellFrame.message = model;
             [self.chatList addObject:cellFrame];
-            if (!self.toId) {
-                self.toId = model.fromId;
-                self.toName = model.fromName;
-            }
+            self.totalCellHeight = self.totalCellHeight + cellFrame.cellHeight;
         }
         
-        etim::Session *sess = [[Client sharedInstance] session];
-        self.user = [[BuddyModel alloc] initWithUser:sess->GetIMUser()];
-        self.sentDic = [NSMutableDictionary dictionary];
+    
         
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(responseToSendMsg)
@@ -93,6 +95,11 @@ using namespace std;
     return self;
 }
 
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    
+    [self scrollToBottom];
+}
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -151,11 +158,12 @@ using namespace std;
     textField.background = [UIImage imageNamed:@"chat_bottom_textfield"];
     textField.delegate = self;
     [_barImgView addSubview:textField];
-    NSIndexPath *lastPath = [NSIndexPath indexPathForRow:self.chatList.count - 1 inSection:0];
-    [_tableView scrollToRowAtIndexPath:lastPath atScrollPosition:UITableViewScrollPositionBottom animated:NO];
 }
 
-
+- (void)scrollToBottom {
+    NSIndexPath *lastPath = [NSIndexPath indexPathForRow:self.chatList.count - 1 inSection:0];
+    [_tableView scrollToRowAtIndexPath:lastPath atScrollPosition:UITableViewScrollPositionBottom animated:YES];
+}
 
 #pragma mark -
 #pragma mark tableview datasource & delegate
@@ -213,10 +221,12 @@ using namespace std;
             ChatCellFrame *lastCellFrame = [self.chatList lastObject];
             //    message.showTime = ![lastCellFrame.message.time isEqualToString:message.time];
             newMsg.showTime = YES;
+            newMsg.source = kMsgSourceOther;
             cellFrame.message = newMsg;
             //4.添加进去，并且刷新数据
             [self.chatList addObject:cellFrame];
             [_tableView reloadData];
+            self.totalCellHeight = self.totalCellHeight + cellFrame.cellHeight;
             NSIndexPath *lastPath = [NSIndexPath indexPathForRow:self.chatList.count - 1 inSection:0];
             [_tableView scrollToRowAtIndexPath:lastPath atScrollPosition:UITableViewScrollPositionBottom animated:YES];
         }
@@ -256,6 +266,7 @@ using namespace std;
     //4.添加进去，并且刷新数据
     [self.chatList addObject:cellFrame];
     [_tableView reloadData];
+    self.totalCellHeight = self.totalCellHeight + cellFrame.cellHeight;
     
     //5.自动滚到最后一行
     NSIndexPath *lastPath = [NSIndexPath indexPathForRow:self.chatList.count - 1 inSection:0];

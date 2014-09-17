@@ -10,7 +10,7 @@
 
 #include "DataStruct.h"
 
-
+@class BuddyModel;
 
 ///个人资料
 
@@ -19,7 +19,7 @@
 }
 
 
-- (id)initWithUser:(etim::IMUser)user;
+- (id)initWithUser:(BuddyModel *)user;
 
 
 @end
@@ -31,7 +31,7 @@
 @property (nonatomic, strong) UIImageView *thumbImgView;
 @property (nonatomic, strong) UILabel *nameLabel;
 
-- (void)update:(etim::IMUser)user;
+- (void)update:(BuddyModel *)user;
 
 @end
 

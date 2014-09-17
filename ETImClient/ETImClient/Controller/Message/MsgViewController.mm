@@ -41,7 +41,14 @@ using namespace std;
         self.title = @"消息";
         self.navigationItem.title = @"消息";
         [self.tabBarItem setFinishedSelectedImage:[UIImage imageNamed:@"tab_recent_press"] withFinishedUnselectedImage:[UIImage imageNamed:@"tab_recent_nor"]];
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(responseToRetrieveUnreadMsg) name:notiNameFromCmd(CMD_RETRIEVE_UNREAD_MSG) object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(responseToRetrieveUnreadMsg)
+                                                     name:notiNameFromCmd(CMD_RETRIEVE_UNREAD_MSG)
+                                                   object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(responseToJumpToChat:)
+                                                     name:kJumpToChatNotification
+                                                   object:nil];
         self.msgList = [NSMutableArray array];
     }
     
@@ -85,7 +92,11 @@ using namespace std;
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     NSMutableDictionary *dic = self.msgList[indexPath.row];
-    ChatViewController *vc = [[ChatViewController alloc] initWithMsgs:[dic objectForKey:@"msgs"]];
+    MsgModel *msg = [[dic objectForKey:@"msgs"] lastObject];
+    int toId = msg.source == kMsgSourceOther ? msg.fromId : msg.toId;
+    NSString *toName = msg.source == kMsgSourceOther ? msg.fromName : msg.toName;
+    
+    ChatViewController *vc = [[ChatViewController alloc] initWithMsgs:[dic objectForKey:@"msgs"] toId:toId toName:toName];
     [self.navigationController pushViewController:vc animated:YES];
 }
 
@@ -110,15 +121,23 @@ using namespace std;
     
     for (int i = 0; i < [unread count]; i++) {
         BOOL exist = NO;
+        int myId = [Client sharedInstance].user.userId;
         MsgModel *msg = unread[i];
         if ([self.msgList count]) {
             //有添加过未读 找出存在的
             for (int j = 0; j < [self.msgList count]; j++) {
                 NSMutableDictionary *dic = self.msgList[j];
                 NSString *fromId = [dic objectForKey:@"fromId"];
-                if (fromId.intValue == msg.fromId) {
-                    NSMutableArray *buddyMsgs = [dic objectForKey:@"msgs"];
+                
+                 NSMutableArray *buddyMsgs = [dic objectForKey:@"msgs"];
+                if (msg.fromId == fromId.intValue) {
                     [buddyMsgs addObject:msg];
+                    msg.source = kMsgSourceOther;
+                    exist = YES;
+                    break;
+                } else if (msg.fromId == myId && msg.toId == fromId.intValue) {
+                    [buddyMsgs addObject:msg];
+                    msg.source = kMsgSourceSelf;
                     exist = YES;
                     break;
                 }
@@ -129,7 +148,14 @@ using namespace std;
                 NSMutableDictionary *dic = [NSMutableDictionary dictionary];
                 NSMutableArray *buddyMsgs = [NSMutableArray array];
                 [buddyMsgs addObject:msg];
-                [dic setObject:INT_TO_STRING(msg.fromId) forKey:@"fromId"];
+                if (msg.fromId == myId) {
+                    //我发出的
+                    [dic setObject:INT_TO_STRING(msg.toId) forKey:@"fromId"];
+                    msg.source = kMsgSourceSelf;
+                } else {
+                    [dic setObject:INT_TO_STRING(msg.fromId) forKey:@"fromId"];
+                    msg.source = kMsgSourceOther;
+                }
                 [dic setObject:buddyMsgs forKey:@"msgs"];
                 [self.msgList addObject:dic];
             }
@@ -138,7 +164,15 @@ using namespace std;
             NSMutableDictionary *dic = [NSMutableDictionary dictionary];
             NSMutableArray *buddyMsgs = [NSMutableArray array];
             [buddyMsgs addObject:msg];
-            [dic setObject:INT_TO_STRING(msg.fromId) forKey:@"fromId"];
+            if (msg.fromId == myId) {
+                //我发出的
+                [dic setObject:INT_TO_STRING(msg.toId) forKey:@"fromId"];
+                msg.source = kMsgSourceSelf;
+            } else {
+                [dic setObject:INT_TO_STRING(msg.fromId) forKey:@"fromId"];
+                msg.source = kMsgSourceOther;
+            }
+            
             [dic setObject:buddyMsgs forKey:@"msgs"];
             [self.msgList addObject:dic];
         }
@@ -148,6 +182,11 @@ using namespace std;
     [self.tableView reloadData];
 }
 
+- (void)responseToJumpToChat:(NSNotification *)noti {
+    BuddyModel *user = (BuddyModel *)noti.object;
+    ChatViewController *vc = [[ChatViewController alloc] initWithMsgs:[NSMutableArray array] toId:user.userId toName:user.username];
+    [self.navigationController pushViewController:vc animated:YES];
+}
 
 
 - (void)didReceiveMemoryWarning

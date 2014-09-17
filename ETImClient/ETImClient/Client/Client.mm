@@ -78,6 +78,8 @@ static dispatch_once_t predicate;
 }
 
 - (id)init {
+    if (sharedClient)
+        return sharedClient;
     if (self = [super init]) {
         self.hostReachability = [Reachability reachabilityWithHostName:@"www.baidu.com"];
         [[NSNotificationCenter defaultCenter] addObserver:self
@@ -111,16 +113,16 @@ static dispatch_once_t predicate;
 }
 
 - (BuddyModel *)user {
-    if (!self.user) {
-        self.user = [[BuddyModel alloc] initWithUser:_session->GetIMUser()];
+    if (_user) {
+        _user = [[BuddyModel alloc] initWithUser:_session->GetIMUser()];
         
-        return self.user;
+        return _user;
     } else {
-        if (self.user.userId == _session->GetIMUser().userId) {
-            return self.user;
+        if (_user.userId == _session->GetIMUser().userId) {
+            return _user;
         } else {
-            self.user = [[BuddyModel alloc] initWithUser:_session->GetIMUser()];
-            return self.user;
+            _user = [[BuddyModel alloc] initWithUser:_session->GetIMUser()];
+            return _user;
         }
     }
 }

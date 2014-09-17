@@ -8,7 +8,15 @@
 
 #include <iostream>
 #include <signal.h>
+
+#if defined(__APPLE__) && defined(__GNUC__)
 #include <mysql.h>
+#elif defined(__linux__) || defined(__linux)
+#include <mysql/mysql.h>
+#else
+#include <mysql/mysql.h>
+#endif
+
 #include "Server.h"
 #include "Singleton.h"
 #include "Logging.h"

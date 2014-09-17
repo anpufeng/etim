@@ -1,6 +1,7 @@
 #include "MysqlDB.h"
-
 #include "Exception.h"
+
+#include <string.h>
 
 using namespace etim;
 using namespace etim::pub;

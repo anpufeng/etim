@@ -7,6 +7,7 @@
 //
 
 #import "ProfileViewController.h"
+#import "BuddyModel.h"
 
 #include "Client.h"
 #include "Singleton.h"
@@ -18,7 +19,7 @@ using namespace etim::pub;
 
 @interface ProfileViewController ()
 
-@property (nonatomic, assign) IMUser user;
+@property (nonatomic, strong) BuddyModel *user;
 @property (nonatomic, strong) NSArray *profileKeyList;
 
 @end
@@ -32,7 +33,7 @@ using namespace etim::pub;
 }
 
 
-- (id)initWithUser:(etim::IMUser)user {
+- (id)initWithUser:(BuddyModel *)user {
     if (self = [super init]) {
         self.user = user;
         if (self.user.relation == kBuddyRelationStranger) {
@@ -121,10 +122,10 @@ using namespace etim::pub;
                 commonCell.valueLabel.text = [NSString stringWithFormat:@"%06d", self.user.userId];
                 break;
             case 1:
-                commonCell.valueLabel.text = stdStrToNsStr(self.user.regDate);
+                commonCell.valueLabel.text = self.user.regDate;
                 break;
             case 2:
-                commonCell.valueLabel.text = stdStrToNsStr(self.user.signature);
+                commonCell.valueLabel.text = self.user.signature;
                 break;
                 
             case 3:
@@ -154,14 +155,17 @@ using namespace etim::pub;
             [MBProgressHUD showHUDAddedTo:self.view animated:YES];
             etim::Session *sess = [[Client sharedInstance] session];
             NSMutableDictionary *param = [NSMutableDictionary dictionary];
-            [param setObject:stdStrToNsStr(sess->GetIMUser().username) forKey:@"friend_from"];
-            [param setObject:stdStrToNsStr(self.user.username) forKey:@"friend_to"];
+            [param setObject:[Client sharedInstance].user.username forKey:@"friend_from"];
+            [param setObject:self.user.username forKey:@"friend_to"];
             [[Client sharedInstance] doAction:*sess cmd:CMD_REQUEST_ADD_BUDDY param:param];
         }
             break;
             
         case kBuddyRelationFriend:
         {
+            self.tabBarController.selectedIndex = 0;
+            [self.navigationController popToRootViewControllerAnimated:NO];
+            [[NSNotificationCenter defaultCenter] postNotificationName:kJumpToChatNotification object:self.user userInfo:nil];
             
         }
             break;
@@ -225,8 +229,8 @@ using namespace etim::pub;
     return self;
 }
 
-- (void)update:(etim::IMUser)user {
-    _nameLabel.text = stdStrToNsStr(user.username);
+- (void)update:(BuddyModel *)user {
+    _nameLabel.text = user.username;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated

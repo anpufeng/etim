@@ -2,7 +2,14 @@
 #define _MYSQL_DB_H_
 
 //#define WIN32_LEAN_AND_MEAN
+#if defined(__APPLE__) && defined(__GNUC__)
 #include <mysql.h>
+#elif defined(__linux__) || defined(__linux)  
+#include <mysql/mysql.h>
+#else
+#include <mysql/mysql.h>
+#endif
+
 
 #include <vector>
 #include <string>
