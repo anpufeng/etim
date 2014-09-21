@@ -12,6 +12,8 @@
 #include "Singleton.h"
 #include "Session.h"
 #include "Socket.h"
+#include <sys/select.h>
+#include <unistd.h>
 #include <iostream>
 #include <vector>
 

@@ -9,6 +9,8 @@ using namespace etim::pub;
 #define MYSQL_SERVER        "localhost"
 #define MYSQL_USER          "root"
 #define MYSQL_PASSWOROD     ""
+//#define MYSQL_USER          "etim"
+//#define MYSQL_PASSWOROD     "ethan2014XU"
 #define MYSQL_DATABASE      "etim"
 #define MYSQL_PORT          3306
 

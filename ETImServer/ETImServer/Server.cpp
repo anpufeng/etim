@@ -19,7 +19,10 @@
 #include <arpa/inet.h>
 #include <sys/time.h>
 #include <time.h>
+#include <errno.h>
 #include <algorithm>
+#include <cstddef>
+
 
 using namespace etim;
 using namespace etim::pub;
@@ -44,7 +47,7 @@ int Server::Start() {
     
     Socket soc;
     soc.Create();
-    soc.Bind(nullptr);
+    soc.Bind(NULL);
     soc.Listen();
     
     int listenFd = soc.GetFd();
@@ -70,7 +73,7 @@ int Server::Start() {
         timeout.tv_sec = 5;
         timeout.tv_usec = 0;
         
-        int ready = select(fdMax_ + 1, &readFds_, nullptr, nullptr, &timeout);
+        int ready = select(fdMax_ + 1, &readFds_, NULL, NULL, &timeout);
         if (ready == -1) {
             LOG_ERROR<<"select error: "<<strerror(errno);
             continue;
@@ -158,7 +161,7 @@ void Server::KickOut() {
     for (iter it = sessions_.begin(); it != sessions_.end();) {
         Session *s = *it;
         long diff = now.tv_sec - s->GetLastTime().tv_sec;
-        if (diff > 10 * HEART_BEAT_SECONDS) {
+        if (diff > 3 * HEART_BEAT_SECONDS) {
             LOG_INFO<<"客户端超时 socket userId: "<<s->GetIMUser().userId<<" 超时时间: "<<diff<<"s";
             DeleteSession(s);
         } else {

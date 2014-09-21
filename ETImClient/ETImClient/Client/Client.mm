@@ -99,6 +99,8 @@ static dispatch_once_t predicate;
         ///令人头痛的命名冲突
         _session = new Session(connSoc);
         [self doRecv:*_session];
+        
+        [NSTimer scheduledTimerWithTimeInterval:HEART_BEAT_SECONDS target:self selector:@selector(heartBeart) userInfo:nil repeats:YES];
     }
     
     return self;
@@ -148,7 +150,10 @@ static dispatch_once_t predicate;
     [param setObject:stdStrToNsStr(value) forKey:@"userId"];
     [self doAction:*_session cmd:cmd param:param];
 }
- 
+
+- (void)heartBeart {
+    [self pullWithCommand:CMD_HEART_BEAT];
+}
 
 #pragma mark -
 #pragma mark send & recv action

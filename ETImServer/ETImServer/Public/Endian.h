@@ -3,6 +3,14 @@
 
 #include <string>
 
+#if defined(__APPLE__) && defined(__GNUC__)
+#elif defined(__linux__) || defined(__linux)
+#include <stdint.h>
+#else
+#endif
+
+
+
 namespace etim
 {
     typedef char int8;

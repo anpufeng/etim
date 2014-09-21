@@ -10,6 +10,7 @@
 #define __ETImServer__Session__
 
 #include <iostream>
+#include <memory>
 #include "Socket.h"
 #include "DataStruct.h"
 

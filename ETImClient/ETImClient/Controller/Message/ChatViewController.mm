@@ -161,8 +161,10 @@ using namespace std;
 }
 
 - (void)scrollToBottom {
-    NSIndexPath *lastPath = [NSIndexPath indexPathForRow:self.chatList.count - 1 inSection:0];
-    [_tableView scrollToRowAtIndexPath:lastPath atScrollPosition:UITableViewScrollPositionBottom animated:YES];
+    if ([self.chatList count]) {
+        NSIndexPath *lastPath = [NSIndexPath indexPathForRow:self.chatList.count - 1 inSection:0];
+        [_tableView scrollToRowAtIndexPath:lastPath atScrollPosition:UITableViewScrollPositionBottom animated:YES];
+    }
 }
 
 #pragma mark -
