@@ -16,7 +16,7 @@
 #import "BuddyModel.h"
 #import "SendOperation.h"
 #import "Reachability.h"
-
+#import "NSTimer+WeakTarget.h"
 
 #include "Socket.h"
 #include "Logging.h"
@@ -65,8 +65,6 @@ static dispatch_once_t predicate;
         sharedClient = nil;
         predicate = 0;
     }
-    
-    return;
 }
 
 - (void)dealloc {
@@ -100,7 +98,7 @@ static dispatch_once_t predicate;
         _session = new Session(connSoc);
         [self doRecv:*_session];
         
-        [NSTimer scheduledTimerWithTimeInterval:HEART_BEAT_SECONDS target:self selector:@selector(heartBeart) userInfo:nil repeats:YES];
+        [NSTimer scheduledTimerWithTimeInterval:HEART_BEAT_SECONDS weakTarget:self selector:@selector(heartBeart) userInfo:nil repeats:YES];
     }
     
     return self;
