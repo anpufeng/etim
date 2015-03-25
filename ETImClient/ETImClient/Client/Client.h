@@ -15,7 +15,10 @@
 #include "Session.h"
 #include "Endian.h"
 
-
+typedef NS_OPTIONS(NSUInteger, ConnOffline) {
+    ConnOfflineSelf,
+    ConnOfflineServer
+};
 ///根据cmd获取要发送的通知名
 inline NSString *notiNameFromCmd(const int16_t cmd) {
     int cmdCount = sizeof(etim::gCmdNoti)/sizeof(etim::gCmdNoti[0]);
@@ -35,7 +38,9 @@ inline NSString *notiNameFromCmd(const int16_t cmd) {
 
 ///将std::string转换为NSString
 inline NSString *stdStrToNsStr(const std::string & str) {
-    return [[NSString alloc] initWithUTF8String:str.c_str()];
+    
+    NSString *nsstr = [[NSString alloc] initWithUTF8String:str.c_str()];
+    return nsstr;
 }
 
 ///将NSString转换为std::string
@@ -66,6 +71,13 @@ inline std::string nsStrToStdStr(NSString *str) {
 - (void)pullUnread;
 - (void)pullWithCommand:(etim::uint16)cmd;
 - (void)startReachabilityNoti;
+
+
+- (void)connect;
+- (void)reconnect;
+- (BOOL)connected;
+- (void)close;
+- (void)reLogin;
 @end
 
 #endif  //end

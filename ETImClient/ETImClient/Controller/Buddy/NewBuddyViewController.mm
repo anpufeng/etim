@@ -156,6 +156,8 @@ using namespace etim::pub;
     etim::Session *sess = [[Client sharedInstance] session];
     if (sess->GetRecvCmd() == CMD_ACCEPT_ADD_BUDDY) {
         if (sess->IsError()) {
+            DDLogInfo(@"拒绝好友请求错误 code: %d %@", sess->GetErrorCode(), stdStrToNsStr(sess->GetErrorMsg()));
+                      
             [[TWMessageBarManager sharedInstance] showMessageWithTitle:@"拒绝好友请求错误" description:stdStrToNsStr(sess->GetErrorMsg()) type:TWMessageBarMessageTypeError];
         } else {
             //同时请求也添加对方为好友

@@ -17,6 +17,7 @@
 #import "SendOperation.h"
 #import "Reachability.h"
 #import "NSTimer+WeakTarget.h"
+#import "CmdParamModel.h"
 
 #include "Socket.h"
 #include "Logging.h"
@@ -34,6 +35,7 @@ using namespace std;
 
 #define kBgQueue dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)
 
+
 @interface Client () {
     @private
     etim::Session *_session;
@@ -42,17 +44,32 @@ using namespace std;
 @property (nonatomic, strong) Reachability *hostReachability;
 @property (nonatomic, assign) BOOL isLogin;
 @property (nonatomic, assign) BOOL isLogout;
+@property (nonatomic, strong) NSTimer *heartBeatTimer;
+@property (nonatomic, strong) NSMutableArray *queuedCmdArr;
+
+- (void)connectCallBack:(bool)connected;
 
 @end
+
+
+
 
 @implementation Client
 
 static Client *sharedClient = nil;
 static dispatch_once_t predicate;
 
+///连接结果回调
+void clientConnectCallBack(bool connected)  {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [[Client sharedInstance] connectCallBack:connected];
+    });
+    
+}
+
 +(Client*)sharedInstance{
     dispatch_once(&predicate, ^{
-        sharedClient=[[Client alloc]init];
+        sharedClient = [[Client alloc]init];
         //忽略send产生的sigpipe信号
         signal(SIGPIPE, SIG_IGN);
     });
@@ -71,13 +88,14 @@ static dispatch_once_t predicate;
     DDLogDebug(@"======= Client DEALLOC ========");
     [[NSNotificationCenter defaultCenter] removeObserver:self name:kReachabilityChangedNotification object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:kNoConnectionNotification object:nil];
+    [_heartBeatTimer invalidate];
     [_sendQueue cancelAllOperations];
-    delete _session;
+    if (_session) {
+        delete _session;
+    }
 }
 
 - (id)init {
-    if (sharedClient)
-        return sharedClient;
     if (self = [super init]) {
         self.hostReachability = [Reachability reachabilityWithHostName:@"www.baidu.com"];
         [[NSNotificationCenter defaultCenter] addObserver:self
@@ -90,18 +108,62 @@ static dispatch_once_t predicate;
                                                    object:nil];
         self.isLogin = NO;
         self.isLogout = YES;
+        self.queuedCmdArr = [NSMutableArray arrayWithCapacity:10];
         
         _sendQueue = [[NSOperationQueue alloc] init];
-        _recvQueue = dispatch_queue_create("clientRecv", NULL);
-        std::auto_ptr<Socket> connSoc(new Socket(-1, 0));
-        ///令人头痛的命名冲突
-        _session = new Session(connSoc);
-        [self doRecv:*_session];
-        
-        [NSTimer scheduledTimerWithTimeInterval:HEART_BEAT_SECONDS weakTarget:self selector:@selector(heartBeart) userInfo:nil repeats:YES];
+        _recvQueue = dispatch_queue_create("com.ethan.clientRecv", NULL);
     }
     
     return self;
+}
+
+
+- (void)connectCallBack:(bool)connected {
+    if (connected) {
+        [self doRecv:*_session];
+        _heartBeatTimer = [NSTimer scheduledTimerWithTimeInterval:HEART_BEAT_SECONDS weakTarget:self selector:@selector(heartBeart) userInfo:nil repeats:YES];
+        [self.queuedCmdArr enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+            CmdParamModel *model = (CmdParamModel *)obj;
+            SendOperation *operation = [[SendOperation alloc] initWithCmdParamModel:model];
+            [_sendQueue addOperation:operation];
+        }];
+    } else {
+        [self reconnect];
+    }
+}
+
+- (void)connect {
+    if (_session) {
+        delete _session;
+        _session = NULL;
+        [_heartBeatTimer invalidate];
+    }
+    
+    dispatch_async(kBgQueue, ^{
+        std::auto_ptr<Socket> connSoc(new Socket(-1, 0));
+        ///令人头痛的命名冲突
+        _session = new Session(connSoc, clientConnectCallBack);
+    });
+}
+
+- (void)reconnect {
+    if ([self connected]) {
+        return;
+    }
+    
+    DDLogInfo(@"尝试重连");
+    
+    [self connect];
+}
+
+- (BOOL)connected {
+    return _session->IsConnected();
+}
+- (void)close {
+    _session->Close();
+}
+- (void)reLogin {
+    
 }
 
 - (void)startReachabilityNoti {
@@ -109,6 +171,11 @@ static dispatch_once_t predicate;
 }
 
 - (etim::Session *)session {
+    if (_session) {
+        return _session;
+    }
+
+    [self connect];
     return _session;
 }
 
@@ -157,52 +224,35 @@ static dispatch_once_t predicate;
 #pragma mark send & recv action
 
 - (void)doAction:(etim::Session &)s cmd:(etim::uint16)cmd param:(NSMutableDictionary *)params {
-    if (s.IsConnected()) {
-        try {
-            DDLogInfo(@"发送cmd: 0X%04X, 通知名称: %@， 参数: %@", cmd, notiNameFromCmd(cmd), params);
-            SendOperation *operation = [[SendOperation alloc] initWithCmd:cmd params:params];
-            [_sendQueue addOperation:operation];
-        } catch (Exception &e) {
-            DDLogError(@"出错发送cmd: 0X%04X, 通知名称: %@", cmd, notiNameFromCmd(cmd));
-            s.SetErrorCode(kErrCodeMax);
-            s.SetErrorMsg(e.what());
-            dispatch_sync(dispatch_get_main_queue(), ^{
-                [[NSNotificationCenter defaultCenter] postNotificationName:notiNameFromCmd(cmd) object:nil];
-            });
-
-        }
-        /*
-        __weak Client *wself = self;
-        dispatch_async(_actionQueue, ^{
-            if (!wself)
-                return;
+    CmdParamModel *model = [[CmdParamModel alloc] init];
+    model.cmd = cmd;
+    model.params = params;
+    
+    if (&s) {
+        if (s.IsConnected()) {
             try {
-                DDLogInfo(@"发送cmd: 0X%04X, 通知名称: %@", s.GetSendCmd(), notiNameFromCmd(s.GetSendCmd()));
-                map<string, string> request = s.GetRequest();
-                map<string, string>::iterator it;
-                for(it = request.begin(); it != request.end(); it++) {
-                    cout<<it->first <<"->"<<it->second<<endl;
-                }
-                cout<<endl;
-                
-                Singleton<ActionManager>::Instance().SendPacket(s);
+                DDLogInfo(@"发送cmd: 0X%04X, 通知名称: %@， 参数: %@", cmd, notiNameFromCmd(cmd), params);
+
+                SendOperation *operation = [[SendOperation alloc] initWithCmdParamModel:model];
+                [_sendQueue addOperation:operation];
             } catch (Exception &e) {
-                if (!wself)
-                    return;
-                DDLogError(@"出错发送cmd: 0X%04X, 通知名称: %@", s.GetSendCmd(), notiNameFromCmd(s.GetSendCmd()));
+                DDLogError(@"出错发送cmd: 0X%04X, 通知名称: %@", cmd, notiNameFromCmd(cmd));
                 s.SetErrorCode(kErrCodeMax);
                 s.SetErrorMsg(e.what());
                 dispatch_sync(dispatch_get_main_queue(), ^{
-                    [[NSNotificationCenter defaultCenter] postNotificationName:notiNameFromCmd(s.GetSendCmd()) object:nil];
+                    [[NSNotificationCenter defaultCenter] postNotificationName:notiNameFromCmd(cmd) object:nil];
                 });
+                
             }
-            
-        });
-         */
+        } else {
+            [self.queuedCmdArr addObject:model];
+            s.SetErrorCode(kErrCodeMax);
+            s.SetErrorMsg("无服务器连接");
+            [[NSNotificationCenter defaultCenter] postNotificationName:notiNameFromCmd(cmd) object:nil];
+        }
     } else {
-        s.SetErrorCode(kErrCodeMax);
-        s.SetErrorMsg("无服务器连接");
-        [[NSNotificationCenter defaultCenter] postNotificationName:notiNameFromCmd(cmd) object:nil];
+        DDLogWarn(@"还未建立连接");
+        [self.queuedCmdArr addObject:model];
     }
    
 }

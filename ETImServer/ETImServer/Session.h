@@ -94,9 +94,9 @@ namespace etim {
         kErrCodeMax
     };
     
-    ///错误信息
+    ///错误信息  不可超过30字符 15汉字 不然会signal abort
     static const std::string gErrMsg[kErrCodeMax+1] = {"正常", "用户或密码错误", "数据库错误", /*kErrCode03*/"用户已经存在",
-        "无此用户", "已是好友", "没有数据", /*kErrCode07*/"已经在对方好友列表,此记录已失效",
+        "无此用户", "已是好友", "没有数据", /*kErrCode07*/"已是对方好友",
         "kErrCode08", "kErrCode09", "kErrCode10", /*kErrCode11*/"kErrCode11",
         /*kErrCodeMax*/"kErrCodeMax"};
     

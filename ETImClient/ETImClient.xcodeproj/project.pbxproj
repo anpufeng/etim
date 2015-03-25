@@ -18,6 +18,7 @@
 		0D9EBFBD1AC24DC40071793C /* DDDispatchQueueLogFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D9EBFB21AC24DC40071793C /* DDDispatchQueueLogFormatter.m */; };
 		0D9EBFBE1AC24DC40071793C /* DDMultiFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D9EBFB41AC24DC40071793C /* DDMultiFormatter.m */; };
 		0D9EBFC41AC250500071793C /* FBKVOController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D9EBFC31AC250500071793C /* FBKVOController.m */; };
+		0D9EBFC71AC2BB750071793C /* CmdParamModel.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0D9EBFC61AC2BB750071793C /* CmdParamModel.mm */; };
 		0DA1AB761AA1C36C002DED6E /* NSTimer+WeakTarget.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DA1AB711AA1C36C002DED6E /* NSTimer+WeakTarget.m */; };
 		0DA1AB771AA1C36C002DED6E /* WUNSTimerProxyTarget.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DA1AB731AA1C36C002DED6E /* WUNSTimerProxyTarget.m */; };
 		0DA1AB781AA1C36C002DED6E /* WUNSTimerTargetLifecycleTracker.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DA1AB751AA1C36C002DED6E /* WUNSTimerTargetLifecycleTracker.m */; };
@@ -193,6 +194,8 @@
 		0D9EBFB41AC24DC40071793C /* DDMultiFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDMultiFormatter.m; sourceTree = "<group>"; };
 		0D9EBFC21AC250500071793C /* FBKVOController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBKVOController.h; sourceTree = "<group>"; };
 		0D9EBFC31AC250500071793C /* FBKVOController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBKVOController.m; sourceTree = "<group>"; };
+		0D9EBFC51AC2BB750071793C /* CmdParamModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CmdParamModel.h; sourceTree = "<group>"; };
+		0D9EBFC61AC2BB750071793C /* CmdParamModel.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = CmdParamModel.mm; sourceTree = "<group>"; };
 		0DA1AB701AA1C36C002DED6E /* NSTimer+WeakTarget.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSTimer+WeakTarget.h"; sourceTree = "<group>"; };
 		0DA1AB711AA1C36C002DED6E /* NSTimer+WeakTarget.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSTimer+WeakTarget.m"; sourceTree = "<group>"; };
 		0DA1AB721AA1C36C002DED6E /* WUNSTimerProxyTarget.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WUNSTimerProxyTarget.h; sourceTree = "<group>"; };
@@ -617,6 +620,8 @@
 				AADF36A719BA1353009198A3 /* RequestModel.mm */,
 				AA6F5F9919C682A700076E6B /* MsgModel.h */,
 				AA6F5F9A19C682A700076E6B /* MsgModel.mm */,
+				0D9EBFC51AC2BB750071793C /* CmdParamModel.h */,
+				0D9EBFC61AC2BB750071793C /* CmdParamModel.mm */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1157,6 +1162,7 @@
 				AA588BB41990B4EC00F08821 /* SwitchStatus.cpp in Sources */,
 				AA59F0B6198A4142009FD449 /* AccountViewController.mm in Sources */,
 				AAD7D44B19BA11C80028957C /* RequestTableViewCell.mm in Sources */,
+				0D9EBFC71AC2BB750071793C /* CmdParamModel.mm in Sources */,
 				AAA6DCD8198B918100EB948E /* Endian.cpp in Sources */,
 				AA9131ED199BA98B00524E8D /* BaseTableViewController.m in Sources */,
 				AA6D73D019B1E739006DBC6D /* BadgeButton.m in Sources */,

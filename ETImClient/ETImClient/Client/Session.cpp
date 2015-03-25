@@ -20,7 +20,7 @@ using namespace etim::pub;
 
 using namespace std;
 
-Session::Session(std::auto_ptr<Socket> &socket) : socket_(socket), isConnected_(false) {
+Session::Session(std::auto_ptr<Socket> &socket, connectCallBack callBack) : socket_(socket), callBack_(callBack), isConnected_(false) {
     Connect();
     responsePack_ = (ResponsePack*)buffer_;
 }
@@ -45,6 +45,10 @@ bool Session::Connect() {
         } else {
             isConnected_ = false;
             socket_->Close();
+        }
+        
+        if (callBack_) {
+            callBack_(isConnected_);
         }
     } else {
         LOG_FATAL<<"无法创建socket";

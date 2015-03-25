@@ -127,10 +127,13 @@ namespace etim {
         "kErrCode08", "kErrCode09", "kErrCode10", /*kErrCode11*/"kErrCode11",
         /*kErrCodeMax*/"kErrCodeMax"};
     
+    
+    typedef void (*connectCallBack)(bool);
+    
     ///会话数据
     class Session {
     public:
-        Session(std::auto_ptr<Socket> &socket);
+        Session(std::auto_ptr<Socket> &socket, connectCallBack callBack);
         ~Session();
         
         ///设置发送操作命令
@@ -179,7 +182,9 @@ namespace etim {
         bool IsConnected() const { return isConnected_; }
         
         void SetErrorCode(int16 errorCode) { errCode_ = errorCode; }
-        void SetErrorMsg(const std::string& errorMsg) { errMsg_ = errorMsg; }
+        void SetErrorMsg(const std::string& errorMsg) {
+            errMsg_ = errorMsg;
+        }
         
         int16 const GetErrorCode() const { return errCode_; }
         const std::string GetErrorMsg() const { return errMsg_;}
@@ -206,6 +211,7 @@ namespace etim {
         
     private:
         std::auto_ptr<Socket> socket_;
+        connectCallBack callBack_;
         bool isConnected_;
         ///存储缓存数据
         char buffer_[2048];

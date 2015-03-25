@@ -8,6 +8,7 @@
 
 #import "SendOperation.h"
 #import "Client.h"
+#import "CmdParamModel.h"
 
 #include "Singleton.h"
 #include "ActionManager.h"
@@ -19,8 +20,7 @@ using namespace std;
 
 @interface SendOperation  ()
 
-@property (nonatomic, assign) uint16 cmd;
-@property (nonatomic, strong) NSMutableDictionary *params;
+@property (nonatomic, strong) CmdParamModel *cmdModel;
 @property (assign, nonatomic, getter = isExecuting) BOOL executing;
 @property (assign, nonatomic, getter = isFinished) BOOL finished;
 
@@ -31,12 +31,11 @@ using namespace std;
 @synthesize executing = _executing;
 @synthesize finished = _finished;
 
-- (id)initWithCmd:(etim::uint16)cmd params:(NSMutableDictionary *)params {
+- (id)initWithCmdParamModel:(CmdParamModel *)model {
     if (self = [super init]) {
         _executing = NO;
         _finished = NO;
-        self.cmd = cmd;
-        self.params = params;
+        self.cmdModel = model;
     }
     
     return self;
@@ -62,14 +61,14 @@ using namespace std;
     [self didChangeValueForKey:@"isExecuting"];
     
     sendarg arg;
-    NSArray *keys = [self.params allKeys];
+    NSArray *keys = [self.cmdModel.params allKeys];
     for (int i = 0; i < [keys count]; i++) {
         string key = nsStrToStdStr(keys[i]);
-        string value = nsStrToStdStr([self.params objectForKey:keys[i]]);
+        string value = nsStrToStdStr([self.cmdModel.params objectForKey:keys[i]]);
         arg[key] = value;
     }
     etim::Session *sess = [[Client sharedInstance] session];
-    Singleton<ActionManager>::Instance().SendPacket(*sess, self.cmd, arg);
+    Singleton<ActionManager>::Instance().SendPacket(*sess, self.cmdModel.cmd, arg);
    
 }
 - (void)finish {

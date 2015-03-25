@@ -71,6 +71,11 @@ int main(int argc, const char * argv[])
 
 }
 
+void signal_handler(int signo)
+{
+    LOG_ERROR<<"收到signal "<<signo;
+}
+
 /*
 #include <sys/socket.h>
 #include <sys/types.h>

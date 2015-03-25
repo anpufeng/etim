@@ -250,10 +250,11 @@ int DataService::RequestAddBuddy(const std::string &from, const std::string &to,
             ss.str("");
             //查询是否为好友
             ss<<"select friend_id"<<
-            " from friend, request"<<
-            " where friend_from ='" <<fromId<<"'"<<
-            " and friend_to = '"<<toId<<"'"<<
-            " and req_status in (" << kBuddyRequestAccepted <<","<<
+            " from friend f, request r"<<
+            " where f.friend_from ='" <<fromId<<"'"<<
+            " and f.friend_to = '"<<toId<<"'"<<
+            " and f.req_id = r.req_id"<<
+            " and r.req_status in (" << kBuddyRequestAccepted <<","<<
             kBuddyRequestAcceptedSent<<");";
             
             rs = db.QuerySQL(ss.str().c_str());
@@ -329,8 +330,21 @@ int DataService::AcceptAddBuddy(const std::string &from, const std::string &to, 
         " and r.req_status in ("<<kBuddyRequestAccepted<<", "<<kBuddyRequestAcceptedSent<<");";
         MysqlRecordset rs;
         rs = db.QuerySQL(ss.str().c_str());
-        if (rs.GetRows())
+        if (rs.GetRows()) {
+            ///将此条记录的结果更新为无效
+            ss.clear();
+            ss.str("");
+            
+            //更新请求结果
+            ss<<"update request"<<
+            " set req_status = "<<kBuddyRequestInvalid<<","<<
+            " action_time = now()"<<
+            " where req_id = "<<req<<";";
+            unsigned long long ret = db.ExecSQL(ss.str().c_str());
+            (void)ret;
             return kErrCode07;
+        }
+        
         
         //查询请求方信息
         ss.clear();
@@ -450,8 +464,21 @@ int DataService::RejectAddBuddy(const std::string &from, const std::string &to, 
         " and r.req_status in ("<<kBuddyRequestAccepted<<", "<<kBuddyRequestAcceptedSent<<");";
         MysqlRecordset rs;
         rs = db.QuerySQL(ss.str().c_str());
-        if (rs.GetRows())
+        if (rs.GetRows()) {
+            ///将此条记录的结果更新为无效
+            ss.clear();
+            ss.str("");
+            
+            //更新请求结果
+            ss<<"update request"<<
+            " set req_status = "<<kBuddyRequestInvalid<<","<<
+            " action_time = now()"<<
+            " where req_id = "<<req<<";";
+            unsigned long long ret = db.ExecSQL(ss.str().c_str());
+            (void)ret;
             return kErrCode07;
+        }
+        
         
         ss.clear();
         ss.str("");

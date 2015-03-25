@@ -52,7 +52,7 @@ void RequestAddBuddy::Execute(Session *s) {
 		error_code = ret;
         assert(error_code < kErrCodeMax);
 		strcpy(error_msg, gErrMsg[error_code].c_str());
-		LOG_INFO<<"添加好友请求成功 from: "<<fromName<<" to: "<<toName<<" "<<error_msg;
+		LOG_INFO<<"添加好友请求失败 from: "<<fromName<<" to: "<<toName<<" "<<error_msg;
 	}
     
 	OutStream jos;

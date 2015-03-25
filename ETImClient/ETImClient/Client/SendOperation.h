@@ -12,10 +12,12 @@
 #include "Session.h"
 #include "Endian.h"
 
+@class CmdParamModel;
+
 ///用来发送
 
 @interface SendOperation : NSOperation
 
-- (id)initWithCmd:(etim::uint16)cmd params:(NSMutableDictionary *)params;
+- (id)initWithCmdParamModel:(CmdParamModel *)model;
 
 @end
