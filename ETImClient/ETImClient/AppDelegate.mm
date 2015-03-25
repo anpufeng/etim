@@ -19,6 +19,8 @@
     // Override point for customization after application launch.
     self.window.backgroundColor = [UIColor whiteColor];
     
+    [DDLog addLogger:[DDTTYLogger sharedInstance]];
+    
     [self jumpToLogin:NO];
 
     [self.window makeKeyAndVisible];

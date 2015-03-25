@@ -411,8 +411,10 @@ int DataService::AcceptAddBuddy(const std::string &from, const std::string &to, 
                     ");";
                     ret = db.ExecSQL(ss.str().c_str());
                     db.Commit();
+                    fromUser.relation = kBuddyRelationFriend;
                 } catch (Exception &e) {
                     db.Rollback();
+                    fromUser.relation = kBuddyRelationStranger;
                     LOG_ERROR<<e.what();
                     return kErrCode02;
                 }

@@ -9,3 +9,7 @@
 安装 需要MYSQL 至于MAC下访问MYSQL可以自己网络解决. 
 etim.mwb 是mysql workbench的数据库模型  etim.sql是初始数据库脚本, 因为调试原因, 用户密码还未添加加密功能 .
 客户端连接服务器的配置在socket.h头文件上面的宏中.
+
+
+
+启动 mysql  10.10   sudo /usr/local/mysql/bin/mysqld_safe

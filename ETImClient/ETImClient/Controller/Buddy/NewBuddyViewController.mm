@@ -130,7 +130,7 @@ using namespace etim::pub;
         [param setObject:[NSString stringWithFormat:@"%d", self.actionRequest.from.userId] forKey:@"fromId"];
         [[Client sharedInstance] doAction:*sess cmd:CMD_REJECT_ADD_BUDDY param:param];
     } else if (sender.tag == RequestActionAccept) {
-        ETLOG(@"RequestActionAccept");
+        DDLogInfo(@"RequestActionAccept");
         UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"接受好友请求" delegate:self cancelButtonTitle:nil destructiveButtonTitle:@"取消" otherButtonTitles:@"同意好友请求", @"同意并添加对方为好友", nil];
         [actionSheet showInView:self.view];
     }
@@ -160,6 +160,7 @@ using namespace etim::pub;
         } else {
             //同时请求也添加对方为好友
             self.actionRequest.status = kBuddyRequestAccepted;
+            self.actionRequest.from.relation = kBuddyRelationFriend;
             [self.tableView reloadData];
             NSMutableArray *addedPeer = [BuddyModel buddys:sess->GetBuddys()];
             [self.buddyVC addBuddys:addedPeer];
@@ -179,11 +180,11 @@ using namespace etim::pub;
     [param setObject:[NSString stringWithFormat:@"%d", self.actionRequest.reqId] forKey:@"reqId"];
     [param setObject:[NSString stringWithFormat:@"%d", self.actionRequest.from.userId] forKey:@"fromId"];
     if (buttonIndex == 1) {
-        ETLOG(@"同意好友请求");
+        DDLogInfo(@"同意好友请求");
         [param setObject:@"0" forKey:@"addPeer"];
     } else if (buttonIndex == 2) {
         [param setObject:@"1" forKey:@"addPeer"];
-        ETLOG(@"同意并添加对方为好友");
+        DDLogInfo(@"同意并添加对方为好友");
     }
     [[Client sharedInstance] doAction:*sess cmd:CMD_ACCEPT_ADD_BUDDY param:param];
 }

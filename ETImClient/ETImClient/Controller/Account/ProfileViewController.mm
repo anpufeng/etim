@@ -7,6 +7,7 @@
 //
 
 #import "ProfileViewController.h"
+#import "FBKVOController.h"
 #import "BuddyModel.h"
 
 #include "Client.h"
@@ -21,6 +22,7 @@ using namespace etim::pub;
 
 @property (nonatomic, strong) BuddyModel *user;
 @property (nonatomic, strong) NSArray *profileKeyList;
+@property (nonatomic, strong) FBKVOController *fbKVO;
 
 @end
 
@@ -42,6 +44,12 @@ using namespace etim::pub;
                                                          name:notiNameFromCmd(CMD_REQUEST_ADD_BUDDY)
                                                        object:nil];
         }
+        
+        
+        _fbKVO = [FBKVOController controllerWithObserver:self];
+        [_fbKVO observe:self.user keyPath:@"relation" options:NSKeyValueObservingOptionNew block:^(id observer, id object, NSDictionary *change) {
+            DDLogInfo(@"observer *********");
+        }];
     }
     
     return self;

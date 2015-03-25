@@ -31,14 +31,38 @@ using namespace etim;
 - (NSString *)buddyGender {
     return self.gender ? @"男" : @"女";
 }
+
+- (NSString *)buddyRelation {
+    NSString *relation;
+    switch (self.relation) {
+        case kBuddyRelationFriend:
+            relation = @"好友";
+            break;
+            
+        case kBuddyRelationStranger:
+            relation = @"陌生人";
+            break;
+            
+        case kBuddyRelationSelf:
+            relation = @"自己";
+            break;
+            
+        default:
+            relation = @"陌生人";
+            break;
+    }
+    
+    return relation;
+}
 - (NSString *)description {
-    return [NSString stringWithFormat:@"用户id: %06d, 用户名:%@, 注册日期: %@, 签名:%@, 性别:%@, 状态:%@",
+    return [NSString stringWithFormat:@"用户id: %06d, 用户名:%@, 注册日期: %@, 签名:%@, 性别:%@, 状态:%@ 关系:%@",
             self.userId,
             self.username,
             self.regDate,
             self.signature,
             [self buddyGender],
-            self.statusName];
+            self.statusName,
+            [self buddyRelation]];
 }
 
 + (NSMutableArray *)buddys:(const std::list<etim::IMUser> &)users {

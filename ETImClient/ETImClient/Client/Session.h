@@ -56,7 +56,7 @@ namespace etim {
     
     static const std::string gPushNoti[PUSH_SEND_MSG-PUSH_BUDDY_UPDATE+1] = {
         "PUSH_BUDDY_UPDATE", "PUSH_BUDDY_MSG", "PUSH_BUDDY_REQUEST_RESULT", /*0X0102*/
-        "PUSH_REQUEST_ADD_BUDDY"
+        "PUSH_REQUEST_ADD_BUDDY", "PUSH_SEND_MSG"
     };
     
 #define ERR_MSG_LENGTH      30              // 错误消息定长

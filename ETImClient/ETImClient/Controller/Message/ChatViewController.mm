@@ -295,7 +295,7 @@ using namespace std;
  */
 - (void)keyboardWillChange:(NSNotification *)note
 {
-    NSLog(@"%@", note.userInfo);
+    DDLogDebug(@"%@", note.userInfo);
     NSDictionary *userInfo = note.userInfo;
     CGFloat duration = [userInfo[@"UIKeyboardAnimationDurationUserInfoKey"] doubleValue];
     

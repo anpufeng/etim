@@ -22,7 +22,7 @@
 @implementation BaseTabBarViewController
 
 - (void)dealloc {
-    ETLOG(@"======= BaseTabBarViewController DEALLOC ========");
+    DDLogDebug(@"======= BaseTabBarViewController DEALLOC ========");
 }
 
 

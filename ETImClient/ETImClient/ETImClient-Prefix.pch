@@ -15,4 +15,12 @@
     #import <Foundation/Foundation.h>
 #import "Macro.h"
 #import "Constants.h"
+#import "CocoaLumberjack.h"
+
+#ifdef DEBUG
+static const DDLogLevel ddLogLevel = DDLogLevelDebug;
+#else
+static const DDLogLevel ddLogLevel = DDLogLevelInfo;
+#endif
+
 #endif

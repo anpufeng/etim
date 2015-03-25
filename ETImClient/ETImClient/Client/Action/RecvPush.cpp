@@ -95,7 +95,8 @@ void PushBuddyRequestResult::DoRecv(etim::Session &s) {
         user.relation = static_cast<BuddyRelation>(rel);
         user.status = static_cast<BuddyStatus>(status);
         if (accept) {
-            //如果同意添加到好友列表
+            //如果同意则将用户关系轩为好友并添加到好友列表
+            user.relation = kBuddyRelationFriend;
             s.ClearBuddys();
             s.AddBuddy(user);
         }

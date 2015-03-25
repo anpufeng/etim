@@ -93,14 +93,4 @@
 #define APPLICATION_HEIGHT    [[UIScreen mainScreen] applicationFrame].size.height//不包含状态bar的高度(e.g. 460)
 
 
-// DEBUG method
-#ifdef DEBUG
-//#define ETLOG(...) NSLog(__VA_ARGS__)
-#define ETLOG(fmt, ...) NSLog((@"%s [Line %d] " fmt), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__);
-#define ETLOG_METHOD() NSLog(@"%s", __func__)
-#else
-#define ETLOG(...)
-#define ETLOG_METHOD()
-#endif /* DEBUG */
-
 #endif

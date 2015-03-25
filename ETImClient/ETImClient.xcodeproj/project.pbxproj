@@ -7,6 +7,17 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0D9EBFB51AC24DC40071793C /* CLIColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D9EBF9C1AC24DC40071793C /* CLIColor.m */; };
+		0D9EBFB61AC24DC40071793C /* DDAbstractDatabaseLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D9EBF9F1AC24DC40071793C /* DDAbstractDatabaseLogger.m */; };
+		0D9EBFB71AC24DC40071793C /* DDASLLogCapture.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D9EBFA11AC24DC40071793C /* DDASLLogCapture.m */; };
+		0D9EBFB81AC24DC40071793C /* DDASLLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D9EBFA31AC24DC40071793C /* DDASLLogger.m */; };
+		0D9EBFB91AC24DC40071793C /* DDFileLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D9EBFA61AC24DC40071793C /* DDFileLogger.m */; };
+		0D9EBFBA1AC24DC40071793C /* DDLog.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D9EBFAA1AC24DC40071793C /* DDLog.m */; };
+		0D9EBFBB1AC24DC40071793C /* DDTTYLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D9EBFAD1AC24DC40071793C /* DDTTYLogger.m */; };
+		0D9EBFBC1AC24DC40071793C /* DDContextFilterLogFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D9EBFB01AC24DC40071793C /* DDContextFilterLogFormatter.m */; };
+		0D9EBFBD1AC24DC40071793C /* DDDispatchQueueLogFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D9EBFB21AC24DC40071793C /* DDDispatchQueueLogFormatter.m */; };
+		0D9EBFBE1AC24DC40071793C /* DDMultiFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D9EBFB41AC24DC40071793C /* DDMultiFormatter.m */; };
+		0D9EBFC41AC250500071793C /* FBKVOController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D9EBFC31AC250500071793C /* FBKVOController.m */; };
 		0DA1AB761AA1C36C002DED6E /* NSTimer+WeakTarget.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DA1AB711AA1C36C002DED6E /* NSTimer+WeakTarget.m */; };
 		0DA1AB771AA1C36C002DED6E /* WUNSTimerProxyTarget.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DA1AB731AA1C36C002DED6E /* WUNSTimerProxyTarget.m */; };
 		0DA1AB781AA1C36C002DED6E /* WUNSTimerTargetLifecycleTracker.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DA1AB751AA1C36C002DED6E /* WUNSTimerTargetLifecycleTracker.m */; };
@@ -155,6 +166,33 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0D9EBF9B1AC24DC40071793C /* CLIColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CLIColor.h; sourceTree = "<group>"; };
+		0D9EBF9C1AC24DC40071793C /* CLIColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CLIColor.m; sourceTree = "<group>"; };
+		0D9EBF9D1AC24DC40071793C /* CocoaLumberjack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CocoaLumberjack.h; sourceTree = "<group>"; };
+		0D9EBF9E1AC24DC40071793C /* DDAbstractDatabaseLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDAbstractDatabaseLogger.h; sourceTree = "<group>"; };
+		0D9EBF9F1AC24DC40071793C /* DDAbstractDatabaseLogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDAbstractDatabaseLogger.m; sourceTree = "<group>"; };
+		0D9EBFA01AC24DC40071793C /* DDASLLogCapture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDASLLogCapture.h; sourceTree = "<group>"; };
+		0D9EBFA11AC24DC40071793C /* DDASLLogCapture.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDASLLogCapture.m; sourceTree = "<group>"; };
+		0D9EBFA21AC24DC40071793C /* DDASLLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDASLLogger.h; sourceTree = "<group>"; };
+		0D9EBFA31AC24DC40071793C /* DDASLLogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDASLLogger.m; sourceTree = "<group>"; };
+		0D9EBFA41AC24DC40071793C /* DDAssertMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDAssertMacros.h; sourceTree = "<group>"; };
+		0D9EBFA51AC24DC40071793C /* DDFileLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDFileLogger.h; sourceTree = "<group>"; };
+		0D9EBFA61AC24DC40071793C /* DDFileLogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDFileLogger.m; sourceTree = "<group>"; };
+		0D9EBFA71AC24DC40071793C /* DDLegacy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDLegacy.h; sourceTree = "<group>"; };
+		0D9EBFA81AC24DC40071793C /* DDLog+LOGV.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "DDLog+LOGV.h"; sourceTree = "<group>"; };
+		0D9EBFA91AC24DC40071793C /* DDLog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDLog.h; sourceTree = "<group>"; };
+		0D9EBFAA1AC24DC40071793C /* DDLog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDLog.m; sourceTree = "<group>"; };
+		0D9EBFAB1AC24DC40071793C /* DDLogMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDLogMacros.h; sourceTree = "<group>"; };
+		0D9EBFAC1AC24DC40071793C /* DDTTYLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDTTYLogger.h; sourceTree = "<group>"; };
+		0D9EBFAD1AC24DC40071793C /* DDTTYLogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDTTYLogger.m; sourceTree = "<group>"; };
+		0D9EBFAF1AC24DC40071793C /* DDContextFilterLogFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDContextFilterLogFormatter.h; sourceTree = "<group>"; };
+		0D9EBFB01AC24DC40071793C /* DDContextFilterLogFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDContextFilterLogFormatter.m; sourceTree = "<group>"; };
+		0D9EBFB11AC24DC40071793C /* DDDispatchQueueLogFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDDispatchQueueLogFormatter.h; sourceTree = "<group>"; };
+		0D9EBFB21AC24DC40071793C /* DDDispatchQueueLogFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDDispatchQueueLogFormatter.m; sourceTree = "<group>"; };
+		0D9EBFB31AC24DC40071793C /* DDMultiFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDMultiFormatter.h; sourceTree = "<group>"; };
+		0D9EBFB41AC24DC40071793C /* DDMultiFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDMultiFormatter.m; sourceTree = "<group>"; };
+		0D9EBFC21AC250500071793C /* FBKVOController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBKVOController.h; sourceTree = "<group>"; };
+		0D9EBFC31AC250500071793C /* FBKVOController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBKVOController.m; sourceTree = "<group>"; };
 		0DA1AB701AA1C36C002DED6E /* NSTimer+WeakTarget.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSTimer+WeakTarget.h"; sourceTree = "<group>"; };
 		0DA1AB711AA1C36C002DED6E /* NSTimer+WeakTarget.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSTimer+WeakTarget.m"; sourceTree = "<group>"; };
 		0DA1AB721AA1C36C002DED6E /* WUNSTimerProxyTarget.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WUNSTimerProxyTarget.h; sourceTree = "<group>"; };
@@ -393,6 +431,63 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0D9EBF991AC24DC40071793C /* CocoaLumberjack */ = {
+			isa = PBXGroup;
+			children = (
+				0D9EBF9A1AC24DC40071793C /* CLI */,
+				0D9EBF9D1AC24DC40071793C /* CocoaLumberjack.h */,
+				0D9EBF9E1AC24DC40071793C /* DDAbstractDatabaseLogger.h */,
+				0D9EBF9F1AC24DC40071793C /* DDAbstractDatabaseLogger.m */,
+				0D9EBFA01AC24DC40071793C /* DDASLLogCapture.h */,
+				0D9EBFA11AC24DC40071793C /* DDASLLogCapture.m */,
+				0D9EBFA21AC24DC40071793C /* DDASLLogger.h */,
+				0D9EBFA31AC24DC40071793C /* DDASLLogger.m */,
+				0D9EBFA41AC24DC40071793C /* DDAssertMacros.h */,
+				0D9EBFA51AC24DC40071793C /* DDFileLogger.h */,
+				0D9EBFA61AC24DC40071793C /* DDFileLogger.m */,
+				0D9EBFA71AC24DC40071793C /* DDLegacy.h */,
+				0D9EBFA81AC24DC40071793C /* DDLog+LOGV.h */,
+				0D9EBFA91AC24DC40071793C /* DDLog.h */,
+				0D9EBFAA1AC24DC40071793C /* DDLog.m */,
+				0D9EBFAB1AC24DC40071793C /* DDLogMacros.h */,
+				0D9EBFAC1AC24DC40071793C /* DDTTYLogger.h */,
+				0D9EBFAD1AC24DC40071793C /* DDTTYLogger.m */,
+				0D9EBFAE1AC24DC40071793C /* Extensions */,
+			);
+			path = CocoaLumberjack;
+			sourceTree = "<group>";
+		};
+		0D9EBF9A1AC24DC40071793C /* CLI */ = {
+			isa = PBXGroup;
+			children = (
+				0D9EBF9B1AC24DC40071793C /* CLIColor.h */,
+				0D9EBF9C1AC24DC40071793C /* CLIColor.m */,
+			);
+			path = CLI;
+			sourceTree = "<group>";
+		};
+		0D9EBFAE1AC24DC40071793C /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				0D9EBFAF1AC24DC40071793C /* DDContextFilterLogFormatter.h */,
+				0D9EBFB01AC24DC40071793C /* DDContextFilterLogFormatter.m */,
+				0D9EBFB11AC24DC40071793C /* DDDispatchQueueLogFormatter.h */,
+				0D9EBFB21AC24DC40071793C /* DDDispatchQueueLogFormatter.m */,
+				0D9EBFB31AC24DC40071793C /* DDMultiFormatter.h */,
+				0D9EBFB41AC24DC40071793C /* DDMultiFormatter.m */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		0D9EBFC11AC2504B0071793C /* FBObserver */ = {
+			isa = PBXGroup;
+			children = (
+				0D9EBFC21AC250500071793C /* FBKVOController.h */,
+				0D9EBFC31AC250500071793C /* FBKVOController.m */,
+			);
+			path = FBObserver;
+			sourceTree = "<group>";
+		};
 		0DA1AB6F1AA1C36C002DED6E /* WeakTimer */ = {
 			isa = PBXGroup;
 			children = (
@@ -587,6 +682,8 @@
 		AA59F02F198A156F009FD449 /* Vendor */ = {
 			isa = PBXGroup;
 			children = (
+				0D9EBFC11AC2504B0071793C /* FBObserver */,
+				0D9EBF991AC24DC40071793C /* CocoaLumberjack */,
 				0DA1AB6F1AA1C36C002DED6E /* WeakTimer */,
 				AA65387319AF6B66003B64B0 /* JSBadgeView */,
 				AACD74951994A1AE00254C55 /* MBProgressHUD */,
@@ -1041,12 +1138,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0D9EBFBC1AC24DC40071793C /* DDContextFilterLogFormatter.m in Sources */,
 				AAA6DCDD198B918100EB948E /* MD5.cpp in Sources */,
 				AABF3CC3198636C0001C8DCA /* AppDelegate.mm in Sources */,
 				AAA6DCDE198B918100EB948E /* OutStream.cpp in Sources */,
 				AA588BB11990B4EC00F08821 /* Register.cpp in Sources */,
 				AA588B9B1990B4E500F08821 /* ActionManager.cpp in Sources */,
 				AA59F074198A1A59009FD449 /* BaseViewController.m in Sources */,
+				0D9EBFBD1AC24DC40071793C /* DDDispatchQueueLogFormatter.m in Sources */,
 				AA30A75519B55DFB006925F5 /* MsgViewController.mm in Sources */,
 				AA59F0AD198A3732009FD449 /* LeeScrollView.m in Sources */,
 				AA59F0B0198A4117009FD449 /* BuddyViewController.mm in Sources */,
@@ -1062,10 +1161,12 @@
 				AA9131ED199BA98B00524E8D /* BaseTableViewController.m in Sources */,
 				AA6D73D019B1E739006DBC6D /* BadgeButton.m in Sources */,
 				AA1100FE198B61D2008811E4 /* TWMessageBarManager.m in Sources */,
+				0D9EBFBA1AC24DC40071793C /* DDLog.m in Sources */,
 				AA59F072198A1A59009FD449 /* BaseNavigationController.m in Sources */,
 				AA665F7319A8D86A00FCF5C6 /* AddBuddyViewController.mm in Sources */,
 				AAA6DCDC198B918100EB948E /* LogStream.cpp in Sources */,
 				AA665F8519A971ED00FCF5C6 /* SignatureViewController.mm in Sources */,
+				0D9EBFB91AC24DC40071793C /* DDFileLogger.m in Sources */,
 				AA59F03B198A197B009FD449 /* UIColor+Additions.m in Sources */,
 				AA30A75119B5592E006925F5 /* BuddyTableViewCell.mm in Sources */,
 				AAA6DCD9198B918100EB948E /* Idea.cpp in Sources */,
@@ -1085,6 +1186,7 @@
 				AA588BAF1990B4EC00F08821 /* HeartBeat.cpp in Sources */,
 				0DA1AB781AA1C36C002DED6E /* WUNSTimerTargetLifecycleTracker.m in Sources */,
 				AAF613061990723A00555364 /* Exception.cpp in Sources */,
+				0D9EBFB71AC24DC40071793C /* DDASLLogCapture.m in Sources */,
 				AA59F071198A1A59009FD449 /* BackViewController.m in Sources */,
 				AAA6DCDF198B918100EB948E /* Timestamp.cpp in Sources */,
 				AA6F5F9519C6821300076E6B /* ChatViewController.mm in Sources */,
@@ -1094,6 +1196,7 @@
 				AACF5CD019BF01D8008D9E80 /* IndexPathButton.m in Sources */,
 				AA59F03C198A197B009FD449 /* UIImage+Additions.m in Sources */,
 				AA6F5F9E19C6BC6700076E6B /* ChatTableViewCell.mm in Sources */,
+				0D9EBFB61AC24DC40071793C /* DDAbstractDatabaseLogger.m in Sources */,
 				AA588BB21990B4EC00F08821 /* RetrieveBuddy.cpp in Sources */,
 				AA7D661519C2E90300488EFC /* Reachability.m in Sources */,
 				AA12CC0619C28080003BF55A /* SendOperation.mm in Sources */,
@@ -1101,12 +1204,17 @@
 				AA9106CC19C045590008926E /* RecvPush.cpp in Sources */,
 				AA588BAD1990B4EC00F08821 /* Action.cpp in Sources */,
 				AA98798219B6E281002AE2AF /* OnlineViewController.mm in Sources */,
+				0D9EBFB51AC24DC40071793C /* CLIColor.m in Sources */,
+				0D9EBFBB1AC24DC40071793C /* DDTTYLogger.m in Sources */,
 				AA665F7C19A8E66300FCF5C6 /* TextFieldTableViewCell.m in Sources */,
 				AA59F09F198A25EA009FD449 /* RegViewController.mm in Sources */,
 				AAA6DCDB198B918100EB948E /* Logging.cpp in Sources */,
 				AA588BAE1990B4EC00F08821 /* AddBuddy.cpp in Sources */,
 				AA6F5F9B19C682A700076E6B /* MsgModel.mm in Sources */,
+				0D9EBFBE1AC24DC40071793C /* DDMultiFormatter.m in Sources */,
 				AA59F034198A15F0009FD449 /* Constants.m in Sources */,
+				0D9EBFB81AC24DC40071793C /* DDASLLogger.m in Sources */,
+				0D9EBFC41AC250500071793C /* FBKVOController.m in Sources */,
 				AA6D73C419B1673B006DBC6D /* NewBuddyViewController.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

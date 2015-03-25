@@ -68,7 +68,7 @@ static dispatch_once_t predicate;
 }
 
 - (void)dealloc {
-    ETLOG(@"======= Client DEALLOC ========");
+    DDLogDebug(@"======= Client DEALLOC ========");
     [[NSNotificationCenter defaultCenter] removeObserver:self name:kReachabilityChangedNotification object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:kNoConnectionNotification object:nil];
     [_sendQueue cancelAllOperations];
@@ -159,12 +159,11 @@ static dispatch_once_t predicate;
 - (void)doAction:(etim::Session &)s cmd:(etim::uint16)cmd param:(NSMutableDictionary *)params {
     if (s.IsConnected()) {
         try {
-            ETLOG(@"发送cmd: 0X%04X, 通知名称: %@", cmd, notiNameFromCmd(cmd));
-            ETLOG(@"发送参数 %@", params);
+            DDLogInfo(@"发送cmd: 0X%04X, 通知名称: %@， 参数: %@", cmd, notiNameFromCmd(cmd), params);
             SendOperation *operation = [[SendOperation alloc] initWithCmd:cmd params:params];
             [_sendQueue addOperation:operation];
         } catch (Exception &e) {
-            ETLOG(@"出错发送cmd: 0X%04X, 通知名称: %@", cmd, notiNameFromCmd(cmd));
+            DDLogError(@"出错发送cmd: 0X%04X, 通知名称: %@", cmd, notiNameFromCmd(cmd));
             s.SetErrorCode(kErrCodeMax);
             s.SetErrorMsg(e.what());
             dispatch_sync(dispatch_get_main_queue(), ^{
@@ -178,7 +177,7 @@ static dispatch_once_t predicate;
             if (!wself)
                 return;
             try {
-                ETLOG(@"发送cmd: 0X%04X, 通知名称: %@", s.GetSendCmd(), notiNameFromCmd(s.GetSendCmd()));
+                DDLogInfo(@"发送cmd: 0X%04X, 通知名称: %@", s.GetSendCmd(), notiNameFromCmd(s.GetSendCmd()));
                 map<string, string> request = s.GetRequest();
                 map<string, string>::iterator it;
                 for(it = request.begin(); it != request.end(); it++) {
@@ -190,7 +189,7 @@ static dispatch_once_t predicate;
             } catch (Exception &e) {
                 if (!wself)
                     return;
-                ETLOG(@"出错发送cmd: 0X%04X, 通知名称: %@", s.GetSendCmd(), notiNameFromCmd(s.GetSendCmd()));
+                DDLogError(@"出错发送cmd: 0X%04X, 通知名称: %@", s.GetSendCmd(), notiNameFromCmd(s.GetSendCmd()));
                 s.SetErrorCode(kErrCodeMax);
                 s.SetErrorMsg(e.what());
                 dispatch_sync(dispatch_get_main_queue(), ^{
@@ -221,7 +220,7 @@ static dispatch_once_t predicate;
                         break;
                     ///必须dispatch_sync,不然如果多个命令连续的话会导致重新发出相同的最后一个命令名称
                     dispatch_sync(dispatch_get_main_queue(), ^{
-                        ETLOG(@"接收cmd: 0X%04X, 通知名称: %@", s.GetRecvCmd(), notiNameFromCmd(s.GetRecvCmd()));
+                        DDLogInfo(@"接收cmd: 0X%04X, 通知名称: %@", s.GetRecvCmd(), notiNameFromCmd(s.GetRecvCmd()));
                         if (s.GetRecvCmd() == CMD_LOGIN && !s.IsError()) {
                             wself.isLogin = YES;
                             wself.isLogout = NO;
@@ -318,7 +317,7 @@ static dispatch_once_t predicate;
 
 - (void)showNoConnection:(NSNotification *)note {
     Reachability *reach = [Reachability reachabilityWithHostName:@"www.baidu.com"];
-    NSLog(@"status : %d", reach.currentReachabilityStatus);
+    DDLogInfo(@"status : %d", reach.currentReachabilityStatus);
     if (reach.currentReachabilityStatus == NotReachable) {
         [[TWMessageBarManager sharedInstance] showMessageWithTitle:@"网络错误" description:@"无网络连接" type:TWMessageBarMessageTypeError];
     } else {

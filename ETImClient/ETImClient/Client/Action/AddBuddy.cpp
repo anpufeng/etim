@@ -166,7 +166,6 @@ void AcceptAddBuddy::DoRecv(etim::Session &s) {
         jis>>addPeer;
         user.relation = static_cast<BuddyRelation>(rel);
         user.status = static_cast<BuddyStatus>(status);
-        //TODO 服务器返回接收成功对方可以添加我为好友如果有添加对方 那么我要将此USER添加进我的好友列表
         s.ClearBuddys();
         if (Convert::StringToInt(addPeer)) {
             s.AddBuddy(user);
