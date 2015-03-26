@@ -10,4 +10,8 @@
 
 @implementation CmdParamModel
 
+- (NSString *)description {
+    return [NSString stringWithFormat:@"cmd: 0X%04X params: %@", self.cmd, self.params];
+}
+
 @end

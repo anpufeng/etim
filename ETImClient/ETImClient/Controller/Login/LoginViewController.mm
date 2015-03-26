@@ -118,6 +118,7 @@ using namespace etim::pub;
          [[TWMessageBarManager sharedInstance] showMessageWithTitle:@"温馨提示" description:@"请输入用户名和密码" type:TWMessageBarMessageTypeInfo];
         return;
     }
+    [self.view endEditing:YES];
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         etim::Session *sess = [[Client sharedInstance] session];
@@ -149,7 +150,7 @@ using namespace etim::pub;
         }
     } else {
         [[TWMessageBarManager sharedInstance] showMessageWithTitle:@"登录错误" description:@"未知错误" type:TWMessageBarMessageTypeError];
-        [Client sharedDealloc];
+        [[Client sharedInstance] disconnect];
     }
 }
 

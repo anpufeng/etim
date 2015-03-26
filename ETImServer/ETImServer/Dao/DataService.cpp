@@ -358,7 +358,7 @@ int DataService::AcceptAddBuddy(const std::string &from, const std::string &to, 
         if (!rs.GetRows())
             return kErrCode04;
         string reg = rs.GetItem(0, "u.reg_time");
-        fromUser.userId = Convert::StringToInt(to);
+        fromUser.userId = Convert::StringToInt(rs.GetItem(0, "u.user_id").c_str());
         fromUser.username = rs.GetItem(0, "u.username");
         fromUser.regDate = reg.substr(0, reg.find(" "));
         fromUser.signature = rs.GetItem(0, "u.signature");

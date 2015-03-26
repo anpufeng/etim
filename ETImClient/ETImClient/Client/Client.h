@@ -51,16 +51,20 @@ inline std::string nsStrToStdStr(NSString *str) {
 @class BuddyModel;
 
 @interface Client : NSObject {
-    NSOperationQueue *_sendQueue;
+    NSOperationQueue *_sendedOpeartionQueue;
+    dispatch_queue_t _connQueue;
     dispatch_queue_t _recvQueue;
 }
 
 @property (nonatomic, strong) BuddyModel *user;
+///上次是否成功登录过
+@property (nonatomic, assign) BOOL login;
+///上次登出过
+@property (nonatomic, assign) BOOL logout;
+@property (nonatomic, assign) BOOL appActive;
 
 
 + (Client *)sharedInstance;
-///销毁单例
-+ (void)sharedDealloc;
 
 
 ///获取session对象
@@ -76,7 +80,7 @@ inline std::string nsStrToStdStr(NSString *str) {
 - (void)connect;
 - (void)reconnect;
 - (BOOL)connected;
-- (void)close;
+- (void)disconnect;
 - (void)reLogin;
 @end
 

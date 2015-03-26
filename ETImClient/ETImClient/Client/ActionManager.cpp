@@ -73,6 +73,9 @@ bool ActionManager::SendPacket(Session &s, etim::uint16 cmd, sendarg arg)
 
 bool ActionManager::RecvPacket(Session &s)
 {
+    if (!&s) {
+        return false;
+    }
     s.Recv();	// 接收应答包
     uint16 cmd;
     cmd = s.GetResponsePack()->head.cmd;

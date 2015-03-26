@@ -47,7 +47,7 @@ namespace etim
         };
         
         
-        ///端接收异常
+        ///端接收异常  0服务器关闭  -1接收出错
         class RecvException :public Exception {
             public:
             

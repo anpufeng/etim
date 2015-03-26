@@ -21,6 +21,7 @@ using namespace etim::pub;
 using namespace std;
 
 Session::Session(std::auto_ptr<Socket> &socket, connectCallBack callBack) : socket_(socket), callBack_(callBack), isConnected_(false) {
+    LOG_INFO<<"Session 构造函数";
     Connect();
     responsePack_ = (ResponsePack*)buffer_;
 }
@@ -31,10 +32,14 @@ Session::~Session() {
 }
 
 void Session::Close() {
-    if (!isConnected_) return;
-    
-        isConnected_ = false;
         socket_->Close();
+        isConnected_ = false;
+}
+
+bool Session::Reconnect() {
+    responsePack_ = (ResponsePack*)buffer_;
+    isConnected_ = false;
+    return this->Connect();
 }
 bool Session::Connect() {
     if (isConnected_) return true;
@@ -62,32 +67,41 @@ void Session::Clear() {
     //errCode_ = 0;
 }
 void Session::Send(const char *buf, size_t len) {
-    socket_->SendN(buf, len);
+    if (socket_->SendN(buf, len) == -1) {
+        isConnected_ = false;
+    }
 }
 
 void Session::Recv() {
     int ret;
 	ret = socket_->RecvN(buffer_, sizeof(ResponseHead));
-	if (ret == 0)
+	if (ret == 0) {
+        isConnected_ = false;
 		throw RecvException(strerror(errno), ret);
-    else if (ret == -1)
+    }
+    else if (ret == -1) {
+        isConnected_ = false;
         throw RecvException(strerror(errno), ret);
+    }
 	else if (ret != sizeof(ResponseHead))
 		throw RecvException(std::string("接收数据包出错").c_str(), ret);
     
 	uint16 cmd = Endian::NetworkToHost16(responsePack_->head.cmd);
 	uint16 len = Endian::NetworkToHost16(responsePack_->head.len);
     
-	
     
 	if (len == 0)
 		return;
     
 	ret = socket_->RecvN(responsePack_->buf, len);
-    if (ret == 0)
+    if (ret == 0) {
+        isConnected_ = false;
 		throw RecvException(strerror(errno), ret);
-    else if (ret == -1)
+    }
+    else if (ret == -1) {
+        isConnected_ = false;
         throw RecvException(strerror(errno), ret);
+    }
 	else if (ret != len)
 		throw RecvException(std::string("接收数据包出错").c_str(), ret);
     

@@ -171,7 +171,7 @@ using namespace etim::pub;
         if (sess->IsError()) {
             [[TWMessageBarManager sharedInstance] showMessageWithTitle:@"登出错误" description:stdStrToNsStr(sess->GetErrorMsg()) type:TWMessageBarMessageTypeError];
         } else {
-            [Client sharedDealloc];
+            [[Client sharedInstance] disconnect];
             //登出成功
             AppDelegate *delegate = [[UIApplication sharedApplication] delegate];
             [delegate jumpToLogin:YES];

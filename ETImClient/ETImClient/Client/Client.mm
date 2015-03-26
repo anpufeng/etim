@@ -27,6 +27,8 @@
 #include <signal.h>
 #include <map>
 #include <sstream>
+#include <string.h>
+#include <stdio.h>
 
 using namespace etim;
 using namespace etim::pub;
@@ -42,8 +44,6 @@ using namespace std;
 }
 
 @property (nonatomic, strong) Reachability *hostReachability;
-@property (nonatomic, assign) BOOL isLogin;
-@property (nonatomic, assign) BOOL isLogout;
 @property (nonatomic, strong) NSTimer *heartBeatTimer;
 @property (nonatomic, strong) NSMutableArray *queuedCmdArr;
 
@@ -77,19 +77,12 @@ void clientConnectCallBack(bool connected)  {
     return sharedClient;
 }
 
-+ (void)sharedDealloc {
-    if (sharedClient) {
-        sharedClient = nil;
-        predicate = 0;
-    }
-}
-
 - (void)dealloc {
     DDLogDebug(@"======= Client DEALLOC ========");
     [[NSNotificationCenter defaultCenter] removeObserver:self name:kReachabilityChangedNotification object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:kNoConnectionNotification object:nil];
     [_heartBeatTimer invalidate];
-    [_sendQueue cancelAllOperations];
+    [_sendedOpeartionQueue cancelAllOperations];
     if (_session) {
         delete _session;
     }
@@ -106,12 +99,15 @@ void clientConnectCallBack(bool connected)  {
                                                  selector:@selector(showNoConnection:)
                                                      name:kNoConnectionNotification
                                                    object:nil];
-        self.isLogin = NO;
-        self.isLogout = YES;
+        
+        self.appActive = NO;
+        self.login = NO;
+        self.logout = YES;
         self.queuedCmdArr = [NSMutableArray arrayWithCapacity:10];
         
-        _sendQueue = [[NSOperationQueue alloc] init];
+        _sendedOpeartionQueue = [[NSOperationQueue alloc] init];
         _recvQueue = dispatch_queue_create("com.ethan.clientRecv", NULL);
+        _connQueue = dispatch_queue_create("com.ethan.socketConnect", NULL);
     }
     
     return self;
@@ -120,29 +116,55 @@ void clientConnectCallBack(bool connected)  {
 
 - (void)connectCallBack:(bool)connected {
     if (connected) {
-        [self doRecv:*_session];
+        DDLogInfo(@"连接成功 ");
+        [self doRecvAction];
         _heartBeatTimer = [NSTimer scheduledTimerWithTimeInterval:HEART_BEAT_SECONDS weakTarget:self selector:@selector(heartBeart) userInfo:nil repeats:YES];
+        if (self.login) {
+            [self autoLogin];
+        }
         [self.queuedCmdArr enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
             CmdParamModel *model = (CmdParamModel *)obj;
             SendOperation *operation = [[SendOperation alloc] initWithCmdParamModel:model];
-            [_sendQueue addOperation:operation];
+            DDLogInfo(@"开始执行未完成的命令 %@", model);
+            [_sendedOpeartionQueue addOperation:operation];
         }];
+        [self.queuedCmdArr removeAllObjects];
     } else {
+        DDLogInfo(@"连接失败");
+        sleep(1);
         [self reconnect];
     }
 }
 
 - (void)connect {
+    if (!self.appActive) {
+        DDLogInfo(@"APP不在active状态 不需重连");
+        return;
+    }
+
+//    if (!_session && !self.login) {
+//        DDLogInfo(@"用户未成功登录过 不需重连");
+//        return;
+//    }
+//    if (_session && self.logout) {
+//        DDLogInfo(@"用户已登出 不需重连");
+//        return;
+//    }
     if (_session) {
-        delete _session;
-        _session = NULL;
+        if (_session->IsConnected()) {
+            return;
+        }
+        _session->Close();
         [_heartBeatTimer invalidate];
     }
     
-    dispatch_async(kBgQueue, ^{
-        std::auto_ptr<Socket> connSoc(new Socket(-1, 0));
-        ///令人头痛的命名冲突
-        _session = new Session(connSoc, clientConnectCallBack);
+    dispatch_async(_connQueue, ^{
+        if (!_session) {
+            std::auto_ptr<Socket> connSoc(new Socket(-1, 0));
+            _session = new Session(connSoc, clientConnectCallBack);
+        } else {
+            _session->Reconnect();
+        }
     });
 }
 
@@ -157,13 +179,18 @@ void clientConnectCallBack(bool connected)  {
 }
 
 - (BOOL)connected {
+    if (_session) {
     return _session->IsConnected();
+    } else {
+        return NO;
+    }
+
 }
-- (void)close {
-    _session->Close();
-}
-- (void)reLogin {
-    
+- (void)disconnect {
+    if (_session) {
+        _session->Close();
+    }
+
 }
 
 - (void)startReachabilityNoti {
@@ -199,13 +226,15 @@ void clientConnectCallBack(bool connected)  {
 }
 
 - (void)autoLogin {
-    if (self.isLogin)
-        return;
-    
-    NSMutableDictionary *param = [NSMutableDictionary dictionary];
-    [param setObject:@"admin1" forKey:@"name"];
-    [param setObject:@"admin" forKey:@"pass"];
-    [self doAction:*_session cmd:CMD_LOGIN param:param];
+    if (_session && _session->IsConnected()) {
+        NSMutableDictionary *param = [NSMutableDictionary dictionary];
+        [param setObject:@"admin1" forKey:@"name"];
+        [param setObject:@"admin" forKey:@"pass"];
+        [self doAction:*_session cmd:CMD_LOGIN param:param];
+    } else {
+        DDLogWarn(@"重登时无可用session或无连接");
+    }
+
 }
 
 ///只有参数为userId时的命令操作
@@ -217,7 +246,9 @@ void clientConnectCallBack(bool connected)  {
 }
 
 - (void)heartBeart {
-    [self pullWithCommand:CMD_HEART_BEAT];
+    if (_session && _session->IsConnected()) {
+            [self pullWithCommand:CMD_HEART_BEAT];
+    }
 }
 
 #pragma mark -
@@ -234,7 +265,7 @@ void clientConnectCallBack(bool connected)  {
                 DDLogInfo(@"发送cmd: 0X%04X, 通知名称: %@， 参数: %@", cmd, notiNameFromCmd(cmd), params);
 
                 SendOperation *operation = [[SendOperation alloc] initWithCmdParamModel:model];
-                [_sendQueue addOperation:operation];
+                [_sendedOpeartionQueue addOperation:operation];
             } catch (Exception &e) {
                 DDLogError(@"出错发送cmd: 0X%04X, 通知名称: %@", cmd, notiNameFromCmd(cmd));
                 s.SetErrorCode(kErrCodeMax);
@@ -249,91 +280,79 @@ void clientConnectCallBack(bool connected)  {
             s.SetErrorCode(kErrCodeMax);
             s.SetErrorMsg("无服务器连接");
             [[NSNotificationCenter defaultCenter] postNotificationName:notiNameFromCmd(cmd) object:nil];
+            [self.queuedCmdArr addObject:model];
+            [self reconnect];
         }
     } else {
-        DDLogWarn(@"还未建立连接");
+        DDLogWarn(@"还未建立连接 无可用session");
         [self.queuedCmdArr addObject:model];
+        [self reconnect];
     }
    
 }
 
-- (void)doRecv:(etim::Session &)s {
-    if (s.IsConnected()) {
-        __weak Client *wself = self;
-        dispatch_async(_recvQueue, ^{
-            while (1) {
-                if (!wself)
-                    break;
-                try {
-                    Singleton<ActionManager>::Instance().RecvPacket(s);
-                    if (!wself)
-                        break;
-                    ///必须dispatch_sync,不然如果多个命令连续的话会导致重新发出相同的最后一个命令名称
-                    dispatch_sync(dispatch_get_main_queue(), ^{
-                        DDLogInfo(@"接收cmd: 0X%04X, 通知名称: %@", s.GetRecvCmd(), notiNameFromCmd(s.GetRecvCmd()));
-                        if (s.GetRecvCmd() == CMD_LOGIN && !s.IsError()) {
-                            wself.isLogin = YES;
-                            wself.isLogout = NO;
-                        }
-                        
-                        if (s.GetRecvCmd() == CMD_LOGOUT && !s.IsError()) {
-                            wself.isLogout = YES;
-                            wself.isLogin = NO;
-                        }
-                        
-                        [[NSNotificationCenter defaultCenter] postNotificationName:notiNameFromCmd(s.GetRecvCmd()) object:nil];
-                    });
-                } catch (RecvException &e) {
-                    if (!wself)
-                        return;
-                    LOG_INFO<<e.what();
-                    if (e.GetReceived() == 0) {
-                        ///TODO 关闭客户端socket并进行重连
-                        LOG_ERROR<<"服务端关闭或超时";
-                        [[TWMessageBarManager sharedInstance] showMessageWithTitle:@"服务器错误" description:@"服务端关闭" type:TWMessageBarMessageTypeError];
-                        if (!wself)
-                            break;
-                        wself.isLogin = NO;
-                        if (wself.isLogout) {
-                            
-                        } else {
-                            [wself autoLogin];
-                        }
-
-                        /*
-                        s.SetErrorCode(kErrCodeMax);
-                        s.SetErrorMsg(e.what());
-                        dispatch_async(dispatch_get_main_queue(), ^{
-                            [[NSNotificationCenter defaultCenter] postNotificationName:notiNameFromCmd(s.GetRecvCmd()) object:nil];
-                        });
-                         */
-                        break;
-                    } else if (e.GetReceived() == -1) {
-                        LOG_ERROR<<e.what();
-                    } else {
-                        s.SetErrorCode(kErrCodeMax);
-                        s.SetErrorMsg(e.what());
-                        LOG_ERROR<<e.what();
-                        dispatch_sync(dispatch_get_main_queue(), ^{
-                            [[NSNotificationCenter defaultCenter] postNotificationName:notiNameFromCmd(s.GetRecvCmd()) object:nil];
-                        });
-                    }
-                }
-                
-                catch (Exception &e) {
-                    if (!wself)
-                        return;
-                    LOG_INFO<<e.what();
-                }
-
-                
+- (void)doRecvAction {
+    dispatch_async(_recvQueue, ^{
+        while (1) {
+            if (!_session) {
+                DDLogWarn(@"无可收session");
+                break;
             }
-        });
-    } else {
-        s.SetErrorCode(kErrCodeMax);
-        s.SetErrorMsg("无服务器连接");
-        [[NSNotificationCenter defaultCenter] postNotificationName:kNoConnectionNotification object:nil];
-    }
+            
+            if (!_session->IsConnected()) {
+                DDLogWarn(@"session 无连接");
+                sleep(1);
+                continue;
+            }
+            
+            try {
+                Singleton<ActionManager>::Instance().RecvPacket(*_session);
+                ///必须dispatch_sync,不然如果多个命令连续的话会导致重新发出相同的最后一个命令名称
+                dispatch_sync(dispatch_get_main_queue(), ^{
+                    DDLogInfo(@"接收cmd: 0X%04X, 通知名称: %@", _session->GetRecvCmd(), notiNameFromCmd(_session->GetRecvCmd()));
+                    if (_session->GetRecvCmd() == CMD_LOGIN && !_session->IsError()) {
+                        self.login = YES;
+                        self.logout = NO;
+                    }
+                    
+                    if (_session->GetRecvCmd() == CMD_LOGOUT && !_session->IsError()) {
+                        self.logout = YES;
+                    }
+                    
+                    [[NSNotificationCenter defaultCenter] postNotificationName:notiNameFromCmd(_session->GetRecvCmd()) object:nil];
+                });
+            } catch (RecvException &e) {
+                DDLogInfo(@"RecvException: %s", e.what());
+                if (e.GetReceived() == 0) {
+                    DDLogError(@"服务端关闭");
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        [self reconnect];
+                    });
+                    break;
+                    
+                    [[TWMessageBarManager sharedInstance] showMessageWithTitle:@"服务器错误" description:@"服务端关闭" type:TWMessageBarMessageTypeError];
+                
+                    break;
+                } else if (e.GetReceived() == -1) {
+                    DDLogError(@"接收出错 %s", e.what());
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        [self reconnect];
+                    });
+                    break;
+                } else {
+                    _session->SetErrorCode(kErrCodeMax);
+                    _session->SetErrorMsg(e.what());
+                    DDLogError(@"%s", e.what());
+                    dispatch_sync(dispatch_get_main_queue(), ^{
+                        [[NSNotificationCenter defaultCenter] postNotificationName:notiNameFromCmd(_session->GetRecvCmd()) object:nil];
+                    });
+                }
+            } catch (Exception &e) {
+                DDLogInfo(@"Exception: %s", e.what());
+            }
+
+        }
+    });
 }
 
 /*!
@@ -344,30 +363,25 @@ void clientConnectCallBack(bool connected)  {
 	Reachability* curReach = [note object];
 	NSParameterAssert([curReach isKindOfClass:[Reachability class]]);
     NetworkStatus netStatus = [curReach currentReachabilityStatus];
-    __weak Client *wself = self;
-    switch (netStatus)
-    {
-        case NotReachable:        {
-            _session->Close();
-            wself.isLogin = NO;
-            break;
+    switch (netStatus) {
+        case NotReachable:
+        {
+            [self disconnect];
         }
             
-        case ReachableViaWWAN:
-        case ReachableViaWiFi: {
-            dispatch_async(kBgQueue, ^{
-                if (_session->Connect()) {
-                    [wself autoLogin];
-                }
-            });
             break;
+        case ReachableViaWWAN:
+        case ReachableViaWiFi:
+        {
+            [self connect];
         }
+            break;
     }
 }
 
 - (void)showNoConnection:(NSNotification *)note {
     Reachability *reach = [Reachability reachabilityWithHostName:@"www.baidu.com"];
-    DDLogInfo(@"status : %d", reach.currentReachabilityStatus);
+    DDLogInfo(@"status : %ld", reach.currentReachabilityStatus);
     if (reach.currentReachabilityStatus == NotReachable) {
         [[TWMessageBarManager sharedInstance] showMessageWithTitle:@"网络错误" description:@"无网络连接" type:TWMessageBarMessageTypeError];
     } else {
