@@ -22,7 +22,7 @@ using namespace etim;
 using namespace etim::pub;
 
 
-@interface LoginViewController () {
+@interface LoginViewController () <Client> {
     
 }
 
@@ -46,7 +46,7 @@ using namespace etim::pub;
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(responseToLogin) name:notiNameFromCmd(CMD_LOGIN) object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(notiToLogin) name:notiNameFromCmd(CMD_LOGIN) object:nil];
     [self createUI];
 }
 
@@ -120,13 +120,15 @@ using namespace etim::pub;
     }
     [self.view endEditing:YES];
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        etim::Session *sess = [[Client sharedInstance] session];
-        NSMutableDictionary *param = [NSMutableDictionary dictionary];
-        [param setObject:_nameTextField.text forKey:@"name"];
-        [param setObject:_pwdTextField.text forKey:@"pass"];
-        [[Client sharedInstance] doAction:*sess cmd:CMD_LOGIN param:param];
-    });
+    [[Client sharedInstance] connectWithDelegate:self];
+//    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//        [[Client sharedInstance] connectWithDelegate:self];
+//        etim::Session *sess = [[Client sharedInstance] session];
+//        NSMutableDictionary *param = [NSMutableDictionary dictionary];
+//        [param setObject:_nameTextField.text forKey:@"name"];
+//        [param setObject:_pwdTextField.text forKey:@"pass"];
+//        [[Client sharedInstance] doAction:*sess cmd:CMD_LOGIN param:param];
+//    });
    
 }
 
@@ -135,12 +137,13 @@ using namespace etim::pub;
     [self.navigationController pushViewController:vc animated:YES];
 }
 
-- (void)responseToLogin {
+- (void)notiToLogin {
     [MBProgressHUD hideHUDForView:self.view animated:YES];
     etim::Session *sess = [[Client sharedInstance] session];
     if (sess->GetRecvCmd() == CMD_LOGIN) {
         if (sess->IsError()) {
              [[TWMessageBarManager sharedInstance] showMessageWithTitle:@"登录错误" description:stdStrToNsStr(sess->GetErrorMsg()) type:TWMessageBarMessageTypeError];
+            [[Client sharedInstance] disconnect];
         } else {
             //登录成功
             BaseTabBarViewController *tabbar = [[BaseTabBarViewController alloc] init];
@@ -152,6 +155,19 @@ using namespace etim::pub;
         [[TWMessageBarManager sharedInstance] showMessageWithTitle:@"登录错误" description:@"未知错误" type:TWMessageBarMessageTypeError];
         [[Client sharedInstance] disconnect];
     }
+}
+
+- (void)socketDidConnectSuccess {
+    [[Client sharedInstance] doRecvAction];
+    
+    NSMutableDictionary *param = [NSMutableDictionary dictionary];
+    [param setObject:_nameTextField.text forKey:@"name"];
+    [param setObject:_pwdTextField.text forKey:@"pass"];
+    etim::Session *sess = [[Client sharedInstance] session];
+    [[Client sharedInstance] doAction:*sess cmd:CMD_LOGIN param:param];
+}
+- (void)socketDidConnectFailure {
+    [[Client sharedInstance] reconnect];
 }
 
 #pragma mark -

@@ -54,11 +54,15 @@ inline std::string nsStrToStdStr(NSString *str) {
 - (void)socketDidConnectSuccess;
 - (void)socketDidConnectFailure;
 
+/*
 @optional
 - (void)clientDidLoginSuccess;
 - (void)clientDidLoginFailure;
+- (void)clientDidLogoutSuccess;
+- (void)clientDidLogoutFailure;
 - (void)clientDidRegSuccess;
 - (void)clientDidRegFailure;
+ */
 
 @end
 
@@ -80,6 +84,7 @@ inline std::string nsStrToStdStr(NSString *str) {
 ///上次登出过
 @property (nonatomic, assign) BOOL logout;
 @property (nonatomic, assign) BOOL appActive;
+@property (nonatomic, weak) id<Client> delegate;
 
 
 + (Client *)sharedInstance;
@@ -93,9 +98,9 @@ inline std::string nsStrToStdStr(NSString *str) {
 - (void)pullUnread;
 - (void)pullWithCommand:(etim::uint16)cmd;
 - (void)startReachabilityNoti;
+- (void)doRecvAction;
 
-
-- (void)connectWithCallBack:(etim::connectCallBack)callBack;
+- (void)connectWithDelegate:(id<Client>)delegate;
 - (void)reconnect;
 - (BOOL)connected;
 - (void)disconnect;

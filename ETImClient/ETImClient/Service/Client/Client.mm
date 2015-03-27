@@ -46,7 +46,7 @@ using namespace std;
 @property (nonatomic, strong) Reachability *hostReachability;
 @property (nonatomic, strong) NSTimer *heartBeatTimer;
 @property (nonatomic, strong) NSMutableArray *queuedCmdArr;
-@property (nonatomic, assign) connectCallBack callBack;
+
 
 - (void)connectCallBack:(bool)connected;
 
@@ -84,6 +84,7 @@ void clientConnectCallBack(bool connected)  {
     [[NSNotificationCenter defaultCenter] removeObserver:self name:kNoConnectionNotification object:nil];
     [_heartBeatTimer invalidate];
     [_sendedOpeartionQueue cancelAllOperations];
+    _delegate = nil;
     if (_session) {
         delete _session;
     }
@@ -114,30 +115,30 @@ void clientConnectCallBack(bool connected)  {
     return self;
 }
 
+#pragma mark -
+#pragma mark connect
 
 - (void)connectCallBack:(bool)connected {
     if (connected) {
         DDLogInfo(@"连接成功 ");
-        [self doRecvAction];
-        _heartBeatTimer = [NSTimer scheduledTimerWithTimeInterval:HEART_BEAT_SECONDS weakTarget:self selector:@selector(heartBeart) userInfo:nil repeats:YES];
-        if (self.login) {
-            [self autoLogin];
+        if (_delegate && [_delegate respondsToSelector:@selector(socketDidConnectSuccess)]) {
+            [_delegate socketDidConnectSuccess];
+        } else {
+            DDLogWarn(@"无回调delegate");
         }
-        [self.queuedCmdArr enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-            CmdParamModel *model = (CmdParamModel *)obj;
-            SendOperation *operation = [[SendOperation alloc] initWithCmdParamModel:model];
-            DDLogInfo(@"开始执行未完成的命令 %@", model);
-            [_sendedOpeartionQueue addOperation:operation];
-        }];
-        [self.queuedCmdArr removeAllObjects];
+        
     } else {
         DDLogInfo(@"连接失败");
-        sleep(1);
-        [self reconnect];
+        if (_delegate && [_delegate respondsToSelector:@selector(socketDidConnectFailure)]) {
+            [_delegate socketDidConnectSuccess];
+        } else {
+            DDLogWarn(@"无回调delegate");
+        }
     }
 }
 
-- (void)connectWithCallBack:(etim::connectCallBack)callBack {
+- (void)connectWithDelegate:(id<Client>)delegate {
+    
     if (!self.appActive) {
         DDLogInfo(@"APP不在active状态 不需重连");
         return;
@@ -159,15 +160,11 @@ void clientConnectCallBack(bool connected)  {
         [_heartBeatTimer invalidate];
     }
     
-    _callBack = callBack;
+    _delegate = delegate;
     dispatch_async(_connQueue, ^{
         if (!_session) {
             std::auto_ptr<Socket> connSoc(new Socket(-1, 0));
-            if (_callBack) {
-                _session = new Session(connSoc, _callBack);
-            } else {
                 _session = new Session(connSoc, clientConnectCallBack);
-            }
             
         } else {
             _session->Reconnect();
@@ -176,13 +173,19 @@ void clientConnectCallBack(bool connected)  {
 }
 
 - (void)reconnect {
+    DDLogInfo(@"尝试重连");
     if ([self connected]) {
+                DDLogInfo(@"已连接, 放弃重连");
         return;
     }
     
-    DDLogInfo(@"尝试重连");
+    if (_delegate) {
+        DDLogInfo(@"无delegate, 放弃重连");
+    }
     
-    [self connectWithCallBack:_callBack];
+
+    
+    [self connectWithDelegate:self];
 }
 
 - (BOOL)connected {
@@ -196,7 +199,7 @@ void clientConnectCallBack(bool connected)  {
 - (void)disconnect {
     if (_session) {
         _session->Close();
-        _callBack = NULL;
+        _delegate = nil;
     }
 
 }
@@ -209,9 +212,8 @@ void clientConnectCallBack(bool connected)  {
     if (_session) {
         return _session;
     }
-
-    [self connectWithCallBack:_callBack];
-    return _session;
+    
+    return NULL;
 }
 
 - (BuddyModel *)user {
@@ -317,15 +319,46 @@ void clientConnectCallBack(bool connected)  {
                 ///必须dispatch_sync,不然如果多个命令连续的话会导致重新发出相同的最后一个命令名称
                 dispatch_sync(dispatch_get_main_queue(), ^{
                     DDLogInfo(@"接收cmd: 0X%04X, 通知名称: %@", _session->GetRecvCmd(), notiNameFromCmd(_session->GetRecvCmd()));
-                    if (_session->GetRecvCmd() == CMD_LOGIN && !_session->IsError()) {
-                        self.login = YES;
-                        self.logout = NO;
+                    ///一些特殊命令回调
+                    if (_session->GetRecvCmd() == CMD_LOGIN) {
+                        if (_session->IsError()) {
+//                            if (_delegate && [_delegate respondsToSelector:@selector(clientDidLoginFailure)]) {
+//                                [_delegate clientDidLoginFailure];
+//                            }
+                        } else {
+                            self.login = YES;
+                            self.logout = NO;
+//                            if (_delegate && [_delegate respondsToSelector:@selector(clientDidLoginSuccess)]) {
+//                                [_delegate clientDidLoginSuccess];
+//                            }
+                        }
+                        
+                    } else if (_session->GetRecvCmd() == CMD_LOGOUT) {
+                        if (_session->IsError()) {
+//                            if (_delegate && [_delegate respondsToSelector:@selector(clientDidLogoutFailure)]) {
+//                                [_delegate clientDidLogoutFailure];
+//                            }
+                        } else {
+                            self.logout = YES;
+//                            if (_delegate && [_delegate respondsToSelector:@selector(clientDidLogoutSuccess)]) {
+//                                [_delegate clientDidLogoutSuccess];
+//                            }
+                        }
+                        
+                    } else if (_session->GetRecvCmd() == CMD_REGISTER) {
+                        if (_session->IsError()) {
+//                            if (_delegate && [_delegate respondsToSelector:@selector(clientDidRegFailure)]) {
+//                                [_delegate clientDidRegFailure];
+//                            }
+                        } else {
+//                            if (_delegate && [_delegate respondsToSelector:@selector(clientDidRegSuccess)]) {
+//                                [_delegate clientDidRegSuccess];
+//                            }
+                        }
+                        
+                    } else {
+                        //[[NSNotificationCenter defaultCenter] postNotificationName:notiNameFromCmd(_session->GetRecvCmd()) object:nil];
                     }
-                    
-                    if (_session->GetRecvCmd() == CMD_LOGOUT && !_session->IsError()) {
-                        self.logout = YES;
-                    }
-                    
                     [[NSNotificationCenter defaultCenter] postNotificationName:notiNameFromCmd(_session->GetRecvCmd()) object:nil];
                 });
             } catch (RecvException &e) {
@@ -362,6 +395,8 @@ void clientConnectCallBack(bool connected)  {
     });
 }
 
+#pragma mark -
+#pragma mark Reachability
 /*!
  * Called by Reachability whenever status changes.
  */
@@ -396,5 +431,51 @@ void clientConnectCallBack(bool connected)  {
     }
     
 }
+
+#pragma mark -
+#pragma mark Client delegate
+
+- (void)socketDidConnectSuccess {
+    [self doRecvAction];
+    _heartBeatTimer = [NSTimer scheduledTimerWithTimeInterval:HEART_BEAT_SECONDS weakTarget:self selector:@selector(heartBeart) userInfo:nil repeats:YES];
+    if (self.login) {
+        [self autoLogin];
+    }
+    [self.queuedCmdArr enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        CmdParamModel *model = (CmdParamModel *)obj;
+        SendOperation *operation = [[SendOperation alloc] initWithCmdParamModel:model];
+        DDLogInfo(@"开始执行未完成的命令 %@", model);
+        [_sendedOpeartionQueue addOperation:operation];
+    }];
+    [self.queuedCmdArr removeAllObjects];
+}
+- (void)socketDidConnectFailure {
+    sleep(1);
+    [self reconnect];
+}
+
+
+/*
+- (void)clientDidLoginSuccess {
+    
+}
+- (void)clientDidLoginFailure {
+    
+}
+
+- (void)clientDidLogoutSuccess {
+    
+}
+- (void)clientDidLogoutFailure {
+    
+}
+
+- (void)clientDidRegSuccess {
+    
+}
+- (void)clientDidRegFailure {
+    
+}
+ */
 
 @end

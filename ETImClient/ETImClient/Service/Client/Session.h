@@ -141,7 +141,10 @@ namespace etim {
         ///获取发送操作命令
         uint16_t GetSendCmd() const { return cmd_; }
         ///获取接收操作命令
-        uint16_t GetRecvCmd() const { return responsePack_->head.cmd; }
+        uint16_t GetRecvCmd() const {
+            printf("%d", responsePack_->head.cmd);
+            return responsePack_->head.cmd;
+        }
         
         ///将返回值加入
         void SetResponse(const std::string& k, const std::string& v);
