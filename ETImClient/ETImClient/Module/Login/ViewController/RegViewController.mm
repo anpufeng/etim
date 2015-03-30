@@ -17,7 +17,7 @@
 using namespace etim;
 using namespace etim::pub;
 
-@interface RegViewController () <MBProgressHUDDelegate> {
+@interface RegViewController () <MBProgressHUDDelegate, Client> {
     MBProgressHUD *_hud;
 }
 
@@ -33,7 +33,7 @@ using namespace etim::pub;
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(responseToReg) name:notiNameFromCmd(CMD_REGISTER) object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(notiToReg) name:notiNameFromCmd(CMD_REGISTER) object:nil];
     [self createUI];
 }
 
@@ -80,7 +80,7 @@ using namespace etim::pub;
 
 }
 
-#pragma mark -
+#pragma mark - reg
 #pragma mark 
 
 - (void)responseToRegBtn:(UIButton *)sender {
@@ -92,22 +92,20 @@ using namespace etim::pub;
     [_nameTextField resignFirstResponder];
     [_pwdTextField resignFirstResponder];
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    etim::Session *sess = [[Client sharedInstance] session];
-    NSMutableDictionary *param = [NSMutableDictionary dictionary];
-    [param setObject:_nameTextField.text forKey:@"name"];
-    [param setObject:_pwdTextField.text forKey:@"pass"];
-    [[Client sharedInstance] doAction:*sess cmd:CMD_REGISTER param:param];
+    [[Client sharedInstance] connectWithDelegate:self];
 }
 
 ///注册结果
-- (void)responseToReg {
+- (void)notiToReg {
     [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
     etim::Session *sess = [[Client sharedInstance] session];
     if (sess->GetRecvCmd() == CMD_REGISTER) {
         if (sess->IsError()) {
             [[TWMessageBarManager sharedInstance] showMessageWithTitle:@"注册错误" description:stdStrToNsStr(sess->GetErrorMsg()) type:TWMessageBarMessageTypeError];
+            [[Client sharedInstance] disconnect];
         } else {
             //注册成功
+            [[Client sharedInstance] disconnect];
             _hud = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
     
             [self.navigationController.view addSubview:_hud];
@@ -121,13 +119,26 @@ using namespace etim::pub;
             
             [_hud show:YES];
             [_hud hide:YES afterDelay:MB_CHECKMARK_DURATION];
-
-
-            
         }
     } else {
         [[TWMessageBarManager sharedInstance] showMessageWithTitle:@"注册错误" description:@"未知错误" type:TWMessageBarMessageTypeError];
+        [[Client sharedInstance] disconnect];
     }
+}
+
+#pragma mark -
+#pragma mark client delegate
+- (void)socketDidConnectSuccess {
+    [[Client sharedInstance] doRecvAction];
+    NSMutableDictionary *param = [NSMutableDictionary dictionary];
+    [param setObject:_nameTextField.text forKey:@"name"];
+    [param setObject:_pwdTextField.text forKey:@"pass"];
+    etim::Session *sess = [[Client sharedInstance] session];
+    [[Client sharedInstance] doAction:*sess cmd:CMD_REGISTER param:param];
+}
+
+- (void)socketDidConnectFailure {
+     [[Client sharedInstance] reconnect];
 }
 #pragma mark -
 #pragma mark textfield delegate

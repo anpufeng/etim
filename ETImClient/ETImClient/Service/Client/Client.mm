@@ -200,6 +200,7 @@ void clientConnectCallBack(bool connected)  {
     if (_session) {
         _session->Close();
         _delegate = nil;
+        DDLogInfo(@"关闭连接");
     }
 
 }
@@ -315,6 +316,7 @@ void clientConnectCallBack(bool connected)  {
             }
             
             try {
+                DDLogInfo(@"有可用session doRecvAction");
                 Singleton<ActionManager>::Instance().RecvPacket(*_session);
                 ///必须dispatch_sync,不然如果多个命令连续的话会导致重新发出相同的最后一个命令名称
                 dispatch_sync(dispatch_get_main_queue(), ^{
@@ -359,8 +361,10 @@ void clientConnectCallBack(bool connected)  {
                     } else {
                         //[[NSNotificationCenter defaultCenter] postNotificationName:notiNameFromCmd(_session->GetRecvCmd()) object:nil];
                     }
+
                     [[NSNotificationCenter defaultCenter] postNotificationName:notiNameFromCmd(_session->GetRecvCmd()) object:nil];
                 });
+                
             } catch (RecvException &e) {
                 DDLogInfo(@"RecvException: %s", e.what());
                 if (e.GetReceived() == 0) {
@@ -450,8 +454,13 @@ void clientConnectCallBack(bool connected)  {
     [self.queuedCmdArr removeAllObjects];
 }
 - (void)socketDidConnectFailure {
-    sleep(1);
-    [self reconnect];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), _connQueue, ^{
+        sleep(1);
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self reconnect];
+        });
+    });
+
 }
 
 

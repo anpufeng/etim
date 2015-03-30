@@ -142,7 +142,6 @@ namespace etim {
         uint16_t GetSendCmd() const { return cmd_; }
         ///获取接收操作命令
         uint16_t GetRecvCmd() const {
-            printf("%d", responsePack_->head.cmd);
             return responsePack_->head.cmd;
         }
         
