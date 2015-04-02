@@ -56,6 +56,10 @@ using namespace etim;
             result = @"请求已同意已发送到请求方";
             break;
             
+        case (kBuddyRequestInvalid):
+            result = @"此请求已失效";
+            break;
+            
         default:
             break;
     }

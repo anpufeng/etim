@@ -75,7 +75,7 @@
     _nameLabel.text = [NSString stringWithFormat:@"%@", lastMsg.source == kMsgSourceOther ? lastMsg.fromName : lastMsg.toName]; ;
     _descLabel.text = lastMsg.text;
     _badgeLabel.textColor = [UIColor redColor];
-    _badgeLabel.text = [NSString stringWithFormat:@"%d", [msgs count]];
+    _badgeLabel.text = [NSString stringWithFormat:@"%ld", [msgs count]];
 }
 
 @end

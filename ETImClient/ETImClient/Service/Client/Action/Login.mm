@@ -16,6 +16,10 @@
 
 #include <algorithm>
 
+#import "BuddyModel.h"
+#import "ReceivedManager.h"
+#import "Client.h"
+
 using namespace etim;
 using namespace etim::action;
 using namespace::etim::pub;
@@ -90,7 +94,10 @@ void Login::DoRecv(etim::Session &s) {
         
         user.relation = static_cast<BuddyRelation>(rel);
         user.status = static_cast<BuddyStatus>(status);
-        s.SetIMUser(user);
+        
+        BuddyModel *buddy = [[BuddyModel alloc] initWithUser:user];
+        [[ReceivedManager sharedInstance] setLoginBuddy:buddy];
+        [[Client sharedInstance] setUser:buddy];
     }
     s.SetErrorCode(error_code);
 	s.SetErrorMsg(error_msg);

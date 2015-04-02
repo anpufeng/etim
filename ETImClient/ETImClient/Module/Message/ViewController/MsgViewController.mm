@@ -11,6 +11,7 @@
 #import "MBProgressHUD.h"
 #import "MsgModel.h"
 #import "BuddyModel.h"
+#import "ReceivedManager.h"
 #import "MsgTableViewCell.h"
 
 #include "Client.h"
@@ -117,7 +118,7 @@ using namespace std;
      }
      */
     etim::Session *sess = [[Client sharedInstance] session];
-    NSMutableArray *unread = [MsgModel msgs:sess->GetUnreadMsgs()];
+    NSMutableArray *unread = [[ReceivedManager sharedInstance] unreadMsgArr];
     
     for (int i = 0; i < [unread count]; i++) {
         BOOL exist = NO;

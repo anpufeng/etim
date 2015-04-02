@@ -13,6 +13,8 @@
 #import "BaseTabBarViewController.h"
 #import "ProfileViewController.h"
 #import "BuddyModel.h"
+#import "ReceivedManager.h"
+#import "FBKVOController.h"
 #import "BadgeButton.h"
 #import "MBProgressHUD.h"
 #import "JSBadgeView.h"
@@ -29,7 +31,7 @@ using namespace etim::pub;
 using namespace std;
 
 @interface BuddyViewController () {
-    
+    FBKVOController *_kvoController;
 }
 
 @property (nonatomic, strong) NSMutableArray *buddyList;
@@ -47,8 +49,6 @@ using namespace std;
     [[NSNotificationCenter defaultCenter] removeObserver:self
                                                     name:notiNameFromCmd(PUSH_BUDDY_UPDATE)
                                                   object:nil];
-    [self removeObserver:self forKeyPath:@"buddyList"];
-    [self removeObserver:self forKeyPath:@"reqBuddyList"];
 }
 
 - (id)init
@@ -58,30 +58,46 @@ using namespace std;
         self.navigationItem.title = @"好友列表";
          [self.tabBarItem setFinishedSelectedImage:[UIImage imageNamed:@"tab_buddy_press"] withFinishedUnselectedImage:[UIImage imageNamed:@"tab_buddy_nor"]];
         [[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(responseToRetrieveBuddyList)
+                                                 selector:@selector(notiToRetrieveBuddyList:)
                                                      name:notiNameFromCmd(CMD_RETRIEVE_BUDDY_LIST)
                                                    object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(responseToRetrievePedingBuddyRequest)
+                                                 selector:@selector(notiToRetrievePedingBuddyRequest:)
                                                      name:notiNameFromCmd(CMD_RETRIEVE_PENDING_BUDDY_REQUEST)
                                                    object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(responseToPushBuddyStatus)
+                                                 selector:@selector(notiToPushBuddyStatus:)
                                                      name:notiNameFromCmd(PUSH_BUDDY_UPDATE)
                                                    object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(responseToPushBuddyRequestResult)
+                                                 selector:@selector(notiToPushBuddyRequestResult:)
                                                      name:notiNameFromCmd(PUSH_BUDDY_REQUEST_RESULT)
                                                    object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(responseToPushRequestAddBuddy)
+                                                 selector:@selector(notiToPushRequestAddBuddy:)
                                                      name:notiNameFromCmd(PUSH_REQUEST_ADD_BUDDY)
                                                    object:nil];
-        
-        
-        [self addObserver:self forKeyPath:@"reqBuddyList" options:NSKeyValueObservingOptionNew context:nil];
-        [self addObserver:self forKeyPath:@"buddyList" options:NSKeyValueObservingOptionNew context:nil];
+        _kvoController = [FBKVOController controllerWithObserver:self];
+        [_kvoController observe:self keyPath:@"buddyList" options:NSKeyValueObservingOptionNew block:^(id observer, id object, NSDictionary *change) {
+            if ([self.buddyList count]) {
+                self.tableView.backgroundView = nil;
+            } else {
+                self.tableView.backgroundView = [self emptyTableView:@"暂无好友"];
+            }
+            [self.tableView reloadData];
 
+        }];
+        
+        [_kvoController observe:self keyPath:@"reqBuddyList" options:NSKeyValueObservingOptionNew block:^(id observer, id object, NSDictionary *change) {
+            BuddyTableHeaderView *headerView = (BuddyTableHeaderView *)self.tableView.tableHeaderView;
+            BadgeButton *badgeBtn = (BadgeButton *)[headerView viewWithTag:BuddyViewMenuNewFriend];
+            if ([self.reqBuddyList count]) {
+                [badgeBtn setBadge:[NSString stringWithFormat:@"%d", self.reqBuddyList.count]];
+            } else {
+                [badgeBtn setBadge:@"0"];
+            }
+
+        }];
     }
     return self;
 }
@@ -169,7 +185,7 @@ using namespace std;
 #pragma mark response
 
 ///好友列表结果
-- (void)responseToRetrieveBuddyList {
+- (void)notiToRetrieveBuddyList:(NSNotification *)noti {
     [self.refreshControl endRefreshing];
     etim::Session *sess = [[Client sharedInstance] session];
     if (sess->GetRecvCmd() == CMD_RETRIEVE_BUDDY_LIST) {
@@ -177,7 +193,7 @@ using namespace std;
             [[TWMessageBarManager sharedInstance] showMessageWithTitle:@"获取好友列表错误" description:stdStrToNsStr(sess->GetErrorMsg()) type:TWMessageBarMessageTypeError];
         } else {
             //好友列表成功
-            self.buddyList = [BuddyModel buddys:sess->GetBuddys()];
+            self.buddyList = [[ReceivedManager sharedInstance] buddyArr];
         }
     } else {
         [[TWMessageBarManager sharedInstance] showMessageWithTitle:@"获取好友列表错误" description:@"未知错误" type:TWMessageBarMessageTypeError];
@@ -185,14 +201,14 @@ using namespace std;
 }
 
 ///好友请求列表
-- (void)responseToRetrievePedingBuddyRequest {
+- (void)notiToRetrievePedingBuddyRequest:(NSNotification *)noti {
     etim::Session *sess = [[Client sharedInstance] session];
     if (sess->GetRecvCmd() == CMD_RETRIEVE_PENDING_BUDDY_REQUEST) {
         if (sess->IsError()) {
             [[TWMessageBarManager sharedInstance] showMessageWithTitle:@"获取好友请求错误" description:stdStrToNsStr(sess->GetErrorMsg()) type:TWMessageBarMessageTypeError];
         } else {
             //好友请求列表成功
-            self.reqBuddyList = [BuddyModel buddys:sess->GetReqBuddys()];
+            self.reqBuddyList = [[ReceivedManager sharedInstance] reqArr];
         }
     } else {
         [[TWMessageBarManager sharedInstance] showMessageWithTitle:@"获取好友请求错误" description:@"未知错误" type:TWMessageBarMessageTypeError];
@@ -200,14 +216,14 @@ using namespace std;
 }
 
 ///好友上下线或资料变动
-- (void)responseToPushBuddyStatus {
+- (void)notiToPushBuddyStatus:(NSNotification *)noti {
     etim::Session *sess = [[Client sharedInstance] session];
     if (sess->GetRecvCmd() == PUSH_BUDDY_UPDATE) {
         if (sess->IsError()) {
             [[TWMessageBarManager sharedInstance] showMessageWithTitle:@"获取服务器推送用户状态错误" description:stdStrToNsStr(sess->GetErrorMsg()) type:TWMessageBarMessageTypeError];
         } else {
             //成功
-            BuddyModel *changedBuddy = [[BuddyModel alloc] initWithUser:sess->GetStatusChangedBuddy()];
+            BuddyModel *changedBuddy = [[ReceivedManager sharedInstance] statusChangedBuddy];
             for (int i = 0; i < [self.buddyList count]; i++) {
                 BuddyModel *model = self.buddyList[i];
                 if (model.userId == changedBuddy.userId) {
@@ -223,17 +239,18 @@ using namespace std;
 }
 
 ///好友请求结果
-- (void)responseToPushBuddyRequestResult {
+- (void)notiToPushBuddyRequestResult:(NSNotification *)noti {
     etim::Session *sess = [[Client sharedInstance] session];
     if (sess->GetRecvCmd() == PUSH_BUDDY_REQUEST_RESULT) {
         if (sess->IsError()) {
             [[TWMessageBarManager sharedInstance] showMessageWithTitle:@"获取服务器推送用户请求结果错误" description:stdStrToNsStr(sess->GetErrorMsg()) type:TWMessageBarMessageTypeError];
         } else {
             [[TWMessageBarManager sharedInstance] showMessageWithTitle:@"获取服务器推送用户请求结果" description:@"成功" type:TWMessageBarMessageTypeSuccess];
-            [self willChangeValueForKey:@"buddyList"];
-            NSMutableArray *acceptedBuddy = [BuddyModel buddys:sess->GetBuddys()];
-            [self.buddyList addObjectsFromArray:acceptedBuddy];
-            [self didChangeValueForKey:@"buddyList"];
+
+                [self willChangeValueForKey:@"buddyList"];
+                BuddyModel *acceptedBuddy = (BuddyModel *)[[ReceivedManager sharedInstance] reqArr];
+                [self.buddyList addObject:acceptedBuddy];
+                [self didChangeValueForKey:@"buddyList"];
         }
     } else {
         [[TWMessageBarManager sharedInstance] showMessageWithTitle:@"获取服务器推送用户请求结果错误" description:@"未知错误" type:TWMessageBarMessageTypeError];
@@ -241,7 +258,7 @@ using namespace std;
 }
 
 ///有好友请求通知
-- (void)responseToPushRequestAddBuddy {
+- (void)notiToPushRequestAddBuddy:(NSNotification *)noti {
     etim::Session *sess = [[Client sharedInstance] session];
     if (sess->GetRecvCmd() == PUSH_REQUEST_ADD_BUDDY) {
         if (sess->IsError()) {
@@ -249,13 +266,13 @@ using namespace std;
         } else {
             
             [[TWMessageBarManager sharedInstance] showMessageWithTitle:@"获取服务器推送用户请求" description:@"成功" type:TWMessageBarMessageTypeSuccess];
-            NSMutableArray *tempReqList = [BuddyModel buddys:sess->GetReqBuddys()];
+            BuddyModel *requestingModel = [[ReceivedManager sharedInstance] requestingBuddy];
             [self willChangeValueForKey:@"reqBuddyList"];
             if (!self.reqBuddyList) {
                 self.reqBuddyList = [NSMutableArray array];
-                [self.reqBuddyList addObjectsFromArray:tempReqList];
+                [self.reqBuddyList addObject:requestingModel];
             } else {
-                [self.reqBuddyList addObjectsFromArray:tempReqList];
+                [self.reqBuddyList addObject:requestingModel];
                 //TODO 去重(因为可能有多条请求来自同一人)
             }
             [self didChangeValueForKey:@"reqBuddyList"];
@@ -293,29 +310,6 @@ using namespace std;
     }
 }
 
-#pragma mark -
-#pragma mark observer 
-
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
-    if ([keyPath isEqualToString:@"reqBuddyList"]) {
-        BuddyTableHeaderView *headerView = (BuddyTableHeaderView *)self.tableView.tableHeaderView;
-        BadgeButton *badgeBtn = (BadgeButton *)[headerView viewWithTag:BuddyViewMenuNewFriend];
-        if ([self.reqBuddyList count]) {
-            [badgeBtn setBadge:[NSString stringWithFormat:@"%d", self.reqBuddyList.count]];
-        } else {
-            [badgeBtn setBadge:@"0"];
-        }
-    }
-    
-    if ([keyPath isEqualToString:@"buddyList"]) {
-        if ([self.buddyList count]) {
-            self.tableView.backgroundView = nil;
-        } else {
-            self.tableView.backgroundView = [self emptyTableView:@"暂无好友"];
-        }
-         [self.tableView reloadData];
-    }
-}
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];

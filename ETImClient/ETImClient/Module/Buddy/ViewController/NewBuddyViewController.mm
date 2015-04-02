@@ -11,6 +11,7 @@
 #import "RequestTableViewCell.h"
 #import "IndexPathButton.h"
 #import "RequestModel.h"
+#import "ReceivedManager.h"
 #import "BuddyModel.h"
 
 #include "Client.h"
@@ -50,15 +51,15 @@ using namespace etim::pub;
     
     self.title = @"新朋友";
     [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(responseToRetrieveAllBuddyRequest)
+                                             selector:@selector(notiToRetrieveAllBuddyRequest:)
                                                  name:notiNameFromCmd(CMD_RETRIEVE_ALL_BUDDY_REQUEST)
                                                object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(responseToRejectAddBuddy)
+                                             selector:@selector(notiToRejectAddBuddy:)
                                                  name:notiNameFromCmd(CMD_REJECT_ADD_BUDDY)
                                                object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(responseToAcceptAddBuddy)
+                                             selector:@selector(notiToAcceptAddBuddy:)
                                                  name:notiNameFromCmd(CMD_ACCEPT_ADD_BUDDY)
                                                object:nil];
     self.refreshControl = nil;
@@ -100,14 +101,14 @@ using namespace etim::pub;
 #pragma mark -
 #pragma mark response
 
-- (void)responseToRetrieveAllBuddyRequest {
+- (void)notiToRetrieveAllBuddyRequest:(NSNotification *)noti {
     etim::Session *sess = [[Client sharedInstance] session];
     if (sess->GetRecvCmd() == CMD_RETRIEVE_ALL_BUDDY_REQUEST) {
         if (sess->IsError()) {
             [[TWMessageBarManager sharedInstance] showMessageWithTitle:@"获取好友请求列表错误" description:stdStrToNsStr(sess->GetErrorMsg()) type:TWMessageBarMessageTypeError];
         } else {
             //好友列表成功
-            self.reqList = [RequestModel request:sess->GetAllReqs()];
+            self.reqList = [[ReceivedManager sharedInstance] reqArr];
             if ([self.reqList count]) {
                 self.tableView.backgroundView = nil;
             } else {
@@ -137,7 +138,7 @@ using namespace etim::pub;
 }
 
 ///拒绝结果
-- (void)responseToRejectAddBuddy {
+- (void)notiToRejectAddBuddy:(NSNotification *)noti {
     etim::Session *sess = [[Client sharedInstance] session];
     if (sess->GetRecvCmd() == CMD_REJECT_ADD_BUDDY) {
         if (sess->IsError()) {
@@ -152,7 +153,7 @@ using namespace etim::pub;
 }
 
 ///同意结果
-- (void)responseToAcceptAddBuddy {
+- (void)notiToAcceptAddBuddy:(NSNotification *)noti {
     etim::Session *sess = [[Client sharedInstance] session];
     if (sess->GetRecvCmd() == CMD_ACCEPT_ADD_BUDDY) {
         if (sess->IsError()) {
@@ -164,7 +165,7 @@ using namespace etim::pub;
             self.actionRequest.status = kBuddyRequestAccepted;
             self.actionRequest.from.relation = kBuddyRelationFriend;
             [self.tableView reloadData];
-            NSMutableArray *addedPeer = [BuddyModel buddys:sess->GetBuddys()];
+            NSMutableArray *addedPeer = [NSMutableArray arrayWithObject:[[ReceivedManager sharedInstance] acceptedBuddy]];
             [self.buddyVC addBuddys:addedPeer];
         }
     } else {

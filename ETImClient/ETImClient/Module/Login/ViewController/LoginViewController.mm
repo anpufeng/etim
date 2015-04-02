@@ -46,7 +46,7 @@ using namespace etim::pub;
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(notiToLogin) name:notiNameFromCmd(CMD_LOGIN) object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(notiToLogin:) name:notiNameFromCmd(CMD_LOGIN) object:nil];
     [self createUI];
 }
 
@@ -137,7 +137,7 @@ using namespace etim::pub;
     [self.navigationController pushViewController:vc animated:YES];
 }
 
-- (void)notiToLogin {
+- (void)notiToLogin:(NSNotification *)noti {
     [MBProgressHUD hideHUDForView:self.view animated:YES];
     etim::Session *sess = [[Client sharedInstance] session];
     if (sess->GetRecvCmd() == CMD_LOGIN) {
@@ -146,6 +146,7 @@ using namespace etim::pub;
             [[Client sharedInstance] disconnect];
         } else {
             //登录成功
+            DDLogDebug(@"登录成功 :%@", [noti object]);
             BaseTabBarViewController *tabbar = [[BaseTabBarViewController alloc] init];
             [[[UIApplication sharedApplication] keyWindow] setRootViewController:tabbar];
             [[Client sharedInstance] pullUnread];
@@ -157,7 +158,7 @@ using namespace etim::pub;
     }
 }
 
-- (void)socketDidConnectSuccess {
+- (void)socketConnectSuccess {
     [[Client sharedInstance] doRecvAction];
     
     NSMutableDictionary *param = [NSMutableDictionary dictionary];
@@ -166,7 +167,7 @@ using namespace etim::pub;
     etim::Session *sess = [[Client sharedInstance] session];
     [[Client sharedInstance] doAction:*sess cmd:CMD_LOGIN param:param];
 }
-- (void)socketDidConnectFailure {
+- (void)socketConnectFailure {
     [[Client sharedInstance] reconnect];
 }
 

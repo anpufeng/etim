@@ -14,6 +14,10 @@
 #include "Idea.h"
 #include "DataStruct.h"
 
+#import "ReceivedManager.h"
+#import "BuddyModel.h"
+#import "RequestModel.h"
+
 using namespace etim;
 using namespace etim::action;
 using namespace::etim::pub;
@@ -51,7 +55,7 @@ void RetrieveBuddyList::DoRecv(etim::Session &s) {
 	jis.ReadBytes(error_msg, ERR_MSG_LENGTH);
     
     if (error_code == kErrCode00) {
-        s.ClearBuddys();
+        NSMutableArray *buddyArr = [NSMutableArray array];
         
         for (uint16 i = 0; i < cnt; ++i) {
             InStream jis((const char*)s.GetResponsePack(), s.GetResponsePack()->head.len+sizeof(ResponseHead));
@@ -78,12 +82,18 @@ void RetrieveBuddyList::DoRecv(etim::Session &s) {
             
             user.relation = static_cast<BuddyRelation>(rel);
             user.status = static_cast<BuddyStatus>(status);
-            s.AddBuddy(user);
+            
+            [buddyArr addObject:[[BuddyModel alloc] initWithUser:user]];
             
             if (seq == cnt - 1)
                 break;
             s.Recv();
         }
+        
+        if ([buddyArr count]) {
+            [[ReceivedManager sharedInstance] setBuddyArr:buddyArr];
+        }
+        
     }
     s.SetErrorCode(error_code);
 	s.SetErrorMsg(error_msg);
@@ -125,7 +135,7 @@ void RetrievePendingBuddyRequest::DoRecv(etim::Session &s) {
 	jis.ReadBytes(error_msg, ERR_MSG_LENGTH);
     
     if (error_code == kErrCode00) {
-        s.ClearReqBuddys();
+        NSMutableArray *reqBuddyArr = [NSMutableArray array];
         
         for (uint16 i = 0; i < cnt; ++i) {
             InStream jis((const char*)s.GetResponsePack(), s.GetResponsePack()->head.len+sizeof(ResponseHead));
@@ -152,7 +162,7 @@ void RetrievePendingBuddyRequest::DoRecv(etim::Session &s) {
             
             user.relation = static_cast<BuddyRelation>(rel);
             user.status = static_cast<BuddyStatus>(status);
-            s.AddReqBuddy(user);
+            [reqBuddyArr addObject:[[BuddyModel alloc] initWithUser:user]];
             
             if (seq == cnt - 1)
                 break;
@@ -199,8 +209,7 @@ void RetrieveAllBuddyRequest::DoRecv(etim::Session &s) {
 	jis.ReadBytes(error_msg, ERR_MSG_LENGTH);
     
     if (error_code == kErrCode00) {
-        s.ClearAllReqs();
-        
+        NSMutableArray *reqArr = [NSMutableArray array];
         for (uint16 i = 0; i < cnt; ++i) {
             InStream jis((const char*)s.GetResponsePack(), s.GetResponsePack()->head.len+sizeof(ResponseHead));
             // 跳过cmd、len
@@ -237,11 +246,15 @@ void RetrieveAllBuddyRequest::DoRecv(etim::Session &s) {
             req.status = static_cast<BuddyRequestStatus>(reqStatus);
             req.from = user;
             
-            s.AddReq(req);
+            RequestModel *model = [[RequestModel alloc] initWithRequest:req];
+            [reqArr addObject:model];
             
             if (seq == cnt - 1)
                 break;
             s.Recv();
+        }
+        if ([reqArr count]) {
+            [[ReceivedManager sharedInstance] setReqArr:reqArr];
         }
     }
     s.SetErrorCode(error_code);

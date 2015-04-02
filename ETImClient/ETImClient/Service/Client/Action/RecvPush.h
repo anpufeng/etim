@@ -37,7 +37,7 @@ namespace etim {
             virtual void DoRecv(Session &s);
         };
         
-        ///接收服务器推送的好友请求
+        ///客户端收到一条消息
         class PushSendMsg : public Action {
         public:
             virtual void DoSend(Session& s, sendarg arg);

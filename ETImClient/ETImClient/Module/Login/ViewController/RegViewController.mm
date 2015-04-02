@@ -33,7 +33,7 @@ using namespace etim::pub;
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(notiToReg) name:notiNameFromCmd(CMD_REGISTER) object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(notiToReg:) name:notiNameFromCmd(CMD_REGISTER) object:nil];
     [self createUI];
 }
 
@@ -96,7 +96,7 @@ using namespace etim::pub;
 }
 
 ///注册结果
-- (void)notiToReg {
+- (void)notiToReg:(NSNotification *)noti {
     [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
     etim::Session *sess = [[Client sharedInstance] session];
     if (sess->GetRecvCmd() == CMD_REGISTER) {
@@ -128,7 +128,7 @@ using namespace etim::pub;
 
 #pragma mark -
 #pragma mark client delegate
-- (void)socketDidConnectSuccess {
+- (void)socketConnectSuccess {
     [[Client sharedInstance] doRecvAction];
     NSMutableDictionary *param = [NSMutableDictionary dictionary];
     [param setObject:_nameTextField.text forKey:@"name"];
@@ -137,7 +137,7 @@ using namespace etim::pub;
     [[Client sharedInstance] doAction:*sess cmd:CMD_REGISTER param:param];
 }
 
-- (void)socketDidConnectFailure {
+- (void)socketConnectFailure {
      [[Client sharedInstance] reconnect];
 }
 #pragma mark -

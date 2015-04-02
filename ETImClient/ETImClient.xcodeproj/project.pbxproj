@@ -20,20 +20,20 @@
 		0D8133AA1AC52D5300FE28CF /* RegViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0D81338E1AC52D5300FE28CF /* RegViewController.mm */; };
 		0D8133AB1AC52D5300FE28CF /* ChatViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0D8133941AC52D5300FE28CF /* ChatViewController.mm */; };
 		0D8133AC1AC52D5300FE28CF /* MsgViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0D8133961AC52D5300FE28CF /* MsgViewController.mm */; };
-		0D8133B31AC52D6F00FE28CF /* MomentsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D8133B21AC52D6F00FE28CF /* MomentsViewController.m */; };
+		0D8133B31AC52D6F00FE28CF /* MomentsViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0D8133B21AC52D6F00FE28CF /* MomentsViewController.mm */; };
 		0D8133B61AC52D8E00FE28CF /* BuddyModel.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0D8133B51AC52D8E00FE28CF /* BuddyModel.mm */; };
 		0D8133B91AC52DA000FE28CF /* MsgModel.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0D8133B81AC52DA000FE28CF /* MsgModel.mm */; };
 		0D8133BC1AC52DB600FE28CF /* RequestModel.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0D8133BB1AC52DB600FE28CF /* RequestModel.mm */; };
-		0D8133DD1AC52DF300FE28CF /* Action.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0D8133C01AC52DF300FE28CF /* Action.cpp */; };
-		0D8133DE1AC52DF300FE28CF /* AddBuddy.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0D8133C21AC52DF300FE28CF /* AddBuddy.cpp */; };
-		0D8133DF1AC52DF300FE28CF /* HeartBeat.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0D8133C41AC52DF300FE28CF /* HeartBeat.cpp */; };
-		0D8133E01AC52DF300FE28CF /* Login.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0D8133C61AC52DF300FE28CF /* Login.cpp */; };
-		0D8133E11AC52DF300FE28CF /* RecvPush.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0D8133C81AC52DF300FE28CF /* RecvPush.cpp */; };
-		0D8133E21AC52DF300FE28CF /* Register.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0D8133CA1AC52DF300FE28CF /* Register.cpp */; };
-		0D8133E31AC52DF300FE28CF /* RetrieveBuddy.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0D8133CC1AC52DF300FE28CF /* RetrieveBuddy.cpp */; };
-		0D8133E41AC52DF300FE28CF /* SendMsg.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0D8133CE1AC52DF300FE28CF /* SendMsg.cpp */; };
-		0D8133E51AC52DF300FE28CF /* SwitchStatus.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0D8133D01AC52DF300FE28CF /* SwitchStatus.cpp */; };
-		0D8133E61AC52DF300FE28CF /* Unread.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0D8133D21AC52DF300FE28CF /* Unread.cpp */; };
+		0D8133DD1AC52DF300FE28CF /* Action.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0D8133C01AC52DF300FE28CF /* Action.mm */; };
+		0D8133DE1AC52DF300FE28CF /* AddBuddy.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0D8133C21AC52DF300FE28CF /* AddBuddy.mm */; };
+		0D8133DF1AC52DF300FE28CF /* HeartBeat.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0D8133C41AC52DF300FE28CF /* HeartBeat.mm */; };
+		0D8133E01AC52DF300FE28CF /* Login.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0D8133C61AC52DF300FE28CF /* Login.mm */; };
+		0D8133E11AC52DF300FE28CF /* RecvPush.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0D8133C81AC52DF300FE28CF /* RecvPush.mm */; };
+		0D8133E21AC52DF300FE28CF /* Register.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0D8133CA1AC52DF300FE28CF /* Register.mm */; };
+		0D8133E31AC52DF300FE28CF /* RetrieveBuddy.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0D8133CC1AC52DF300FE28CF /* RetrieveBuddy.mm */; };
+		0D8133E41AC52DF300FE28CF /* SendMsg.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0D8133CE1AC52DF300FE28CF /* SendMsg.mm */; };
+		0D8133E51AC52DF300FE28CF /* SwitchStatus.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0D8133D01AC52DF300FE28CF /* SwitchStatus.mm */; };
+		0D8133E61AC52DF300FE28CF /* Unread.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0D8133D21AC52DF300FE28CF /* Unread.mm */; };
 		0D8133E71AC52DF300FE28CF /* ActionManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0D8133D41AC52DF300FE28CF /* ActionManager.cpp */; };
 		0D8133E81AC52DF300FE28CF /* Client.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0D8133D71AC52DF300FE28CF /* Client.mm */; };
 		0D8133E91AC52DF300FE28CF /* SendOperation.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0D8133DA1AC52DF300FE28CF /* SendOperation.mm */; };
@@ -51,12 +51,12 @@
 		0D8134111AC52E2300FE28CF /* CmdParamModel.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0D8134101AC52E2300FE28CF /* CmdParamModel.mm */; };
 		0D8134161AC52E7500FE28CF /* ChatTableViewCell.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0D8134131AC52E7500FE28CF /* ChatTableViewCell.mm */; };
 		0D8134171AC52E7500FE28CF /* MsgTableViewCell.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0D8134151AC52E7500FE28CF /* MsgTableViewCell.mm */; };
-		0D81343A1AC52F2B00FE28CF /* BackTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D81342F1AC52F2B00FE28CF /* BackTableViewController.m */; };
-		0D81343B1AC52F2B00FE28CF /* BackViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D8134311AC52F2B00FE28CF /* BackViewController.m */; };
+		0D81343A1AC52F2B00FE28CF /* BackTableViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0D81342F1AC52F2B00FE28CF /* BackTableViewController.mm */; };
+		0D81343B1AC52F2B00FE28CF /* BackViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0D8134311AC52F2B00FE28CF /* BackViewController.mm */; };
 		0D81343C1AC52F2B00FE28CF /* BaseNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D8134331AC52F2B00FE28CF /* BaseNavigationController.m */; };
-		0D81343D1AC52F2B00FE28CF /* BaseTabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D8134351AC52F2B00FE28CF /* BaseTabBarViewController.m */; };
-		0D81343E1AC52F2B00FE28CF /* BaseTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D8134371AC52F2B00FE28CF /* BaseTableViewController.m */; };
-		0D81343F1AC52F2B00FE28CF /* BaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D8134391AC52F2B00FE28CF /* BaseViewController.m */; };
+		0D81343D1AC52F2B00FE28CF /* BaseTabBarViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0D8134351AC52F2B00FE28CF /* BaseTabBarViewController.mm */; };
+		0D81343E1AC52F2B00FE28CF /* BaseTableViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0D8134371AC52F2B00FE28CF /* BaseTableViewController.mm */; };
+		0D81343F1AC52F2B00FE28CF /* BaseViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0D8134391AC52F2B00FE28CF /* BaseViewController.mm */; };
 		0D81344D1AC52F7300FE28CF /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D8134431AC52F7300FE28CF /* Constants.m */; };
 		0D81344E1AC52F7300FE28CF /* NSString+PJR.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D8134461AC52F7300FE28CF /* NSString+PJR.m */; };
 		0D81344F1AC52F7300FE28CF /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D8134481AC52F7300FE28CF /* Reachability.m */; };
@@ -101,6 +101,7 @@
 		0DA1AB761AA1C36C002DED6E /* NSTimer+WeakTarget.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DA1AB711AA1C36C002DED6E /* NSTimer+WeakTarget.m */; };
 		0DA1AB771AA1C36C002DED6E /* WUNSTimerProxyTarget.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DA1AB731AA1C36C002DED6E /* WUNSTimerProxyTarget.m */; };
 		0DA1AB781AA1C36C002DED6E /* WUNSTimerTargetLifecycleTracker.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DA1AB751AA1C36C002DED6E /* WUNSTimerTargetLifecycleTracker.m */; };
+		0DA4815B1ACBCF4E00F97A7D /* ReceivedManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0DA4815A1ACBCF4E00F97A7D /* ReceivedManager.mm */; };
 		AA1100EB198B3C01008811E4 /* tab_buddy_nor@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AA1100E3198B3C01008811E4 /* tab_buddy_nor@2x.png */; };
 		AA1100EC198B3C01008811E4 /* tab_buddy_press@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AA1100E4198B3C01008811E4 /* tab_buddy_press@2x.png */; };
 		AA1100ED198B3C01008811E4 /* tab_me_nor@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AA1100E5198B3C01008811E4 /* tab_me_nor@2x.png */; };
@@ -214,32 +215,32 @@
 		0D8133951AC52D5300FE28CF /* MsgViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MsgViewController.h; sourceTree = "<group>"; };
 		0D8133961AC52D5300FE28CF /* MsgViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MsgViewController.mm; sourceTree = "<group>"; };
 		0D8133B11AC52D6F00FE28CF /* MomentsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MomentsViewController.h; sourceTree = "<group>"; };
-		0D8133B21AC52D6F00FE28CF /* MomentsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MomentsViewController.m; sourceTree = "<group>"; };
+		0D8133B21AC52D6F00FE28CF /* MomentsViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MomentsViewController.mm; sourceTree = "<group>"; };
 		0D8133B41AC52D8E00FE28CF /* BuddyModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BuddyModel.h; sourceTree = "<group>"; };
 		0D8133B51AC52D8E00FE28CF /* BuddyModel.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = BuddyModel.mm; sourceTree = "<group>"; };
 		0D8133B71AC52DA000FE28CF /* MsgModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MsgModel.h; sourceTree = "<group>"; };
 		0D8133B81AC52DA000FE28CF /* MsgModel.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MsgModel.mm; sourceTree = "<group>"; };
 		0D8133BA1AC52DB600FE28CF /* RequestModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RequestModel.h; sourceTree = "<group>"; };
 		0D8133BB1AC52DB600FE28CF /* RequestModel.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = RequestModel.mm; sourceTree = "<group>"; };
-		0D8133C01AC52DF300FE28CF /* Action.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Action.cpp; sourceTree = "<group>"; };
+		0D8133C01AC52DF300FE28CF /* Action.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = Action.mm; sourceTree = "<group>"; };
 		0D8133C11AC52DF300FE28CF /* Action.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Action.h; sourceTree = "<group>"; };
-		0D8133C21AC52DF300FE28CF /* AddBuddy.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AddBuddy.cpp; sourceTree = "<group>"; };
+		0D8133C21AC52DF300FE28CF /* AddBuddy.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AddBuddy.mm; sourceTree = "<group>"; };
 		0D8133C31AC52DF300FE28CF /* AddBuddy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddBuddy.h; sourceTree = "<group>"; };
-		0D8133C41AC52DF300FE28CF /* HeartBeat.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = HeartBeat.cpp; sourceTree = "<group>"; };
+		0D8133C41AC52DF300FE28CF /* HeartBeat.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = HeartBeat.mm; sourceTree = "<group>"; };
 		0D8133C51AC52DF300FE28CF /* HeartBeat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HeartBeat.h; sourceTree = "<group>"; };
-		0D8133C61AC52DF300FE28CF /* Login.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Login.cpp; sourceTree = "<group>"; };
+		0D8133C61AC52DF300FE28CF /* Login.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = Login.mm; sourceTree = "<group>"; };
 		0D8133C71AC52DF300FE28CF /* Login.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Login.h; sourceTree = "<group>"; };
-		0D8133C81AC52DF300FE28CF /* RecvPush.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = RecvPush.cpp; sourceTree = "<group>"; };
+		0D8133C81AC52DF300FE28CF /* RecvPush.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = RecvPush.mm; sourceTree = "<group>"; };
 		0D8133C91AC52DF300FE28CF /* RecvPush.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecvPush.h; sourceTree = "<group>"; };
-		0D8133CA1AC52DF300FE28CF /* Register.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Register.cpp; sourceTree = "<group>"; };
+		0D8133CA1AC52DF300FE28CF /* Register.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = Register.mm; sourceTree = "<group>"; };
 		0D8133CB1AC52DF300FE28CF /* Register.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Register.h; sourceTree = "<group>"; };
-		0D8133CC1AC52DF300FE28CF /* RetrieveBuddy.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = RetrieveBuddy.cpp; sourceTree = "<group>"; };
+		0D8133CC1AC52DF300FE28CF /* RetrieveBuddy.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = RetrieveBuddy.mm; sourceTree = "<group>"; };
 		0D8133CD1AC52DF300FE28CF /* RetrieveBuddy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RetrieveBuddy.h; sourceTree = "<group>"; };
-		0D8133CE1AC52DF300FE28CF /* SendMsg.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SendMsg.cpp; sourceTree = "<group>"; };
+		0D8133CE1AC52DF300FE28CF /* SendMsg.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SendMsg.mm; sourceTree = "<group>"; };
 		0D8133CF1AC52DF300FE28CF /* SendMsg.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SendMsg.h; sourceTree = "<group>"; };
-		0D8133D01AC52DF300FE28CF /* SwitchStatus.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SwitchStatus.cpp; sourceTree = "<group>"; };
+		0D8133D01AC52DF300FE28CF /* SwitchStatus.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SwitchStatus.mm; sourceTree = "<group>"; };
 		0D8133D11AC52DF300FE28CF /* SwitchStatus.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SwitchStatus.h; sourceTree = "<group>"; };
-		0D8133D21AC52DF300FE28CF /* Unread.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Unread.cpp; sourceTree = "<group>"; };
+		0D8133D21AC52DF300FE28CF /* Unread.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = Unread.mm; sourceTree = "<group>"; };
 		0D8133D31AC52DF300FE28CF /* Unread.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Unread.h; sourceTree = "<group>"; };
 		0D8133D41AC52DF300FE28CF /* ActionManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ActionManager.cpp; sourceTree = "<group>"; };
 		0D8133D51AC52DF300FE28CF /* ActionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActionManager.h; sourceTree = "<group>"; };
@@ -281,17 +282,17 @@
 		0D8134141AC52E7500FE28CF /* MsgTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MsgTableViewCell.h; sourceTree = "<group>"; };
 		0D8134151AC52E7500FE28CF /* MsgTableViewCell.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MsgTableViewCell.mm; sourceTree = "<group>"; };
 		0D81342E1AC52F2B00FE28CF /* BackTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BackTableViewController.h; sourceTree = "<group>"; };
-		0D81342F1AC52F2B00FE28CF /* BackTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BackTableViewController.m; sourceTree = "<group>"; };
+		0D81342F1AC52F2B00FE28CF /* BackTableViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = BackTableViewController.mm; sourceTree = "<group>"; };
 		0D8134301AC52F2B00FE28CF /* BackViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BackViewController.h; sourceTree = "<group>"; };
-		0D8134311AC52F2B00FE28CF /* BackViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BackViewController.m; sourceTree = "<group>"; };
+		0D8134311AC52F2B00FE28CF /* BackViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = BackViewController.mm; sourceTree = "<group>"; };
 		0D8134321AC52F2B00FE28CF /* BaseNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseNavigationController.h; sourceTree = "<group>"; };
 		0D8134331AC52F2B00FE28CF /* BaseNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseNavigationController.m; sourceTree = "<group>"; };
 		0D8134341AC52F2B00FE28CF /* BaseTabBarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseTabBarViewController.h; sourceTree = "<group>"; };
-		0D8134351AC52F2B00FE28CF /* BaseTabBarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseTabBarViewController.m; sourceTree = "<group>"; };
+		0D8134351AC52F2B00FE28CF /* BaseTabBarViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = BaseTabBarViewController.mm; sourceTree = "<group>"; };
 		0D8134361AC52F2B00FE28CF /* BaseTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseTableViewController.h; sourceTree = "<group>"; };
-		0D8134371AC52F2B00FE28CF /* BaseTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseTableViewController.m; sourceTree = "<group>"; };
+		0D8134371AC52F2B00FE28CF /* BaseTableViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = BaseTableViewController.mm; sourceTree = "<group>"; };
 		0D8134381AC52F2B00FE28CF /* BaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseViewController.h; sourceTree = "<group>"; };
-		0D8134391AC52F2B00FE28CF /* BaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseViewController.m; sourceTree = "<group>"; };
+		0D8134391AC52F2B00FE28CF /* BaseViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = BaseViewController.mm; sourceTree = "<group>"; };
 		0D8134421AC52F7300FE28CF /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
 		0D8134431AC52F7300FE28CF /* Constants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Constants.m; sourceTree = "<group>"; };
 		0D8134441AC52F7300FE28CF /* Macro.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Macro.h; sourceTree = "<group>"; };
@@ -386,6 +387,8 @@
 		0DA1AB731AA1C36C002DED6E /* WUNSTimerProxyTarget.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WUNSTimerProxyTarget.m; sourceTree = "<group>"; };
 		0DA1AB741AA1C36C002DED6E /* WUNSTimerTargetLifecycleTracker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WUNSTimerTargetLifecycleTracker.h; sourceTree = "<group>"; };
 		0DA1AB751AA1C36C002DED6E /* WUNSTimerTargetLifecycleTracker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WUNSTimerTargetLifecycleTracker.m; sourceTree = "<group>"; };
+		0DA481591ACBCF4E00F97A7D /* ReceivedManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReceivedManager.h; sourceTree = "<group>"; };
+		0DA4815A1ACBCF4E00F97A7D /* ReceivedManager.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ReceivedManager.mm; sourceTree = "<group>"; };
 		AA1100E3198B3C01008811E4 /* tab_buddy_nor@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tab_buddy_nor@2x.png"; sourceTree = "<group>"; };
 		AA1100E4198B3C01008811E4 /* tab_buddy_press@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tab_buddy_press@2x.png"; sourceTree = "<group>"; };
 		AA1100E5198B3C01008811E4 /* tab_me_nor@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tab_me_nor@2x.png"; sourceTree = "<group>"; };
@@ -694,7 +697,7 @@
 			isa = PBXGroup;
 			children = (
 				0D8133B11AC52D6F00FE28CF /* MomentsViewController.h */,
-				0D8133B21AC52D6F00FE28CF /* MomentsViewController.m */,
+				0D8133B21AC52D6F00FE28CF /* MomentsViewController.mm */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -722,6 +725,8 @@
 				0D8133DA1AC52DF300FE28CF /* SendOperation.mm */,
 				0D8133DB1AC52DF300FE28CF /* Session.h */,
 				0D8133DC1AC52DF300FE28CF /* Session.mm */,
+				0DA481591ACBCF4E00F97A7D /* ReceivedManager.h */,
+				0DA4815A1ACBCF4E00F97A7D /* ReceivedManager.mm */,
 			);
 			path = Client;
 			sourceTree = "<group>";
@@ -729,25 +734,25 @@
 		0D8133BF1AC52DF300FE28CF /* Action */ = {
 			isa = PBXGroup;
 			children = (
-				0D8133C01AC52DF300FE28CF /* Action.cpp */,
+				0D8133C01AC52DF300FE28CF /* Action.mm */,
 				0D8133C11AC52DF300FE28CF /* Action.h */,
-				0D8133C21AC52DF300FE28CF /* AddBuddy.cpp */,
+				0D8133C21AC52DF300FE28CF /* AddBuddy.mm */,
 				0D8133C31AC52DF300FE28CF /* AddBuddy.h */,
-				0D8133C41AC52DF300FE28CF /* HeartBeat.cpp */,
+				0D8133C41AC52DF300FE28CF /* HeartBeat.mm */,
 				0D8133C51AC52DF300FE28CF /* HeartBeat.h */,
-				0D8133C61AC52DF300FE28CF /* Login.cpp */,
+				0D8133C61AC52DF300FE28CF /* Login.mm */,
 				0D8133C71AC52DF300FE28CF /* Login.h */,
-				0D8133C81AC52DF300FE28CF /* RecvPush.cpp */,
+				0D8133C81AC52DF300FE28CF /* RecvPush.mm */,
 				0D8133C91AC52DF300FE28CF /* RecvPush.h */,
-				0D8133CA1AC52DF300FE28CF /* Register.cpp */,
+				0D8133CA1AC52DF300FE28CF /* Register.mm */,
 				0D8133CB1AC52DF300FE28CF /* Register.h */,
-				0D8133CC1AC52DF300FE28CF /* RetrieveBuddy.cpp */,
+				0D8133CC1AC52DF300FE28CF /* RetrieveBuddy.mm */,
 				0D8133CD1AC52DF300FE28CF /* RetrieveBuddy.h */,
-				0D8133CE1AC52DF300FE28CF /* SendMsg.cpp */,
+				0D8133CE1AC52DF300FE28CF /* SendMsg.mm */,
 				0D8133CF1AC52DF300FE28CF /* SendMsg.h */,
-				0D8133D01AC52DF300FE28CF /* SwitchStatus.cpp */,
+				0D8133D01AC52DF300FE28CF /* SwitchStatus.mm */,
 				0D8133D11AC52DF300FE28CF /* SwitchStatus.h */,
-				0D8133D21AC52DF300FE28CF /* Unread.cpp */,
+				0D8133D21AC52DF300FE28CF /* Unread.mm */,
 				0D8133D31AC52DF300FE28CF /* Unread.h */,
 			);
 			path = Action;
@@ -841,17 +846,17 @@
 			isa = PBXGroup;
 			children = (
 				0D81342E1AC52F2B00FE28CF /* BackTableViewController.h */,
-				0D81342F1AC52F2B00FE28CF /* BackTableViewController.m */,
+				0D81342F1AC52F2B00FE28CF /* BackTableViewController.mm */,
 				0D8134301AC52F2B00FE28CF /* BackViewController.h */,
-				0D8134311AC52F2B00FE28CF /* BackViewController.m */,
+				0D8134311AC52F2B00FE28CF /* BackViewController.mm */,
 				0D8134321AC52F2B00FE28CF /* BaseNavigationController.h */,
 				0D8134331AC52F2B00FE28CF /* BaseNavigationController.m */,
 				0D8134341AC52F2B00FE28CF /* BaseTabBarViewController.h */,
-				0D8134351AC52F2B00FE28CF /* BaseTabBarViewController.m */,
+				0D8134351AC52F2B00FE28CF /* BaseTabBarViewController.mm */,
 				0D8134361AC52F2B00FE28CF /* BaseTableViewController.h */,
-				0D8134371AC52F2B00FE28CF /* BaseTableViewController.m */,
+				0D8134371AC52F2B00FE28CF /* BaseTableViewController.mm */,
 				0D8134381AC52F2B00FE28CF /* BaseViewController.h */,
-				0D8134391AC52F2B00FE28CF /* BaseViewController.m */,
+				0D8134391AC52F2B00FE28CF /* BaseViewController.mm */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -1372,30 +1377,30 @@
 				0D81339D1AC52D5300FE28CF /* SignatureViewController.mm in Sources */,
 				0D81344F1AC52F7300FE28CF /* Reachability.m in Sources */,
 				0D9EBFBC1AC24DC40071793C /* DDContextFilterLogFormatter.m in Sources */,
-				0D8133DF1AC52DF300FE28CF /* HeartBeat.cpp in Sources */,
+				0D8133DF1AC52DF300FE28CF /* HeartBeat.mm in Sources */,
 				0D8133E71AC52DF300FE28CF /* ActionManager.cpp in Sources */,
 				0D81344D1AC52F7300FE28CF /* Constants.m in Sources */,
 				0D8133EA1AC52DF300FE28CF /* Session.mm in Sources */,
-				0D8133E31AC52DF300FE28CF /* RetrieveBuddy.cpp in Sources */,
+				0D8133E31AC52DF300FE28CF /* RetrieveBuddy.mm in Sources */,
 				AABF3CC3198636C0001C8DCA /* AppDelegate.mm in Sources */,
-				0D8133E51AC52DF300FE28CF /* SwitchStatus.cpp in Sources */,
+				0D8133E51AC52DF300FE28CF /* SwitchStatus.mm in Sources */,
 				0D8133AC1AC52D5300FE28CF /* MsgViewController.mm in Sources */,
 				0D8134831AC5311200FE28CF /* HMTextView.m in Sources */,
 				0D8134841AC5311200FE28CF /* HMView.m in Sources */,
 				0D9EBFBD1AC24DC40071793C /* DDDispatchQueueLogFormatter.m in Sources */,
-				0D81343F1AC52F2B00FE28CF /* BaseViewController.m in Sources */,
-				0D8133DD1AC52DF300FE28CF /* Action.cpp in Sources */,
-				0D81343B1AC52F2B00FE28CF /* BackViewController.m in Sources */,
+				0D81343F1AC52F2B00FE28CF /* BaseViewController.mm in Sources */,
+				0D8133DD1AC52DF300FE28CF /* Action.mm in Sources */,
+				0D81343B1AC52F2B00FE28CF /* BackViewController.mm in Sources */,
 				0D8134091AC52E0600FE28CF /* LogStream.cpp in Sources */,
 				AA65387619AF6B67003B64B0 /* JSBadgeView.m in Sources */,
 				0DA1AB761AA1C36C002DED6E /* NSTimer+WeakTarget.m in Sources */,
 				0D8134821AC5311200FE28CF /* HMTextField.m in Sources */,
 				0D81339A1AC52D5300FE28CF /* AccountViewController.mm in Sources */,
 				0D81340B1AC52E0600FE28CF /* OutStream.cpp in Sources */,
-				0D8133E61AC52DF300FE28CF /* Unread.cpp in Sources */,
+				0D8133E61AC52DF300FE28CF /* Unread.mm in Sources */,
 				0D8134081AC52E0600FE28CF /* Logging.cpp in Sources */,
 				0D8133A11AC52D5300FE28CF /* BuddyViewController.mm in Sources */,
-				0D8133E41AC52DF300FE28CF /* SendMsg.cpp in Sources */,
+				0D8133E41AC52DF300FE28CF /* SendMsg.mm in Sources */,
 				0D8134811AC5311200FE28CF /* HMTableViewCell.m in Sources */,
 				0D8134171AC52E7500FE28CF /* MsgTableViewCell.mm in Sources */,
 				0D8134511AC52F7300FE28CF /* UIImage+Additions.m in Sources */,
@@ -1411,22 +1416,23 @@
 				0D9EBFB91AC24DC40071793C /* DDFileLogger.m in Sources */,
 				0D81349C1AC5317F00FE28CF /* UIScrollView+MJRefresh.m in Sources */,
 				0D8134161AC52E7500FE28CF /* ChatTableViewCell.mm in Sources */,
-				0D8133E11AC52DF300FE28CF /* RecvPush.cpp in Sources */,
+				0D8133E11AC52DF300FE28CF /* RecvPush.mm in Sources */,
 				0D8134971AC5317F00FE28CF /* MJRefreshBaseView.m in Sources */,
-				0D81343E1AC52F2B00FE28CF /* BaseTableViewController.m in Sources */,
+				0D81343E1AC52F2B00FE28CF /* BaseTableViewController.mm in Sources */,
 				0D81349A1AC5317F00FE28CF /* MJRefreshHeaderView.m in Sources */,
 				0D8134071AC52E0600FE28CF /* InStream.cpp in Sources */,
-				0D8133DE1AC52DF300FE28CF /* AddBuddy.cpp in Sources */,
+				0D8133DE1AC52DF300FE28CF /* AddBuddy.mm in Sources */,
 				0D81340D1AC52E0600FE28CF /* Timestamp.cpp in Sources */,
 				0D81339E1AC52D5300FE28CF /* BuddyTableViewCell.mm in Sources */,
-				0D81343A1AC52F2B00FE28CF /* BackTableViewController.m in Sources */,
-				0D8133E01AC52DF300FE28CF /* Login.cpp in Sources */,
+				0D81343A1AC52F2B00FE28CF /* BackTableViewController.mm in Sources */,
+				0D8133E01AC52DF300FE28CF /* Login.mm in Sources */,
 				0D81340C1AC52E0600FE28CF /* Socket.cpp in Sources */,
 				0D8134051AC52E0600FE28CF /* Exception.cpp in Sources */,
 				0D81339B1AC52D5300FE28CF /* OnlineViewController.mm in Sources */,
 				0D81343C1AC52F2B00FE28CF /* BaseNavigationController.m in Sources */,
 				0D8133BC1AC52DB600FE28CF /* RequestModel.mm in Sources */,
 				0D8133A21AC52D5300FE28CF /* NewBuddyViewController.mm in Sources */,
+				0DA4815B1ACBCF4E00F97A7D /* ReceivedManager.mm in Sources */,
 				AACD74981994A1CB00254C55 /* MBProgressHUD.m in Sources */,
 				AABF3CBF198636C0001C8DCA /* main.m in Sources */,
 				0D8133AA1AC52D5300FE28CF /* RegViewController.mm in Sources */,
@@ -1440,13 +1446,13 @@
 				0D8134061AC52E0600FE28CF /* Idea.cpp in Sources */,
 				0D9EBFB61AC24DC40071793C /* DDAbstractDatabaseLogger.m in Sources */,
 				0D8133E81AC52DF300FE28CF /* Client.mm in Sources */,
-				0D81343D1AC52F2B00FE28CF /* BaseTabBarViewController.m in Sources */,
+				0D81343D1AC52F2B00FE28CF /* BaseTabBarViewController.mm in Sources */,
 				0D81339C1AC52D5300FE28CF /* ProfileViewController.mm in Sources */,
 				0D81347D1AC5311200FE28CF /* HMScrollErrView.m in Sources */,
 				0D81347F1AC5311200FE28CF /* HMScrollView.m in Sources */,
 				0D8134981AC5317F00FE28CF /* MJRefreshConst.m in Sources */,
 				0D8133B61AC52D8E00FE28CF /* BuddyModel.mm in Sources */,
-				0D8133E21AC52DF300FE28CF /* Register.cpp in Sources */,
+				0D8133E21AC52DF300FE28CF /* Register.mm in Sources */,
 				0D81339F1AC52D5300FE28CF /* RequestTableViewCell.mm in Sources */,
 				0D81345F1AC52F9800FE28CF /* LeftMarginTextField.m in Sources */,
 				0D9EBFB51AC24DC40071793C /* CLIColor.m in Sources */,
@@ -1456,7 +1462,7 @@
 				0D9EBFBE1AC24DC40071793C /* DDMultiFormatter.m in Sources */,
 				0D8134041AC52E0600FE28CF /* Endian.cpp in Sources */,
 				0D8133B91AC52DA000FE28CF /* MsgModel.mm in Sources */,
-				0D8133B31AC52D6F00FE28CF /* MomentsViewController.m in Sources */,
+				0D8133B31AC52D6F00FE28CF /* MomentsViewController.mm in Sources */,
 				0D9EBFB81AC24DC40071793C /* DDASLLogger.m in Sources */,
 				0D9EBFC41AC250500071793C /* FBKVOController.m in Sources */,
 				0D8134501AC52F7300FE28CF /* UIColor+Additions.m in Sources */,

@@ -11,6 +11,7 @@
 #import "ProfileViewController.h"
 #import "LeftMarginTextField.h"
 #import "BuddyModel.h"
+#import "ReceivedManager.h"
 
 #include "Client.h"
 #include "Singleton.h"
@@ -38,7 +39,7 @@ using namespace etim::pub;
     
     self.title = @"添加好友";
     [[NSNotificationCenter defaultCenter] addObserver:self
-                                              selector:@selector(responseToSearchBuddy)
+                                             selector:@selector(notiToSearchBuddy:)
                                                   name:notiNameFromCmd(CMD_SEARCH_BUDDY)
                                                 object:nil];
     [self createUI];
@@ -79,15 +80,14 @@ using namespace etim::pub;
 #pragma mark -
 #pragma mark response
 
-- (void)responseToSearchBuddy {
+- (void)notiToSearchBuddy:(NSNotification *)noti {
     [MBProgressHUD hideHUDForView:self.view animated:YES];
     etim::Session *sess = [[Client sharedInstance] session];
     if (sess->GetRecvCmd() == CMD_SEARCH_BUDDY) {
         if (sess->IsError()) {
             [[TWMessageBarManager sharedInstance] showMessageWithTitle:@"查找结果" description:stdStrToNsStr(sess->GetErrorMsg()) type:TWMessageBarMessageTypeInfo];
         } else {
-            IMUser searchUser = sess->GetSearchIMUser();
-            BuddyModel *searchBuddy = [[BuddyModel alloc] initWithUser:searchUser];
+            BuddyModel *searchBuddy = [[ReceivedManager sharedInstance] searchedBuddy];
             ProfileViewController *vc = [[ProfileViewController alloc] initWithUser:searchBuddy];
             [self.navigationController pushViewController:vc animated:YES];
         }

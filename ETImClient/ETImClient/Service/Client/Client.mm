@@ -18,6 +18,7 @@
 #import "Reachability.h"
 #import "NSTimer+WeakTarget.h"
 #import "CmdParamModel.h"
+#import "ReceivedManager.h"
 
 #include "Socket.h"
 #include "Logging.h"
@@ -121,16 +122,16 @@ void clientConnectCallBack(bool connected)  {
 - (void)connectCallBack:(bool)connected {
     if (connected) {
         DDLogInfo(@"连接成功 ");
-        if (_delegate && [_delegate respondsToSelector:@selector(socketDidConnectSuccess)]) {
-            [_delegate socketDidConnectSuccess];
+        if (_delegate && [_delegate respondsToSelector:@selector(socketConnectSuccess)]) {
+            [_delegate socketConnectSuccess];
         } else {
             DDLogWarn(@"无回调delegate");
         }
         
     } else {
         DDLogInfo(@"连接失败");
-        if (_delegate && [_delegate respondsToSelector:@selector(socketDidConnectFailure)]) {
-            [_delegate socketDidConnectSuccess];
+        if (_delegate && [_delegate respondsToSelector:@selector(socketConnectFailure)]) {
+            [_delegate socketConnectSuccess];
         } else {
             DDLogWarn(@"无回调delegate");
         }
@@ -216,22 +217,6 @@ void clientConnectCallBack(bool connected)  {
     
     return NULL;
 }
-
-- (BuddyModel *)user {
-    if (_user) {
-        _user = [[BuddyModel alloc] initWithUser:_session->GetIMUser()];
-        
-        return _user;
-    } else {
-        if (_user.userId == _session->GetIMUser().userId) {
-            return _user;
-        } else {
-            _user = [[BuddyModel alloc] initWithUser:_session->GetIMUser()];
-            return _user;
-        }
-    }
-}
-
 - (void)pullUnread {
     [self pullWithCommand:CMD_UNREAD];
 }
@@ -251,7 +236,7 @@ void clientConnectCallBack(bool connected)  {
 ///只有参数为userId时的命令操作
 - (void)pullWithCommand:(uint16)cmd {
     NSMutableDictionary *param = [NSMutableDictionary dictionary];
-    string value = Convert::IntToString(_session->GetIMUser().userId);
+    string value = Convert::IntToString(_user.userId);
     [param setObject:stdStrToNsStr(value) forKey:@"userId"];
     [self doAction:*_session cmd:cmd param:param];
 }
@@ -323,46 +308,20 @@ void clientConnectCallBack(bool connected)  {
                     DDLogInfo(@"接收cmd: 0X%04X, 通知名称: %@", _session->GetRecvCmd(), notiNameFromCmd(_session->GetRecvCmd()));
                     ///一些特殊命令回调
                     if (_session->GetRecvCmd() == CMD_LOGIN) {
-                        if (_session->IsError()) {
-//                            if (_delegate && [_delegate respondsToSelector:@selector(clientDidLoginFailure)]) {
-//                                [_delegate clientDidLoginFailure];
-//                            }
-                        } else {
+                        if (!_session->IsError()) {
                             self.login = YES;
                             self.logout = NO;
-//                            if (_delegate && [_delegate respondsToSelector:@selector(clientDidLoginSuccess)]) {
-//                                [_delegate clientDidLoginSuccess];
-//                            }
                         }
-                        
                     } else if (_session->GetRecvCmd() == CMD_LOGOUT) {
-                        if (_session->IsError()) {
-//                            if (_delegate && [_delegate respondsToSelector:@selector(clientDidLogoutFailure)]) {
-//                                [_delegate clientDidLogoutFailure];
-//                            }
-                        } else {
+                        if (!_session->IsError()) {
                             self.logout = YES;
-//                            if (_delegate && [_delegate respondsToSelector:@selector(clientDidLogoutSuccess)]) {
-//                                [_delegate clientDidLogoutSuccess];
-//                            }
                         }
-                        
-                    } else if (_session->GetRecvCmd() == CMD_REGISTER) {
-                        if (_session->IsError()) {
-//                            if (_delegate && [_delegate respondsToSelector:@selector(clientDidRegFailure)]) {
-//                                [_delegate clientDidRegFailure];
-//                            }
-                        } else {
-//                            if (_delegate && [_delegate respondsToSelector:@selector(clientDidRegSuccess)]) {
-//                                [_delegate clientDidRegSuccess];
-//                            }
-                        }
-                        
-                    } else {
-                        //[[NSNotificationCenter defaultCenter] postNotificationName:notiNameFromCmd(_session->GetRecvCmd()) object:nil];
                     }
+                    
+                    [[NSNotificationCenter defaultCenter] postNotificationName:notiNameFromCmd(_session->GetRecvCmd())
+                                                                        object:nil];
 
-                    [[NSNotificationCenter defaultCenter] postNotificationName:notiNameFromCmd(_session->GetRecvCmd()) object:nil];
+                    
                 });
                 
             } catch (RecvException &e) {
@@ -439,7 +398,7 @@ void clientConnectCallBack(bool connected)  {
 #pragma mark -
 #pragma mark Client delegate
 
-- (void)socketDidConnectSuccess {
+- (void)socketConnectSuccess {
     [self doRecvAction];
     _heartBeatTimer = [NSTimer scheduledTimerWithTimeInterval:HEART_BEAT_SECONDS weakTarget:self selector:@selector(heartBeart) userInfo:nil repeats:YES];
     if (self.login) {
@@ -453,7 +412,7 @@ void clientConnectCallBack(bool connected)  {
     }];
     [self.queuedCmdArr removeAllObjects];
 }
-- (void)socketDidConnectFailure {
+- (void)socketConnectFailure {
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), _connQueue, ^{
         sleep(1);
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -462,29 +421,5 @@ void clientConnectCallBack(bool connected)  {
     });
 
 }
-
-
-/*
-- (void)clientDidLoginSuccess {
-    
-}
-- (void)clientDidLoginFailure {
-    
-}
-
-- (void)clientDidLogoutSuccess {
-    
-}
-- (void)clientDidLogoutFailure {
-    
-}
-
-- (void)clientDidRegSuccess {
-    
-}
-- (void)clientDidRegFailure {
-    
-}
- */
 
 @end

@@ -163,11 +163,7 @@ namespace etim {
         void Recv();
         void DoAction();
         
-        ///获取用户信息
-        const IMUser GetIMUser() const { return user_; }
-        ///设置用户信息
-        void SetIMUser(IMUser &user) {  user_ = user; };
-        
+        /*
         ///获取搜索用户信息
         const IMUser GetSearchIMUser() const { return searchUser_; }
         ///设置搜索用户信息
@@ -180,6 +176,7 @@ namespace etim {
         
         const IMMsg GetPushSendMsg() const { return pushSendMsg_; }
         void SetPushSendMsg(IMMsg &msg) { pushSendMsg_ = msg; }
+         */
         
         uint16_t GetFd() const { return socket_->GetFd(); }
         bool IsConnected() const { return isConnected_; }
@@ -194,9 +191,11 @@ namespace etim {
         bool const IsError() const { return errCode_ != kErrCode00 && errCode_ != kErrCode06; }
         
         ///好友
+        /*
         const std::list<IMUser> GetBuddys() const { return buddys_; }
         void AddBuddy(IMUser &user) { buddys_.push_back(user); }
         void ClearBuddys() { buddys_.clear(); }
+         
         ///请求好友
         const std::list<IMUser> GetReqBuddys() const { return reqBuddys_; }
         void AddReqBuddy(IMUser &user) { reqBuddys_.push_back(user); }
@@ -211,7 +210,7 @@ namespace etim {
         const std::list<IMMsg> GetUnreadMsgs() const {return unreadMsgs_; }
         void AddUnreadMsg(IMMsg &msg) {unreadMsgs_.push_back(msg); }
         void ClearUnreadMsg() { unreadMsgs_.clear(); }
-        
+        */
     private:
         std::auto_ptr<Socket> socket_;
         connectCallBack callBack_;
@@ -227,21 +226,21 @@ namespace etim {
         int16_t errCode_;
         std::string errMsg_;
         
+        /*
         BuddyStatus status_;
-        IMUser      user_;
         IMUser      searchUser_;
         IMUser      stausChangedBuddy_;
         ///接收来的消息
         IMMsg       pushSendMsg_;
         ///好友列表
-        std::list<IMUser> buddys_;
+        //std::list<IMUser> buddys_;
         ///请求用户列表
         std::list<IMUser> reqBuddys_;
         ///所有请求列表
         std::list<IMReq> allReqs_;
         ///未读消息
         std::list<IMMsg> unreadMsgs_;
-        
+        */
         
     
     };

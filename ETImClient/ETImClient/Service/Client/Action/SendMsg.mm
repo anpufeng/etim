@@ -13,6 +13,9 @@
 #include "Idea.h"
 #include "DataStruct.h"
 
+#import "ReceivedManager.h"
+#import "MsgModel.h"
+
 using namespace etim;
 using namespace etim::action;
 using namespace::etim::pub;
@@ -98,6 +101,7 @@ void RetrieveUnreadMsg::DoRecv(etim::Session &s) {
 	jis.ReadBytes(error_msg, ERR_MSG_LENGTH);
     
     if (error_code == kErrCode00) {
+        NSMutableArray *msgArr = [NSMutableArray array];
         for (uint16 i = 0; i < cnt; ++i) {
             InStream jis((const char*)s.GetResponsePack(), s.GetResponsePack()->head.len+sizeof(ResponseHead));
             // 跳过cmd、len
@@ -119,11 +123,16 @@ void RetrieveUnreadMsg::DoRecv(etim::Session &s) {
             jis>>msg.sent;
             jis>>msg.requestTime;
             jis>>msg.sendTime;
-            s.AddUnreadMsg(msg);
+
+            [msgArr addObject:[[MsgModel alloc] initWithMsg:msg]];
             
             if (seq == cnt - 1)
                 break;
             s.Recv();
+        }
+        
+        if ([msgArr count]) {
+            [[ReceivedManager sharedInstance] setUnreadMsgArr:msgArr];
         }
     }
     s.SetErrorCode(error_code);

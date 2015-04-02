@@ -15,6 +15,9 @@
 
 #include <algorithm>
 
+#import "ReceivedManager.h"
+#import "BuddyModel.h"
+
 using namespace etim;
 using namespace etim::action;
 using namespace::etim::pub;
@@ -109,7 +112,7 @@ void SearchBuddy::DoRecv(etim::Session &s) {
         user.relation = static_cast<BuddyRelation>(rel);
         user.status = static_cast<BuddyStatus>(status);
         
-        s.SetSearchIMUser(user);
+        [[ReceivedManager sharedInstance] setSearchedBuddy:[[BuddyModel alloc] initWithUser:user]];
     }
     s.SetErrorCode(error_code);
 	s.SetErrorMsg(error_msg);
@@ -166,9 +169,10 @@ void AcceptAddBuddy::DoRecv(etim::Session &s) {
         jis>>addPeer;
         user.relation = static_cast<BuddyRelation>(rel);
         user.status = static_cast<BuddyStatus>(status);
-        s.ClearBuddys();
+        
         if (Convert::StringToInt(addPeer)) {
-            s.AddBuddy(user);
+            BuddyModel *buddy = [[BuddyModel alloc] initWithUser:user];
+            [[ReceivedManager sharedInstance] setAcceptedBuddy:buddy];
         }
     }
    	s.SetErrorCode(error_code);

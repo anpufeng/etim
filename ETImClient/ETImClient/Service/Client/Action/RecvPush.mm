@@ -15,6 +15,10 @@
 
 #include <algorithm>
 
+#import "BuddyModel.h"
+#import "MsgModel.h"
+#import "ReceivedManager.h"
+
 using namespace etim;
 using namespace etim::action;
 using namespace::etim::pub;
@@ -51,8 +55,8 @@ void PushBuddyUpdate::DoRecv(etim::Session &s) {
         
         user.relation = static_cast<BuddyRelation>(rel);
         user.status = static_cast<BuddyStatus>(status);
-        
-        s.SetStatusChangedBuddy(user);
+        BuddyModel *buddy = [[BuddyModel alloc] initWithUser:user];
+        [[ReceivedManager sharedInstance] setStatusChangedBuddy:buddy];
     }
     s.SetErrorCode(error_code);
 	s.SetErrorMsg(error_msg);
@@ -97,8 +101,9 @@ void PushBuddyRequestResult::DoRecv(etim::Session &s) {
         if (accept) {
             //如果同意则将用户关系轩为好友并添加到好友列表
             user.relation = kBuddyRelationFriend;
-            s.ClearBuddys();
-            s.AddBuddy(user);
+            
+            BuddyModel *buddy = [[BuddyModel alloc] initWithUser:user];
+            [[[ReceivedManager sharedInstance] buddyArr] addObject:buddy];
         }
     }
     s.SetErrorCode(error_code);
@@ -137,8 +142,8 @@ void PushRequestAddBuddy::DoRecv(etim::Session &s) {
         user.relation = static_cast<BuddyRelation>(rel);
         user.status = static_cast<BuddyStatus>(status);
         //清空并新加一个通知对象, 同时去重
-        s.ClearReqBuddys();
-        s.AddReqBuddy(user);
+        BuddyModel *buddy = [[BuddyModel alloc] initWithUser:user];
+        [[ReceivedManager sharedInstance] setRequestingBuddy:buddy];
     }
     
     s.SetErrorCode(error_code);
@@ -174,7 +179,8 @@ void PushSendMsg::DoRecv(etim::Session &s) {
         jis>>msg.requestTime;
         jis>>msg.sendTime;
         
-        s.SetPushSendMsg(msg);
+        MsgModel *message = [[MsgModel alloc] initWithMsg:msg];
+        [[ReceivedManager sharedInstance] setReceivedMsg:message];
     }
     
     s.SetErrorCode(error_code);

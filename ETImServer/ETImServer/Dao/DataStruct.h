@@ -28,7 +28,7 @@ enum BuddyRequestStatus {
     kBuddyRequestAccepted   = 1 << 2,            //4用户接受添加为好友且未发送到请求方
     kBuddyRequestRejectedSent = (kBuddyRequestRejected|kBuddyRequestSent), //3拒绝并且发送至请求方
     kBuddyRequestAcceptedSent = (kBuddyRequestAccepted|kBuddyRequestSent), //5同意且发送到请求方
-    kBuddyRequestInvalid    = 127
+    kBuddyRequestInvalid    = 127           //此req已失效
 };
 
 ///消息状态

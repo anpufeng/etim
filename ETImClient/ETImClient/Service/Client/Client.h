@@ -51,8 +51,8 @@ inline std::string nsStrToStdStr(NSString *str) {
 @protocol Client <NSObject>
 
 @required
-- (void)socketDidConnectSuccess;
-- (void)socketDidConnectFailure;
+- (void)socketConnectSuccess;
+- (void)socketConnectFailure;
 
 /*
 @optional
@@ -78,7 +78,9 @@ inline std::string nsStrToStdStr(NSString *str) {
     dispatch_queue_t _recvQueue;
 }
 
+///当前登录的用户信息
 @property (nonatomic, strong) BuddyModel *user;
+@property (nonatomic, strong) NSObject *receivedObj;
 ///上次是否成功登录过
 @property (nonatomic, assign) BOOL login;
 ///上次登出过
@@ -100,11 +102,13 @@ inline std::string nsStrToStdStr(NSString *str) {
 - (void)startReachabilityNoti;
 - (void)doRecvAction;
 
+
 - (void)connectWithDelegate:(id<Client>)delegate;
 - (void)reconnect;
 - (BOOL)connected;
 - (void)disconnect;
 - (void)reLogin;
+
 @end
 
 

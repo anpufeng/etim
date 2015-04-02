@@ -13,6 +13,14 @@ using namespace etim;
 
 @implementation BuddyModel
 
+- (id)init {
+    if (self = [super init]) {
+        self.userId = -1;
+    }
+    
+    return self;
+}
+
 - (id)initWithUser:(etim::IMUser)user {
     if (self = [super init]) {
         self.userId = user.userId;
