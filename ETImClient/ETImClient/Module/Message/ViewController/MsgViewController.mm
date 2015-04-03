@@ -43,11 +43,11 @@ using namespace std;
         self.navigationItem.title = @"消息";
         [self.tabBarItem setFinishedSelectedImage:[UIImage imageNamed:@"tab_recent_press"] withFinishedUnselectedImage:[UIImage imageNamed:@"tab_recent_nor"]];
         [[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(responseToRetrieveUnreadMsg)
+                                                 selector:@selector(notiToRetrieveUnreadMsg:)
                                                      name:notiNameFromCmd(CMD_RETRIEVE_UNREAD_MSG)
                                                    object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(responseToJumpToChat:)
+                                                 selector:@selector(notiToJumpToChat:)
                                                      name:kJumpToChatNotification
                                                    object:nil];
         self.msgList = [NSMutableArray array];
@@ -104,7 +104,7 @@ using namespace std;
 #pragma mark -
 #pragma mark - response
 
-- (void)responseToRetrieveUnreadMsg {
+- (void)notiToRetrieveUnreadMsg:(NSNotification *)noti {
     /**
      unread = {
         oneMsg {
@@ -183,7 +183,7 @@ using namespace std;
     [self.tableView reloadData];
 }
 
-- (void)responseToJumpToChat:(NSNotification *)noti {
+- (void)notiToJumpToChat:(NSNotification *)noti {
     BuddyModel *user = (BuddyModel *)noti.object;
     ChatViewController *vc = [[ChatViewController alloc] initWithMsgs:[NSMutableArray array] toId:user.userId toName:user.username];
     [self.navigationController pushViewController:vc animated:YES];

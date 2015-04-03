@@ -104,6 +104,7 @@ void PushBuddyRequestResult::DoRecv(etim::Session &s) {
             
             BuddyModel *buddy = [[BuddyModel alloc] initWithUser:user];
             [[[ReceivedManager sharedInstance] buddyArr] addObject:buddy];
+            
         }
     }
     s.SetErrorCode(error_code);

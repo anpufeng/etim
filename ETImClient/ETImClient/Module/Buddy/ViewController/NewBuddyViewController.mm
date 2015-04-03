@@ -62,9 +62,11 @@ using namespace etim::pub;
                                              selector:@selector(notiToAcceptAddBuddy:)
                                                  name:notiNameFromCmd(CMD_ACCEPT_ADD_BUDDY)
                                                object:nil];
-    self.refreshControl = nil;
+    
     [self createUI];
+    self.refreshControl = nil;
     [[Client sharedInstance] pullWithCommand:CMD_RETRIEVE_ALL_BUDDY_REQUEST];
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
 }
 
 - (void)createUI {
@@ -102,6 +104,7 @@ using namespace etim::pub;
 #pragma mark response
 
 - (void)notiToRetrieveAllBuddyRequest:(NSNotification *)noti {
+    [MBProgressHUD hideHUDForView:self.view animated:YES];
     etim::Session *sess = [[Client sharedInstance] session];
     if (sess->GetRecvCmd() == CMD_RETRIEVE_ALL_BUDDY_REQUEST) {
         if (sess->IsError()) {

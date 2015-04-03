@@ -168,6 +168,11 @@ void RetrievePendingBuddyRequest::DoRecv(etim::Session &s) {
                 break;
             s.Recv();
         }
+        
+        if ([reqBuddyArr count]) {
+            [[ReceivedManager sharedInstance] setReqBuddyArr:reqBuddyArr];
+        }
+
     }
     s.SetErrorCode(error_code);
 	s.SetErrorMsg(error_msg);

@@ -11,6 +11,7 @@
 #import "LeftMarginTextField.h"
 #import "BuddyModel.h"
 #import "MsgModel.h"
+#import "ReceivedManager.h"
 
 #include "Client.h"
 #include "Singleton.h"
@@ -82,11 +83,11 @@ using namespace std;
     
         
         [[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(responseToSendMsg)
+                                                 selector:@selector(notiToSendMsg:)
                                                      name:notiNameFromCmd(CMD_SEND_MSG)
                                                    object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(responseToPushSendMsg)
+                                                 selector:@selector(notiToPushSendMsg:)
                                                      name:notiNameFromCmd(PUSH_SEND_MSG)
                                                    object:nil];
 
@@ -197,7 +198,7 @@ using namespace std;
 #pragma mark -
 #pragma mark response
 ///发送消息结果
-- (void)responseToSendMsg {
+- (void)notiToSendMsg:(NSNotification *)noti {
     etim::Session *sess = [[Client sharedInstance] session];
     if (sess->GetRecvCmd() == CMD_SEND_MSG) {
         if (sess->IsError()) {
@@ -212,13 +213,13 @@ using namespace std;
 }
 
 ///收到对方消息
-- (void)responseToPushSendMsg {
+- (void)notiToPushSendMsg:(NSNotification *)noti {
     etim::Session *sess = [[Client sharedInstance] session];
     if (sess->GetRecvCmd() == PUSH_SEND_MSG) {
         if (sess->IsError()) {
             [[TWMessageBarManager sharedInstance] showMessageWithTitle:@"接收消息失败" description:stdStrToNsStr(sess->GetErrorMsg()) type:TWMessageBarMessageTypeError];
         } else {
-            MsgModel *newMsg = [[MsgModel alloc] initWithMsg:sess->GetPushSendMsg()];
+            MsgModel *newMsg = [[ReceivedManager sharedInstance] receivedMsg];
             ChatCellFrame *cellFrame = [[ChatCellFrame alloc] init];
             ChatCellFrame *lastCellFrame = [self.chatList lastObject];
             //    message.showTime = ![lastCellFrame.message.time isEqualToString:message.time];

@@ -11,6 +11,7 @@
 #import "RegViewController.h"
 #import "HMScrollView.h"
 #import "BaseTabBarViewController.h"
+#import "ReceivedManager.h"
 #import "AppDelegate.h"
 
 #include "Client.h"
@@ -146,7 +147,7 @@ using namespace etim::pub;
             [[Client sharedInstance] disconnect];
         } else {
             //登录成功
-            DDLogDebug(@"登录成功 :%@", [noti object]);
+            DDLogDebug(@"登录成功 :%@", [[ReceivedManager sharedInstance] loginBuddy]);
             BaseTabBarViewController *tabbar = [[BaseTabBarViewController alloc] init];
             [[[UIApplication sharedApplication] keyWindow] setRootViewController:tabbar];
             [[Client sharedInstance] pullUnread];

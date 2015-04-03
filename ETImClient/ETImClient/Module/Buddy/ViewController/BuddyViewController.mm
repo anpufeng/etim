@@ -208,7 +208,7 @@ using namespace std;
             [[TWMessageBarManager sharedInstance] showMessageWithTitle:@"获取好友请求错误" description:stdStrToNsStr(sess->GetErrorMsg()) type:TWMessageBarMessageTypeError];
         } else {
             //好友请求列表成功
-            self.reqBuddyList = [[ReceivedManager sharedInstance] reqArr];
+            self.reqBuddyList = [[ReceivedManager sharedInstance] reqBuddyArr];
         }
     } else {
         [[TWMessageBarManager sharedInstance] showMessageWithTitle:@"获取好友请求错误" description:@"未知错误" type:TWMessageBarMessageTypeError];
@@ -246,11 +246,11 @@ using namespace std;
             [[TWMessageBarManager sharedInstance] showMessageWithTitle:@"获取服务器推送用户请求结果错误" description:stdStrToNsStr(sess->GetErrorMsg()) type:TWMessageBarMessageTypeError];
         } else {
             [[TWMessageBarManager sharedInstance] showMessageWithTitle:@"获取服务器推送用户请求结果" description:@"成功" type:TWMessageBarMessageTypeSuccess];
-
-                [self willChangeValueForKey:@"buddyList"];
-                BuddyModel *acceptedBuddy = (BuddyModel *)[[ReceivedManager sharedInstance] reqArr];
-                [self.buddyList addObject:acceptedBuddy];
-                [self didChangeValueForKey:@"buddyList"];
+            [self willChangeValueForKey:@"buddyList"];
+//                BuddyModel *acceptedBuddy = [[ReceivedManager sharedInstance] acceptedBuddy];
+//                [self.buddyList addObject:acceptedBuddy];
+            self.buddyList = [[ReceivedManager sharedInstance] buddyArr];
+            [self didChangeValueForKey:@"buddyList"];
         }
     } else {
         [[TWMessageBarManager sharedInstance] showMessageWithTitle:@"获取服务器推送用户请求结果错误" description:@"未知错误" type:TWMessageBarMessageTypeError];

@@ -47,7 +47,7 @@ using namespace etim::pub;
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(responseToLogout) name:notiNameFromCmd(CMD_LOGOUT) object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(notiToLogout:) name:notiNameFromCmd(CMD_LOGOUT) object:nil];
     [self initData];
     [self createUI];
 }
@@ -164,7 +164,7 @@ using namespace etim::pub;
 }
 
 
-- (void)responseToLogout {
+- (void)notiToLogout:(NSNotification *)noti {
     [MBProgressHUD hideHUDForView:self.view animated:YES];
     etim::Session *sess = [[Client sharedInstance] session];
     if (sess->GetRecvCmd() == CMD_LOGOUT) {
