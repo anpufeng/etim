@@ -64,6 +64,10 @@ using namespace std;
     [self createUI];
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    
+}
+
 - (void)createUI {
     self.refreshControl = nil;
 }

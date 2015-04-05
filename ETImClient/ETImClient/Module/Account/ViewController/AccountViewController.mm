@@ -10,6 +10,7 @@
 #import "ProfileViewController.h"
 #import "SignatureViewController.h"
 #import "BuddyModel.h"
+#import "ReceivedManager.h"
 #import "AppDelegate.h"
 
 #include "Client.h"
@@ -172,6 +173,7 @@ using namespace etim::pub;
             [[TWMessageBarManager sharedInstance] showMessageWithTitle:@"登出错误" description:stdStrToNsStr(sess->GetErrorMsg()) type:TWMessageBarMessageTypeError];
         } else {
             [[Client sharedInstance] disconnect];
+            [[ReceivedManager sharedInstance] resetData];
             //登出成功
             AppDelegate *delegate = [[UIApplication sharedApplication] delegate];
             [delegate jumpToLogin:YES];

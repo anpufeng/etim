@@ -46,4 +46,6 @@
 
 +(ReceivedManager *)sharedInstance;
 
+- (void)resetData;
+
 @end

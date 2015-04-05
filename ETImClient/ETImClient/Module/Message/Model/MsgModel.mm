@@ -28,7 +28,37 @@ using namespace etim;
         self.sendTime = stdStrToNsStr(msg.sendTime);
         
         self.showTime = YES;
-        self.source = kMsgSourceOther;
+        BuddyModel *user = [[Client sharedInstance] user];
+        if (user) {
+            if (user.userId == self.toId) {
+                self.source = kMsgSourceOther;
+            } else {
+                self.source = kMsgSourceSelf;
+            }
+        }
+
+        self.sentStatus = kMsgSent;
+    }
+    
+    return self;
+}
+
+- (id)initWithToBuddy:(BuddyModel *)toBuddy text:(NSString *)text {
+    if ([self init]) {
+        BuddyModel *user = [[Client sharedInstance] user];
+        self.msgId = -1;
+        self.fromId = user.userId;
+        self.toId = toBuddy.userId;
+        self.fromName = user.username;
+        self.toName = user.username;
+        self.text = text;
+        ///TODO时间处理
+        //self.requestTime =
+        ///self.sendTime =
+        
+        self.showTime = YES;
+        self.source = kMsgSourceSelf;
+        self.sentStatus = kMsgUnsent;
     }
     
     return self;

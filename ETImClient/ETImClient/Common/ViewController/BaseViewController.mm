@@ -41,28 +41,6 @@
     [self.view addSubview:bgImgView];
 }
 
-- (void)writeLog:(NSString *)log
-{
-    NSFileManager * filemangage =[NSFileManager defaultManager];
-    NSArray *paths= NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *documentsDir = [paths objectAtIndex:0];
-    
-    [filemangage changeCurrentDirectoryPath:[documentsDir stringByExpandingTildeInPath]];
-    
-    if(![filemangage fileExistsAtPath:@"memoryLog.txt"])
-    {
-        [filemangage createFileAtPath:@"memoryLog.txt" contents:nil attributes:nil];
-    }
-    NSString * fullfilename=[documentsDir stringByAppendingPathComponent:@"memoryLog.txt"];
-    const  char* pcpath = [fullfilename cStringUsingEncoding:NSASCIIStringEncoding];
-    
-    FILE* filelog=fopen(pcpath, "a+");
-    
-    fprintf(filelog,"%s\n", [log cStringUsingEncoding:NSUTF8StringEncoding]);
-    
-    fclose(filelog);
-}
-
 - (void)removeBgImageView
 {
     [[self.view viewWithTag:1111] removeFromSuperview];

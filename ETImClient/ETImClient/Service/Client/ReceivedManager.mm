@@ -28,18 +28,27 @@ static dispatch_once_t predicate;
 
 - (id)init {
     if (self = [super init]) {
-        int capacity = 10;
-        self.buddyArr = [NSMutableArray arrayWithCapacity:capacity];
-        self.reqArr = [NSMutableArray arrayWithCapacity:capacity];
-        self.reqBuddyArr = [NSMutableArray arrayWithCapacity:capacity];
-
-        self.loginBuddy = [[BuddyModel alloc] init];
-        self.searchedBuddy = [[BuddyModel alloc] init];
-        self.unreadMsgArr = [NSMutableArray arrayWithCapacity:10];
-        self.receivedMsg = [[MsgModel alloc] init];
-    }
+        [self resetData];
+}
     
     return self;
+}
+
+- (void)resetData {
+    int capacity = 10;
+    self.buddyArr = [NSMutableArray arrayWithCapacity:capacity];
+    self.reqArr = [NSMutableArray arrayWithCapacity:capacity];
+    self.reqBuddyArr = [NSMutableArray arrayWithCapacity:capacity];
+    
+    self.loginBuddy = [[BuddyModel alloc] init];
+    self.searchedBuddy = [[BuddyModel alloc] init];
+    self.statusChangedBuddy = [[BuddyModel alloc] init];
+    self.requestingBuddy = [[BuddyModel alloc] init];
+    self.acceptedBuddy = [[BuddyModel alloc] init];
+    
+    self.unreadMsgArr = [NSMutableArray arrayWithCapacity:capacity];
+    self.receivedMsg = [[MsgModel alloc] init];
+
 }
 
 @end

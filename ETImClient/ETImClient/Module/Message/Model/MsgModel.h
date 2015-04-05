@@ -18,6 +18,7 @@ typedef NS_ENUM(NSInteger, MsgSource) {
     kMsgSourceSelf
 };
 
+
 @class BuddyModel;
 
 ///消息模型
@@ -37,8 +38,12 @@ typedef NS_ENUM(NSInteger, MsgSource) {
 //
 @property (nonatomic, assign) BOOL showTime;
 @property (nonatomic, assign) MsgSource source;
+@property (nonatomic, assign) MsgSentStatus sentStatus;
 
 - (id)initWithMsg:(etim::IMMsg)msg;
+
+///自己发出的消息
+- (id)initWithToBuddy:(BuddyModel *)toBuddy text:(NSString *)text;
 
 + (NSMutableArray *)msgs:(const std::list<etim::IMMsg> &)msgs;
 
