@@ -124,7 +124,9 @@ using namespace std;
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 
-    NSMutableDictionary *dic = self.msgList[indexPath.row];
+    
+    NSString *key = self.peerIdArr[indexPath.row];
+    ListMsgModel *listMsg = [self.msgDic objectForKey:key];
     MsgModel *msg = [[dic objectForKey:@"msgs"] lastObject];
     int toId = msg.source == kMsgSourceOther ? msg.fromId : msg.toId;
     NSString *toName = msg.source == kMsgSourceOther ? msg.fromName : msg.toName;
@@ -158,7 +160,7 @@ using namespace std;
     NSMutableArray *unread = [[ReceivedManager sharedInstance] unreadMsgArr];
     
     for (int i = 0; i < [unread count]; i++) {
-        BOOL exist = NO;
+        //BOOL exist = NO;
         int myId = [Client sharedInstance].user.userId;
         MsgModel *msg = unread[i];
         NSString *msgKey = msg.fromId == myId ? [NSNUM_WITH_INT(msg.toId) stringValue] : [NSNUM_WITH_INT(msg.fromId) stringValue];
@@ -178,7 +180,7 @@ using namespace std;
     [self.tableView reloadData];
 }
 
-/*
+
 ///收到服务器推送消息
 - (void)notiToPushSendMsg:(NSNotification *)noti {
     etim::Session *sess = [[Client sharedInstance] session];
@@ -187,24 +189,25 @@ using namespace std;
             [[TWMessageBarManager sharedInstance] showMessageWithTitle:@"接收消息失败" description:stdStrToNsStr(sess->GetErrorMsg()) type:TWMessageBarMessageTypeError];
         } else {
             MsgModel *newMsg = [[ReceivedManager sharedInstance] receivedMsg];
-            ChatCellFrame *cellFrame = [[ChatCellFrame alloc] init];
-            ChatCellFrame *lastCellFrame = [self.chatList lastObject];
-            //    message.showTime = ![lastCellFrame.message.time isEqualToString:message.time];
-            newMsg.showTime = YES;
-            newMsg.source = kMsgSourceOther;
-            cellFrame.message = newMsg;
-            //4.添加进去，并且刷新数据
-            [self.chatList addObject:cellFrame];
-            [_tableView reloadData];
-            self.totalCellHeight = self.totalCellHeight + cellFrame.cellHeight;
-            NSIndexPath *lastPath = [NSIndexPath indexPathForRow:self.chatList.count - 1 inSection:0];
-            [_tableView scrollToRowAtIndexPath:lastPath atScrollPosition:UITableViewScrollPositionBottom animated:YES];
+            int myId = [Client sharedInstance].user.userId;
+            NSString *msgKey = newMsg.fromId == myId ? [NSNUM_WITH_INT(newMsg.toId) stringValue] : [NSNUM_WITH_INT(newMsg.fromId) stringValue];
+            ListMsgModel *listMsg = self.msgDic[msgKey];
+            if (listMsg) {
+                ///消息中已经存在与此用户聊天的记录
+                listMsg.lastestMsg = newMsg;
+            } else {
+                listMsg.lastestMsg = newMsg;
+                listMsg.peerId = (newMsg.fromId == myId ? newMsg.toId : newMsg.fromId);
+                [self.msgDic setObject:listMsg forKey:NSNUM_WITH_INT(listMsg.peerId)];
+            }
         }
+        
+        [self.tableView reloadData];
     } else {
         [[TWMessageBarManager sharedInstance] showMessageWithTitle:@"接收消息错误" description:@"未知错误" type:TWMessageBarMessageTypeError];
     }
 }
-*/
+
 
 - (void)notiToJumpToChat:(NSNotification *)noti {
     BuddyModel *user = (BuddyModel *)noti.object;

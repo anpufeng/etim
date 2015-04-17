@@ -102,6 +102,7 @@
 		0DA1AB771AA1C36C002DED6E /* WUNSTimerProxyTarget.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DA1AB731AA1C36C002DED6E /* WUNSTimerProxyTarget.m */; };
 		0DA1AB781AA1C36C002DED6E /* WUNSTimerTargetLifecycleTracker.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DA1AB751AA1C36C002DED6E /* WUNSTimerTargetLifecycleTracker.m */; };
 		0DA4815B1ACBCF4E00F97A7D /* ReceivedManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0DA4815A1ACBCF4E00F97A7D /* ReceivedManager.mm */; };
+		0DD44A091AE1243700BA67DF /* DBManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DD44A081AE1243700BA67DF /* DBManager.m */; };
 		AA1100EB198B3C01008811E4 /* tab_buddy_nor@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AA1100E3198B3C01008811E4 /* tab_buddy_nor@2x.png */; };
 		AA1100EC198B3C01008811E4 /* tab_buddy_press@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AA1100E4198B3C01008811E4 /* tab_buddy_press@2x.png */; };
 		AA1100ED198B3C01008811E4 /* tab_me_nor@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AA1100E5198B3C01008811E4 /* tab_me_nor@2x.png */; };
@@ -389,6 +390,8 @@
 		0DA1AB751AA1C36C002DED6E /* WUNSTimerTargetLifecycleTracker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WUNSTimerTargetLifecycleTracker.m; sourceTree = "<group>"; };
 		0DA481591ACBCF4E00F97A7D /* ReceivedManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReceivedManager.h; sourceTree = "<group>"; };
 		0DA4815A1ACBCF4E00F97A7D /* ReceivedManager.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ReceivedManager.mm; sourceTree = "<group>"; };
+		0DD44A071AE1243700BA67DF /* DBManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DBManager.h; sourceTree = "<group>"; };
+		0DD44A081AE1243700BA67DF /* DBManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DBManager.m; sourceTree = "<group>"; };
 		AA1100E3198B3C01008811E4 /* tab_buddy_nor@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tab_buddy_nor@2x.png"; sourceTree = "<group>"; };
 		AA1100E4198B3C01008811E4 /* tab_buddy_press@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tab_buddy_press@2x.png"; sourceTree = "<group>"; };
 		AA1100E5198B3C01008811E4 /* tab_me_nor@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tab_me_nor@2x.png"; sourceTree = "<group>"; };
@@ -713,6 +716,8 @@
 		0D8133BE1AC52DF300FE28CF /* Client */ = {
 			isa = PBXGroup;
 			children = (
+				0DD44A071AE1243700BA67DF /* DBManager.h */,
+				0DD44A081AE1243700BA67DF /* DBManager.m */,
 				0D81340E1AC52E1B00FE28CF /* Model */,
 				0D8133EB1AC52E0600FE28CF /* Public */,
 				0D8133BF1AC52DF300FE28CF /* Action */,
@@ -1388,6 +1393,7 @@
 				0D8134831AC5311200FE28CF /* HMTextView.m in Sources */,
 				0D8134841AC5311200FE28CF /* HMView.m in Sources */,
 				0D9EBFBD1AC24DC40071793C /* DDDispatchQueueLogFormatter.m in Sources */,
+				0DD44A091AE1243700BA67DF /* DBManager.m in Sources */,
 				0D81343F1AC52F2B00FE28CF /* BaseViewController.mm in Sources */,
 				0D8133DD1AC52DF300FE28CF /* Action.mm in Sources */,
 				0D81343B1AC52F2B00FE28CF /* BackViewController.mm in Sources */,
