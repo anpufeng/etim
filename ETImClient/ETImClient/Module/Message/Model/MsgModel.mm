@@ -14,6 +14,12 @@
 
 using namespace etim;
 
+@interface MsgModel ()
+
+@property (nonatomic, readwrite) NSDate *sendDate;
+
+@end
+
 @implementation MsgModel
 
 - (id)initWithMsg:(etim::IMMsg)msg {
@@ -63,6 +69,16 @@ using namespace etim;
     
     return self;
 }
+
+- (NSDate *)sendDate {
+    if (!_sendDate) {
+        NSDateFormatter
+        _sendDate =
+    }
+    
+    return _sendDate;
+}
+
 
 + (NSMutableArray *)msgs:(const std::list<etim::IMMsg> &)msgs {
     NSMutableArray *result = [NSMutableArray array];

@@ -42,9 +42,9 @@ namespace etim {
     
 #define PUSH_BUDDY_UPDATE                       0X0100      //服务器往客户推端送好友上线下线个人信息等变化
 #define PUSH_BUDDY_MSG                          0X0101      //服务器往客户推端送好友消息
-#define PUSH_BUDDY_REQUEST_RESULT               0X0102      //往客户端推送好友请求结果
-#define PUSH_REQUEST_ADD_BUDDY                  0X0103      //往客户端推送好友请求
-#define PUSH_SEND_MSG                           0X0104      //往客户端推送消息
+#define PUSH_BUDDY_REQUEST_RESULT               0X0102      //服务器往客户端推送好友请求结果
+#define PUSH_REQUEST_ADD_BUDDY                  0X0103      //服务器往客户端推送好友请求
+#define PUSH_SEND_MSG                           0X0104      //服务器往客户端推送消息
     
     static const std::string gCmdNoti[CMD_REJECT_ADD_BUDDY+1] = {
         "CMD_RETRIEVE_EVENT", "CMD_REGISTER", "CMD_LOGIN", /*0x0002*/

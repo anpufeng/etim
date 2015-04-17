@@ -9,10 +9,12 @@
 #import <UIKit/UIKit.h>
 #import "BuddyTableViewCell.h"
 
+@class ListMsgModel;
+
 ///消息界面cell
 
 @interface MsgTableViewCell : BuddyTableViewCell
 
-- (void)update:(NSMutableDictionary *)msg;
+- (void)update:(ListMsgModel *)listMsg;
 
 @end

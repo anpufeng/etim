@@ -25,7 +25,14 @@ using namespace std;
 
 @interface MsgViewController ()
 
-@property (nonatomic, strong) NSMutableArray *msgList;
+/*
+ 为了防止过多的数据膨胀， msgList应该只存储用来显示未读消息及最新消息等一些基本信息
+实际上的聊天信息应该在对应的聊天页面   测试QQ发现 多终端情况下  你在电脑上登录了QQ 用另外号往这个QQ发5条消息 手机上也显示
+5条未读 可是一旦在电脑上回了一条消息 这个未读状态就被置0了  应该是依最近回复的消息后面的来判断未读的
+ **/
+@property (nonatomic, strong) NSMutableDictionary *msgDic;
+@property (nonatomic, strong) NSArray *peerIdArr;
+
 
 @end
 
@@ -50,7 +57,15 @@ using namespace std;
                                                  selector:@selector(notiToJumpToChat:)
                                                      name:kJumpToChatNotification
                                                    object:nil];
-        self.msgList = [NSMutableArray array];
+        
+       
+        self.msgDic = [NSMutableDictionary dictionary];
+        self.peerIdArr = [NSArray array];
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(notiToPushSendMsg:)
+                                                     name:notiNameFromCmd(PUSH_SEND_MSG)
+                                                   object:nil];
     }
     
     return self;
@@ -69,14 +84,26 @@ using namespace std;
 }
 
 - (void)createUI {
-    self.refreshControl = nil;
+    
+}
+
+- (void)sortAllKeys {
+    NSArray *arr = [self.msgDic allKeys];
+    self.peerIdArr = [arr sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+        ListMsgModel *listMsg1 = [self.msgDic objectForKey:obj1];
+        ListMsgModel *listMsg2 = [self.msgDic objectForKey:obj2];
+        
+        return [listMsg1.lastestMsg.sendTime compare:listMsg2.lastestMsg.sendTime];
+    }];
 }
 
 #pragma mark -
 #pragma mark tableview datasource & delegate
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [self.msgList count];
+    [self sortAllKeys];
+    
+    return [self.peerIdArr count];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -90,12 +117,13 @@ using namespace std;
         cell = [[MsgTableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:identifier];
     }
     
-    [cell update:self.msgList[indexPath.row]];
+    [cell update:[self.msgDic objectForKey:self.peerIdArr[indexPath.row]]];
     
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+
     NSMutableDictionary *dic = self.msgList[indexPath.row];
     MsgModel *msg = [[dic objectForKey:@"msgs"] lastObject];
     int toId = msg.source == kMsgSourceOther ? msg.fromId : msg.toId;
@@ -107,6 +135,10 @@ using namespace std;
 
 #pragma mark -
 #pragma mark - response
+
+- (void)responseToRefresh {
+    [[Client sharedInstance] pullUnread];
+}
 
 - (void)notiToRetrieveUnreadMsg:(NSNotification *)noti {
     /**
@@ -121,6 +153,7 @@ using namespace std;
         }
      }
      */
+    [self.refreshControl endRefreshing];
     etim::Session *sess = [[Client sharedInstance] session];
     NSMutableArray *unread = [[ReceivedManager sharedInstance] unreadMsgArr];
     
@@ -128,64 +161,50 @@ using namespace std;
         BOOL exist = NO;
         int myId = [Client sharedInstance].user.userId;
         MsgModel *msg = unread[i];
-        if ([self.msgList count]) {
-            //有添加过未读 找出存在的
-            for (int j = 0; j < [self.msgList count]; j++) {
-                NSMutableDictionary *dic = self.msgList[j];
-                NSString *fromId = [dic objectForKey:@"fromId"];
-                
-                 NSMutableArray *buddyMsgs = [dic objectForKey:@"msgs"];
-                if (msg.fromId == fromId.intValue) {
-                    [buddyMsgs addObject:msg];
-                    msg.source = kMsgSourceOther;
-                    exist = YES;
-                    break;
-                } else if (msg.fromId == myId && msg.toId == fromId.intValue) {
-                    [buddyMsgs addObject:msg];
-                    msg.source = kMsgSourceSelf;
-                    exist = YES;
-                    break;
-                }
-            }
-            
-            if (!exist) {
-                //不存在则添加进去
-                NSMutableDictionary *dic = [NSMutableDictionary dictionary];
-                NSMutableArray *buddyMsgs = [NSMutableArray array];
-                [buddyMsgs addObject:msg];
-                if (msg.fromId == myId) {
-                    //我发出的
-                    [dic setObject:INT_TO_STRING(msg.toId) forKey:@"fromId"];
-                    msg.source = kMsgSourceSelf;
-                } else {
-                    [dic setObject:INT_TO_STRING(msg.fromId) forKey:@"fromId"];
-                    msg.source = kMsgSourceOther;
-                }
-                [dic setObject:buddyMsgs forKey:@"msgs"];
-                [self.msgList addObject:dic];
-            }
+        NSString *msgKey = msg.fromId == myId ? [NSNUM_WITH_INT(msg.toId) stringValue] : [NSNUM_WITH_INT(msg.fromId) stringValue];
+        ListMsgModel *listMsg = self.msgDic[msgKey];
+        if (listMsg) {
+            ///消息中已经存在与此用户聊天的记录
+            listMsg.lastestMsg = msg;
         } else {
-            //从来没有添加过未读
-            NSMutableDictionary *dic = [NSMutableDictionary dictionary];
-            NSMutableArray *buddyMsgs = [NSMutableArray array];
-            [buddyMsgs addObject:msg];
-            if (msg.fromId == myId) {
-                //我发出的
-                [dic setObject:INT_TO_STRING(msg.toId) forKey:@"fromId"];
-                msg.source = kMsgSourceSelf;
-            } else {
-                [dic setObject:INT_TO_STRING(msg.fromId) forKey:@"fromId"];
-                msg.source = kMsgSourceOther;
-            }
-            
-            [dic setObject:buddyMsgs forKey:@"msgs"];
-            [self.msgList addObject:dic];
+            listMsg.lastestMsg = msg;
+            listMsg.peerId = (msg.fromId == myId ? msg.toId : msg.fromId);
+            [self.msgDic setObject:listMsg forKey:NSNUM_WITH_INT(listMsg.peerId)];
         }
-
+        
+        ///TODO 未读及存储消息记录
     }
     
     [self.tableView reloadData];
 }
+
+/*
+///收到服务器推送消息
+- (void)notiToPushSendMsg:(NSNotification *)noti {
+    etim::Session *sess = [[Client sharedInstance] session];
+    if (sess->GetRecvCmd() == PUSH_SEND_MSG) {
+        if (sess->IsError()) {
+            [[TWMessageBarManager sharedInstance] showMessageWithTitle:@"接收消息失败" description:stdStrToNsStr(sess->GetErrorMsg()) type:TWMessageBarMessageTypeError];
+        } else {
+            MsgModel *newMsg = [[ReceivedManager sharedInstance] receivedMsg];
+            ChatCellFrame *cellFrame = [[ChatCellFrame alloc] init];
+            ChatCellFrame *lastCellFrame = [self.chatList lastObject];
+            //    message.showTime = ![lastCellFrame.message.time isEqualToString:message.time];
+            newMsg.showTime = YES;
+            newMsg.source = kMsgSourceOther;
+            cellFrame.message = newMsg;
+            //4.添加进去，并且刷新数据
+            [self.chatList addObject:cellFrame];
+            [_tableView reloadData];
+            self.totalCellHeight = self.totalCellHeight + cellFrame.cellHeight;
+            NSIndexPath *lastPath = [NSIndexPath indexPathForRow:self.chatList.count - 1 inSection:0];
+            [_tableView scrollToRowAtIndexPath:lastPath atScrollPosition:UITableViewScrollPositionBottom animated:YES];
+        }
+    } else {
+        [[TWMessageBarManager sharedInstance] showMessageWithTitle:@"接收消息错误" description:@"未知错误" type:TWMessageBarMessageTypeError];
+    }
+}
+*/
 
 - (void)notiToJumpToChat:(NSNotification *)noti {
     BuddyModel *user = (BuddyModel *)noti.object;

@@ -8,6 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
+#import "BuddyModel.h"
+
 #include "Endian.h"
 #include "DataStruct.h"
 #include <list>
@@ -40,6 +42,9 @@ typedef NS_ENUM(NSInteger, MsgSource) {
 @property (nonatomic, assign) MsgSource source;
 @property (nonatomic, assign) MsgSentStatus sentStatus;
 
+///时间戳
+@property (nonatomic, readonly) NSDate *sendDate;
+
 - (id)initWithMsg:(etim::IMMsg)msg;
 
 ///自己发出的消息
@@ -49,6 +54,20 @@ typedef NS_ENUM(NSInteger, MsgSource) {
 
 @end
 
+
+
+
+///消息列表界面  用于MsgViewController展示的消息
+
+@interface ListMsgModel : NSObject
+
+///聊天对方id
+@property (nonatomic, assign) int peerId;
+@property (nonatomic, strong) MsgModel *lastestMsg;
+
+- (NSInteger)unreadMsgCount;
+
+@end
 
 
 

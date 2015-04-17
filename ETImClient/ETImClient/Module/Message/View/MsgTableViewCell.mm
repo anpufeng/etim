@@ -45,37 +45,14 @@
     // Configure the view for the selected state
 }
 
-- (void)update:(NSMutableDictionary *)msg {
-    /**
-     unread = {
-     oneMsg {
-     fromId->    fromId,
-     msgs->   {MsgModel, MsgModel, MsgModel}
-     }
-     
-     oneMsg {
-     ....
-     }
-     }
-     */
-
-    NSMutableArray *msgs = [msg objectForKey:@"msgs"];
-    MsgModel *lastMsg = [msgs lastObject];
-    
-    /*
-    if (buddy.status == kBuddyOnline) {
-        _iconImgView.image = [UIImage imageNamed:@"login_avatar_default"];
-    } else {
-        _iconImgView.image = [[UIImage imageNamed:@"login_avatar_default"] grayImage];
-    }
-     */
+- (void)update:(ListMsgModel *)listMsg {
     
     _iconImgView.image = [UIImage imageNamed:@"login_avatar_default"];
     
-    _nameLabel.text = [NSString stringWithFormat:@"%@", lastMsg.source == kMsgSourceOther ? lastMsg.fromName : lastMsg.toName]; ;
-    _descLabel.text = lastMsg.text;
+    _nameLabel.text = [NSString stringWithFormat:@"%@", listMsg.lastestMsg.source == kMsgSourceOther ? listMsg.lastestMsg.fromName : listMsg.lastestMsg.toName]; ;
+    _descLabel.text = listMsg.lastestMsg.text;
     _badgeLabel.textColor = [UIColor redColor];
-    _badgeLabel.text = [NSString stringWithFormat:@"%ld", [msgs count]];
+    _badgeLabel.text = [NSString stringWithFormat:@"%ld", [listMsg unreadMsgCount]];
 }
 
 @end
