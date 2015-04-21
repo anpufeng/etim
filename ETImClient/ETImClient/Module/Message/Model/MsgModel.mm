@@ -70,10 +70,34 @@ using namespace etim;
     return self;
 }
 
+- (id)initWithToId:(int)toId toName:(NSString *)toName text:(NSString *)text uuid:(NSString *)uuid {
+    if ([self init]) {
+        /*
+        BuddyModel *user = [[Client sharedInstance] user];
+        self.msgId = [text hash];
+        self.fromId = user.userId;
+        self.toId = toBuddy.userId;
+        self.fromName = user.username;
+        self.toName = user.username;
+        self.text = text;
+        ///TODO时间处理
+        //self.requestTime =
+        ///self.sendTime =
+        
+        self.showTime = YES;
+        self.source = kMsgSourceSelf;
+        self.sentStatus = kMsgUnsent;
+         */
+    }
+    
+    return self;
+}
+
 - (NSDate *)sendDate {
     if (!_sendDate) {
         //NSDateFormatter
         //_sendDate =
+
     }
     
     return _sendDate;
@@ -105,6 +129,14 @@ using namespace etim;
 }
 @end
 
+
+@implementation ListMsgModel
+
+- (NSInteger)unreadMsgCount {
+    return 10;
+}
+
+@end
 
 #define timeH 30
 #define padding 10

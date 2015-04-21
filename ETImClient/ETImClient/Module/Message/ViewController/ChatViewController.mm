@@ -12,6 +12,7 @@
 #import "BuddyModel.h"
 #import "MsgModel.h"
 #import "ReceivedManager.h"
+#import "DBManager.h"
 
 #include "Client.h"
 #include "Singleton.h"
@@ -33,7 +34,6 @@ using namespace std;
 @property (nonatomic, strong) NSMutableArray *chatList;
 //存储发送消息对应的行
 @property (nonatomic, strong) NSMutableDictionary *sentDic;
-@property (nonatomic, strong) BuddyModel *user;
 @property (nonatomic, assign) int toId;
 @property (nonatomic, copy) NSString *toName;
 //所有CELL高度和 避免一开始会话少时键盘上移
@@ -47,27 +47,17 @@ using namespace std;
      [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
-- (id)initWithMsgs:(NSMutableArray *)msgs toId:(int)to toName:(NSString *)name {
+- (id)initWithListMsg:(ListMsgModel *)listMsg {
     if (self = [super init]) {
-        /**
-         unread = {
-         oneMsg {
-         fromId->    fromId,
-         msgs->   {MsgModel, MsgModel, MsgModel}
-         }
-         
-         oneMsg {
-         ....
-         }
-         }
-         */
-        self.toId = 0;
+        self.toId = listMsg.peerId;
         self.chatList = [NSMutableArray array];
-        self.user =  [Client sharedInstance].user;
+        self.chatList = [NSMutableArray array];
         self.sentDic = [NSMutableDictionary dictionary];
-        self.toId = to;
-        self.toName = name;
+//        self.toName = name;
+        self.toName = @"toname";
         self.totalCellHeight = 0;
+        
+        NSMutableArray *msgs = [[DBManager sharedInstance] recentMsgs:listMsg.peerId];
         
         for (MsgModel *model in msgs) {
             ChatCellFrame *lastFrame = [self.chatList lastObject];
@@ -80,7 +70,7 @@ using namespace std;
             self.totalCellHeight = self.totalCellHeight + cellFrame.cellHeight;
         }
         
-    
+        
         
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(notiToSendMsg:)
@@ -90,7 +80,6 @@ using namespace std;
                                                  selector:@selector(notiToPushSendMsg:)
                                                      name:notiNameFromCmd(PUSH_SEND_MSG)
                                                    object:nil];
-
     }
     
     return self;
@@ -252,8 +241,8 @@ using namespace std;
     //2.创建一个MessageModel类
     MsgModel *message = [[MsgModel alloc] init];
     message.text = textField.text;
-    message.fromId = self.user.userId;
-    message.fromName = self.user.username;
+    message.fromId = [[[Client sharedInstance] user] userId];
+    message.fromName = [[[Client sharedInstance] user] username];
     message.toId = self.toId;
     message.toName = self.toName;
     message.requestTime = locationString;
@@ -279,10 +268,12 @@ using namespace std;
     [self.sentDic  setObject:lastPath forKey:uuid];
     etim::Session *sess = [[Client sharedInstance] session];
     NSMutableDictionary *param = [NSMutableDictionary dictionary];
-    [param setObject:[NSString stringWithFormat:@"%d", self.user.userId] forKey:@"from"];
+    [param setObject:[NSString stringWithFormat:@"%d", [[[Client sharedInstance] user] userId]] forKey:@"from"];
     [param setObject:[NSString stringWithFormat:@"%d", self.toId] forKey:@"to"];
     [param setObject:textField.text forKey:@"text"];
     [param setObject:uuid forKey:@"uuid"];
+    
+    //MsgModel *msg = [MsgModel alloc] initWithToBuddy:<#(BuddyModel *)#> text:<#(NSString *)#>
     
     [[Client sharedInstance] doAction:*sess cmd:CMD_SEND_MSG param:param];
     
