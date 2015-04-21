@@ -72,11 +72,16 @@ using namespace etim;
 
 - (NSDate *)sendDate {
     if (!_sendDate) {
-        NSDateFormatter
-        _sendDate =
+        //NSDateFormatter
+        //_sendDate =
     }
     
     return _sendDate;
+}
+
+- (NSString *)msgKey {
+    int myId = [Client sharedInstance].user.userId;
+    return self.fromId == myId ? [NSNUM_WITH_INT(self.toId) stringValue] : [NSNUM_WITH_INT(self.fromId) stringValue];
 }
 
 

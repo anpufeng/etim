@@ -50,6 +50,9 @@ typedef NS_ENUM(NSInteger, MsgSource) {
 ///自己发出的消息
 - (id)initWithToBuddy:(BuddyModel *)toBuddy text:(NSString *)text;
 
+///以聊天对方ID作为key
+- (NSString *)msgKey;
+
 + (NSMutableArray *)msgs:(const std::list<etim::IMMsg> &)msgs;
 
 @end

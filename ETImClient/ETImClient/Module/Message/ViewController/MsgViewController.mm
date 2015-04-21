@@ -163,8 +163,7 @@ using namespace std;
         //BOOL exist = NO;
         int myId = [Client sharedInstance].user.userId;
         MsgModel *msg = unread[i];
-        NSString *msgKey = msg.fromId == myId ? [NSNUM_WITH_INT(msg.toId) stringValue] : [NSNUM_WITH_INT(msg.fromId) stringValue];
-        ListMsgModel *listMsg = self.msgDic[msgKey];
+        ListMsgModel *listMsg = self.msgDic[[msg msgKey]];
         if (listMsg) {
             ///消息中已经存在与此用户聊天的记录
             listMsg.lastestMsg = msg;
@@ -189,9 +188,8 @@ using namespace std;
             [[TWMessageBarManager sharedInstance] showMessageWithTitle:@"接收消息失败" description:stdStrToNsStr(sess->GetErrorMsg()) type:TWMessageBarMessageTypeError];
         } else {
             MsgModel *newMsg = [[ReceivedManager sharedInstance] receivedMsg];
-            int myId = [Client sharedInstance].user.userId;
-            NSString *msgKey = newMsg.fromId == myId ? [NSNUM_WITH_INT(newMsg.toId) stringValue] : [NSNUM_WITH_INT(newMsg.fromId) stringValue];
-            ListMsgModel *listMsg = self.msgDic[msgKey];
+            int myId = [Client sharedInstance].user.userId;;
+            ListMsgModel *listMsg = self.msgDic[[newMsg msgKey]];
             if (listMsg) {
                 ///消息中已经存在与此用户聊天的记录
                 listMsg.lastestMsg = newMsg;
