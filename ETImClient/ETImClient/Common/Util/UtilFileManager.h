@@ -12,5 +12,11 @@
 
 @interface UtilFileManager : NSObject
 
++ (BOOL)fileExist:(NSString *)path;
++ (BOOL)createDir:(NSString *)dir;
++ (BOOL)deleteDir:(NSString *)dir;
++ (NSString *)documentDir;
++ (NSString *)cachesDir;
++ (NSString *)tmpDir;
 
 @end

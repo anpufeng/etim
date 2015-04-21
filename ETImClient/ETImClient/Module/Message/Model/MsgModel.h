@@ -48,7 +48,7 @@ typedef NS_ENUM(NSInteger, MsgSource) {
 - (id)initWithMsg:(etim::IMMsg)msg;
 
 ///自己发出的消息
-- (id)initWithToBuddy:(BuddyModel *)toBuddy text:(NSString *)text;
+- (id)initWithToId:(int)toId toName:(NSString *)toName text:(NSString *)text uuid:(NSString *)uuid;
 
 + (NSMutableArray *)msgs:(const std::list<etim::IMMsg> &)msgs;
 

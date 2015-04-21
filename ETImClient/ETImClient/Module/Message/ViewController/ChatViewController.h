@@ -8,10 +8,13 @@
 
 #import "BackViewController.h"
 
+@class ListMsgModel;
+
 ///聊天界面 
 
 @interface ChatViewController : BackViewController <UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate>
 
-- (id)initWithMsgs:(NSMutableArray *)msgs toId:(int)to toName:(NSString *)name;
+- (id)initWithListMsg:(ListMsgModel *)listMsg;
+
 
 @end

@@ -13,6 +13,7 @@
 #import "BuddyModel.h"
 #import "ReceivedManager.h"
 #import "MsgTableViewCell.h"
+#import "DBManager.h"
 
 #include "Client.h"
 #include "Singleton.h"
@@ -124,14 +125,9 @@ using namespace std;
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 
-    
     NSString *key = self.peerIdArr[indexPath.row];
     ListMsgModel *listMsg = [self.msgDic objectForKey:key];
-    MsgModel *msg = [[dic objectForKey:@"msgs"] lastObject];
-    int toId = msg.source == kMsgSourceOther ? msg.fromId : msg.toId;
-    NSString *toName = msg.source == kMsgSourceOther ? msg.fromName : msg.toName;
-    
-    ChatViewController *vc = [[ChatViewController alloc] initWithMsgs:[dic objectForKey:@"msgs"] toId:toId toName:toName];
+    ChatViewController *vc = [[ChatViewController alloc] initWithListMsg:listMsg];
     [self.navigationController pushViewController:vc animated:YES];
 }
 
@@ -143,18 +139,6 @@ using namespace std;
 }
 
 - (void)notiToRetrieveUnreadMsg:(NSNotification *)noti {
-    /**
-     unread = {
-        oneMsg {
-            fromId->    fromId,
-            msgs->   {MsgModel, MsgModel, MsgModel}
-        }
-     
-        oneMsg {
-            ....
-        }
-     }
-     */
     [self.refreshControl endRefreshing];
     etim::Session *sess = [[Client sharedInstance] session];
     NSMutableArray *unread = [[ReceivedManager sharedInstance] unreadMsgArr];
@@ -169,13 +153,16 @@ using namespace std;
             ///消息中已经存在与此用户聊天的记录
             listMsg.lastestMsg = msg;
         } else {
+            listMsg = [[ListMsgModel alloc] init];
             listMsg.lastestMsg = msg;
-            listMsg.peerId = (msg.fromId == myId ? msg.toId : msg.fromId);
-            [self.msgDic setObject:listMsg forKey:NSNUM_WITH_INT(listMsg.peerId)];
+            listMsg.peerId = [msgKey intValue];
+            [self.msgDic setObject:listMsg forKey:msgKey];
         }
         
         ///TODO 未读及存储消息记录
     }
+    
+    [[DBManager sharedInstance] insertMsgs:unread];
     
     [self.tableView reloadData];
 }
@@ -196,10 +183,13 @@ using namespace std;
                 ///消息中已经存在与此用户聊天的记录
                 listMsg.lastestMsg = newMsg;
             } else {
+                listMsg = [[ListMsgModel alloc] init];
                 listMsg.lastestMsg = newMsg;
-                listMsg.peerId = (newMsg.fromId == myId ? newMsg.toId : newMsg.fromId);
-                [self.msgDic setObject:listMsg forKey:NSNUM_WITH_INT(listMsg.peerId)];
+                listMsg.peerId = [msgKey intValue];
+                [self.msgDic setObject:listMsg forKey:msgKey];
             }
+            
+            [[DBManager sharedInstance] insertOneMsg:newMsg];
         }
         
         [self.tableView reloadData];
@@ -208,10 +198,11 @@ using namespace std;
     }
 }
 
-
+///直接给某人发送消息
 - (void)notiToJumpToChat:(NSNotification *)noti {
     BuddyModel *user = (BuddyModel *)noti.object;
-    ChatViewController *vc = [[ChatViewController alloc] initWithMsgs:[NSMutableArray array] toId:user.userId toName:user.username];
+    ListMsgModel *model = self.msgDic[[NSNUM_WITH_INT(user.userId) stringValue]];
+    ChatViewController *vc = [[ChatViewController alloc] initWithListMsg:model];
     [self.navigationController pushViewController:vc animated:YES];
 }
 
