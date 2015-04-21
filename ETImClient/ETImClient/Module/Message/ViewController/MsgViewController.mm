@@ -145,19 +145,8 @@ using namespace std;
     
     for (int i = 0; i < [unread count]; i++) {
         //BOOL exist = NO;
-        int myId = [Client sharedInstance].user.userId;
         MsgModel *msg = unread[i];
-        ListMsgModel *listMsg = self.msgDic[[msg msgKey]];
-        if (listMsg) {
-            ///消息中已经存在与此用户聊天的记录
-            listMsg.lastestMsg = msg;
-        } else {
-            listMsg = [[ListMsgModel alloc] init];
-            listMsg.lastestMsg = msg;
-            listMsg.peerId = [msgKey intValue];
-            [self.msgDic setObject:listMsg forKey:msgKey];
-        }
-        
+        [self handleReceivedMsg:msg];
         ///TODO 未读及存储消息记录
     }
     
@@ -175,18 +164,7 @@ using namespace std;
             [[TWMessageBarManager sharedInstance] showMessageWithTitle:@"接收消息失败" description:stdStrToNsStr(sess->GetErrorMsg()) type:TWMessageBarMessageTypeError];
         } else {
             MsgModel *newMsg = [[ReceivedManager sharedInstance] receivedMsg];
-            int myId = [Client sharedInstance].user.userId;;
-            ListMsgModel *listMsg = self.msgDic[[newMsg msgKey]];
-            if (listMsg) {
-                ///消息中已经存在与此用户聊天的记录
-                listMsg.lastestMsg = newMsg;
-            } else {
-                listMsg = [[ListMsgModel alloc] init];
-                listMsg.lastestMsg = newMsg;
-                listMsg.peerId = [msgKey intValue];
-                [self.msgDic setObject:listMsg forKey:msgKey];
-            }
-            
+            [self handleReceivedMsg:newMsg];
             [[DBManager sharedInstance] insertOneMsg:newMsg];
         }
         
@@ -194,6 +172,20 @@ using namespace std;
     } else {
         [[TWMessageBarManager sharedInstance] showMessageWithTitle:@"接收消息错误" description:@"未知错误" type:TWMessageBarMessageTypeError];
     }
+}
+
+- (void)handleReceivedMsg:(MsgModel *)msg {
+    ListMsgModel *listMsg = self.msgDic[[msg msgKey]];
+    if (listMsg) {
+        ///消息中已经存在与此用户聊天的记录
+        listMsg.lastestMsg = msg;
+    } else {
+        listMsg = [[ListMsgModel alloc] init];
+        listMsg.lastestMsg = msg;
+        listMsg.peerId = [[msg msgKey] intValue];
+        [self.msgDic setObject:listMsg forKey:[msg msgKey]];
+    }
+
 }
 
 ///直接给某人发送消息
