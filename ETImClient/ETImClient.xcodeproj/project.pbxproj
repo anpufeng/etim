@@ -102,6 +102,7 @@
 		0DA1AB771AA1C36C002DED6E /* WUNSTimerProxyTarget.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DA1AB731AA1C36C002DED6E /* WUNSTimerProxyTarget.m */; };
 		0DA1AB781AA1C36C002DED6E /* WUNSTimerTargetLifecycleTracker.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DA1AB751AA1C36C002DED6E /* WUNSTimerTargetLifecycleTracker.m */; };
 		0DA4815B1ACBCF4E00F97A7D /* ReceivedManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0DA4815A1ACBCF4E00F97A7D /* ReceivedManager.mm */; };
+		0DAC0CBC1AE74E3600437DEE /* NSDate+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DAC0CBB1AE74E3600437DEE /* NSDate+Additions.m */; };
 		0DD44A091AE1243700BA67DF /* DBManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0DD44A081AE1243700BA67DF /* DBManager.mm */; };
 		0DD44A2D1AE5E5B300BA67DF /* FMDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DD44A231AE5E5B300BA67DF /* FMDatabase.m */; };
 		0DD44A2E1AE5E5B300BA67DF /* FMDatabaseAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DD44A251AE5E5B300BA67DF /* FMDatabaseAdditions.m */; };
@@ -397,6 +398,8 @@
 		0DA1AB751AA1C36C002DED6E /* WUNSTimerTargetLifecycleTracker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WUNSTimerTargetLifecycleTracker.m; sourceTree = "<group>"; };
 		0DA481591ACBCF4E00F97A7D /* ReceivedManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReceivedManager.h; sourceTree = "<group>"; };
 		0DA4815A1ACBCF4E00F97A7D /* ReceivedManager.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ReceivedManager.mm; sourceTree = "<group>"; };
+		0DAC0CBA1AE74E3600437DEE /* NSDate+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+Additions.h"; sourceTree = "<group>"; };
+		0DAC0CBB1AE74E3600437DEE /* NSDate+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+Additions.m"; sourceTree = "<group>"; };
 		0DD44A071AE1243700BA67DF /* DBManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DBManager.h; sourceTree = "<group>"; };
 		0DD44A081AE1243700BA67DF /* DBManager.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = DBManager.mm; sourceTree = "<group>"; };
 		0DD44A221AE5E5B300BA67DF /* FMDatabase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabase.h; sourceTree = "<group>"; };
@@ -917,6 +920,8 @@
 				0D81344C1AC52F7300FE28CF /* UIImage+Additions.m */,
 				0D81349E1AC531CF00FE28CF /* UIView+Additions.h */,
 				0D81349F1AC531CF00FE28CF /* UIView+Additions.m */,
+				0DAC0CBA1AE74E3600437DEE /* NSDate+Additions.h */,
+				0DAC0CBB1AE74E3600437DEE /* NSDate+Additions.m */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
@@ -1429,6 +1434,7 @@
 				0DD44A311AE5E5B300BA67DF /* FMResultSet.m in Sources */,
 				0D8133E71AC52DF300FE28CF /* ActionManager.cpp in Sources */,
 				0D81344D1AC52F7300FE28CF /* Constants.m in Sources */,
+				0DAC0CBC1AE74E3600437DEE /* NSDate+Additions.m in Sources */,
 				0D8133EA1AC52DF300FE28CF /* Session.mm in Sources */,
 				0D8133E31AC52DF300FE28CF /* RetrieveBuddy.mm in Sources */,
 				AABF3CC3198636C0001C8DCA /* AppDelegate.mm in Sources */,

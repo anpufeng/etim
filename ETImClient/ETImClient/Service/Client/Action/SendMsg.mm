@@ -13,8 +13,10 @@
 #include "Idea.h"
 #include "DataStruct.h"
 
+
 #import "ReceivedManager.h"
 #import "MsgModel.h"
+#import "Client.h"
 
 using namespace etim;
 using namespace etim::action;
@@ -62,6 +64,12 @@ void SendMsg::DoRecv(etim::Session &s) {
         string uuid;
         jis>>msgId;
         jis>>uuid;
+        
+        SendMsgReturn send;
+        send.msgId = msgId;
+        send.uuid = [stdStrToNsStr(uuid) intValue];
+        
+        [[ReceivedManager sharedInstance] setSendMsgReturn:send];
     }
     s.SetErrorCode(error_code);
 	s.SetErrorMsg(error_msg);

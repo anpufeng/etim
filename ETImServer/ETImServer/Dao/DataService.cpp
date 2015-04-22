@@ -651,7 +651,7 @@ int DataService::RetrieveUnreadMsg(const std::string &userId, std::list<IMMsg> &
             " on r.req_id = f.req_id"<<
             " where u_t.user_id = "<<userId<<
             " or u_f.user_id = "<<userId<<
-            " order by m.req_time limit 10;";
+            " order by m.msg_id desc limit 10;";
             rs = db.QuerySQL(ss.str().c_str());
             if (rs.GetRows() < 1) {
                 return kErrCode06;
@@ -669,7 +669,7 @@ int DataService::RetrieveUnreadMsg(const std::string &userId, std::list<IMMsg> &
             msg.requestTime = rs.GetItem(i, "m.req_time");
             msg.sendTime = rs.GetItem(i, "m.send_time");
             
-            result.push_back(msg);
+            result.push_front(msg);
         }
         
         //更新状态

@@ -7,23 +7,33 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "ReceivedManager.h"
 
 @class MsgModel;
+
 
 @interface DBManager : NSObject
 
 +(DBManager*)sharedInstance;
 
-- (BOOL)insertOneMsg:(MsgModel *)msg;
+/**
+ @info 插入一条消息
+ @fromServer bool 消息是从服务器来的 还是本地的
+ **/
+- (BOOL)insertOneMsg:(MsgModel *)msg fromServer:(BOOL)fromServer msgId:(int *)msgId;
 - (BOOL)insertMsgs:(NSMutableArray *)msgs;
+- (BOOL)updateLocalMsgStatus:(SendMsgReturn)msgReturn;
 
 /**
- @info 获取最近消息(20条)
+ @info 获取某人最近消息(20条)
  @param msgId 上一条的消息id 默认为0时从最新的取
  @param peerId 对话方的uid
  **/
-- (NSMutableArray *)recentMsgs:(int)msgId peerId:(int)peerId;
+- (NSMutableArray *)peerRecentMsgs:(int)peerId  msgId:(int)msgId;
 
-- (NSMutableArray *)recentMsgs:(int)peerId;
+- (NSMutableArray *)peerRecentMsgs:(int)peerId;
+
+- (NSMutableArray *)allRecentMsgs;
+
 
 @end

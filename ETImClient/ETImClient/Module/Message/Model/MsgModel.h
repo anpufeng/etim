@@ -40,6 +40,7 @@ typedef NS_ENUM(NSInteger, MsgSource) {
 //
 @property (nonatomic, assign) BOOL showTime;
 @property (nonatomic, assign) MsgSource source;
+///是否成功发到服务器
 @property (nonatomic, assign) MsgSentStatus sentStatus;
 
 ///时间戳
@@ -48,10 +49,12 @@ typedef NS_ENUM(NSInteger, MsgSource) {
 - (id)initWithMsg:(etim::IMMsg)msg;
 
 ///自己发出的消息
-- (id)initWithToId:(int)toId toName:(NSString *)toName text:(NSString *)text uuid:(NSString *)uuid;
+- (id)initWithToId:(int)toId toName:(NSString *)toName text:(NSString *)text;
 
 ///以聊天对方ID作为key
 - (NSString *)msgKey;
+///对方姓名
+- (NSString *)peerName;
 
 + (NSMutableArray *)msgs:(const std::list<etim::IMMsg> &)msgs;
 

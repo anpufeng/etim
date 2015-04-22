@@ -53,11 +53,10 @@ using namespace std;
         self.chatList = [NSMutableArray array];
         self.chatList = [NSMutableArray array];
         self.sentDic = [NSMutableDictionary dictionary];
-//        self.toName = name;
-        self.toName = @"toname";
+        self.toName = [listMsg.lastestMsg peerName];
         self.totalCellHeight = 0;
         
-        NSMutableArray *msgs = [[DBManager sharedInstance] recentMsgs:listMsg.peerId];
+        NSMutableArray *msgs = [[DBManager sharedInstance] peerRecentMsgs:listMsg.peerId];
         
         for (MsgModel *model in msgs) {
             ChatCellFrame *lastFrame = [self.chatList lastObject];
@@ -193,8 +192,7 @@ using namespace std;
         if (sess->IsError()) {
             [[TWMessageBarManager sharedInstance] showMessageWithTitle:@"发送消息失败" description:stdStrToNsStr(sess->GetErrorMsg()) type:TWMessageBarMessageTypeError];
         } else {
-            //好友列表成功
-            //self.buddyList = [BuddyModel buddys:sess->GetBuddys()];
+            [[DBManager sharedInstance] updateLocalMsgStatus:[[ReceivedManager sharedInstance] sendMsgReturn]];
         }
     } else {
         [[TWMessageBarManager sharedInstance] showMessageWithTitle:@"发送消息错误" description:@"未知错误" type:TWMessageBarMessageTypeError];
@@ -232,21 +230,10 @@ using namespace std;
 
 - (BOOL)textFieldShouldReturn:(LeftMarginTextField *)textField
 {
-    //1.获得时间
-    NSDate *senddate=[NSDate date];
-    NSDateFormatter *dateformatter=[[NSDateFormatter alloc] init];
-    [dateformatter setDateFormat:@"YYYY-MM-dd hh:mm:ss"];
-    NSString *locationString=[dateformatter stringFromDate:senddate];
-    
+
     //2.创建一个MessageModel类
-    MsgModel *message = [[MsgModel alloc] init];
-    message.text = textField.text;
-    message.fromId = [[[Client sharedInstance] user] userId];
-    message.fromName = [[[Client sharedInstance] user] username];
-    message.toId = self.toId;
-    message.toName = self.toName;
-    message.requestTime = locationString;
-    message.source = kMsgSourceSelf;
+    MsgModel *message = [[MsgModel alloc] initWithToId:self.toId toName:self.toName text:textField.text];
+
     
     //3.创建一个CellFrameModel类
     ChatCellFrame *cellFrame = [[ChatCellFrame alloc] init];
@@ -266,16 +253,19 @@ using namespace std;
     
     NSString *uuid = [NSString uuid];
     [self.sentDic  setObject:lastPath forKey:uuid];
+    int lastId = 0;
+    if ([[DBManager sharedInstance] insertOneMsg:message fromServer:NO msgId:&lastId]) {
+        message.msgId = lastId;
+    }
+    
     etim::Session *sess = [[Client sharedInstance] session];
     NSMutableDictionary *param = [NSMutableDictionary dictionary];
     [param setObject:[NSString stringWithFormat:@"%d", [[[Client sharedInstance] user] userId]] forKey:@"from"];
     [param setObject:[NSString stringWithFormat:@"%d", self.toId] forKey:@"to"];
     [param setObject:textField.text forKey:@"text"];
-    [param setObject:uuid forKey:@"uuid"];
-    
-    //MsgModel *msg = [MsgModel alloc] initWithToBuddy:<#(BuddyModel *)#> text:<#(NSString *)#>
-    
+    [param setObject:[NSNUM_WITH_INT(lastId) stringValue] forKey:@"uuid"];
     [[Client sharedInstance] doAction:*sess cmd:CMD_SEND_MSG param:param];
+
     
     textField.text = @"";
     

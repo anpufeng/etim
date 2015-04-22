@@ -57,6 +57,7 @@
 #define NSNUM_WITH_FLOAT(f)                         ([NSNumber numberWithFloat:(f)])
 #define NSNUM_WITH_DOUBLE(d)                        ([NSNumber numberWithDouble:(d)])
 #define NSNUM_WITH_BOOL(b)                          ([NSNumber numberWithBool:(b)])
+#define NSNUM_WITH_UNSIGNED_INTEGER(u)              ([NSNumber numberWithUnsignedInteger:u])
 #define INT_FROM_NSNUM(n)                           ([(n) intValue])
 #define FLOAT_FROM_NSNUM(n)                         ([(n) floatValue])
 #define BOOL_FROM_NSNUM(n)                          ([(n) boolValue])

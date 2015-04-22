@@ -9,6 +9,7 @@
 #import "MsgModel.h"
 #import "BuddyModel.h"
 #import "ChatTableViewCell.h"
+#import "NSDate+Additions.h"
 
 #import "Client.h"
 
@@ -49,45 +50,26 @@ using namespace etim;
     return self;
 }
 
-- (id)initWithToBuddy:(BuddyModel *)toBuddy text:(NSString *)text {
+
+- (id)initWithToId:(int)toId toName:(NSString *)toName text:(NSString *)text {
     if ([self init]) {
+
         BuddyModel *user = [[Client sharedInstance] user];
         self.msgId = -1;
         self.fromId = user.userId;
-        self.toId = toBuddy.userId;
+        self.toId = toId;
         self.fromName = user.username;
-        self.toName = user.username;
+        self.toName = toName;
         self.text = text;
-        ///TODO时间处理
-        //self.requestTime =
-        ///self.sendTime =
+        self.sent = 0;
         
+        self.requestTime = [NSDate dateStr:[NSDate date] type:DateFormatTypeLong];
+        self.sendTime = self.requestTime;
+        
+//        self.msgId = (int)[self hash];
         self.showTime = YES;
         self.source = kMsgSourceSelf;
         self.sentStatus = kMsgUnsent;
-    }
-    
-    return self;
-}
-
-- (id)initWithToId:(int)toId toName:(NSString *)toName text:(NSString *)text uuid:(NSString *)uuid {
-    if ([self init]) {
-        /*
-        BuddyModel *user = [[Client sharedInstance] user];
-        self.msgId = [text hash];
-        self.fromId = user.userId;
-        self.toId = toBuddy.userId;
-        self.fromName = user.username;
-        self.toName = user.username;
-        self.text = text;
-        ///TODO时间处理
-        //self.requestTime =
-        ///self.sendTime =
-        
-        self.showTime = YES;
-        self.source = kMsgSourceSelf;
-        self.sentStatus = kMsgUnsent;
-         */
     }
     
     return self;
@@ -108,6 +90,11 @@ using namespace etim;
     return self.fromId == myId ? [NSNUM_WITH_INT(self.toId) stringValue] : [NSNUM_WITH_INT(self.fromId) stringValue];
 }
 
+- (NSString *)peerName {
+    int myId = [Client sharedInstance].user.userId;
+     return self.fromId == myId ? self.toName : self.fromName;
+}
+
 
 + (NSMutableArray *)msgs:(const std::list<etim::IMMsg> &)msgs {
     NSMutableArray *result = [NSMutableArray array];
@@ -118,6 +105,13 @@ using namespace etim;
     }
     
     return result;
+}
+
+- (NSUInteger)hash {
+    ///toId-2015-04-16 09:41:42-text
+    NSString *str = [NSString stringWithFormat:@"%@-%@-%@", [self msgKey], self.requestTime, self.text];
+    
+    return [str hash];
 }
 
 - (NSString *)description {

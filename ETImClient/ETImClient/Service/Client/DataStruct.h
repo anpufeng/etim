@@ -32,7 +32,7 @@ enum BuddyRequestStatus {
 };
 
 enum MsgSentStatus {
-    kMsgUnsent,                 //用户信息未发出
+    kMsgUnsent = 0,                 //用户信息未发出
     kMsgSent                    //用户信息已发出
 };
 

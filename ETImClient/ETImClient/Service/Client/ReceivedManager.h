@@ -8,6 +8,12 @@
 
 #import <Foundation/Foundation.h>
 
+struct SendMsgReturn {
+    int msgId;
+    int uuid;
+};
+typedef struct SendMsgReturn SendMsgReturn;
+
 @class BuddyModel;
 @class RequestModel;
 @class MsgModel;
@@ -41,6 +47,8 @@
 @property (nonatomic, strong) NSMutableArray *unreadMsgArr;
 ///收到一条消息
 @property (nonatomic, strong) MsgModel *receivedMsg;
+
+@property (nonatomic, assign) SendMsgReturn sendMsgReturn;
 
 
 

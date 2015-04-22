@@ -31,7 +31,7 @@ using namespace etim::pub;
 using namespace std;
 
 @interface BuddyViewController () {
-    FBKVOController *_kvoController;
+    FBKVOController *_fbKVO;
 }
 
 @property (nonatomic, strong) NSMutableArray *buddyList;
@@ -77,8 +77,8 @@ using namespace std;
                                                  selector:@selector(notiToPushRequestAddBuddy:)
                                                      name:notiNameFromCmd(PUSH_REQUEST_ADD_BUDDY)
                                                    object:nil];
-        _kvoController = [FBKVOController controllerWithObserver:self];
-        [_kvoController observe:self keyPath:@"buddyList" options:NSKeyValueObservingOptionNew block:^(id observer, id object, NSDictionary *change) {
+        _fbKVO = [[FBKVOController alloc] initWithObserver:self retainObserved:NO];
+        [_fbKVO observe:self keyPath:@"buddyList" options:NSKeyValueObservingOptionNew block:^(id observer, id object, NSDictionary *change) {
             if ([self.buddyList count]) {
                 self.tableView.backgroundView = nil;
             } else {
@@ -88,11 +88,11 @@ using namespace std;
 
         }];
         
-        [_kvoController observe:self keyPath:@"reqBuddyList" options:NSKeyValueObservingOptionNew block:^(id observer, id object, NSDictionary *change) {
+        [_fbKVO observe:self keyPath:@"reqBuddyList" options:NSKeyValueObservingOptionNew block:^(id observer, id object, NSDictionary *change) {
             BuddyTableHeaderView *headerView = (BuddyTableHeaderView *)self.tableView.tableHeaderView;
             BadgeButton *badgeBtn = (BadgeButton *)[headerView viewWithTag:BuddyViewMenuNewFriend];
             if ([self.reqBuddyList count]) {
-                [badgeBtn setBadge:[NSString stringWithFormat:@"%d", self.reqBuddyList.count]];
+                [badgeBtn setBadge:[NSString stringWithFormat:@"%lu", (unsigned long)self.reqBuddyList.count]];
             } else {
                 [badgeBtn setBadge:@"0"];
             }

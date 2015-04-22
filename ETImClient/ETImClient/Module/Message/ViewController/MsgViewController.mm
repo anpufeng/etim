@@ -165,7 +165,7 @@ using namespace std;
         } else {
             MsgModel *newMsg = [[ReceivedManager sharedInstance] receivedMsg];
             [self handleReceivedMsg:newMsg];
-            [[DBManager sharedInstance] insertOneMsg:newMsg];
+            [[DBManager sharedInstance] insertOneMsg:newMsg fromServer:YES msgId:NULL];
         }
         
         [self.tableView reloadData];

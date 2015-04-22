@@ -46,7 +46,7 @@ using namespace etim::pub;
         }
         
         
-        _fbKVO = [FBKVOController controllerWithObserver:self];
+        _fbKVO = [[FBKVOController alloc] initWithObserver:self retainObserved:NO];
         [_fbKVO observe:self.user keyPath:@"relation" options:NSKeyValueObservingOptionNew block:^(id observer, id object, NSDictionary *change) {
             DDLogInfo(@"observer *********");
         }];
