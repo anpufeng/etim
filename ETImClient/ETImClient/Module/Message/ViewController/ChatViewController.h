@@ -9,12 +9,13 @@
 #import "BackViewController.h"
 
 @class ListMsgModel;
+@class BuddyModel;
 
 ///聊天界面 
 
 @interface ChatViewController : BackViewController <UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate>
 
+- (id)initWithUser:(BuddyModel *)user;
 - (id)initWithListMsg:(ListMsgModel *)listMsg;
-
 
 @end

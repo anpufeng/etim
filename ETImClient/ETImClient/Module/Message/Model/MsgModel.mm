@@ -115,10 +115,12 @@ using namespace etim;
 }
 
 - (NSString *)description {
-    return [NSString stringWithFormat:@"消息id: %06d, 从用户 %d  名字:%@, 发送时间: %@",
+    return [NSString stringWithFormat:@"消息id: %06d, 从用户 %d  名字:%@, 到用户:%d, 名字: %@ 发送时间: %@",
             self.msgId,
             self.fromId,
             self.fromName,
+            self.toId,
+            self.toName,
             self.requestTime];
 }
 @end

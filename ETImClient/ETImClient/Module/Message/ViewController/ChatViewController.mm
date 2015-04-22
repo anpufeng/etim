@@ -11,6 +11,7 @@
 #import "LeftMarginTextField.h"
 #import "BuddyModel.h"
 #import "MsgModel.h"
+#import "BuddyModel.h"
 #import "ReceivedManager.h"
 #import "DBManager.h"
 
@@ -47,41 +48,55 @@ using namespace std;
      [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
-- (id)initWithListMsg:(ListMsgModel *)listMsg {
+- (id)initWithUser:(BuddyModel *)user {
     if (self = [super init]) {
-        self.toId = listMsg.peerId;
-        self.chatList = [NSMutableArray array];
-        self.chatList = [NSMutableArray array];
-        self.sentDic = [NSMutableDictionary dictionary];
-        self.toName = [listMsg.lastestMsg peerName];
-        self.totalCellHeight = 0;
+        self.toId = user.userId;
+        self.toName = user.username;
         
-        NSMutableArray *msgs = [[DBManager sharedInstance] peerRecentMsgs:listMsg.peerId];
-        
-        for (MsgModel *model in msgs) {
-            ChatCellFrame *lastFrame = [self.chatList lastObject];
-            ChatCellFrame *cellFrame = [[ChatCellFrame alloc] init];
-            model.showTime = ![model.requestTime isEqualToString:lastFrame.message.requestTime];
-            //暂时写死
-            model.showTime = YES;
-            cellFrame.message = model;
-            [self.chatList addObject:cellFrame];
-            self.totalCellHeight = self.totalCellHeight + cellFrame.cellHeight;
-        }
-        
-        
-        
-        [[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(notiToSendMsg:)
-                                                     name:notiNameFromCmd(CMD_SEND_MSG)
-                                                   object:nil];
-        [[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(notiToPushSendMsg:)
-                                                     name:notiNameFromCmd(PUSH_SEND_MSG)
-                                                   object:nil];
+        [self initWithPeerId:self.toId];
     }
     
     return self;
+}
+
+- (id)initWithListMsg:(ListMsgModel *)listMsg {
+    if (self = [super init]) {
+        self.toId = [listMsg peerId];
+        self.toName = [listMsg.lastestMsg peerName];
+        
+        [self initWithPeerId:self.toId];
+    }
+    
+    return self;
+}
+
+- (void)initWithPeerId:(int)peerId {
+    self.totalCellHeight = 0;
+    self.chatList = [NSMutableArray array];
+    self.sentDic = [NSMutableDictionary dictionary];
+    NSMutableArray *msgs = [[DBManager sharedInstance] peerRecentMsgs:peerId];
+    
+    for (MsgModel *model in msgs) {
+        ChatCellFrame *lastFrame = [self.chatList lastObject];
+        ChatCellFrame *cellFrame = [[ChatCellFrame alloc] init];
+        model.showTime = ![model.requestTime isEqualToString:lastFrame.message.requestTime];
+        //暂时写死
+        model.showTime = YES;
+        cellFrame.message = model;
+        [self.chatList addObject:cellFrame];
+        self.totalCellHeight = self.totalCellHeight + cellFrame.cellHeight;
+    }
+    
+    
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(notiToSendMsg:)
+                                                 name:notiNameFromCmd(CMD_SEND_MSG)
+                                               object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(notiToPushSendMsg:)
+                                                 name:notiNameFromCmd(PUSH_SEND_MSG)
+                                               object:nil];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
