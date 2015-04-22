@@ -191,8 +191,7 @@ using namespace std;
 ///直接给某人发送消息
 - (void)notiToJumpToChat:(NSNotification *)noti {
     BuddyModel *user = (BuddyModel *)noti.object;
-    ListMsgModel *model = self.msgDic[[NSNUM_WITH_INT(user.userId) stringValue]];
-    ChatViewController *vc = [[ChatViewController alloc] initWithListMsg:model];
+    ChatViewController *vc = [[ChatViewController alloc] initWithUser:user];
     [self.navigationController pushViewController:vc animated:YES];
 }
 
