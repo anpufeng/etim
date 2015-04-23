@@ -223,19 +223,22 @@ static dispatch_once_t predicate;
 
 - (NSMutableArray *)peerRecentMsgs:(int)peerId  msgId:(int)msgId {
     NSString *sql;
+    int limit = 20;
     if (msgId == 0) {
-        sql = [NSString stringWithFormat:@"SELECT * FROM %@ m LEFT JOIN user u ON u.user_id = '%@' WHERE m.msg_from = %@ or m.msg_to = %@ ORDER BY req_time asc limit 20",
+        sql = [NSString stringWithFormat:@"SELECT * FROM (SELECT * FROM %@ m LEFT JOIN user u ON u.user_id = '%@' WHERE m.msg_from = %@ or m.msg_to = %@ ORDER BY msg_id DESC limit %d) ORDER BY req_time ASC",
                tableMessage,
                NSNUM_WITH_INT(peerId),
                NSNUM_WITH_INT(peerId),
-               NSNUM_WITH_INT(peerId)];
+               NSNUM_WITH_INT(peerId),
+               limit];
     } else {
-        sql = [NSString stringWithFormat:@"SELECT * FROM %@ m  LEFT JOIN user u ON u.user_id = '%@' WHERE (m.msg_from = %@ or m.msg_to = %@) AND msg_id < '%@' ORDER BY req_time asc limit 20",
+        sql = [NSString stringWithFormat:@"SELECT * FROM (SELECT * FROM %@ m  LEFT JOIN user u ON u.user_id = '%@' WHERE (m.msg_from = %@ or m.msg_to = %@) AND msg_id < '%@' ORDER BY  msg_id DESC limit %d)  ORDER BY req_time ASC",
                tableMessage,
                NSNUM_WITH_INT(peerId),
                NSNUM_WITH_INT(peerId),
                NSNUM_WITH_INT(peerId),
-               NSNUM_WITH_INT(msgId)];
+               NSNUM_WITH_INT(msgId),
+               limit];
 
     }
     

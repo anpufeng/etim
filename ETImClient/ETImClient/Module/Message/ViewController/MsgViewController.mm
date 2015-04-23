@@ -70,6 +70,10 @@ using namespace std;
                                                  selector:@selector(notiToPushSendMsg:)
                                                      name:notiNameFromCmd(PUSH_SEND_MSG)
                                                    object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(notiToLogin:)
+                                                     name:notiNameFromCmd(CMD_LOGIN)
+                                                   object:nil];
     }
     
     return self;
@@ -194,6 +198,25 @@ using namespace std;
         [self.tableView reloadData];
     } else {
         [[TWMessageBarManager sharedInstance] showMessageWithTitle:@"接收消息错误" description:@"未知错误" type:TWMessageBarMessageTypeError];
+    }
+}
+
+- (void)notiToLogin:(NSNotification *)noti {
+    [MBProgressHUD hideHUDForView:self.view animated:YES];
+    etim::Session *sess = [[Client sharedInstance] session];
+    if (sess->GetRecvCmd() == CMD_LOGIN) {
+        if (sess->IsError()) {
+            [[TWMessageBarManager sharedInstance] showMessageWithTitle:@"登录错误" description:stdStrToNsStr(sess->GetErrorMsg()) type:TWMessageBarMessageTypeError];
+            [[Client sharedInstance] disconnect];
+            [[Client sharedInstance] reconnect];
+        } else {
+            //登录成功
+            DDLogDebug(@"登录成功 :%@", [[ReceivedManager sharedInstance] loginBuddy]);
+            [[Client sharedInstance] pullUnread];
+        }
+    } else {
+        [[TWMessageBarManager sharedInstance] showMessageWithTitle:@"登录错误" description:@"未知错误" type:TWMessageBarMessageTypeError];
+        [[Client sharedInstance] disconnect];
     }
 }
 

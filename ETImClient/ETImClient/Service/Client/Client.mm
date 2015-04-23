@@ -50,7 +50,7 @@ using namespace std;
 
 
 - (void)connectCallBack:(bool)connected;
-- (void)resetStatus;
+
 
 @end
 
@@ -105,6 +105,7 @@ void clientConnectCallBack(bool connected)  {
                                                    object:nil];
         
         [self resetStatus];
+        self.appActive = YES;
         self.queuedCmdArr = [NSMutableArray arrayWithCapacity:10];
         
         _sendedOpeartionQueue = [[NSOperationQueue alloc] init];
@@ -116,7 +117,7 @@ void clientConnectCallBack(bool connected)  {
 }
 
 - (void)resetStatus {
-    self.appActive = YES;
+    self.appActive = NO;
     self.login = NO;
     self.logout = YES;
     if (_sendedOpeartionQueue) {
@@ -216,8 +217,6 @@ void clientConnectCallBack(bool connected)  {
         _delegate = nil;
         DDLogInfo(@"关闭连接");
     }
-
-    [self resetStatus];
 }
 
 - (void)startReachabilityNoti {
@@ -418,6 +417,7 @@ void clientConnectCallBack(bool connected)  {
     if (self.login) {
         [self autoLogin];
     }
+    
     [self.queuedCmdArr enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
         CmdParamModel *model = (CmdParamModel *)obj;
         SendOperation *operation = [[SendOperation alloc] initWithCmdParamModel:model];
@@ -425,6 +425,7 @@ void clientConnectCallBack(bool connected)  {
         [_sendedOpeartionQueue addOperation:operation];
     }];
     [self.queuedCmdArr removeAllObjects];
+    
 }
 - (void)socketConnectFailure {
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), _connQueue, ^{

@@ -109,6 +109,8 @@ inline std::string nsStrToStdStr(NSString *str) {
 - (void)disconnect;
 - (void)reLogin;
 
+- (void)resetStatus;
+
 @end
 
 

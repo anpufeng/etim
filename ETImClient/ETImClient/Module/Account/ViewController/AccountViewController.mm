@@ -179,6 +179,7 @@ using namespace etim::pub;
             [[TWMessageBarManager sharedInstance] showMessageWithTitle:@"登出错误" description:stdStrToNsStr(sess->GetErrorMsg()) type:TWMessageBarMessageTypeError];
         } else {
             [[Client sharedInstance] disconnect];
+            [[Client sharedInstance] resetStatus];
             [[ReceivedManager sharedInstance] resetData];
             [DBManager destory];
             //登出成功
