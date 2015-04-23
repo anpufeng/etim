@@ -73,7 +73,7 @@ void RetrieveBuddyList::DoRecv(etim::Session &s) {
             int status;
             jis>>user.userId;
             jis>>user.username;
-            jis>>user.regDate;
+            jis>>user.regTime;
             jis>>user.signature;
             jis>>user.gender;
             jis>>rel;
@@ -153,7 +153,7 @@ void RetrievePendingBuddyRequest::DoRecv(etim::Session &s) {
             int status;
             jis>>user.userId;
             jis>>user.username;
-            jis>>user.regDate;
+            jis>>user.regTime;
             jis>>user.signature;
             jis>>user.gender;
             jis>>rel;
@@ -234,7 +234,7 @@ void RetrieveAllBuddyRequest::DoRecv(etim::Session &s) {
             jis>>req.reqId;
             jis>>user.userId;
             jis>>user.username;
-            jis>>user.regDate;
+            jis>>user.regTime;
             jis>>user.signature;
             jis>>user.gender;
             jis>>rel;

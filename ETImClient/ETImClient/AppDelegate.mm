@@ -11,6 +11,7 @@
 #import "BaseNavigationController.h"
 #import "LoginViewController.h"
 #import "Logging.h"
+#import "HMLog.h"
 
 @implementation AppDelegate
 
@@ -20,7 +21,8 @@
     // Override point for customization after application launch.
     self.window.backgroundColor = [UIColor whiteColor];
     
-    [DDLog addLogger:[DDTTYLogger sharedInstance]];
+    HMLog *log = [[HMLog alloc] init];
+    [log start];
     
     [self jumpToLogin:NO];
 

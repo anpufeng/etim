@@ -49,7 +49,7 @@
     
     _iconImgView.image = [UIImage imageNamed:@"login_avatar_default"];
     
-    _nameLabel.text = [NSString stringWithFormat:@"%@", listMsg.lastestMsg.source == kMsgSourceOther ? listMsg.lastestMsg.fromName : listMsg.lastestMsg.toName]; ;
+    _nameLabel.text = [[listMsg lastestMsg] peerName];
     _descLabel.text = listMsg.lastestMsg.text;
     _badgeLabel.textColor = [UIColor redColor];
     _badgeLabel.text = [NSString stringWithFormat:@"%ld", [listMsg unreadMsgCount]];

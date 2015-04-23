@@ -12,11 +12,19 @@
 #import "BuddyModel.h"
 #import "Client.h"
 #import "DataStruct.h"
+#import "NSString+PJR.h"
+
+#include "Client.h"
+
+using namespace etim;
+using namespace etim::pub;
 
 static NSString *const localDbName = @"etim.db";
 static NSString *const tableMessage = @"message";
 static NSString *const tableDraft = @"draft";
 static NSString *const tableUser = @"user";
+static NSString *const userNoSignature = @"暂无签名";
+
 
 @interface DBManager () {
     FMDatabase      *_db;
@@ -28,6 +36,7 @@ static NSString *const tableUser = @"user";
 @implementation DBManager
 
 - (void)dealloc {
+    DDLogDebug(@"======= DBManager DEALLOC ========");
     [_db close];
 }
 
@@ -43,6 +52,13 @@ static dispatch_once_t predicate;
     });
     
     return sharedDBManager;
+}
+
++ (void)destory {
+    if (sharedDBManager) {
+        sharedDBManager = nil;
+        predicate = 0;
+    }
 }
 
 - (id)init {
@@ -76,7 +92,7 @@ static dispatch_once_t predicate;
             NSString *draftSql = [NSString stringWithFormat:@"CREATE TABLE `%@` (`msg_id` integer NOT NULL PRIMARY KEY AUTOINCREMENT, `msg_from` integer NOT NULL, `msg_to` integer NOT NULL, `req_time` Timestamp  NOT NULL DEFAULT CURRENT_TIMESTAMP, `send_time` Timestamp  NOT NULL DEFAULT CURRENT_TIMESTAMP, `sent` integer NOT NULL, `message` text NOT NULL);", tableDraft];
             
             NSString *dropUserSql = [NSString stringWithFormat:@"DROP TABLE IF EXISTS `%@`;", tableUser];
-            NSString *userSql = [NSString stringWithFormat:@"CREATE TABLE `%@` (`user_id` integer NOT NULL PRIMARY KEY AUTOINCREMENT, `username` text NOT NULL, `reg_time` Timestamp  NOT NULL DEFAULT CURRENT_TIMESTAMP, `last_time` Timestamp  NOT NULL DEFAULT CURRENT_TIMESTAMP, `signature` text NOT NULL, `gender` integer NOT NULL, `status_id` integer NOT NULL);", tableUser];
+            NSString *userSql = [NSString stringWithFormat:@"CREATE TABLE `%@` (`user_id` integer NOT NULL PRIMARY KEY AUTOINCREMENT, `username` text NOT NULL, `reg_time` Timestamp  NOT NULL DEFAULT CURRENT_TIMESTAMP, `last_time` Timestamp  NOT NULL DEFAULT CURRENT_TIMESTAMP, `signature` text NOT NULL DEFAULT '%@' , `gender` integer NOT NULL DEFAULT '0', `status_id` integer NOT NULL DEFAULT `%d`);", tableUser, userNoSignature, kBuddyOffline];
             
             [_db executeUpdate:dropMessageSql];
             [_db executeUpdate:messageSql];
@@ -97,45 +113,75 @@ static dispatch_once_t predicate;
 
 - (BOOL)insertOneMsg:(MsgModel *)msg fromServer:(BOOL)fromServer msgId:(int *)msgId {
     ///TODO  解决msg_id与hash的碰撞问题
-    NSString *sql;
-    if (fromServer) {
-        sql = [NSString stringWithFormat:@"INSERT INTO %@ (msg_id, msg_from, msg_to, req_time, send_time, sent, message) values('%@','%@','%@','%@','%@','%@','%@')",
-               tableMessage,
-               NSNUM_WITH_INT(msg.msgId),
-               NSNUM_WITH_INT(msg.fromId),
-               NSNUM_WITH_INT(msg.toId),
-               msg.requestTime,
-               msg.sendTime,
-               @1,
-               msg.text];
+    BOOL result = NO;
+    NSString *sql = [NSString stringWithFormat:@"SELECT msg_id FROM %@ WHERE  msg_id = '%@'",
+                     fromServer ? tableMessage : tableDraft,
+                     NSNUM_WITH_INT(msg.msgId)];
+     FMResultSet *rs = [_db executeQuery:sql];
+    if ([rs next]) {
+        //已存在  执行更新
+        if (fromServer) {
+            ///从SERVER来的更新消息表, 用户表
+            sql = [NSString stringWithFormat:@"UPDATE %@ SET req_time = '%@', send_time = '%@', message = '%@' WHERE msg_id = '%@'",
+                   tableMessage,
+                   msg.requestTime,
+                   msg.sendTime,
+                   msg.text,
+                   NSNUM_WITH_INT(msg.msgId)];
+            [_db executeUpdate:sql];
+            sql = [NSString stringWithFormat:@"UPDATE %@ SET username = %@ WHERE user_id = '%@'",
+                   tableUser,
+                   [msg peerName],
+                   [msg peerIdStr]];
+            [_db executeUpdate:sql];
+        } else {
+            ///更新草稿表
+            sql = [NSString stringWithFormat:@"UPDATE %@ SET req_time = '%@', text = '%@', ", tableDraft, msg.text];
+            [_db executeUpdate:sql];
+        }
     } else {
-        sql = [NSString stringWithFormat:@"INSERT INTO %@ (msg_from, msg_to, req_time, send_time, sent, message) values('%@','%@','%@','%@','%@','%@')",
-               tableDraft,
-               NSNUM_WITH_INT(msg.fromId),
-               NSNUM_WITH_INT(msg.toId),
-               msg.requestTime,
-               msg.sendTime,
-               NSNUM_WITH_INT((int)msg.sentStatus),
-               msg.text];
-    }
-
-
-    BOOL result = [_db executeUpdate:sql];
-    if (!result) {
-        DDLogError(@"insertMsgs error: %@", [_db lastError]);
+        if (fromServer) {
+            sql = [NSString stringWithFormat:@"INSERT INTO %@ (msg_id, msg_from, msg_to, req_time, send_time, sent, message) values('%@','%@','%@','%@','%@','%@','%@')",
+                   tableMessage,
+                   NSNUM_WITH_INT(msg.msgId),
+                   NSNUM_WITH_INT(msg.fromId),
+                   NSNUM_WITH_INT(msg.toId),
+                   msg.requestTime,
+                   msg.sendTime,
+                   @1,
+                   msg.text];
+        } else {
+            sql = [NSString stringWithFormat:@"INSERT INTO %@ (msg_from, msg_to, req_time, send_time, sent, message) values('%@','%@','%@','%@','%@','%@')",
+                   tableDraft,
+                   NSNUM_WITH_INT(msg.fromId),
+                   NSNUM_WITH_INT(msg.toId),
+                   msg.requestTime,
+                   msg.sendTime,
+                   NSNUM_WITH_INT((int)msg.sentStatus),
+                   msg.text];
+        }
+        
+        
+        result = [_db executeUpdate:sql];
+        if (!result) {
+            DDLogError(@"insertMsgs error: %@", [_db lastError]);
+        }
+        
+        if (!fromServer) {
+            *msgId = (int)[_db lastInsertRowId];
+        }
     }
     
-    if (!fromServer) {
-        *msgId = (int)[_db lastInsertRowId];
-    }
+    
     return result;
 }
 - (BOOL)insertMsgs:(NSMutableArray *)msgs {
+    [_db beginTransaction];
     for (MsgModel *msg in msgs) {
         [self insertOneMsg:msg fromServer:YES msgId:NULL];
     }
 
-    return YES;
+    return [_db commit];
 }
 
 - (BOOL)updateLocalMsgStatus:(SendMsgReturn)msgReturn {
@@ -228,15 +274,79 @@ static dispatch_once_t predicate;
     return [self peerRecentMsgs:peerId msgId:0];
 }
 
-
 - (NSMutableArray *)allRecentMsgs {
-    return nil;
+    NSString *sql = [NSString stringWithFormat:@"select max(req_time), m.msg_from, (select u.username from %@ u where m.msg_from = u.user_id) user_from, msg_to, (select u.username from %@ u where m.msg_to = u.user_id) user_to, message, send_time, sent, msg_id from %@ m group by msg_from, msg_to", tableUser, tableUser, tableMessage];
+    
+    NSMutableArray *msgArr = [NSMutableArray array];
+    FMResultSet *rs = [_db executeQuery:sql];
+    while([rs next]){
+        MsgModel *msg = [[MsgModel alloc] init];
+        msg.msgId = [rs intForColumn:@"msg_id"];
+         msg.fromId = [rs intForColumn:@"msg_from"];
+         msg.toId = [rs intForColumn:@"msg_to"];
+        msg.fromName = [rs stringForColumn:@"user_from"];
+        msg.toName = [rs stringForColumn:@"user_to"];
+        msg.text = [rs stringForColumn:@"message"];
+        msg.sent = [rs intForColumn:@"sent"];
+        msg.requestTime = [rs stringForColumn:@"max(req_time)"];
+        msg.sendTime = [rs stringForColumn:@"send_time"];
+        
+        [msgArr addObject:msg];
+    }
+    
+    return msgArr;
 }
+
+- (BOOL)insertOneBuddy:(BuddyModel *)buddy {
+    NSString *sql = [NSString stringWithFormat:@"INSERT OR REPLACE INTO %@ (user_id, username, reg_time, last_time, signature, gender, status_id) VALUES(%d, '%@','%@','%@','%@','%@', '%@')",
+                     tableUser,
+                     buddy.userId,
+                     buddy.username,
+                     [buddy regTime],
+                     @"NULL",
+                     [buddy.signature isValid] ? buddy.signature : userNoSignature,
+                     NSNUM_WITH_INT((int)buddy.gender),
+                     NSNUM_WITH_INT(kBuddyOffline)];
+    
+    
+    BOOL result = [_db executeUpdate:sql];
+    if (!result) {
+        DDLogError(@"insertOneBuddy error: %@", [_db lastError]);
+    }
+    return result;
+}
+- (BOOL)insertBuddys:(NSMutableArray *)buddys {
+    for (BuddyModel *buddy in buddys) {
+        [self insertOneBuddy:buddy];
+    }
+    
+    return YES;
+}
+
+- (NSMutableArray *)allBuddys {
+    NSString *sql = [NSString stringWithFormat:@"SELECT * FROM %@ ", tableUser];
+    NSMutableArray *buddyArr = [NSMutableArray array];
+    FMResultSet *rs = [_db executeQuery:sql];
+    while([rs next]){
+        BuddyModel *buddy = [[BuddyModel alloc] init];
+        buddy.userId = [rs intForColumn:@"user_id"];
+        buddy.username = [rs stringForColumn:@"username"];
+        buddy.regTime = [rs stringForColumn:@"reg_time"];
+         buddy.signature = [rs stringForColumn:@"signature"];
+        buddy.gender = [rs intForColumn:@"gender"];
+        buddy.status = kBuddyOffline;
+    }
+    
+    return buddyArr;
+}
+
 
 #pragma mark - util
 
+///每个用户一个DB目录
 - (NSString *)defaultDbDir  {
-    NSString *dbDir = [[UtilFileManager documentDir] stringByAppendingPathComponent:@"etim"];
+    NSString *userId = [NSString stringWithFormat:@"%06d", [Client sharedInstance].user.userId];
+    NSString *dbDir = [[[UtilFileManager documentDir] stringByAppendingPathComponent:userId] stringByAppendingPathComponent:@"etimdb"];
     return dbDir;
 }
 

@@ -18,6 +18,7 @@
 #import "BadgeButton.h"
 #import "MBProgressHUD.h"
 #import "JSBadgeView.h"
+#import "DBManager.h"
 
 #include "Client.h"
 #include "Singleton.h"
@@ -56,7 +57,12 @@ using namespace std;
     if (self = [super init]) {
         self.title = @"好友列表";
         self.navigationItem.title = @"好友列表";
-         [self.tabBarItem setFinishedSelectedImage:[UIImage imageNamed:@"tab_buddy_press"] withFinishedUnselectedImage:[UIImage imageNamed:@"tab_buddy_nor"]];
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored"-Wdeprecated-declarations"
+        [self.tabBarItem setFinishedSelectedImage:[UIImage imageNamed:@"tab_buddy_press"]
+                      withFinishedUnselectedImage:[UIImage imageNamed:@"tab_buddy_nor"]];
+#pragma clang diagnostic pop
+        
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(notiToRetrieveBuddyList:)
                                                      name:notiNameFromCmd(CMD_RETRIEVE_BUDDY_LIST)
@@ -107,6 +113,7 @@ using namespace std;
     [super viewDidLoad];
     // Do any additional setup after loading the view.
 
+    
     [self createUI];
 }
 
@@ -115,6 +122,7 @@ using namespace std;
     [headerView addTarget:self action:@selector(responseToBuddyMenu:) forControlEvents:UIControlEventValueChanged];
     self.tableView.tableHeaderView = headerView;
     [self createRightNav];
+    self.buddyList = [[DBManager sharedInstance] allBuddys];
 }
 
 - (void)createRightNav {
@@ -193,6 +201,7 @@ using namespace std;
             [[TWMessageBarManager sharedInstance] showMessageWithTitle:@"获取好友列表错误" description:stdStrToNsStr(sess->GetErrorMsg()) type:TWMessageBarMessageTypeError];
         } else {
             //好友列表成功
+            [[DBManager sharedInstance] insertBuddys:[[ReceivedManager sharedInstance] buddyArr]];
             self.buddyList = [[ReceivedManager sharedInstance] buddyArr];
         }
     } else {

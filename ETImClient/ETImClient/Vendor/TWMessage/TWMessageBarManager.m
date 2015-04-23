@@ -393,13 +393,17 @@ static UIColor *kTWDefaultMessageBarStyleSheetInfoStrokeColor = nil;
             yOffset = ceil(rect.size.height * 0.5) - ceil(titleLabelSize.height * 0.5) - kTWMessageViewTextOffset;
         }
         [kTWMessageViewTitleColor set];
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored"-Wdeprecated-declarations"
         [self.titleString drawInRect:CGRectMake(xOffset, yOffset, titleLabelSize.width, titleLabelSize.height) withFont:kTWMessageViewTitleFont lineBreakMode:NSLineBreakByTruncatingTail alignment:NSTextAlignmentLeft];
+
         
         yOffset += titleLabelSize.height;
         
         CGSize descriptionLabelSize = [self descriptionSize];
         [kTWMessageViewDescriptionColor set];
         [self.descriptionString drawInRect:CGRectMake(xOffset, yOffset, descriptionLabelSize.width, descriptionLabelSize.height) withFont:kTWMessageViewDescriptionFont lineBreakMode:NSLineBreakByTruncatingTail alignment:NSTextAlignmentLeft];
+#pragma clang diagnostic pop
     }
 }
 

@@ -25,7 +25,7 @@ using namespace etim;
     if (self = [super init]) {
         self.userId = user.userId;
         self.username = stdStrToNsStr(user.username);
-        self.regDate = stdStrToNsStr(user.regDate);
+        self.regTime = stdStrToNsStr(user.regTime);
         self.signature = stdStrToNsStr(user.signature);
         self.gender = user.gender;
         self.relation = user.relation;
@@ -66,7 +66,7 @@ using namespace etim;
     return [NSString stringWithFormat:@"用户id: %06d, 用户名:%@, 注册日期: %@, 签名:%@, 性别:%@, 状态:%@ 关系:%@",
             self.userId,
             self.username,
-            self.regDate,
+            self.regTime,
             self.signature,
             [self buddyGender],
             self.statusName,

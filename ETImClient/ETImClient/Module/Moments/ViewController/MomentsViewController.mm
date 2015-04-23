@@ -20,7 +20,12 @@
         
         self.title = @"朋友圈";
         self.navigationItem.title = @"朋友圈";
-        [self.tabBarItem setFinishedSelectedImage:[UIImage imageNamed:@"tab_qworld_press"] withFinishedUnselectedImage:[UIImage imageNamed:@"tab_qworld_nor"]];
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored"-Wdeprecated-declarations"
+        [self.tabBarItem setFinishedSelectedImage:[UIImage imageNamed:@"tab_qworld_press"]
+                      withFinishedUnselectedImage:[UIImage imageNamed:@"tab_qworld_nor"]];
+#pragma clang diagnostic pop
+        
     }
     
     return self;

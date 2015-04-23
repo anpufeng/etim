@@ -46,7 +46,7 @@ void PushBuddyUpdate::DoRecv(etim::Session &s) {
         int status;
         jis>>user.userId;
         jis>>user.username;
-        jis>>user.regDate;
+        jis>>user.regTime;
         jis>>user.signature;
         jis>>user.gender;
         jis>>rel;
@@ -87,7 +87,7 @@ void PushBuddyRequestResult::DoRecv(etim::Session &s) {
         int peer;
         jis>>user.userId;
         jis>>user.username;
-        jis>>user.regDate;
+        jis>>user.regTime;
         jis>>user.signature;
         jis>>user.gender;
         jis>>rel;
@@ -133,7 +133,7 @@ void PushRequestAddBuddy::DoRecv(etim::Session &s) {
         int status;
         jis>>user.userId;
         jis>>user.username;
-        jis>>user.regDate;
+        jis>>user.regTime;
         jis>>user.signature;
         jis>>user.gender;
         jis>>rel;

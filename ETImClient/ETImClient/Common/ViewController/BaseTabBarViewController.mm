@@ -12,6 +12,9 @@
 #import "MomentsViewController.h"
 #import "AccountViewController.h"
 #import "BaseNavigationController.h"
+#import "Client.h"
+#import "DBManager.h"
+#import "ReceivedManager.h"
 
 @interface BaseTabBarViewController () {
 

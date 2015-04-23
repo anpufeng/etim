@@ -103,6 +103,10 @@
 		0DA1AB781AA1C36C002DED6E /* WUNSTimerTargetLifecycleTracker.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DA1AB751AA1C36C002DED6E /* WUNSTimerTargetLifecycleTracker.m */; };
 		0DA4815B1ACBCF4E00F97A7D /* ReceivedManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0DA4815A1ACBCF4E00F97A7D /* ReceivedManager.mm */; };
 		0DAC0CBC1AE74E3600437DEE /* NSDate+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DAC0CBB1AE74E3600437DEE /* NSDate+Additions.m */; };
+		0DAC0CCA1AE8CF4F00437DEE /* HMFileLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DAC0CC11AE8CF4F00437DEE /* HMFileLogger.m */; };
+		0DAC0CCB1AE8CF4F00437DEE /* HMLog.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DAC0CC31AE8CF4F00437DEE /* HMLog.m */; };
+		0DAC0CCC1AE8CF4F00437DEE /* HMLogFileManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DAC0CC51AE8CF4F00437DEE /* HMLogFileManager.m */; };
+		0DAC0CCD1AE8CF4F00437DEE /* HMLogFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DAC0CC71AE8CF4F00437DEE /* HMLogFormatter.m */; };
 		0DD44A091AE1243700BA67DF /* DBManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0DD44A081AE1243700BA67DF /* DBManager.mm */; };
 		0DD44A2D1AE5E5B300BA67DF /* FMDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DD44A231AE5E5B300BA67DF /* FMDatabase.m */; };
 		0DD44A2E1AE5E5B300BA67DF /* FMDatabaseAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DD44A251AE5E5B300BA67DF /* FMDatabaseAdditions.m */; };
@@ -400,6 +404,14 @@
 		0DA4815A1ACBCF4E00F97A7D /* ReceivedManager.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ReceivedManager.mm; sourceTree = "<group>"; };
 		0DAC0CBA1AE74E3600437DEE /* NSDate+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+Additions.h"; sourceTree = "<group>"; };
 		0DAC0CBB1AE74E3600437DEE /* NSDate+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+Additions.m"; sourceTree = "<group>"; };
+		0DAC0CC01AE8CF4F00437DEE /* HMFileLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HMFileLogger.h; sourceTree = "<group>"; };
+		0DAC0CC11AE8CF4F00437DEE /* HMFileLogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HMFileLogger.m; sourceTree = "<group>"; };
+		0DAC0CC21AE8CF4F00437DEE /* HMLog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HMLog.h; sourceTree = "<group>"; };
+		0DAC0CC31AE8CF4F00437DEE /* HMLog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HMLog.m; sourceTree = "<group>"; };
+		0DAC0CC41AE8CF4F00437DEE /* HMLogFileManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HMLogFileManager.h; sourceTree = "<group>"; };
+		0DAC0CC51AE8CF4F00437DEE /* HMLogFileManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HMLogFileManager.m; sourceTree = "<group>"; };
+		0DAC0CC61AE8CF4F00437DEE /* HMLogFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HMLogFormatter.h; sourceTree = "<group>"; };
+		0DAC0CC71AE8CF4F00437DEE /* HMLogFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HMLogFormatter.m; sourceTree = "<group>"; };
 		0DD44A071AE1243700BA67DF /* DBManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DBManager.h; sourceTree = "<group>"; };
 		0DD44A081AE1243700BA67DF /* DBManager.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = DBManager.mm; sourceTree = "<group>"; };
 		0DD44A221AE5E5B300BA67DF /* FMDatabase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabase.h; sourceTree = "<group>"; };
@@ -894,6 +906,7 @@
 		0D8134401AC52F4900FE28CF /* Util */ = {
 			isa = PBXGroup;
 			children = (
+				0DAC0CBF1AE8CF4F00437DEE /* HMLog */,
 				0D8134671AC5305D00FE28CF /* UtilFileManager.h */,
 				0D8134681AC5305D00FE28CF /* UtilFileManager.m */,
 				0D8134641AC5305700FE28CF /* UtilUserDefaults.h */,
@@ -1017,6 +1030,21 @@
 				0DA1AB751AA1C36C002DED6E /* WUNSTimerTargetLifecycleTracker.m */,
 			);
 			path = WeakTimer;
+			sourceTree = "<group>";
+		};
+		0DAC0CBF1AE8CF4F00437DEE /* HMLog */ = {
+			isa = PBXGroup;
+			children = (
+				0DAC0CC01AE8CF4F00437DEE /* HMFileLogger.h */,
+				0DAC0CC11AE8CF4F00437DEE /* HMFileLogger.m */,
+				0DAC0CC21AE8CF4F00437DEE /* HMLog.h */,
+				0DAC0CC31AE8CF4F00437DEE /* HMLog.m */,
+				0DAC0CC41AE8CF4F00437DEE /* HMLogFileManager.h */,
+				0DAC0CC51AE8CF4F00437DEE /* HMLogFileManager.m */,
+				0DAC0CC61AE8CF4F00437DEE /* HMLogFormatter.h */,
+				0DAC0CC71AE8CF4F00437DEE /* HMLogFormatter.m */,
+			);
+			path = HMLog;
 			sourceTree = "<group>";
 		};
 		0DD44A211AE5E5B300BA67DF /* Fmdb */ = {
@@ -1430,6 +1458,8 @@
 				0D81339D1AC52D5300FE28CF /* SignatureViewController.mm in Sources */,
 				0D81344F1AC52F7300FE28CF /* Reachability.m in Sources */,
 				0D9EBFBC1AC24DC40071793C /* DDContextFilterLogFormatter.m in Sources */,
+				0DAC0CCA1AE8CF4F00437DEE /* HMFileLogger.m in Sources */,
+				0DAC0CCB1AE8CF4F00437DEE /* HMLog.m in Sources */,
 				0D8133DF1AC52DF300FE28CF /* HeartBeat.mm in Sources */,
 				0DD44A311AE5E5B300BA67DF /* FMResultSet.m in Sources */,
 				0D8133E71AC52DF300FE28CF /* ActionManager.cpp in Sources */,
@@ -1444,6 +1474,7 @@
 				0DD44A301AE5E5B300BA67DF /* FMDatabaseQueue.m in Sources */,
 				0D8134841AC5311200FE28CF /* HMView.m in Sources */,
 				0D9EBFBD1AC24DC40071793C /* DDDispatchQueueLogFormatter.m in Sources */,
+				0DAC0CCC1AE8CF4F00437DEE /* HMLogFileManager.m in Sources */,
 				0DD44A091AE1243700BA67DF /* DBManager.mm in Sources */,
 				0D81343F1AC52F2B00FE28CF /* BaseViewController.mm in Sources */,
 				0D8133DD1AC52DF300FE28CF /* Action.mm in Sources */,
@@ -1487,6 +1518,7 @@
 				0D8133E01AC52DF300FE28CF /* Login.mm in Sources */,
 				0D81340C1AC52E0600FE28CF /* Socket.cpp in Sources */,
 				0D8134051AC52E0600FE28CF /* Exception.cpp in Sources */,
+				0DAC0CCD1AE8CF4F00437DEE /* HMLogFormatter.m in Sources */,
 				0D81339B1AC52D5300FE28CF /* OnlineViewController.mm in Sources */,
 				0D81343C1AC52F2B00FE28CF /* BaseNavigationController.m in Sources */,
 				0D8133BC1AC52DB600FE28CF /* RequestModel.mm in Sources */,

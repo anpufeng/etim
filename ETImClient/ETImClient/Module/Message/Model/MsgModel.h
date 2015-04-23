@@ -34,6 +34,7 @@ typedef NS_ENUM(NSInteger, MsgSource) {
 @property (nonatomic, copy) NSString *toName;
 @property (nonatomic, copy) NSString *text;
 @property (nonatomic, assign) etim::int8 sent;
+///请求发送时间
 @property (nonatomic, copy) NSString *requestTime;
 @property (nonatomic, copy) NSString *sendTime;
 
@@ -52,7 +53,7 @@ typedef NS_ENUM(NSInteger, MsgSource) {
 - (id)initWithToId:(int)toId toName:(NSString *)toName text:(NSString *)text;
 
 ///以聊天对方ID作为key
-- (NSString *)msgKey;
+- (NSString *)peerIdStr;
 ///对方姓名
 - (NSString *)peerName;
 

@@ -50,7 +50,7 @@ namespace etim  {
     struct IMUser {
         int             userId;
         std::string     username;
-        std::string     regDate;
+        std::string     regTime;
         std::string     signature;
         int8            gender;
         BuddyRelation   relation;

@@ -49,7 +49,10 @@ using namespace std;
     if (self = [super init]) {
         self.title = @"消息";
         self.navigationItem.title = @"消息";
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored"-Wdeprecated-declarations"
         [self.tabBarItem setFinishedSelectedImage:[UIImage imageNamed:@"tab_recent_press"] withFinishedUnselectedImage:[UIImage imageNamed:@"tab_recent_nor"]];
+#pragma clang diagnostic pop
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(notiToRetrieveUnreadMsg:)
                                                      name:notiNameFromCmd(CMD_RETRIEVE_UNREAD_MSG)
@@ -78,14 +81,28 @@ using namespace std;
     // Do any additional setup after loading the view.
     
     [self createUI];
+    [self initData];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
     
+    [self initData];
+    [self.tableView reloadData];
 }
 
 - (void)createUI {
     
+}
+
+- (void)initData {
+    NSMutableArray *msgs = [[DBManager sharedInstance] allRecentMsgs];
+    
+    for (int i = 0; i < [msgs count]; i++) {
+        //BOOL exist = NO;
+        MsgModel *msg = msgs[i];
+        [self handleReceivedMsg:msg];
+    }
 }
 
 - (void)sortAllKeys {
@@ -94,7 +111,14 @@ using namespace std;
         ListMsgModel *listMsg1 = [self.msgDic objectForKey:obj1];
         ListMsgModel *listMsg2 = [self.msgDic objectForKey:obj2];
         
-        return [listMsg1.lastestMsg.sendTime compare:listMsg2.lastestMsg.sendTime];
+        NSComparisonResult result = [listMsg1.lastestMsg.sendTime compare:listMsg2.lastestMsg.requestTime];
+        if (result == NSOrderedAscending) {
+            return NSOrderedDescending;
+        } else if (result == NSOrderedDescending) {
+            return NSOrderedAscending;
+        }
+        
+        return result;
     }];
 }
 
@@ -147,7 +171,6 @@ using namespace std;
         //BOOL exist = NO;
         MsgModel *msg = unread[i];
         [self handleReceivedMsg:msg];
-        ///TODO 未读及存储消息记录
     }
     
     [[DBManager sharedInstance] insertMsgs:unread];
@@ -175,15 +198,18 @@ using namespace std;
 }
 
 - (void)handleReceivedMsg:(MsgModel *)msg {
-    ListMsgModel *listMsg = self.msgDic[[msg msgKey]];
+    ListMsgModel *listMsg = self.msgDic[[msg peerIdStr]];
     if (listMsg) {
         ///消息中已经存在与此用户聊天的记录
-        listMsg.lastestMsg = msg;
+        if ([msg.sendTime compare:listMsg.lastestMsg.sendTime options:NSNumericSearch] == NSOrderedDescending) {
+             listMsg.lastestMsg = msg;
+        }
+       
     } else {
         listMsg = [[ListMsgModel alloc] init];
         listMsg.lastestMsg = msg;
-        listMsg.peerId = [[msg msgKey] intValue];
-        [self.msgDic setObject:listMsg forKey:[msg msgKey]];
+        listMsg.peerId = [[msg peerIdStr] intValue];
+        [self.msgDic setObject:listMsg forKey:[msg peerIdStr]];
     }
 
 }

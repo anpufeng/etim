@@ -130,7 +130,7 @@ using namespace etim::pub;
                 commonCell.valueLabel.text = [NSString stringWithFormat:@"%06d", self.user.userId];
                 break;
             case 1:
-                commonCell.valueLabel.text = self.user.regDate;
+                commonCell.valueLabel.text = self.user.regTime;
                 break;
             case 2:
                 commonCell.valueLabel.text = self.user.signature;

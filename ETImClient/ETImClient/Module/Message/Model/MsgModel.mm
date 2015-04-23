@@ -85,7 +85,7 @@ using namespace etim;
     return _sendDate;
 }
 
-- (NSString *)msgKey {
+- (NSString *)peerIdStr {
     int myId = [Client sharedInstance].user.userId;
     return self.fromId == myId ? [NSNUM_WITH_INT(self.toId) stringValue] : [NSNUM_WITH_INT(self.fromId) stringValue];
 }
@@ -109,7 +109,7 @@ using namespace etim;
 
 - (NSUInteger)hash {
     ///toId-2015-04-16 09:41:42-text
-    NSString *str = [NSString stringWithFormat:@"%@-%@-%@", [self msgKey], self.requestTime, self.text];
+    NSString *str = [NSString stringWithFormat:@"%@-%@-%@", [self peerIdStr], self.requestTime, self.text];
     
     return [str hash];
 }

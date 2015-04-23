@@ -50,6 +50,7 @@ using namespace std;
 
 
 - (void)connectCallBack:(bool)connected;
+- (void)resetStatus;
 
 @end
 
@@ -103,9 +104,7 @@ void clientConnectCallBack(bool connected)  {
                                                      name:kNoConnectionNotification
                                                    object:nil];
         
-        self.appActive = NO;
-        self.login = NO;
-        self.logout = YES;
+        [self resetStatus];
         self.queuedCmdArr = [NSMutableArray arrayWithCapacity:10];
         
         _sendedOpeartionQueue = [[NSOperationQueue alloc] init];
@@ -114,6 +113,20 @@ void clientConnectCallBack(bool connected)  {
     }
     
     return self;
+}
+
+- (void)resetStatus {
+    self.appActive = YES;
+    self.login = NO;
+    self.logout = YES;
+    if (_sendedOpeartionQueue) {
+        [_sendedOpeartionQueue cancelAllOperations];
+    }
+    
+    if (_queuedCmdArr) {
+        [_queuedCmdArr removeAllObjects];
+    }
+    [_heartBeatTimer invalidate];
 }
 
 #pragma mark -
@@ -204,6 +217,7 @@ void clientConnectCallBack(bool connected)  {
         DDLogInfo(@"关闭连接");
     }
 
+    [self resetStatus];
 }
 
 - (void)startReachabilityNoti {
@@ -290,12 +304,12 @@ void clientConnectCallBack(bool connected)  {
     dispatch_async(_recvQueue, ^{
         while (1) {
             if (!_session) {
-                DDLogWarn(@"无可收session");
+                DDLogWarn(@"无可用session");
                 break;
             }
             
             if (!_session->IsConnected()) {
-                DDLogWarn(@"session 无连接");
+                DDLogDebug(@"session 无连接");
                 sleep(1);
                 continue;
             }

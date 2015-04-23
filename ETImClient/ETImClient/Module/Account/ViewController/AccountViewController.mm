@@ -11,6 +11,7 @@
 #import "SignatureViewController.h"
 #import "BuddyModel.h"
 #import "ReceivedManager.h"
+#import "DBManager.h"
 #import "AppDelegate.h"
 
 #include "Client.h"
@@ -38,7 +39,12 @@ using namespace etim::pub;
     if (self = [super init]) {
         self.title = @"帐户信息";
         self.navigationItem.title = @"帐户信息";
-         [self.tabBarItem setFinishedSelectedImage:[UIImage imageNamed:@"tab_me_press"] withFinishedUnselectedImage:[UIImage imageNamed:@"tab_me_nor"]];
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored"-Wdeprecated-declarations"
+        [self.tabBarItem setFinishedSelectedImage:[UIImage imageNamed:@"tab_me_press"]
+                      withFinishedUnselectedImage:[UIImage imageNamed:@"tab_me_nor"]];
+#pragma clang diagnostic pop
+        
     }
     return self;
 }
@@ -174,6 +180,7 @@ using namespace etim::pub;
         } else {
             [[Client sharedInstance] disconnect];
             [[ReceivedManager sharedInstance] resetData];
+            [DBManager destory];
             //登出成功
             AppDelegate *delegate = [[UIApplication sharedApplication] delegate];
             [delegate jumpToLogin:YES];

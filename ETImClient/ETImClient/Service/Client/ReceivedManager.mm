@@ -26,6 +26,18 @@ static dispatch_once_t predicate;
     return sharedReceived;
 }
 
+/*
++ (void)destory {
+    if (sharedReceived) {
+        sharedReceived = nil;
+        predicate = 0;
+    }
+}
+ */
+
+- (void)dealloc {
+    DDLogDebug(@"======= ReceivedManager DEALLOC ========");
+}
 - (id)init {
     if (self = [super init]) {
         [self resetData];

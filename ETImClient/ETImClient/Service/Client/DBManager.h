@@ -15,6 +15,7 @@
 @interface DBManager : NSObject
 
 +(DBManager*)sharedInstance;
++ (void)destory;
 
 /**
  @info 插入一条消息
@@ -25,6 +26,15 @@
 - (BOOL)updateLocalMsgStatus:(SendMsgReturn)msgReturn;
 
 /**
+ 插入用户  有则更新 无则插入
+ **/
+
+- (BOOL)insertOneBuddy:(BuddyModel *)buddy;
+- (BOOL)insertBuddys:(NSMutableArray *)buddys;
+
+- (NSMutableArray *)allBuddys;
+
+/**
  @info 获取某人最近消息(20条)
  @param msgId 上一条的消息id 默认为0时从最新的取
  @param peerId 对话方的uid
@@ -33,6 +43,7 @@
 
 - (NSMutableArray *)peerRecentMsgs:(int)peerId;
 
+///所有 最近的消息
 - (NSMutableArray *)allRecentMsgs;
 
 

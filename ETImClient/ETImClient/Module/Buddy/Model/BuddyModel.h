@@ -18,7 +18,7 @@
 
 @property (nonatomic, assign) int userId;
 @property (nonatomic, copy) NSString *username;
-@property (nonatomic, copy) NSString *regDate;
+@property (nonatomic, copy) NSString *regTime;
 @property (nonatomic, copy) NSString *signature;
 @property (nonatomic, assign) etim::uint8 gender;
 @property (nonatomic, assign) BuddyRelation relation;
