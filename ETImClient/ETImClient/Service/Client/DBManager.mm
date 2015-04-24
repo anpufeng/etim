@@ -75,7 +75,7 @@ static dispatch_once_t predicate;
     if (![UtilFileManager fileExist:dbPath]) {
         created = [UtilFileManager createDir:[self defaultDbDir]];
     }
-
+    DDLogInfo(@"用户数据库路径: %@", dbPath);
     _db = [[FMDatabase alloc] initWithPath:dbPath];
     if (![_db open]) {
         DDLogError(@"open db faile : %@", dbPath);
@@ -129,14 +129,14 @@ static dispatch_once_t predicate;
                    msg.text,
                    NSNUM_WITH_INT(msg.msgId)];
             [_db executeUpdate:sql];
-            sql = [NSString stringWithFormat:@"UPDATE %@ SET username = %@ WHERE user_id = '%@'",
+            sql = [NSString stringWithFormat:@"INSERT OR REPLACE INTO %@ (user_id, username) VALUES (%@, '%@')",
                    tableUser,
-                   [msg peerName],
-                   [msg peerIdStr]];
+                   [msg peerIdStr],
+                   [msg peerName]];
             [_db executeUpdate:sql];
         } else {
             ///更新草稿表
-            sql = [NSString stringWithFormat:@"UPDATE %@ SET req_time = '%@', text = '%@', ", tableDraft, msg.text];
+            sql = [NSString stringWithFormat:@"UPDATE %@ SET req_time = '%@', text = '%@', ", tableDraft, msg.requestTime, msg.text];
             [_db executeUpdate:sql];
         }
     } else {

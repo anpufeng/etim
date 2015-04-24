@@ -58,8 +58,18 @@
 + (NSString *)getStringFromArray:(NSArray *)array;
 - (NSArray *)getArray;
 
-+ (NSString *)getMyApplicationVersion;
-+ (NSString *)getMyApplicationName;
+/**
+ CFBundleVersion  1  2
+ */
++ (NSString *)appBundleVersion;
+/**
+ CFBundleDisplayName
+ **/
++ (NSString *)appDisplayName;
+/**
+ 1.0 1.1.0
+ */
++ (NSString *)appShortVersion;
 
 - (NSData *)convertToData;
 + (NSString *)getStringFromData:(NSData *)data;

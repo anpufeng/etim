@@ -117,7 +117,6 @@ void clientConnectCallBack(bool connected)  {
 }
 
 - (void)resetStatus {
-    self.appActive = NO;
     self.login = NO;
     self.logout = YES;
     if (_sendedOpeartionQueue) {
@@ -145,7 +144,7 @@ void clientConnectCallBack(bool connected)  {
     } else {
         DDLogInfo(@"连接失败");
         if (_delegate && [_delegate respondsToSelector:@selector(socketConnectFailure)]) {
-            [_delegate socketConnectSuccess];
+            [_delegate socketConnectFailure];
         } else {
             DDLogWarn(@"无回调delegate");
         }
@@ -237,8 +236,8 @@ void clientConnectCallBack(bool connected)  {
 - (void)autoLogin {
     if (_session && _session->IsConnected()) {
         NSMutableDictionary *param = [NSMutableDictionary dictionary];
-        [param setObject:@"admin1" forKey:@"name"];
-        [param setObject:@"admin" forKey:@"pass"];
+        [param setObject:self.user.username forKey:@"name"];
+        [param setObject:self.pwd forKey:@"pass"];
         [self doAction:*_session cmd:CMD_LOGIN param:param];
     } else {
         DDLogWarn(@"重登时无可用session或无连接");

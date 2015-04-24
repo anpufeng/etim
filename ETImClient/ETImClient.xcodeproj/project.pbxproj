@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0D66C8371AE9EFDF00341B9B /* SettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D66C8361AE9EFDF00341B9B /* SettingViewController.m */; };
+		0D66C83B1AE9EFF700341B9B /* AboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D66C8391AE9EFF700341B9B /* AboutViewController.m */; };
+		0D66C83C1AE9EFF700341B9B /* AboutViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0D66C83A1AE9EFF700341B9B /* AboutViewController.xib */; };
 		0D81339A1AC52D5300FE28CF /* AccountViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0D8133651AC52D5200FE28CF /* AccountViewController.mm */; };
 		0D81339B1AC52D5300FE28CF /* OnlineViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0D8133671AC52D5200FE28CF /* OnlineViewController.mm */; };
 		0D81339C1AC52D5300FE28CF /* ProfileViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0D8133691AC52D5200FE28CF /* ProfileViewController.mm */; };
@@ -201,6 +204,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0D66C8351AE9EFDF00341B9B /* SettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingViewController.h; sourceTree = "<group>"; };
+		0D66C8361AE9EFDF00341B9B /* SettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingViewController.m; sourceTree = "<group>"; };
+		0D66C8381AE9EFF700341B9B /* AboutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutViewController.h; sourceTree = "<group>"; };
+		0D66C8391AE9EFF700341B9B /* AboutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutViewController.m; sourceTree = "<group>"; };
+		0D66C83A1AE9EFF700341B9B /* AboutViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AboutViewController.xib; sourceTree = "<group>"; };
 		0D8133641AC52D5200FE28CF /* AccountViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AccountViewController.h; sourceTree = "<group>"; };
 		0D8133651AC52D5200FE28CF /* AccountViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AccountViewController.mm; sourceTree = "<group>"; };
 		0D8133661AC52D5200FE28CF /* OnlineViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OnlineViewController.h; sourceTree = "<group>"; };
@@ -537,9 +545,46 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0D66C8311AE9EF8800341B9B /* Setting */ = {
+			isa = PBXGroup;
+			children = (
+				0D66C8321AE9EFB800341B9B /* Model */,
+				0D66C8331AE9EFB800341B9B /* ViewController */,
+				0D66C8341AE9EFB800341B9B /* View */,
+			);
+			path = Setting;
+			sourceTree = "<group>";
+		};
+		0D66C8321AE9EFB800341B9B /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		0D66C8331AE9EFB800341B9B /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				0D66C8351AE9EFDF00341B9B /* SettingViewController.h */,
+				0D66C8361AE9EFDF00341B9B /* SettingViewController.m */,
+				0D66C8381AE9EFF700341B9B /* AboutViewController.h */,
+				0D66C8391AE9EFF700341B9B /* AboutViewController.m */,
+				0D66C83A1AE9EFF700341B9B /* AboutViewController.xib */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		0D66C8341AE9EFB800341B9B /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		0D81335F1AC52C5500FE28CF /* Module */ = {
 			isa = PBXGroup;
 			children = (
+				0D66C8311AE9EF8800341B9B /* Setting */,
 				0D8133601AC52D5200FE28CF /* Account */,
 				0D81336C1AC52D5200FE28CF /* Buddy */,
 				0D8133871AC52D5200FE28CF /* Login */,
@@ -753,13 +798,13 @@
 		0D8133BE1AC52DF300FE28CF /* Client */ = {
 			isa = PBXGroup;
 			children = (
-				0DD44A071AE1243700BA67DF /* DBManager.h */,
-				0DD44A081AE1243700BA67DF /* DBManager.mm */,
 				0D81340E1AC52E1B00FE28CF /* Model */,
 				0D8133EB1AC52E0600FE28CF /* Public */,
 				0D8133BF1AC52DF300FE28CF /* Action */,
 				0D8133D41AC52DF300FE28CF /* ActionManager.cpp */,
 				0D8133D51AC52DF300FE28CF /* ActionManager.h */,
+				0DD44A071AE1243700BA67DF /* DBManager.h */,
+				0DD44A081AE1243700BA67DF /* DBManager.mm */,
 				0D8133D61AC52DF300FE28CF /* Client.h */,
 				0D8133D71AC52DF300FE28CF /* Client.mm */,
 				0D8133D81AC52DF300FE28CF /* DataStruct.h */,
@@ -1407,6 +1452,7 @@
 				AABF3CC5198636C0001C8DCA /* Images.xcassets in Resources */,
 				AA59F0A1198A28CF009FD449 /* login_avatar@2x.png in Resources */,
 				AA1100ED198B3C01008811E4 /* tab_me_nor@2x.png in Resources */,
+				0D66C83C1AE9EFF700341B9B /* AboutViewController.xib in Resources */,
 				AA33752719A871A5005BD678 /* Icon-Small@2x.png in Resources */,
 				AA6D73C919B16B9C006DBC6D /* add_icon_friend@2x.png in Resources */,
 				AA665F9119AA1D1A00FCF5C6 /* pdi_bottom_edit_btn_nor@2x.png in Resources */,
@@ -1460,6 +1506,7 @@
 				0D9EBFBC1AC24DC40071793C /* DDContextFilterLogFormatter.m in Sources */,
 				0DAC0CCA1AE8CF4F00437DEE /* HMFileLogger.m in Sources */,
 				0DAC0CCB1AE8CF4F00437DEE /* HMLog.m in Sources */,
+				0D66C83B1AE9EFF700341B9B /* AboutViewController.m in Sources */,
 				0D8133DF1AC52DF300FE28CF /* HeartBeat.mm in Sources */,
 				0DD44A311AE5E5B300BA67DF /* FMResultSet.m in Sources */,
 				0D8133E71AC52DF300FE28CF /* ActionManager.cpp in Sources */,
@@ -1485,6 +1532,7 @@
 				0D8134821AC5311200FE28CF /* HMTextField.m in Sources */,
 				0DD44A2F1AE5E5B300BA67DF /* FMDatabasePool.m in Sources */,
 				0D81339A1AC52D5300FE28CF /* AccountViewController.mm in Sources */,
+				0D66C8371AE9EFDF00341B9B /* SettingViewController.m in Sources */,
 				0D81340B1AC52E0600FE28CF /* OutStream.cpp in Sources */,
 				0D8133E61AC52DF300FE28CF /* Unread.mm in Sources */,
 				0D8134081AC52E0600FE28CF /* Logging.cpp in Sources */,
@@ -1682,7 +1730,7 @@
 				INFOPLIST_FILE = "ETImClient/ETImClient-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "e3fdd5ab-64b8-4e4f-9e8f-b46c36ffc993";
+				PROVISIONING_PROFILE = "efdef8ff-02f3-49e8-ba58-517a273beff0";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -1719,7 +1767,7 @@
 				);
 				INFOPLIST_FILE = "ETImClientTests/ETImClientTests-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "e3fdd5ab-64b8-4e4f-9e8f-b46c36ffc993";
+				PROVISIONING_PROFILE = "efdef8ff-02f3-49e8-ba58-517a273beff0";
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;
 			};
@@ -1738,7 +1786,7 @@
 				GCC_PREFIX_HEADER = "ETImClient/ETImClient-Prefix.pch";
 				INFOPLIST_FILE = "ETImClientTests/ETImClientTests-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "e3fdd5ab-64b8-4e4f-9e8f-b46c36ffc993";
+				PROVISIONING_PROFILE = "efdef8ff-02f3-49e8-ba58-517a273beff0";
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;
 			};

@@ -170,19 +170,25 @@
 }
 
 // Get My Application Version number
-+ (NSString *)getMyApplicationVersion
++ (NSString *)appBundleVersion
 {
-	NSDictionary *info = [[NSBundle mainBundle] infoDictionary];
-	NSString *version = [info objectForKey:@"CFBundleVersion"];
-	return version;
+    NSDictionary *info = [[NSBundle mainBundle] infoDictionary];
+    NSString *version = [info objectForKey:@"CFBundleVersion"];
+    return version;
 }
 
 // Get My Application name
-+ (NSString *)getMyApplicationName
++ (NSString *)appDisplayName
 {
-	NSDictionary *info = [[NSBundle mainBundle] infoDictionary];
-	NSString *name = [info objectForKey:@"CFBundleDisplayName"];
-	return name;
+    NSDictionary *info = [[NSBundle mainBundle] infoDictionary];
+    NSString *name = [info objectForKey:@"CFBundleDisplayName"];
+    return name;
+}
+
++ (NSString *)appShortVersion {
+    NSDictionary *info = [[NSBundle mainBundle] infoDictionary];
+    NSString *shortVersion = [info objectForKey:@"CFBundleShortVersionString"];
+    return shortVersion;
 }
 
 

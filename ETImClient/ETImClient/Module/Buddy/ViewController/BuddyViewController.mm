@@ -17,7 +17,6 @@
 #import "FBKVOController.h"
 #import "BadgeButton.h"
 #import "MBProgressHUD.h"
-#import "JSBadgeView.h"
 #import "DBManager.h"
 
 #include "Client.h"

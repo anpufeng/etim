@@ -115,14 +115,7 @@ using namespace std;
         ListMsgModel *listMsg1 = [self.msgDic objectForKey:obj1];
         ListMsgModel *listMsg2 = [self.msgDic objectForKey:obj2];
         
-        NSComparisonResult result = [listMsg1.lastestMsg.sendTime compare:listMsg2.lastestMsg.requestTime];
-        if (result == NSOrderedAscending) {
-            return NSOrderedDescending;
-        } else if (result == NSOrderedDescending) {
-            return NSOrderedAscending;
-        }
-        
-        return result;
+        return [listMsg2.lastestMsg.requestTime compare:listMsg1.lastestMsg.requestTime];
     }];
 }
 

@@ -129,6 +129,7 @@ void Logout::Execute(Session *s) {
     ret = dao.UserLogout(userId, user); ///数据库已更新为offline
 	if (ret == kErrCode00) {
 		LOG_INFO<<"登出成功 userId: "<<userId;
+        s->SetIMUser(user);
 	} else  {
 		error_code = ret;
         assert(error_code < kErrCodeMax);

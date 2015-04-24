@@ -9,6 +9,7 @@
 #import "AccountViewController.h"
 #import "ProfileViewController.h"
 #import "SignatureViewController.h"
+#import "SettingViewController.h"
 #import "BuddyModel.h"
 #import "ReceivedManager.h"
 #import "DBManager.h"
@@ -60,14 +61,14 @@ using namespace etim::pub;
 }
 
 - (void)initData {
-    self.accountKeyList = @[@"个性签名"];
+    self.accountKeyList = @[@"个性签名", @"设置"];
 }
 
 - (void)createUI {
     self.refreshControl = nil;
-    UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, RECT_WIDTH(self.tableView), 60)];
+    UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, RECT_WIDTH(self.tableView), 70)];
     
-    UIButton *logoutBtn = [[UIButton alloc] initWithFrame:CGRectMake(20, 10, 280, 40)];
+    UIButton *logoutBtn = [[UIButton alloc] initWithFrame:CGRectMake(20, 20, 280, 40)];
     UIEdgeInsets inset = UIEdgeInsetsMake(10, 15, 10, 15);
     [logoutBtn setBackgroundImage:[IMAGE_PNG(@"common_btn_red_nor")
                                    resizableImageWithCapInsets:inset
@@ -131,10 +132,10 @@ using namespace etim::pub;
                 commonCell.valueLabel.text = user.signature;
                 break;
             case 1:
-                commonCell.valueLabel.text = user.signature;
+                //commonCell.valueLabel.text = user.signature;
                 break;
             case 2:
-                commonCell.valueLabel.text = [NSString stringWithFormat:@"%d", user.gender];
+                //commonCell.valueLabel.text = [NSString stringWithFormat:@"%d", user.gender];
                 break;
                 
             default:
@@ -154,6 +155,11 @@ using namespace etim::pub;
             break;
         case 1:
             vc = [[SignatureViewController alloc] init];
+            break;
+            
+        case 2:
+            vc = [[SettingViewController alloc] init];
+            break;
         default:
             break;
     }

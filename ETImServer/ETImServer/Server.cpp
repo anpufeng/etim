@@ -10,6 +10,8 @@
 #include "Logging.h"
 #include "ActionManager.h"
 #include "Exception.h"
+#include "PushService.h"
+
 #include <unistd.h>
 #include <signal.h>
 #include <sys/select.h>
@@ -24,8 +26,10 @@
 #include <cstddef>
 
 
+
 using namespace etim;
 using namespace etim::pub;
+using namespace etim::action;
 
 fd_set Server::readFds_;
 
@@ -125,6 +129,17 @@ int Server::Start() {
                 } catch (Exception &e) {
                     if (result == 0) {
                         //服务端关闭此session
+                        PushService push;
+                        DataService dao;
+                        int ret = kErrCode00;
+                        IMUser user = s->GetIMUser();
+                        if (user.status != kBuddyOffline) {
+                            ret = dao.UserLogout(Convert::IntToString(user.userId), user);
+                            if (ret == kErrCode00) {
+                                push.PushBuddyUpdate(user, dao);
+                            }
+                        }
+                        
                         LOG_INFO<<"客户端关闭socket userId: "<<s->GetIMUser().userId;
                         DeleteSession(s);
                     } else {

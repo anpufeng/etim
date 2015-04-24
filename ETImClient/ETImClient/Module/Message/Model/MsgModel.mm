@@ -129,7 +129,7 @@ using namespace etim;
 @implementation ListMsgModel
 
 - (NSInteger)unreadMsgCount {
-    return 10;
+    return 0;
 }
 
 @end

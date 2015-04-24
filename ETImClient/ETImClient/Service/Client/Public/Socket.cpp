@@ -45,12 +45,12 @@ bool Socket::Create() {
         LOG_ERROR<<"setsockopt error" << strerror(errno);
     }
     struct timeval timeout = {45,0};
-    result = ::setsockopt(fd_, SOL_SOCKET,SO_SNDTIMEO, (char *)&timeout,sizeof(struct timeval));
+    result = ::setsockopt(fd_, SOL_SOCKET, SO_SNDTIMEO, (char *)&timeout,sizeof(struct timeval));
     if (result == -1) {
         LOG_ERROR<<"setsockopt error" << strerror(errno);
     }
     //设置接收超时
-    result = ::setsockopt(fd_, SOL_SOCKET,SO_RCVTIMEO, (char *)&timeout,sizeof(struct timeval));
+    result = ::setsockopt(fd_, SOL_SOCKET, SO_RCVTIMEO, (char *)&timeout,sizeof(struct timeval));
     if (result == -1) {
         LOG_ERROR<<"setsockopt error" << strerror(errno);
     }

@@ -150,6 +150,7 @@ using namespace etim::pub;
             DDLogDebug(@"登录成功 :%@", [[ReceivedManager sharedInstance] loginBuddy]);
             BaseTabBarViewController *tabbar = [[BaseTabBarViewController alloc] init];
             [[[UIApplication sharedApplication] keyWindow] setRootViewController:tabbar];
+            [[Client sharedInstance] setPwd:_pwdTextField.text];
             [[Client sharedInstance] pullUnread];
             [[Client sharedInstance] startReachabilityNoti];
         }

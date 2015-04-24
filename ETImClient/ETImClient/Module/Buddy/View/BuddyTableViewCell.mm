@@ -34,11 +34,11 @@
         _nameLabel.font = BOLD_FONT(16);
         _nameLabel.textAlignment = NSTextAlignmentLeft;
         _nameLabel.backgroundColor = [UIColor clearColor];
-        _nameLabel.textColor = [UIColor blackColor];
+        _nameLabel.textColor = RGB_TO_UICOLOR_ALPHA(0, 0, 0, 0.8);
         [self.contentView addSubview:_nameLabel];
         
-        _descLabel = [[UILabel alloc] initWithFrame:CGRectMake(RECT_ORIGIN_X(_nameLabel), RECT_MAX_Y(_nameLabel), RECT_WIDTH(self) - RECT_ORIGIN_X(_nameLabel), 25)];
-        _descLabel.font = FONT(14);
+        _descLabel = [[UILabel alloc] initWithFrame:CGRectMake(RECT_ORIGIN_X(_nameLabel), RECT_MAX_Y(_nameLabel), RECT_WIDTH(self) - RECT_ORIGIN_X(_nameLabel) - 30, 25)];
+        _descLabel.font = FONT(13);
         _descLabel.textColor = RGB_TO_UICOLOR(116, 116, 116);
         _descLabel.backgroundColor = [UIColor clearColor];
         [self.contentView addSubview:_descLabel];

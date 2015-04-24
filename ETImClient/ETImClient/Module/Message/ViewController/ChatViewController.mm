@@ -53,7 +53,7 @@ using namespace std;
         self.toId = user.userId;
         self.toName = user.username;
         
-        [self initWithPeerId:self.toId];
+        [self initdataWithPeerId:self.toId];
     }
     
     return self;
@@ -64,13 +64,13 @@ using namespace std;
         self.toId = [listMsg peerId];
         self.toName = [listMsg.lastestMsg peerName];
         
-        [self initWithPeerId:self.toId];
+        [self initdataWithPeerId:self.toId];
     }
     
     return self;
 }
 
-- (void)initWithPeerId:(int)peerId {
+- (void)initdataWithPeerId:(int)peerId {
     self.totalCellHeight = 0;
     self.chatList = [NSMutableArray array];
     self.sentDic = [NSMutableDictionary dictionary];
@@ -96,6 +96,14 @@ using namespace std;
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(notiToPushSendMsg:)
                                                  name:notiNameFromCmd(PUSH_SEND_MSG)
+                                               object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(notiToSendMsg:)
+                                                 name:notiNameFromCmd(CMD_SEND_MSG)
+                                               object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(notiToRetrieveUnreadMsg:)
+                                                 name:notiNameFromCmd(CMD_RETRIEVE_UNREAD_MSG)
                                                object:nil];
 }
 
@@ -240,6 +248,38 @@ using namespace std;
     }
 }
 
+- (void)notiToRetrieveUnreadMsg:(NSNotification *)noti {
+    NSMutableArray *unread = [[ReceivedManager sharedInstance] unreadMsgArr];
+    
+    NSArray *sorted = [unread sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+        MsgModel *msg1 = (MsgModel *)obj1;
+        MsgModel *msg2 = (MsgModel *)obj2;
+        
+        return [msg1.requestTime compare:msg2.requestTime];
+    }];
+    
+    for (int i = 0; i < [sorted count]; i++) {
+        MsgModel *msg = sorted[i];
+        if ([[msg peerIdStr] intValue] == self.toId) {
+            ChatCellFrame *lastFrame = [self.chatList lastObject];
+            ChatCellFrame *cellFrame = [[ChatCellFrame alloc] init];
+            msg.showTime = ![msg.requestTime isEqualToString:lastFrame.message.requestTime];
+            //暂时写死
+            msg.showTime = YES;
+            cellFrame.message = msg;
+            [self.chatList addObject:cellFrame];
+            
+            [_tableView reloadData];
+            self.totalCellHeight = self.totalCellHeight + cellFrame.cellHeight;
+            NSIndexPath *lastPath = [NSIndexPath indexPathForRow:self.chatList.count - 1 inSection:0];
+            [_tableView scrollToRowAtIndexPath:lastPath atScrollPosition:UITableViewScrollPositionBottom animated:YES];
+        }
+    }
+    
+
+}
+
+
 #pragma mark -
 #pragma mark uitextfield delegate
 
@@ -292,7 +332,6 @@ using namespace std;
  */
 - (void)keyboardWillChange:(NSNotification *)note
 {
-    DDLogDebug(@"%@", note.userInfo);
     NSDictionary *userInfo = note.userInfo;
     CGFloat duration = [userInfo[@"UIKeyboardAnimationDurationUserInfoKey"] doubleValue];
     

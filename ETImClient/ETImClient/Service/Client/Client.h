@@ -80,6 +80,8 @@ inline std::string nsStrToStdStr(NSString *str) {
 
 ///当前登录的用户信息
 @property (nonatomic, strong) BuddyModel *user;
+///TODO 用户信息加密存储 传输
+@property (nonatomic, copy) NSString *pwd;
 @property (nonatomic, strong) NSObject *receivedObj;
 ///上次是否成功登录过
 @property (nonatomic, assign) BOOL login;
