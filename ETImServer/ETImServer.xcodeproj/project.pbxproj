@@ -19,6 +19,8 @@
 		AA59F0231988C4CC009FD449 /* Endian.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AA59F0211988C4CC009FD449 /* Endian.cpp */; };
 		AA59F0281988C9BB009FD449 /* InStream.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AA59F0241988C9BB009FD449 /* InStream.cpp */; };
 		AA59F0291988C9BB009FD449 /* OutStream.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AA59F0261988C9BB009FD449 /* OutStream.cpp */; };
+		AA6CD7731AEC993F001B1D4B /* Config.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AA6CD7711AEC993F001B1D4B /* Config.cpp */; };
+		AA6CD7771AEC9FC5001B1D4B /* StringUtil.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AA6CD7751AEC9FC5001B1D4B /* StringUtil.cpp */; };
 		AA7004C319879911005D5FC1 /* Session.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AA7004C119879911005D5FC1 /* Session.cpp */; };
 		AA7004C719889628005D5FC1 /* Action.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AA7004C519889628005D5FC1 /* Action.cpp */; };
 		AA7004CA198897B3005D5FC1 /* Register.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AA7004C8198897B3005D5FC1 /* Register.cpp */; };
@@ -77,6 +79,11 @@
 		AA59F0251988C9BB009FD449 /* InStream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InStream.h; sourceTree = "<group>"; };
 		AA59F0261988C9BB009FD449 /* OutStream.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = OutStream.cpp; sourceTree = "<group>"; };
 		AA59F0271988C9BB009FD449 /* OutStream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OutStream.h; sourceTree = "<group>"; };
+		AA6CD7711AEC993F001B1D4B /* Config.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Config.cpp; sourceTree = "<group>"; };
+		AA6CD7721AEC993F001B1D4B /* Config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Config.h; sourceTree = "<group>"; };
+		AA6CD7741AEC9A19001B1D4B /* etim.conf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = etim.conf; sourceTree = "<group>"; };
+		AA6CD7751AEC9FC5001B1D4B /* StringUtil.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = StringUtil.cpp; sourceTree = "<group>"; };
+		AA6CD7761AEC9FC5001B1D4B /* StringUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StringUtil.h; sourceTree = "<group>"; };
 		AA7004C119879911005D5FC1 /* Session.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Session.cpp; sourceTree = "<group>"; };
 		AA7004C219879911005D5FC1 /* Session.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = Session.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		AA7004C519889628005D5FC1 /* Action.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Action.cpp; sourceTree = "<group>"; };
@@ -143,6 +150,10 @@
 				AA59F01C1988BD23009FD449 /* MD5.h */,
 				AA420BB219872FFF00D1117F /* Noncopyable.h */,
 				AA420BB3198730AB00D1117F /* Singleton.h */,
+				AA6CD7711AEC993F001B1D4B /* Config.cpp */,
+				AA6CD7721AEC993F001B1D4B /* Config.h */,
+				AA6CD7751AEC9FC5001B1D4B /* StringUtil.cpp */,
+				AA6CD7761AEC9FC5001B1D4B /* StringUtil.h */,
 			);
 			path = Public;
 			sourceTree = "<group>";
@@ -204,6 +215,7 @@
 				AA7004C219879911005D5FC1 /* Session.h */,
 				AA7004CE19889AF4005D5FC1 /* ActionManager.cpp */,
 				AA7004CF19889AF4005D5FC1 /* ActionManager.h */,
+				AA6CD7741AEC9A19001B1D4B /* etim.conf */,
 			);
 			path = ETImServer;
 			sourceTree = "<group>";
@@ -272,6 +284,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				AA7004CA198897B3005D5FC1 /* Register.cpp in Sources */,
+				AA6CD7731AEC993F001B1D4B /* Config.cpp in Sources */,
 				AACD74931994773F00254C55 /* MysqlDB.cpp in Sources */,
 				AA588BB71990BC8500F08821 /* Exception.cpp in Sources */,
 				AA7004C319879911005D5FC1 /* Session.cpp in Sources */,
@@ -285,6 +298,7 @@
 				AA420BAF198642F300D1117F /* Socket.cpp in Sources */,
 				AA11010F198B6556008811E4 /* Logging.cpp in Sources */,
 				AA59F0291988C9BB009FD449 /* OutStream.cpp in Sources */,
+				AA6CD7771AEC9FC5001B1D4B /* StringUtil.cpp in Sources */,
 				AABF3C9E19863690001C8DCA /* Main.cpp in Sources */,
 				AA59F0201988BFF8009FD449 /* Idea.cpp in Sources */,
 				AA110113198B6582008811E4 /* Timestamp.cpp in Sources */,

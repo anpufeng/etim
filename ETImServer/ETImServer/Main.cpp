@@ -12,9 +12,9 @@
 #if defined(__APPLE__) && defined(__GNUC__)
 #include <mysql.h>
 #elif defined(__linux__) || defined(__linux)
-#include <mysql/mysql.h>
+#include <mysql.h>
 #else
-#include <mysql/mysql.h>
+#include <mysql.h>
 #endif
 
 #include "Server.h"

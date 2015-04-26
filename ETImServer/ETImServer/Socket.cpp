@@ -17,7 +17,7 @@
 
 using namespace etim;
     
-Socket::Socket() : fd_(-1), port_(8888) {
+Socket::Socket() : fd_(-1), port_(1234) {
     
 }
 

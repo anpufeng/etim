@@ -1,5 +1,7 @@
 #include "MysqlDB.h"
 #include "Exception.h"
+#include "Server.h"
+#include "Singleton.h"
 
 #include <string.h>
 
@@ -27,7 +29,11 @@ MysqlDB::~MysqlDB()
 }
 
 void MysqlDB::Open() {
-    Open(MYSQL_SERVER, MYSQL_USER, MYSQL_PASSWOROD, MYSQL_DATABASE, MYSQL_PORT);
+    Open(Singleton<Server>::Instance().GetDbServerIp().c_str(),
+         Singleton<Server>::Instance().GetDbUser().c_str(),
+         Singleton<Server>::Instance().GetDbPass().c_str(),
+         Singleton<Server>::Instance().GetDbName().c_str(),
+         Singleton<Server>::Instance().GetPort());
 }
 void MysqlDB::Open(const char* host,
 				   const char* user,

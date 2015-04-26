@@ -40,7 +40,7 @@ class Timestamp
 
   // default copy/assignment/dtor are Okay
 
-    std::string toString() const;
+    //std::string toString() const;
   std::string toFormattedString(bool showMicroseconds = true) const;
 
   bool valid() const { return microSecondsSinceEpoch_ > 0; }

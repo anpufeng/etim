@@ -1,13 +1,12 @@
 #ifndef _MYSQL_DB_H_
 #define _MYSQL_DB_H_
 
-//#define WIN32_LEAN_AND_MEAN
 #if defined(__APPLE__) && defined(__GNUC__)
 #include <mysql.h>
-#elif defined(__linux__) || defined(__linux)  
-#include <mysql/mysql.h>
+#elif defined(__linux__) || defined(__linux)
+#include <mysql.h>
 #else
-#include <mysql/mysql.h>
+#include <mysql.h>
 #endif
 
 
@@ -105,3 +104,5 @@ private:
 }   //end etim
 
 #endif // _MYSQL_DB_H_
+
+

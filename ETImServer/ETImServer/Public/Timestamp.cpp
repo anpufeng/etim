@@ -26,6 +26,7 @@ Timestamp::Timestamp(int64_t microseconds)
 {
 }
 
+/*
 std::string Timestamp::toString() const
 {
   char buf[32] = {0};
@@ -34,6 +35,7 @@ std::string Timestamp::toString() const
   snprintf(buf, sizeof(buf)-1, "%" PRId64 ".%06" PRId64 "", seconds, microseconds);
   return buf;
 }
+ */
 
 std::string Timestamp::toFormattedString(bool showMicroseconds) const
 {

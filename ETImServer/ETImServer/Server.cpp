@@ -24,6 +24,8 @@
 #include <errno.h>
 #include <algorithm>
 #include <cstddef>
+#include <sstream>
+#include <iostream>
 
 
 
@@ -31,10 +33,32 @@ using namespace etim;
 using namespace etim::pub;
 using namespace etim::action;
 
+using namespace std;
+
 fd_set Server::readFds_;
 
-Server::Server() : fdMax_(-1) {
+Server::Server() : fdMax_(-1), config_("etim.conf") {
     
+    serverIp_ = config_.GetProperty("SERVER.SERVER_IP");
+    string port = config_.GetProperty("SERVER.PORT");
+    stringstream ss;
+    ss<<port;
+    ss>>port_;
+    
+    dbServerIp_ = config_.GetProperty("DB.IP");
+    
+    port = config_.GetProperty("DB.PORT");
+    ss.clear();
+    ss.str("");
+    ss<<port;
+    ss>>dbServerPort_;
+    
+    dbUser_ = config_.GetProperty("DB.USER");
+    dbPass_ = config_.GetProperty("DB.PASS");
+    dbName_ = config_.GetProperty("DB.NAME");
+    
+    ss.clear();
+    ss.str("");
 }
 
 Server::~Server() {
@@ -49,7 +73,7 @@ Server::~Server() {
 int Server::Start() {
     LOG_INFO<<"服务器启动";
     
-    Socket soc;
+    Socket soc(-1, port_);
     soc.Create();
     soc.Bind(NULL);
     soc.Listen();
