@@ -11,6 +11,7 @@
 #import "RegViewController.h"
 #import "HMScrollView.h"
 #import "BaseTabBarViewController.h"
+#import "ConfigViewController.h"
 #import "ReceivedManager.h"
 #import "AppDelegate.h"
 
@@ -100,7 +101,13 @@ using namespace etim::pub;
     
     [scrollView addSubview:_loginBtn];
     
-    _regBtn = [[UIButton alloc] initWithFrame:CGRectMake(RECT_WIDTH(self.view) - 100, RECT_HEIGHT(self.view) - 50, 80, kCommonBtnHeight44)];
+    _configBtn = [[UIButton alloc] initWithFrame:CGRectMake(20, RECT_HEIGHT(self.view) - 50, 120, kCommonBtnHeight44)];
+    [_configBtn setTitle:@"--服务器配置--" forState:UIControlStateNormal];
+    [_configBtn addTarget:self action:@selector(responseToConfigBtn:) forControlEvents:UIControlEventTouchUpInside];
+    
+    [scrollView addSubview:_configBtn];
+    
+    _regBtn = [[UIButton alloc] initWithFrame:CGRectMake(RECT_WIDTH(self.view) - 100, RECT_ORIGIN_Y(_configBtn), 80, kCommonBtnHeight44)];
     [_regBtn setTitle:@"--注册--" forState:UIControlStateNormal];
     [_regBtn addTarget:self action:@selector(responseToRegBtn:) forControlEvents:UIControlEventTouchUpInside];
 
@@ -122,21 +129,17 @@ using namespace etim::pub;
     [self.view endEditing:YES];
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     [[Client sharedInstance] connectWithDelegate:self];
-//    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-//        [[Client sharedInstance] connectWithDelegate:self];
-//        etim::Session *sess = [[Client sharedInstance] session];
-//        NSMutableDictionary *param = [NSMutableDictionary dictionary];
-//        [param setObject:_nameTextField.text forKey:@"name"];
-//        [param setObject:_pwdTextField.text forKey:@"pass"];
-//        [[Client sharedInstance] doAction:*sess cmd:CMD_LOGIN param:param];
-//    });
-   
 }
 
+- (void)responseToConfigBtn:(UIButton *)sender {
+    ConfigViewController *vc = [[ConfigViewController alloc] initWithNibName:@"ConfigViewController" bundle:nil];
+    [self.navigationController pushViewController:vc animated:YES];
+}
 - (void)responseToRegBtn:(UIButton *)sender {
     RegViewController *vc = [[RegViewController alloc] init];
     [self.navigationController pushViewController:vc animated:YES];
 }
+
 
 - (void)notiToLogin:(NSNotification *)noti {
     [MBProgressHUD hideHUDForView:self.view animated:YES];

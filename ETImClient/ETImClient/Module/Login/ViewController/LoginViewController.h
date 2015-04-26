@@ -18,6 +18,7 @@
     LeftMarginTextField *_pwdTextField;
     UIButton            *_forgotBtn;
     UIButton            *_loginBtn;
+    UIButton            *_configBtn;
     UIButton            *_regBtn;
 }
 

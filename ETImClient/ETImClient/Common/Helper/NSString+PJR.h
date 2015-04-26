@@ -77,6 +77,8 @@
 - (BOOL)isValidEmail;
 - (BOOL)isVAlidPhoneNumber;
 - (BOOL)isValidUrl;
+- (BOOL)isValidIPAddress;
+- (BOOL)isValidHostPort;
 
 //add by ethan
 

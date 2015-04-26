@@ -193,8 +193,9 @@ void clientConnectCallBack(bool connected)  {
         return;
     }
     
-    if (_delegate) {
+    if (!_delegate) {
         DDLogInfo(@"无delegate, 放弃重连");
+        return;
     }
     
 

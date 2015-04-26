@@ -33,6 +33,8 @@
 
 #import "NSString+PJR.h"
 
+#include <arpa/inet.h>
+
 @implementation NSString (PJR)
 
 
@@ -233,6 +235,29 @@
     return [urlTest evaluateWithObject:self];
 }
 
+
+- (BOOL)isValidIPAddress
+{
+    const char *utf8 = [self UTF8String];
+    int success;
+    
+    struct in_addr dst;
+    success = inet_pton(AF_INET, utf8, &dst);
+    if (success != 1) {
+        struct in6_addr dst6;
+        success = inet_pton(AF_INET6, utf8, &dst6);
+    }
+    
+    return success == 1;
+}
+
+- (BOOL)isValidHostPort {
+    if ([self containsOnlyNumbers]) {
+        return ([self intValue] >= 0 && [self intValue] <= 65535);
+    } else {
+        return NO;
+    }
+}
 
 - (CGSize)sizeWithFont:(UIFont *)font maxSize:(CGSize)maxSize
 {

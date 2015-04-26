@@ -146,6 +146,8 @@
 		AA33752B19A871CD005BD678 /* MetroUI-Folder-OS-OS-Linux-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = AA33752A19A871CD005BD678 /* MetroUI-Folder-OS-OS-Linux-icon.png */; };
 		AA33752F19A89E49005BD678 /* contact_add_btn_nor@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AA33752D19A89E49005BD678 /* contact_add_btn_nor@2x.png */; };
 		AA33753019A89E49005BD678 /* contact_add_btn_press@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AA33752E19A89E49005BD678 /* contact_add_btn_press@2x.png */; };
+		AA53C7D61AEB88B8004A5980 /* ConfigViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA53C7D41AEB88B8004A5980 /* ConfigViewController.m */; };
+		AA53C7D71AEB88B8004A5980 /* ConfigViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AA53C7D51AEB88B8004A5980 /* ConfigViewController.xib */; };
 		AA59F098198A2250009FD449 /* login_bg_ip5@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = AA59F096198A2250009FD449 /* login_bg_ip5@2x.jpg */; };
 		AA59F099198A2250009FD449 /* login_bg@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = AA59F097198A2250009FD449 /* login_bg@2x.jpg */; };
 		AA59F0A1198A28CF009FD449 /* login_avatar@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AA59F0A0198A28CF009FD449 /* login_avatar@2x.png */; };
@@ -464,6 +466,9 @@
 		AA33752A19A871CD005BD678 /* MetroUI-Folder-OS-OS-Linux-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "MetroUI-Folder-OS-OS-Linux-icon.png"; sourceTree = "<group>"; };
 		AA33752D19A89E49005BD678 /* contact_add_btn_nor@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "contact_add_btn_nor@2x.png"; sourceTree = "<group>"; };
 		AA33752E19A89E49005BD678 /* contact_add_btn_press@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "contact_add_btn_press@2x.png"; sourceTree = "<group>"; };
+		AA53C7D31AEB88B8004A5980 /* ConfigViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConfigViewController.h; sourceTree = "<group>"; };
+		AA53C7D41AEB88B8004A5980 /* ConfigViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConfigViewController.m; sourceTree = "<group>"; };
+		AA53C7D51AEB88B8004A5980 /* ConfigViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ConfigViewController.xib; sourceTree = "<group>"; };
 		AA59F096198A2250009FD449 /* login_bg_ip5@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "login_bg_ip5@2x.jpg"; sourceTree = "<group>"; };
 		AA59F097198A2250009FD449 /* login_bg@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "login_bg@2x.jpg"; sourceTree = "<group>"; };
 		AA59F0A0198A28CF009FD449 /* login_avatar@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "login_avatar@2x.png"; sourceTree = "<group>"; };
@@ -709,6 +714,9 @@
 				0D81338C1AC52D5300FE28CF /* LoginViewController.mm */,
 				0D81338D1AC52D5300FE28CF /* RegViewController.h */,
 				0D81338E1AC52D5300FE28CF /* RegViewController.mm */,
+				AA53C7D31AEB88B8004A5980 /* ConfigViewController.h */,
+				AA53C7D41AEB88B8004A5980 /* ConfigViewController.m */,
+				AA53C7D51AEB88B8004A5980 /* ConfigViewController.xib */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -1434,6 +1442,7 @@
 				AA1100EE198B3C01008811E4 /* tab_me_press@2x.png in Resources */,
 				AA3374F319A8681A005BD678 /* common_btn_green_nor@2x.png in Resources */,
 				AABF3CBD198636C0001C8DCA /* InfoPlist.strings in Resources */,
+				AA53C7D71AEB88B8004A5980 /* ConfigViewController.xib in Resources */,
 				AA33752F19A89E49005BD678 /* contact_add_btn_nor@2x.png in Resources */,
 				AA110107198B61DD008811E4 /* icon-info.png in Resources */,
 				AA30A74C19B49FC8006925F5 /* line@2x.png in Resources */,
@@ -1548,6 +1557,7 @@
 				0D8133E91AC52DF300FE28CF /* SendOperation.mm in Sources */,
 				0D8134601AC52F9800FE28CF /* TextFieldTableViewCell.m in Sources */,
 				0D8133A91AC52D5300FE28CF /* LoginViewController.mm in Sources */,
+				AA53C7D61AEB88B8004A5980 /* ConfigViewController.m in Sources */,
 				0D8134111AC52E2300FE28CF /* CmdParamModel.mm in Sources */,
 				0D81345D1AC52F9800FE28CF /* IndexPathButton.m in Sources */,
 				0D9EBFB91AC24DC40071793C /* DDFileLogger.m in Sources */,
