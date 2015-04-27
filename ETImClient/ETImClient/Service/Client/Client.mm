@@ -39,7 +39,7 @@ using namespace std;
 
 #define kBgQueue dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)
 
-static NSString *configServerIp = @"172.31.0.146";
+static NSString *configServerIp = @"104.131.147.16";
 static NSString *configServerPort = @"8888";
 
 

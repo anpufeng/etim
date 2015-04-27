@@ -65,7 +65,7 @@ int main(int argc, const char * argv[])
     }
      */
     
-    google::SetLogDestination(0,"/Users/sss/Desktop/glog_log/info.log");
+    google::SetLogDestination(0, argv[0]);
     
     google::InitGoogleLogging(argv[0]);
     
