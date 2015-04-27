@@ -30,6 +30,7 @@
 #include <sstream>
 #include <string.h>
 #include <stdio.h>
+#include <arpa/inet.h>
 
 using namespace etim;
 using namespace etim::pub;
@@ -37,6 +38,9 @@ using namespace etim::action;
 using namespace std;
 
 #define kBgQueue dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)
+
+static NSString *configServerIp = @"172.31.0.146";
+static NSString *configServerPort = @"8888";
 
 
 @interface Client () {
@@ -94,7 +98,12 @@ void clientConnectCallBack(bool connected)  {
 
 - (id)init {
     if (self = [super init]) {
-        self.hostReachability = [Reachability reachabilityWithHostName:@"www.baidu.com"];
+        
+        sockaddr_in addr = {0};
+        addr.sin_family = AF_INET;
+        addr.sin_port = htons([Client stdServerPort]);
+        addr.sin_addr.s_addr = inet_addr([Client stdServerIp]);
+        self.hostReachability = [Reachability reachabilityWithAddress:&addr];
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(reachabilityChanged:)
                                                      name:kReachabilityChangedNotification
@@ -178,11 +187,13 @@ void clientConnectCallBack(bool connected)  {
     dispatch_async(_connQueue, ^{
         if (!_session) {
             std::auto_ptr<Socket> connSoc(new Socket(-1, 0));
-                _session = new Session(connSoc, clientConnectCallBack);
+                _session = new Session(connSoc, clientConnectCallBack, [Client stdServerIp], [Client stdServerPort]);
             
         } else {
-            _session->Reconnect();
+            _session->Reconnect([Client stdServerIp], [Client stdServerPort]);
         }
+        
+        DDLogInfo(@"连接服务器 ip: %@, 端口: %@", configServerIp, configServerPort);
     });
 }
 
@@ -193,10 +204,10 @@ void clientConnectCallBack(bool connected)  {
         return;
     }
     
-    if (!_delegate) {
-        DDLogInfo(@"无delegate, 放弃重连");
-        return;
-    }
+//    if (!_delegate) {
+//        DDLogInfo(@"无delegate, 放弃重连");
+//        return;
+//    }
     
 
     
@@ -435,6 +446,31 @@ void clientConnectCallBack(bool connected)  {
         });
     });
 
+}
+
+#pragma mark -
+#pragma mark config
+
+
++ (NSString *)serverIp {
+    return configServerIp;
+}
++ (NSString *)serverPort {
+    return configServerPort;
+}
+
++ (char *)stdServerIp {
+    return const_cast<char *>([configServerIp UTF8String]);
+}
++ (unsigned short)stdServerPort {
+    return static_cast<unsigned short>([configServerPort intValue]);
+}
+
++ (void)updateServerIp:(NSString *)ip {
+    configServerIp = ip;
+}
++ (void )updateserverPort:(NSString *)port {
+    configServerPort = port;
 }
 
 @end

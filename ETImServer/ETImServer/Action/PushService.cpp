@@ -11,7 +11,7 @@
 #include "InStream.h"
 #include "MD5.h"
 #include "Idea.h"
-#include "Logging.h"
+#include "glog/logging.h"
 #include "DataService.h"
 #include "DataStruct.h"
 #include "SwitchStatus.h"
@@ -40,7 +40,7 @@ void PushService::PushBuddyUpdate(const etim::IMUser &user, etim::DataService &d
     std::list<IMUser> buddys;
     ret = dao.RetrieveBuddyList(Convert::IntToString(user.userId), true, false, buddys);
     if (ret == kErrCode00) {
-        LOG_INFO<<"通知在线好友我上线, userId: "<<user.userId;
+        LOG(INFO)<<"通知在线好友我上线, userId: "<<user.userId;
         list<IMUser>::const_iterator it;
         for (it = buddys.begin(); it != buddys.end(); ++it) {
             ///先找出对应的session
@@ -68,13 +68,13 @@ void PushService::PushBuddyUpdate(const etim::IMUser &user, etim::DataService &d
                 FillOutPackage(jos, lengthPos, cmd);
                 
                 s->Send(jos.Data(), jos.Length());
-                LOG_INFO<<"已经通知userId :"<<s->GetIMUser().userId<<" userId: "<<user.userId<<" 的在线状态";
+                LOG(INFO)<<"已经通知userId :"<<s->GetIMUser().userId<<" userId: "<<user.userId<<" 的在线状态";
             } else {
-                LOG_ERROR<<"没找出在线用户对应的session, userId: "<<it->userId;
+                LOG(ERROR)<<"没找出在线用户对应的session, userId: "<<it->userId;
             }
         }
     } else {
-        LOG_INFO<<"无在线好友要通知 userId: "<<user.userId;
+        LOG(INFO)<<"无在线好友要通知 userId: "<<user.userId;
     }
 }
 
@@ -118,9 +118,9 @@ void PushService::PushBuddyRequestResult(const etim::IMUser &user, const int fro
         s->Send(jos.Data(), jos.Length());
         //更新ACTION SEND time
         dao.UpdateActionSendTime(reqId, accept);
-        LOG_INFO<<"通知在线请求方我的结果, userId: "<<user.userId<<" 请求方 from: "<<from;
+        LOG(INFO)<<"通知在线请求方我的结果, userId: "<<user.userId<<" 请求方 from: "<<from;
     } else {
-        LOG_INFO<<"无在线请求方要通知 userId: "<<user.userId<<" 请求方 from: "<<from;
+        LOG(INFO)<<"无在线请求方要通知 userId: "<<user.userId<<" 请求方 from: "<<from;
     }
 }
 
@@ -158,9 +158,9 @@ void PushService::PushRequestAddBuddy(const etim::IMUser &user, const std::strin
         s->Send(jos.Data(), jos.Length());
         //更新request_send发出时间
         dao.UpdateRequestSendTime(reqId);
-        LOG_INFO<<"通知在线请求方我请求加为好友, userId: "<<user.userId<<" 对方 to: "<<to;
+        LOG(INFO)<<"通知在线请求方我请求加为好友, userId: "<<user.userId<<" 对方 to: "<<to;
     } else {
-        LOG_INFO<<"对方不在线, 对方登录后会从服务器拉取请求信息, userId: "<<user.userId<<" 对方 to: "<<to;
+        LOG(INFO)<<"对方不在线, 对方登录后会从服务器拉取请求信息, userId: "<<user.userId<<" 对方 to: "<<to;
     }
 
 }
@@ -201,18 +201,18 @@ void PushService::PushSendMsg(const std::string &from, const std::string &to, et
                 jos<<it->sent;
                 jos<<it->requestTime;
                 jos<<it->sendTime;
-                LOG_INFO<<it->sendTime;
+                LOG(INFO)<<it->sendTime;
                 FillOutPackage(jos, lengthPos, cmd);
 
                 s->Send(jos.Data(), jos.Length());
             }
-            LOG_INFO<<"用户在线 userId :"<<to<<" 已推送";
+            LOG(INFO)<<"用户在线 userId :"<<to<<" 已推送";
         } else {
             assert(error_code < kErrCodeMax);
             strcpy(error_msg, gErrMsg[error_code].c_str());
-            LOG_ERROR<<"用户在线 查询未读消息失败: "<<error_msg <<" from userId: "<<from<<" to userId: "<<to;
+            LOG(ERROR)<<"用户在线 查询未读消息失败: "<<error_msg <<" from userId: "<<from<<" to userId: "<<to;
         }
     } else {
-        LOG_INFO<<"用户不在线 userId :"<<to<<" 不需要推送";
+        LOG(INFO)<<"用户不在线 userId :"<<to<<" 不需要推送";
     }
 }

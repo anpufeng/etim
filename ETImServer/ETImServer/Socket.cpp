@@ -7,7 +7,7 @@
 //
 
 #include "Socket.h"
-#include "Logging.h"
+#include "glog/logging.h"
 #include <unistd.h>
 #include <sys/socket.h>
 #include <sys/types.h>
@@ -34,7 +34,7 @@ Socket::~Socket() {
 bool Socket::Create() {
     fd_ = ::socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
     if (fd_ == -1) {
-        LOG_FATAL<<"create socket error" << strerror(errno);
+        LOG(FATAL)<<"create socket error" << strerror(errno);
         return false;
     }
     
@@ -42,7 +42,7 @@ bool Socket::Create() {
     int val = 1;
     int result = ::setsockopt(fd_, SOL_SOCKET, SO_REUSEADDR, &val, sizeof(val));
     if (result == -1) {
-        LOG_FATAL<<"setsockopt error" << strerror(errno);
+        LOG(FATAL)<<"setsockopt error" << strerror(errno);
     }
 
     return true;
@@ -56,7 +56,7 @@ bool Socket::Bind(char *ip) {
     
     
     if (::bind(fd_, (struct sockaddr*) &addr, sizeof(addr)) == -1) {
-        LOG_FATAL<<"bind error: "<<strerror(errno);
+        LOG(FATAL)<<"bind error: "<<strerror(errno);
         return false;
     }
     
@@ -65,7 +65,7 @@ bool Socket::Bind(char *ip) {
 
 bool Socket::Listen() {
     if (::listen(fd_, 5) < 0) {
-        LOG_FATAL<<"listen error: "<<strerror(errno);
+        LOG(FATAL)<<"listen error: "<<strerror(errno);
     }
     
     return true;
@@ -82,7 +82,7 @@ int Socket::Accept() {
     int sock = ::accept(fd_, (struct sockaddr *)&clientAddr, (socklen_t *)&len);
 
     //printf("%d\n", clientAddr.sin_addr.s_addr);
-    LOG_INFO<<"accept 客户端IP "<<inet_ntoa(clientAddr.sin_addr);
+    LOG(INFO)<<"accept 客户端IP "<<inet_ntoa(clientAddr.sin_addr);
 
     return sock;
 }
@@ -94,7 +94,7 @@ bool Socket::Connect(char *ip, unsigned short port) {
 	addr.sin_addr.s_addr = inet_addr(ip);
     int ret = ::connect(fd_, (sockaddr*)&addr, sizeof(addr));
 	if (ret < 0) {
-        LOG_ERROR<<"connect error"<<" ip "<<ip<<" port " << port;
+        LOG(ERROR)<<"connect error"<<" ip "<<ip<<" port " << port;
         return false;
     }
     
@@ -110,7 +110,7 @@ int Socket::SendN(const char *buf, size_t len) {
 	while (nLeft > 0) {
 		nWritten = (int)::send(fd_, p, nLeft, 0);
 		if (nWritten == -1) {
-            LOG_ERROR<<"SendN error: "<<strerror(errno);
+            LOG(ERROR)<<"SendN error: "<<strerror(errno);
 			return nWritten;
         }
         
@@ -130,7 +130,7 @@ int Socket::RecvN(char *buf, size_t len) {
 	while (nLeft > 0) {
 		nRead = (int)::recv(fd_, p, nLeft, 0);
 		if (nRead == -1) {
-            LOG_ERROR<<"recvn error: "<<strerror(errno);
+            LOG(ERROR)<<"recvn error: "<<strerror(errno);
 			return nRead;
 		}
 		else if (nRead == 0)

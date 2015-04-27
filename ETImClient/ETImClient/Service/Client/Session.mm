@@ -21,9 +21,9 @@ using namespace etim::pub;
 
 using namespace std;
 
-Session::Session(std::auto_ptr<Socket> &socket, connectCallBack callBack) : socket_(socket), callBack_(callBack), isConnected_(false) {
+Session::Session(std::auto_ptr<Socket> &socket, connectCallBack callBack, char *ip, unsigned short port) : socket_(socket), callBack_(callBack), isConnected_(false) {
     LOG_INFO<<"Session 构造函数";
-    Connect();
+    Connect(ip, port);
     responsePack_ = (ResponsePack*)buffer_;
 }
 
@@ -37,16 +37,16 @@ void Session::Close() {
         isConnected_ = false;
 }
 
-bool Session::Reconnect() {
+bool Session::Reconnect(char *ip, unsigned short port) {
     responsePack_ = (ResponsePack*)buffer_;
     isConnected_ = false;
-    return this->Connect();
+    return this->Connect(ip, port);
 }
-bool Session::Connect() {
+bool Session::Connect(char *ip, unsigned short port) {
     if (isConnected_) return true;
     
     if (socket_->Create()) {
-        if (socket_->Connect(HOST_SERVER, HOST_PORT))  {
+        if (socket_->Connect(ip, port))  {
             isConnected_ = true;
         } else {
             isConnected_ = false;

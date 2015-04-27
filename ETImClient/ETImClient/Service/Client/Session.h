@@ -133,7 +133,7 @@ namespace etim {
     ///会话数据
     class Session {
     public:
-        Session(std::auto_ptr<Socket> &socket, connectCallBack callBack);
+        Session(std::auto_ptr<Socket> &socket, connectCallBack callBack, char *ip, unsigned short port);
         ~Session();
         
         ///设置发送操作命令
@@ -153,8 +153,8 @@ namespace etim {
         ///获取响应包
         ResponsePack* GetResponsePack() const { return responsePack_; }
         void Close();
-        bool Connect();
-        bool Reconnect();
+        bool Connect(char *ip, unsigned short port);
+        bool Reconnect(char *ip, unsigned short port);
         ///还原状态
         void Clear();
         ///发送打包数据

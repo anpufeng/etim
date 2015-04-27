@@ -12,7 +12,7 @@
 #include "InStream.h"
 #include "MD5.h"
 #include "Idea.h"
-#include "Logging.h"
+#include "glog/logging.h"
 #include "DataService.h"
 #include "DataStruct.h"
 
@@ -45,7 +45,7 @@ void RetrieveBuddyList::Execute(Session *s) {
 	int ret;
 	ret = dao.RetrieveBuddyList(userId, false, true, buddys);
 	if (ret == kErrCode00) {
-		LOG_INFO<<"查询好友列表成功 userid: "<<userId <<" 好友数: "<<buddys.size();
+		LOG(INFO)<<"查询好友列表成功 userid: "<<userId <<" 好友数: "<<buddys.size();
         uint16 cnt = static_cast<uint16>(buddys.size());    //总共多少
 		uint16 seq = 0;                                     //序列号
         list<IMUser>::const_iterator it;
@@ -79,7 +79,7 @@ void RetrieveBuddyList::Execute(Session *s) {
 		error_code = ret;
         assert(error_code < kErrCodeMax);
 		strcpy(error_msg, gErrMsg[error_code].c_str());
-		LOG_INFO<<"查询好友列表失败: "<<error_msg<<" userId: "<<userId;
+		LOG(INFO)<<"查询好友列表失败: "<<error_msg<<" userId: "<<userId;
         
         OutStream jos;
         // 包头命令
@@ -119,7 +119,7 @@ void RetrievePendingBuddyRequest::Execute(Session *s) {
 	int ret;
 	ret = dao.RetrievePendingBuddyRequest(userId, reqBuddys);
 	if (ret == kErrCode00) {
-		LOG_INFO<<"查询待处理好友请求数成功 userid: "<<userId <<" 好友请求数: "<<reqBuddys.size();
+		LOG(INFO)<<"查询待处理好友请求数成功 userid: "<<userId <<" 好友请求数: "<<reqBuddys.size();
         uint16 cnt = static_cast<uint16>(reqBuddys.size());    //总共多少
 		uint16 seq = 0;                                     //序列号
         list<IMUser>::const_iterator it;
@@ -154,7 +154,7 @@ void RetrievePendingBuddyRequest::Execute(Session *s) {
 		error_code = ret;
         assert(error_code < kErrCodeMax);
 		strcpy(error_msg, gErrMsg[error_code].c_str());
-		LOG_INFO<<"查询好友请求列表失败: "<<error_msg<<" userId: "<<userId;
+		LOG(INFO)<<"查询好友请求列表失败: "<<error_msg<<" userId: "<<userId;
         
         OutStream jos;
         // 包头命令
@@ -193,7 +193,7 @@ void RetrieveAllBuddyRequest::Execute(Session *s) {
 	int ret;
 	ret = dao.RetrieveAllBuddyRequest(userId, reqs);
 	if (ret == kErrCode00) {
-		LOG_INFO<<"查询好友请求历史记录成功 userid: "<<userId <<" 请求历史记录数: "<<reqs.size();
+		LOG(INFO)<<"查询好友请求历史记录成功 userid: "<<userId <<" 请求历史记录数: "<<reqs.size();
         uint16 cnt = static_cast<uint16>(reqs.size());    //总共多少
 		uint16 seq = 0;                                     //序列号
         list<IMReq>::const_iterator it;
@@ -232,7 +232,7 @@ void RetrieveAllBuddyRequest::Execute(Session *s) {
 		error_code = ret;
         assert(error_code < kErrCodeMax);
 		strcpy(error_msg, gErrMsg[error_code].c_str());
-		LOG_INFO<<"查询好友所有请求列表失败: "<<error_msg<<" userId: "<<userId;
+		LOG(INFO)<<"查询好友所有请求列表失败: "<<error_msg<<" userId: "<<userId;
         
         OutStream jos;
         // 包头命令

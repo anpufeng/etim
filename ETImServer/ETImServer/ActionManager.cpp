@@ -7,7 +7,7 @@
 //
 
 #include "ActionManager.h"
-#include "Logging.h"
+#include "glog/logging.h"
 #include "Session.h"
 #include "Register.h"
 #include "Login.h"
@@ -60,6 +60,6 @@ bool ActionManager::DoAction(Session *s)
         return true;
     }
     
-    LOG_ERROR<<"没有对应的命令处理类";
+    LOG(ERROR)<<"没有对应的命令处理类";
     return false;
 }

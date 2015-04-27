@@ -19,7 +19,7 @@
 
 #include "Server.h"
 #include "Singleton.h"
-#include "Logging.h"
+#include "glog/logging.h"
 
 using namespace etim;
 using namespace etim::pub;
@@ -65,15 +65,31 @@ int main(int argc, const char * argv[])
     }
      */
     
-    signal(SIGPIPE, SIG_IGN);
+    google::SetLogDestination(0,"/Users/sss/Desktop/glog_log/info.log");
     
-    return Singleton<Server>::Instance().Start();
+    google::InitGoogleLogging(argv[0]);
+    
+#ifdef DEBUG_MODE
+    google::SetStderrLogging(google::GLOG_INFO); //设置级别高于 google::INFO 的日志同时输出到屏幕
+#else
+    google::SetStderrLogging(google::GLOG_INFO);//设置级别高于 google::FATAL 的日志同时输出到屏幕
+#endif
+    
+    FLAGS_logbufsecs = 0; //缓冲日志输出，默认为30秒，此处改为立即输出
+    FLAGS_max_log_size = 20; //最大日志大小为 100MB
+    FLAGS_stop_logging_if_full_disk = true; //当磁盘被写满时，停止日志输出
+    //google::SetLogFilenameExtension("91_"); //设置文件名扩展，如平台？或其它需要区分的信息
+    //google::InstallFailureSignalHandler(); //捕捉 core dumped (linux)
+    //google::InstallFailureWriter(&Log); //默认捕捉 SIGSEGV 信号信息输出会输出到 stderr (linux)
+    
+    signal(SIGPIPE, SIG_IGN);
 
+    return Singleton<Server>::Instance().Start();
 }
 
 void signal_handler(int signo)
 {
-    LOG_ERROR<<"收到signal "<<signo;
+    LOG(ERROR)<<"收到signal "<<signo;
 }
 
 /*

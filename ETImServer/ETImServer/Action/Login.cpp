@@ -12,7 +12,7 @@
 #include "InStream.h"
 #include "MD5.h"
 #include "Idea.h"
-#include "Logging.h"
+#include "glog/logging.h"
 #include "DataService.h"
 #include "DataStruct.h"
 #include "PushService.h"
@@ -69,12 +69,12 @@ void Login::Execute(Session *s) {
 	ret = dao.UserLogin(name, pass, user);
 	if (ret == kErrCode00) {
         s->SetIMUser(user);
-		LOG_INFO<<"登录成功: "<<name;
+		LOG(INFO)<<"登录成功: "<<name;
 	} else  {
 		error_code = ret;
         assert(error_code < kErrCodeMax);
 		strcpy(error_msg, gErrMsg[error_code].c_str());
-		LOG_INFO<<"登录出错: "<<error_msg <<"name: "<<name;
+		LOG(INFO)<<"登录出错: "<<error_msg <<"name: "<<name;
 	}
     
 	OutStream jos;
@@ -128,13 +128,13 @@ void Logout::Execute(Session *s) {
 	int ret = kErrCode00;
     ret = dao.UserLogout(userId, user); ///数据库已更新为offline
 	if (ret == kErrCode00) {
-		LOG_INFO<<"登出成功 userId: "<<userId;
+		LOG(INFO)<<"登出成功 userId: "<<userId;
         s->SetIMUser(user);
 	} else  {
 		error_code = ret;
         assert(error_code < kErrCodeMax);
 		strcpy(error_msg, gErrMsg[error_code].c_str());
-		LOG_ERROR<<"登出出错: "<<error_msg<<" userId: "<<userId;
+		LOG(ERROR)<<"登出出错: "<<error_msg<<" userId: "<<userId;
 	}
     
 	OutStream jos;

@@ -12,7 +12,7 @@
 #include "MD5.h"
 #include "Idea.h"
 #include "DataService.h"
-#include "Logging.h"
+#include "glog/logging.h"
 #include "Session.h"
 
 #include <string>
@@ -60,12 +60,12 @@ void Register::Execute(Session *s) {
      int ret;
      ret = dao.UserRegister(name, pass);
      if (ret == kErrCode00) {
-         LOG_INFO<<"注册成功 用户名: "<<name;
+         LOG(INFO)<<"注册成功 用户名: "<<name;
      } else {
          error_code = ret;
          assert(error_code < kErrCodeMax);
          strcpy(error_msg, gErrMsg[error_code].c_str());
-         LOG_INFO<<"注册失败: "<<error_msg<<" 用户名: ", name;
+         LOG(INFO)<<"注册失败: "<<error_msg<<" 用户名: ", name;
      }
     
 	OutStream jos;

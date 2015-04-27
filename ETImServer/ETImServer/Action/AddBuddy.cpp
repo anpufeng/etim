@@ -12,7 +12,7 @@
 #include "InStream.h"
 #include "MD5.h"
 #include "Idea.h"
-#include "Logging.h"
+#include "glog/logging.h"
 #include "Endian.h"
 #include "DataService.h"
 #include "DataStruct.h"
@@ -47,12 +47,12 @@ void RequestAddBuddy::Execute(Session *s) {
 	ret = dao.RequestAddBuddy(fromName, toName, toId, reqId);
 	if (ret == kErrCode00) {
         strcpy(error_msg, "请求发送成功");
-		LOG_INFO<<"添加好友请求成功 from: "<<fromName<<" to: "<<toName;
+		LOG(INFO)<<"添加好友请求成功 from: "<<fromName<<" to: "<<toName;
 	} else {
 		error_code = ret;
         assert(error_code < kErrCodeMax);
 		strcpy(error_msg, gErrMsg[error_code].c_str());
-		LOG_INFO<<"添加好友请求失败 from: "<<fromName<<" to: "<<toName<<" "<<error_msg;
+		LOG(INFO)<<"添加好友请求失败 from: "<<fromName<<" to: "<<toName<<" "<<error_msg;
 	}
     
 	OutStream jos;
@@ -100,12 +100,12 @@ void SearchBuddy::Execute(Session *s) {
 	int ret;
 	ret = dao.UserSearch(name, s, user);
 	if (ret == kErrCode00) {
-		LOG_INFO<<"查询用户成功 查询名: "<<name;
+		LOG(INFO)<<"查询用户成功 查询名: "<<name;
 	} else {
 		error_code = ret;
         assert(error_code < kErrCodeMax);
 		strcpy(error_msg, gErrMsg[error_code].c_str());
-		LOG_INFO<<"查询用户失败 查询名: "<<name<<" "<<error_msg;
+		LOG(INFO)<<"查询用户失败 查询名: "<<name<<" "<<error_msg;
 	}
     
 	OutStream jos;
@@ -155,13 +155,13 @@ void AcceptAddBuddy::Execute(Session *s) {
     IMUser fromUser;    // 用于返回请求方最新资料(主要是否在线)
     ret = dao.AcceptAddBuddy(fromId, Convert::IntToString(userId), reqId, peer, fromUser);
 	if (ret == kErrCode00) {
-		LOG_INFO<<"接受用户 " <<(Convert::StringToInt(addPeer) ? "并且添加对方为好友" : "") <<
+		LOG(INFO)<<"接受用户 " <<(Convert::StringToInt(addPeer) ? "并且添加对方为好友" : "") <<
                 "fromUserId: "<<fromId<< " toUserId: "<<userId<< " 成功";
 	} else {
 		error_code = ret;
         assert(error_code < kErrCodeMax);
 		strcpy(error_msg, gErrMsg[error_code].c_str());
-        LOG_INFO<<"接受用户 " <<(Convert::StringToInt(addPeer) ? "并且添加对方为好友" : "") <<
+        LOG(INFO)<<"接受用户 " <<(Convert::StringToInt(addPeer) ? "并且添加对方为好友" : "") <<
         "fromUserId: "<<fromId<< " toUserId: "<<userId<< " 失败: "<<error_msg;
 	}
     
@@ -219,12 +219,12 @@ void RejectAddBuddy::Execute(Session *s) {
 	int ret = dao.RejectAddBuddy(fromId, Convert::IntToString(userId), reqId);
 
 	if (ret == kErrCode00) {
-		LOG_INFO<<"拒绝用户 " << "fromUserId: "<<fromId<< " toUserId: "<<userId<< " 成功";
+		LOG(INFO)<<"拒绝用户 " << "fromUserId: "<<fromId<< " toUserId: "<<userId<< " 成功";
 	} else {
 		error_code = ret;
         assert(error_code < kErrCodeMax);
 		strcpy(error_msg, gErrMsg[error_code].c_str());
-        LOG_INFO<<"拒绝用户 " << "fromUserId: "<<fromId<< " toUserId: "<<userId<< " 失败: "<<error_msg;
+        LOG(INFO)<<"拒绝用户 " << "fromUserId: "<<fromId<< " toUserId: "<<userId<< " 失败: "<<error_msg;
 	}
     
 	OutStream jos;

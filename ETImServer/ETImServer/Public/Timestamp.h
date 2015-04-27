@@ -40,6 +40,7 @@ class Timestamp
 
   // default copy/assignment/dtor are Okay
 
+    ///remove by ethan for compile error
     //std::string toString() const;
   std::string toFormattedString(bool showMicroseconds = true) const;
 

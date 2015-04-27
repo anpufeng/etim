@@ -113,6 +113,16 @@ inline std::string nsStrToStdStr(NSString *str) {
 
 - (void)resetStatus;
 
+///config
++ (NSString *)serverIp;
++ (NSString *)serverPort;
+
++ (char *)stdServerIp;
++ (unsigned short)stdServerPort;
+
++ (void)updateServerIp:(NSString *)ip;
++ (void )updateserverPort:(NSString *)port;
+
 @end
 
 

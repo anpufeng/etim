@@ -12,7 +12,7 @@
 #include "InStream.h"
 #include "MD5.h"
 #include "Idea.h"
-#include "Logging.h"
+#include "glog/logging.h"
 #include "DataService.h"
 #include "DataStruct.h"
 

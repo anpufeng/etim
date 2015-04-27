@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7531" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6254" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7520"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ConfigViewController">
@@ -18,19 +18,19 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="服务器" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hvL-0s-Okh">
-                    <rect key="frame" x="40" y="105" width="51" height="21"/>
+                    <rect key="frame" x="30" y="105" width="51" height="20.5"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="端口" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ztw-AM-bjY">
-                    <rect key="frame" x="40" y="138" width="51" height="21"/>
+                    <rect key="frame" x="30" y="137" width="51" height="20.5"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="192.168.0.101" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Oll-xC-kXe" customClass="LeftMarginTextField">
-                    <rect key="frame" x="111" y="101" width="135" height="30"/>
+                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="127.0.0.1" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Oll-xC-kXe" customClass="LeftMarginTextField">
+                    <rect key="frame" x="101" y="101" width="135" height="30"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="135" id="PnR-gG-0wp"/>
                         <constraint firstAttribute="height" constant="30" id="zT5-U3-ONg"/>
@@ -38,8 +38,8 @@
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <textInputTraits key="textInputTraits"/>
                 </textField>
-                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="8080" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="hQm-gC-cey" customClass="LeftMarginTextField">
-                    <rect key="frame" x="111" y="134" width="135" height="30"/>
+                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="8888" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="hQm-gC-cey" customClass="LeftMarginTextField">
+                    <rect key="frame" x="101" y="134" width="135" height="30"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="135" id="g4M-r3-A9g"/>
                         <constraint firstAttribute="height" constant="30" id="lPg-eo-2vz"/>
@@ -47,16 +47,29 @@
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <textInputTraits key="textInputTraits"/>
                 </textField>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="V74-j3-y1C">
+                    <rect key="frame" x="251" y="101" width="50" height="30"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="30" id="Uab-Cb-CPg"/>
+                        <constraint firstAttribute="width" constant="50" id="q2u-SL-TGQ"/>
+                    </constraints>
+                    <state key="normal" title="更改IP"/>
+                    <connections>
+                        <action selector="responseToChangeBtn:" destination="-1" eventType="touchUpInside" id="VJF-Am-nVf"/>
+                    </connections>
+                </button>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstItem="hvL-0s-Okh" firstAttribute="width" secondItem="ztw-AM-bjY" secondAttribute="width" id="2P2-1O-TvG"/>
-                <constraint firstItem="hvL-0s-Okh" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="40" id="CIP-qJ-fvX"/>
-                <constraint firstItem="ztw-AM-bjY" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="40" id="DpE-3u-gUp"/>
+                <constraint firstItem="V74-j3-y1C" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="101" id="2kD-FL-NGB"/>
+                <constraint firstItem="hvL-0s-Okh" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="30" id="CIP-qJ-fvX"/>
+                <constraint firstItem="ztw-AM-bjY" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="30" id="DpE-3u-gUp"/>
                 <constraint firstItem="hvL-0s-Okh" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="105" id="EUJ-oo-Px3"/>
                 <constraint firstItem="ztw-AM-bjY" firstAttribute="top" secondItem="hvL-0s-Okh" secondAttribute="bottom" constant="12" id="HGO-pn-kRA"/>
                 <constraint firstItem="Oll-xC-kXe" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="101" id="Kfg-k8-a76"/>
                 <constraint firstItem="Oll-xC-kXe" firstAttribute="leading" secondItem="hvL-0s-Okh" secondAttribute="trailing" constant="20" id="MV2-X3-Oo4"/>
+                <constraint firstItem="V74-j3-y1C" firstAttribute="leading" secondItem="Oll-xC-kXe" secondAttribute="trailing" constant="15" id="P7Z-hL-1EO"/>
                 <constraint firstItem="hQm-gC-cey" firstAttribute="leading" secondItem="ztw-AM-bjY" secondAttribute="trailing" constant="20" id="ZQo-gV-lkV"/>
                 <constraint firstItem="ztw-AM-bjY" firstAttribute="top" secondItem="hvL-0s-Okh" secondAttribute="bottom" constant="12" id="iWE-nD-G1a"/>
                 <constraint firstItem="Oll-xC-kXe" firstAttribute="leading" secondItem="hvL-0s-Okh" secondAttribute="trailing" constant="20" id="pr0-N4-eu9"/>

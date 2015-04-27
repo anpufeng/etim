@@ -7,7 +7,7 @@
 //
 
 #include "Server.h"
-#include "Logging.h"
+#include "glog/logging.h"
 #include "ActionManager.h"
 #include "Exception.h"
 #include "PushService.h"
@@ -62,7 +62,7 @@ Server::Server() : fdMax_(-1), config_("etim.conf") {
 }
 
 Server::~Server() {
-    LOG_INFO<<"~Server析构";
+    LOG(INFO)<<"~Server析构";
     typedef std::vector<Session *>::iterator iter;
     for (iter it = sessions_.begin(); it != sessions_.end(); it++) {
         Session *ps = *it;
@@ -71,7 +71,7 @@ Server::~Server() {
 }
 
 int Server::Start() {
-    LOG_INFO<<"服务器启动";
+    LOG(INFO)<<"服务器启动";
     
     Socket soc(-1, port_);
     soc.Create();
@@ -81,7 +81,7 @@ int Server::Start() {
     int listenFd = soc.GetFd();
     gettimeofday(&lastKick_, NULL);
     
-    LOG_INFO<<"开始监听";
+    LOG(INFO)<<"开始监听";
     //fd_set writeFds;
     while (1) {
         FD_ZERO(&readFds_);  //将监听fd加入到集合中
@@ -103,7 +103,7 @@ int Server::Start() {
         
         int ready = select(fdMax_ + 1, &readFds_, NULL, NULL, &timeout);
         if (ready == -1) {
-            LOG_ERROR<<"select error: "<<strerror(errno);
+            LOG(ERROR)<<"select error: "<<strerror(errno);
             continue;
         }
         
@@ -118,10 +118,10 @@ int Server::Start() {
             int connFd = soc.Accept();
             
             if (connFd == -1) {
-                LOG_ERROR<<"accept error"<<strerror(errno);
+                LOG(ERROR)<<"accept error"<<strerror(errno);
                 continue;
             }
-            LOG_INFO<<"有新客户端连接 :";
+            LOG(INFO)<<"有新客户端连接 :";
             if (connFd > fdMax_) {
                 fdMax_ = connFd;
             }
@@ -164,13 +164,13 @@ int Server::Start() {
                             }
                         }
                         
-                        LOG_INFO<<"客户端关闭socket userId: "<<s->GetIMUser().userId;
+                        LOG(INFO)<<"客户端关闭socket userId: "<<s->GetIMUser().userId;
                         DeleteSession(s);
                     } else {
                         ++it;
                         //TODO 其它出错的处理
                     }
-                    LOG_ERROR<<e.what();
+                    LOG(ERROR)<<e.what();
                 }
                 
             } else {
@@ -201,7 +201,7 @@ void Server::KickOut() {
         Session *s = *it;
         long diff = now.tv_sec - s->GetLastTime().tv_sec;
         if (diff > 3 * HEART_BEAT_SECONDS) {
-            LOG_INFO<<"客户端超时 socket userId: "<<s->GetIMUser().userId<<" 超时时间: "<<diff<<"s";
+            LOG(INFO)<<"客户端超时 socket userId: "<<s->GetIMUser().userId<<" 超时时间: "<<diff<<"s";
             DeleteSession(s);
         } else {
             ++it;

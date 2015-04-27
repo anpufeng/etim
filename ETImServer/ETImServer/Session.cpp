@@ -7,7 +7,7 @@
 //
 
 #include "Session.h"
-#include "Logging.h"
+#include "glog/logging.h"
 #include "Endian.h"
 #include "Exception.h"
 #include "MD5.h"
@@ -28,7 +28,7 @@ Session::~Session() {
         dao.UpdateUserStatus(Convert::IntToString(user_.userId), kBuddyOffline);
     }
     
-    LOG_INFO<<"~Session析构函数";
+    LOG(INFO)<<"~Session析构函数";
 }
 
 void Session::Send(const char *buf, size_t len) {

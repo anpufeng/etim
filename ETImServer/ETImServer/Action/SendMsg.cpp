@@ -12,7 +12,7 @@
 #include "InStream.h"
 #include "MD5.h"
 #include "Idea.h"
-#include "Logging.h"
+#include "glog/logging.h"
 #include "DataService.h"
 #include "DataStruct.h"
 
@@ -46,12 +46,12 @@ void SendMsg::Execute(Session *s) {
     int msgId;
     ret = dao.SendMsg(from, to, text, msgId);
 	if (ret == kErrCode00) {
-		LOG_INFO<<"发送记录插入 userId: "<<from;
+		LOG(INFO)<<"发送记录插入 userId: "<<from;
 	} else  {
 		error_code = ret;
         assert(error_code < kErrCodeMax);
 		strcpy(error_msg, gErrMsg[error_code].c_str());
-		LOG_ERROR<<"发送记录插入出错: "<<error_msg<<" userId: "<<from;
+		LOG(ERROR)<<"发送记录插入出错: "<<error_msg<<" userId: "<<from;
 	}
     
 	OutStream jos;
@@ -100,7 +100,7 @@ void RetrieveUnreadMsg::Execute(Session *s) {
 	int ret = kErrCode00;
     ret = dao.RetrieveUnreadMsg(userId, msgs);
 	if (ret == kErrCode00) {
-		LOG_INFO<<"查询未读消息成功 userId: "<<userId <<" 未读消息条数: "<<msgs.size();
+		LOG(INFO)<<"查询未读消息成功 userId: "<<userId <<" 未读消息条数: "<<msgs.size();
         uint16 cnt = static_cast<uint16>(msgs.size());    //总共多少
 		uint16 seq = 0;                                     //序列号
         list<IMMsg>::const_iterator it;
@@ -137,7 +137,7 @@ void RetrieveUnreadMsg::Execute(Session *s) {
 		error_code = ret;
         assert(error_code < kErrCodeMax);
 		strcpy(error_msg, gErrMsg[error_code].c_str());
-		LOG_INFO<<"查询未读消息失败: "<<error_msg <<" userId: "<<userId;
+		LOG(INFO)<<"查询未读消息失败: "<<error_msg <<" userId: "<<userId;
         
         OutStream jos;
         // 包头命令

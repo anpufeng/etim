@@ -8,7 +8,7 @@
 
 #include "DataService.h"
 #include "MysqlDB.h"
-#include "Logging.h"
+#include "glog/logging.h"
 #include "Exception.h"
 #include "Session.h"
 #include "Endian.h"
@@ -55,7 +55,7 @@ int DataService::UserRegister(const std::string &username, const std::string &pa
         unsigned long long ret = db.ExecSQL(ss.str().c_str());
         (void)ret;
     } catch (Exception &e) {
-        LOG_ERROR<<e.what();
+        LOG(ERROR)<<e.what();
         return kErrCode02;
     }
     
@@ -110,7 +110,7 @@ int DataService::UserLogin(const std::string& username, const std::string& pass,
         user.relation = kBuddyRelationSelf;
         
     } catch (Exception &e) {
-        LOG_ERROR<<e.what();
+        LOG(ERROR)<<e.what();
         return kErrCode02;
     }
     
@@ -154,7 +154,7 @@ int DataService::UserLogout(const std::string& userId, IMUser &user) {
         user.statusName = rs.GetItem(0, "b.status_name");
         user.relation = kBuddyRelationSelf;
     } catch (Exception &e) {
-        LOG_ERROR<<e.what();
+        LOG(ERROR)<<e.what();
         return kErrCode02;
     }
     return kErrCode00;
@@ -172,7 +172,7 @@ int DataService::UserSearch(const std::string &username, Session *s, IMUser &use
         user = s->GetIMUser();
         return kErrCode00;
     } else {
-        LOG_INFO<<"查询的非当前用户";
+        LOG(INFO)<<"查询的非当前用户";
         MysqlDB db;
         try {
             db.Open();
@@ -214,7 +214,7 @@ int DataService::UserSearch(const std::string &username, Session *s, IMUser &use
             user.relation = isFriend ? kBuddyRelationFriend : kBuddyRelationStranger;
             
         } catch (Exception &e) {
-            LOG_ERROR<<e.what();
+            LOG(ERROR)<<e.what();
             return kErrCode02;
         }
     }
@@ -291,11 +291,11 @@ int DataService::RequestAddBuddy(const std::string &from, const std::string &to,
                 
             } catch (Exception &e) {
                 db.Rollback();
-                LOG_ERROR<<e.what();
+                LOG(ERROR)<<e.what();
                 return kErrCode02;
             }
         } catch (Exception &e) {
-            LOG_ERROR<<e.what();
+            LOG(ERROR)<<e.what();
             return kErrCode02;
         }
     return kErrCode00;
@@ -429,13 +429,13 @@ int DataService::AcceptAddBuddy(const std::string &from, const std::string &to, 
                 } catch (Exception &e) {
                     db.Rollback();
                     fromUser.relation = kBuddyRelationStranger;
-                    LOG_ERROR<<e.what();
+                    LOG(ERROR)<<e.what();
                     return kErrCode02;
                 }
             }
         }
     } catch (Exception &e) {
-        LOG_ERROR<<e.what();
+        LOG(ERROR)<<e.what();
         return kErrCode02;
     }
     return kErrCode00;
@@ -491,7 +491,7 @@ int DataService::RejectAddBuddy(const std::string &from, const std::string &to, 
         unsigned long long ret = db.ExecSQL(ss.str().c_str());
         (void)ret;
     } catch (Exception &e) {
-        LOG_ERROR<<e.what();
+        LOG(ERROR)<<e.what();
         return kErrCode02;
     }
     return kErrCode00;
@@ -599,7 +599,7 @@ int DataService::RetrieveBuddyList(const std::string &userId, const bool online,
         }
        
     } catch (Exception &e) {
-        LOG_ERROR<<e.what();
+        LOG(ERROR)<<e.what();
         return kErrCode02;
     }
 
@@ -681,7 +681,7 @@ int DataService::RetrieveUnreadMsg(const std::string &userId, std::list<IMMsg> &
         unsigned long long ret = db.ExecSQL(ss.str().c_str());
         
     } catch (Exception &e) {
-        LOG_ERROR<<e.what();
+        LOG(ERROR)<<e.what();
         return kErrCode02;
     }
     
@@ -746,14 +746,14 @@ int DataService::RetrievePendingBuddyRequest(const std::string &userId, std::lis
             }
             db.Commit();
         } catch (Exception &e) {
-            LOG_ERROR<<e.what();
+            LOG(ERROR)<<e.what();
             db.Rollback();
             return kErrCode02;
         }
         
         
     } catch (Exception &e) {
-        LOG_ERROR<<e.what();
+        LOG(ERROR)<<e.what();
         return kErrCode02;
     }
     
@@ -809,7 +809,7 @@ int DataService::RetrieveAllBuddyRequest(const std::string &userId, std::list<IM
             result.push_back(req);
         }
     } catch (Exception &e) {
-        LOG_ERROR<<e.what();
+        LOG(ERROR)<<e.what();
         return kErrCode02;
     }
     
@@ -846,7 +846,7 @@ int DataService::SendMsg(const std::string &from, const std::string &to, const s
         
         msgId = static_cast<int>(db.GetInsertId());
     } catch (Exception &e) {
-        LOG_ERROR<<e.what();
+        LOG(ERROR)<<e.what();
         return kErrCode02;
     }
     
@@ -869,7 +869,7 @@ int DataService::UpdateUserStatus(const std::string &userId, BuddyStatus status)
         unsigned long long ret = db.ExecSQL(ss.str().c_str());
         (void)ret;
     } catch (Exception &e) {
-        LOG_ERROR<<e.what();
+        LOG(ERROR)<<e.what();
         return kErrCode02;
     }
     return kErrCode00;
@@ -901,7 +901,7 @@ int DataService::UpdateActionSendTime(const std::string reqId, bool accept) {
         unsigned long long ret = db.ExecSQL(ss.str().c_str());
         (void)ret;
     } catch (Exception &e) {
-        LOG_ERROR<<e.what();
+        LOG(ERROR)<<e.what();
         return kErrCode02;
     }
 
@@ -921,7 +921,7 @@ int DataService::UpdateRequestSendTime(const std::string reqId) {
         unsigned long long ret = db.ExecSQL(ss.str().c_str());
         (void)ret;
     } catch (Exception &e) {
-        LOG_ERROR<<e.what();
+        LOG(ERROR)<<e.what();
         return kErrCode02;
     }
     return kErrCode00;

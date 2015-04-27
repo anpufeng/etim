@@ -7,9 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0D5C82F51AEDCC68005754DE /* libglog.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0D5C82F31AEDCC68005754DE /* libglog.a */; };
+		0D5C83CD1AEE4057005754DE /* InStream.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0D5C83C91AEE4057005754DE /* InStream.cpp */; };
+		0D5C83CE1AEE4057005754DE /* OutStream.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0D5C83CB1AEE4057005754DE /* OutStream.cpp */; };
 		AA0BA4961994CC2F00CDB8C6 /* DataService.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AA0BA4941994CC2F00CDB8C6 /* DataService.cpp */; };
-		AA11010F198B6556008811E4 /* Logging.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AA11010B198B6556008811E4 /* Logging.cpp */; };
-		AA110110198B6556008811E4 /* LogStream.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AA11010D198B6556008811E4 /* LogStream.cpp */; };
 		AA110113198B6582008811E4 /* Timestamp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AA110111198B6582008811E4 /* Timestamp.cpp */; };
 		AA420BAC19863F4200D1117F /* Server.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AA420BAA19863F4200D1117F /* Server.cpp */; };
 		AA420BAF198642F300D1117F /* Socket.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AA420BAD198642F300D1117F /* Socket.cpp */; };
@@ -17,8 +18,6 @@
 		AA59F01D1988BD23009FD449 /* MD5.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AA59F01B1988BD23009FD449 /* MD5.cpp */; };
 		AA59F0201988BFF8009FD449 /* Idea.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AA59F01E1988BFF8009FD449 /* Idea.cpp */; };
 		AA59F0231988C4CC009FD449 /* Endian.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AA59F0211988C4CC009FD449 /* Endian.cpp */; };
-		AA59F0281988C9BB009FD449 /* InStream.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AA59F0241988C9BB009FD449 /* InStream.cpp */; };
-		AA59F0291988C9BB009FD449 /* OutStream.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AA59F0261988C9BB009FD449 /* OutStream.cpp */; };
 		AA6CD7731AEC993F001B1D4B /* Config.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AA6CD7711AEC993F001B1D4B /* Config.cpp */; };
 		AA6CD7771AEC9FC5001B1D4B /* StringUtil.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AA6CD7751AEC9FC5001B1D4B /* StringUtil.cpp */; };
 		AA7004C319879911005D5FC1 /* Session.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AA7004C119879911005D5FC1 /* Session.cpp */; };
@@ -51,17 +50,27 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		AA0BA4941994CC2F00CDB8C6 /* DataService.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DataService.cpp; sourceTree = "<group>"; };
+		0D5C82EA1AEDCC46005754DE /* log_severity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = log_severity.h; sourceTree = "<group>"; };
+		0D5C82EB1AEDCC46005754DE /* logging.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = logging.h; sourceTree = "<group>"; };
+		0D5C82EC1AEDCC46005754DE /* logging.h.in */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = logging.h.in; sourceTree = "<group>"; };
+		0D5C82ED1AEDCC46005754DE /* raw_logging.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = raw_logging.h; sourceTree = "<group>"; };
+		0D5C82EE1AEDCC46005754DE /* raw_logging.h.in */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = raw_logging.h.in; sourceTree = "<group>"; };
+		0D5C82EF1AEDCC46005754DE /* stl_logging.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = stl_logging.h; sourceTree = "<group>"; };
+		0D5C82F01AEDCC46005754DE /* stl_logging.h.in */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = stl_logging.h.in; sourceTree = "<group>"; };
+		0D5C82F11AEDCC46005754DE /* vlog_is_on.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = vlog_is_on.h; sourceTree = "<group>"; };
+		0D5C82F21AEDCC46005754DE /* vlog_is_on.h.in */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = vlog_is_on.h.in; sourceTree = "<group>"; };
+		0D5C82F31AEDCC68005754DE /* libglog.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libglog.a; sourceTree = "<group>"; };
+		0D5C83C91AEE4057005754DE /* InStream.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = InStream.cpp; sourceTree = "<group>"; };
+		0D5C83CA1AEE4057005754DE /* InStream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InStream.h; sourceTree = "<group>"; };
+		0D5C83CB1AEE4057005754DE /* OutStream.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = OutStream.cpp; sourceTree = "<group>"; };
+		0D5C83CC1AEE4057005754DE /* OutStream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OutStream.h; sourceTree = "<group>"; };
+		AA0BA4941994CC2F00CDB8C6 /* DataService.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; lineEnding = 0; path = DataService.cpp; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.cpp; };
 		AA0BA4951994CC2F00CDB8C6 /* DataService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataService.h; sourceTree = "<group>"; };
-		AA11010B198B6556008811E4 /* Logging.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; lineEnding = 0; path = Logging.cpp; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.cpp; };
-		AA11010C198B6556008811E4 /* Logging.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = Logging.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
-		AA11010D198B6556008811E4 /* LogStream.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LogStream.cpp; sourceTree = "<group>"; };
-		AA11010E198B6556008811E4 /* LogStream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LogStream.h; sourceTree = "<group>"; };
 		AA110111198B6582008811E4 /* Timestamp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Timestamp.cpp; sourceTree = "<group>"; };
 		AA110112198B6582008811E4 /* Timestamp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Timestamp.h; sourceTree = "<group>"; };
 		AA110117198B6F59008811E4 /* Types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = Types.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		AA110118198B6F94008811E4 /* StringPiece.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StringPiece.h; sourceTree = "<group>"; };
-		AA420BAA19863F4200D1117F /* Server.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Server.cpp; sourceTree = "<group>"; };
+		AA420BAA19863F4200D1117F /* Server.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; lineEnding = 0; path = Server.cpp; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.cpp; };
 		AA420BAB19863F4200D1117F /* Server.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Server.h; sourceTree = "<group>"; };
 		AA420BAD198642F300D1117F /* Socket.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Socket.cpp; sourceTree = "<group>"; };
 		AA420BAE198642F300D1117F /* Socket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Socket.h; sourceTree = "<group>"; };
@@ -75,10 +84,6 @@
 		AA59F01F1988BFF8009FD449 /* Idea.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Idea.h; sourceTree = "<group>"; };
 		AA59F0211988C4CC009FD449 /* Endian.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Endian.cpp; sourceTree = "<group>"; };
 		AA59F0221988C4CC009FD449 /* Endian.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Endian.h; sourceTree = "<group>"; };
-		AA59F0241988C9BB009FD449 /* InStream.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = InStream.cpp; sourceTree = "<group>"; };
-		AA59F0251988C9BB009FD449 /* InStream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InStream.h; sourceTree = "<group>"; };
-		AA59F0261988C9BB009FD449 /* OutStream.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = OutStream.cpp; sourceTree = "<group>"; };
-		AA59F0271988C9BB009FD449 /* OutStream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OutStream.h; sourceTree = "<group>"; };
 		AA6CD7711AEC993F001B1D4B /* Config.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Config.cpp; sourceTree = "<group>"; };
 		AA6CD7721AEC993F001B1D4B /* Config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Config.h; sourceTree = "<group>"; };
 		AA6CD7741AEC9A19001B1D4B /* etim.conf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = etim.conf; sourceTree = "<group>"; };
@@ -88,17 +93,17 @@
 		AA7004C219879911005D5FC1 /* Session.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = Session.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		AA7004C519889628005D5FC1 /* Action.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Action.cpp; sourceTree = "<group>"; };
 		AA7004C619889628005D5FC1 /* Action.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Action.h; sourceTree = "<group>"; };
-		AA7004C8198897B3005D5FC1 /* Register.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Register.cpp; sourceTree = "<group>"; };
+		AA7004C8198897B3005D5FC1 /* Register.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; lineEnding = 0; path = Register.cpp; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.cpp; };
 		AA7004C9198897B3005D5FC1 /* Register.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Register.h; sourceTree = "<group>"; };
-		AA7004CB19889872005D5FC1 /* Login.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Login.cpp; sourceTree = "<group>"; };
+		AA7004CB19889872005D5FC1 /* Login.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; lineEnding = 0; path = Login.cpp; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.cpp; };
 		AA7004CC19889872005D5FC1 /* Login.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Login.h; sourceTree = "<group>"; };
 		AA7004CE19889AF4005D5FC1 /* ActionManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; lineEnding = 0; path = ActionManager.cpp; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.cpp; };
 		AA7004CF19889AF4005D5FC1 /* ActionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActionManager.h; sourceTree = "<group>"; };
-		AA7004D119889C9B005D5FC1 /* HeartBeat.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = HeartBeat.cpp; sourceTree = "<group>"; };
+		AA7004D119889C9B005D5FC1 /* HeartBeat.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; lineEnding = 0; path = HeartBeat.cpp; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.cpp; };
 		AA7004D219889C9B005D5FC1 /* HeartBeat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HeartBeat.h; sourceTree = "<group>"; };
-		AA7004D419889CEB005D5FC1 /* SendMsg.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SendMsg.cpp; sourceTree = "<group>"; };
+		AA7004D419889CEB005D5FC1 /* SendMsg.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; lineEnding = 0; path = SendMsg.cpp; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.cpp; };
 		AA7004D519889CEB005D5FC1 /* SendMsg.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SendMsg.h; sourceTree = "<group>"; };
-		AA7004DA19889D3C005D5FC1 /* AddBuddy.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AddBuddy.cpp; sourceTree = "<group>"; };
+		AA7004DA19889D3C005D5FC1 /* AddBuddy.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; lineEnding = 0; path = AddBuddy.cpp; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.cpp; };
 		AA7004DB19889D3C005D5FC1 /* AddBuddy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddBuddy.h; sourceTree = "<group>"; };
 		AA7004DD19889D8D005D5FC1 /* SwitchStatus.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SwitchStatus.cpp; sourceTree = "<group>"; };
 		AA7004DE19889D8D005D5FC1 /* SwitchStatus.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SwitchStatus.h; sourceTree = "<group>"; };
@@ -110,7 +115,7 @@
 		AACD74911994773F00254C55 /* MysqlDB.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MysqlDB.cpp; sourceTree = "<group>"; };
 		AACD74921994773F00254C55 /* MysqlDB.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MysqlDB.h; sourceTree = "<group>"; };
 		AACD7494199478AA00254C55 /* DataStruct.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DataStruct.h; sourceTree = "<group>"; };
-		AACF5CCB19BE8E14008D9E80 /* PushService.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PushService.cpp; sourceTree = "<group>"; };
+		AACF5CCB19BE8E14008D9E80 /* PushService.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; lineEnding = 0; path = PushService.cpp; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.cpp; };
 		AACF5CCC19BE8E14008D9E80 /* PushService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PushService.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -119,29 +124,43 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0D5C82F51AEDCC68005754DE /* libglog.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0D5C82E91AEDCC46005754DE /* glog */ = {
+			isa = PBXGroup;
+			children = (
+				0D5C82F31AEDCC68005754DE /* libglog.a */,
+				0D5C82EA1AEDCC46005754DE /* log_severity.h */,
+				0D5C82EB1AEDCC46005754DE /* logging.h */,
+				0D5C82EC1AEDCC46005754DE /* logging.h.in */,
+				0D5C82ED1AEDCC46005754DE /* raw_logging.h */,
+				0D5C82EE1AEDCC46005754DE /* raw_logging.h.in */,
+				0D5C82EF1AEDCC46005754DE /* stl_logging.h */,
+				0D5C82F01AEDCC46005754DE /* stl_logging.h.in */,
+				0D5C82F11AEDCC46005754DE /* vlog_is_on.h */,
+				0D5C82F21AEDCC46005754DE /* vlog_is_on.h.in */,
+			);
+			path = glog;
+			sourceTree = "<group>";
+		};
 		AA420BB0198648BE00D1117F /* Public */ = {
 			isa = PBXGroup;
 			children = (
+				0D5C83C91AEE4057005754DE /* InStream.cpp */,
+				0D5C83CA1AEE4057005754DE /* InStream.h */,
+				0D5C83CB1AEE4057005754DE /* OutStream.cpp */,
+				0D5C83CC1AEE4057005754DE /* OutStream.h */,
 				AA588BB51990BC8500F08821 /* Exception.cpp */,
 				AA588BB61990BC8500F08821 /* Exception.h */,
 				AA110118198B6F94008811E4 /* StringPiece.h */,
 				AA110117198B6F59008811E4 /* Types.h */,
 				AA110111198B6582008811E4 /* Timestamp.cpp */,
 				AA110112198B6582008811E4 /* Timestamp.h */,
-				AA11010B198B6556008811E4 /* Logging.cpp */,
-				AA11010C198B6556008811E4 /* Logging.h */,
-				AA11010D198B6556008811E4 /* LogStream.cpp */,
-				AA11010E198B6556008811E4 /* LogStream.h */,
-				AA59F0241988C9BB009FD449 /* InStream.cpp */,
-				AA59F0251988C9BB009FD449 /* InStream.h */,
-				AA59F0261988C9BB009FD449 /* OutStream.cpp */,
-				AA59F0271988C9BB009FD449 /* OutStream.h */,
 				AA59F0211988C4CC009FD449 /* Endian.cpp */,
 				AA59F0221988C4CC009FD449 /* Endian.h */,
 				AA59F01E1988BFF8009FD449 /* Idea.cpp */,
@@ -202,6 +221,7 @@
 		AABF3C9C19863690001C8DCA /* ETImServer */ = {
 			isa = PBXGroup;
 			children = (
+				0D5C82E91AEDCC46005754DE /* glog */,
 				AACD7490199476FB00254C55 /* Dao */,
 				AA7004C41988961C005D5FC1 /* Action */,
 				AA420BB0198648BE00D1117F /* Public */,
@@ -290,14 +310,14 @@
 				AA7004C319879911005D5FC1 /* Session.cpp in Sources */,
 				AA59F0231988C4CC009FD449 /* Endian.cpp in Sources */,
 				AA7004E219889E2E005D5FC1 /* RetrieveBuddy.cpp in Sources */,
+				0D5C83CE1AEE4057005754DE /* OutStream.cpp in Sources */,
 				AA420BAC19863F4200D1117F /* Server.cpp in Sources */,
+				0D5C83CD1AEE4057005754DE /* InStream.cpp in Sources */,
 				AACF5CCD19BE8E14008D9E80 /* PushService.cpp in Sources */,
 				AA7004D019889AF4005D5FC1 /* ActionManager.cpp in Sources */,
 				AA7004DC19889D3C005D5FC1 /* AddBuddy.cpp in Sources */,
 				AA59F01D1988BD23009FD449 /* MD5.cpp in Sources */,
 				AA420BAF198642F300D1117F /* Socket.cpp in Sources */,
-				AA11010F198B6556008811E4 /* Logging.cpp in Sources */,
-				AA59F0291988C9BB009FD449 /* OutStream.cpp in Sources */,
 				AA6CD7771AEC9FC5001B1D4B /* StringUtil.cpp in Sources */,
 				AABF3C9E19863690001C8DCA /* Main.cpp in Sources */,
 				AA59F0201988BFF8009FD449 /* Idea.cpp in Sources */,
@@ -307,8 +327,6 @@
 				AA7004CD19889872005D5FC1 /* Login.cpp in Sources */,
 				AA0BA4961994CC2F00CDB8C6 /* DataService.cpp in Sources */,
 				AA7004D319889C9B005D5FC1 /* HeartBeat.cpp in Sources */,
-				AA59F0281988C9BB009FD449 /* InStream.cpp in Sources */,
-				AA110110198B6556008811E4 /* LogStream.cpp in Sources */,
 				AA7004D619889CEB005D5FC1 /* SendMsg.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -403,8 +421,12 @@
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 					/usr/local/mysql/include,
+					"$(PROJECT_DIR)/ETImServer",
 				);
-				LIBRARY_SEARCH_PATHS = /usr/local/mysql/lib;
+				LIBRARY_SEARCH_PATHS = (
+					/usr/local/mysql/lib,
+					"$(PROJECT_DIR)/ETImServer/glog",
+				);
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -417,8 +439,12 @@
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 					/usr/local/mysql/include,
+					"$(PROJECT_DIR)/ETImServer",
 				);
-				LIBRARY_SEARCH_PATHS = /usr/local/mysql/lib;
+				LIBRARY_SEARCH_PATHS = (
+					/usr/local/mysql/lib,
+					"$(PROJECT_DIR)/ETImServer/glog",
+				);
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};

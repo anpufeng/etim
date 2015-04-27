@@ -26,6 +26,8 @@
     self.versionLabel.text = [NSString stringWithFormat:@"版本V%@", [NSString appShortVersion]];
 }
 
+
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
