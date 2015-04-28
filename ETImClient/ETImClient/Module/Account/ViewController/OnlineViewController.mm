@@ -61,7 +61,7 @@ using namespace etim::pub;
 #pragma mark response
 
 - (void)responseToRefresh {
-    [self.refreshControl endRefreshing];
+//    [self.refreshControl endRefreshing];
 }
 
 - (void)didReceiveMemoryWarning

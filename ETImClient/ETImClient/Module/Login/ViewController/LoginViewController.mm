@@ -10,7 +10,7 @@
 #import "LeftMarginTextField.h"
 #import "RegViewController.h"
 #import "HMScrollView.h"
-#import "BaseTabBarViewController.h"
+#import "HMTabBarController.h"
 #import "ConfigViewController.h"
 #import "ReceivedManager.h"
 #import "AppDelegate.h"
@@ -151,7 +151,7 @@ using namespace etim::pub;
         } else {
             //登录成功
             DDLogDebug(@"登录成功 :%@", [[ReceivedManager sharedInstance] loginBuddy]);
-            BaseTabBarViewController *tabbar = [[BaseTabBarViewController alloc] init];
+            HMTabBarController *tabbar = [[HMTabBarController alloc] init];
             [[[UIApplication sharedApplication] keyWindow] setRootViewController:tabbar];
             [[Client sharedInstance] setPwd:_pwdTextField.text];
             [[Client sharedInstance] pullUnread];

@@ -6,14 +6,13 @@
 //  Copyright (c) 2014年 Pingan. All rights reserved.
 //
 
-#import "BaseViewController.h"
-#import "BaseTableViewController.h"
+#import "HMTableViewController.h"
 
 @class BuddyModel;
 
 ///好友页面
 
-@interface BuddyViewController : BaseTableViewController <UITableViewDataSource, UITableViewDelegate> {
+@interface BuddyViewController : HMTableViewController {
 
 }
 

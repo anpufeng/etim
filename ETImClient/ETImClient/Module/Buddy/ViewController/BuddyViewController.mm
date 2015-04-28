@@ -10,7 +10,7 @@
 #import "AddBuddyViewController.h"
 #import "NewBuddyViewController.h"
 #import "BuddyTableViewCell.h"
-#import "BaseTabBarViewController.h"
+#import "HMTabBarController.h"
 #import "ProfileViewController.h"
 #import "BuddyModel.h"
 #import "ReceivedManager.h"
@@ -193,7 +193,7 @@ using namespace std;
 
 ///好友列表结果
 - (void)notiToRetrieveBuddyList:(NSNotification *)noti {
-    [self.refreshControl endRefreshing];
+    [self.tableView headerEndRefreshing];
     etim::Session *sess = [[Client sharedInstance] session];
     if (sess->GetRecvCmd() == CMD_RETRIEVE_BUDDY_LIST) {
         if (sess->IsError()) {

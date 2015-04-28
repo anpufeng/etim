@@ -6,10 +6,10 @@
 //  Copyright (c) 2014年 Pingan. All rights reserved.
 //
 
-#import "BaseTableViewController.h"
+#import "HMTableViewController.h"
 
 ///朋友圈
 
-@interface MomentsViewController : BaseTableViewController
+@interface MomentsViewController : HMTableViewController
 
 @end

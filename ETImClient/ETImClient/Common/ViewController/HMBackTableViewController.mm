@@ -1,33 +1,25 @@
 //
-//  BaseNavigationController.m
+//  HMBackTableViewController.m
 //  ETImClient
 //
-//  Created by Ethan on 14/7/31.
-//  Copyright (c) 2014年 Pingan. All rights reserved.
+//  Created by xuqing on 15/4/28.
+//  Copyright (c) 2015年 Pingan. All rights reserved.
 //
 
-#import "BaseNavigationController.h"
+#import "HMBackTableViewController.h"
 
-@interface BaseNavigationController ()
+@interface HMBackTableViewController ()
 
 @end
 
-@implementation BaseNavigationController
+@implementation HMBackTableViewController
 
-- (void)dealloc {
-    
-}
-
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
     [super viewDidLoad];
-    
-
     // Do any additional setup after loading the view.
 }
 
-- (void)didReceiveMemoryWarning
-{
+- (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
@@ -36,8 +28,7 @@
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
 }

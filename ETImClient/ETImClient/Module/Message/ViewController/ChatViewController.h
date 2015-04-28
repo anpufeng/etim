@@ -6,14 +6,14 @@
 //  Copyright (c) 2014年 Pingan. All rights reserved.
 //
 
-#import "BackViewController.h"
+#import "HMBackViewController.h"
 
 @class ListMsgModel;
 @class BuddyModel;
 
 ///聊天界面 
 
-@interface ChatViewController : BackViewController <UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate>
+@interface ChatViewController : HMBackViewController <UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate>
 
 - (id)initWithUser:(BuddyModel *)user;
 - (id)initWithListMsg:(ListMsgModel *)listMsg;

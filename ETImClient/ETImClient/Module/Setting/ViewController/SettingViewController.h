@@ -6,8 +6,8 @@
 //  Copyright (c) 2015年 Pingan. All rights reserved.
 //
 
-#import "BackTableViewController.h"
+#import "HMBackTableViewController.h"
 
-@interface SettingViewController : BackTableViewController
+@interface SettingViewController : HMBackTableViewController
 
 @end

@@ -14,6 +14,7 @@
 #import "ReceivedManager.h"
 #import "MsgTableViewCell.h"
 #import "DBManager.h"
+#import "HMTableView.h"
 
 #include "Client.h"
 #include "Singleton.h"
@@ -96,7 +97,7 @@ using namespace std;
 }
 
 - (void)createUI {
-    
+        [self.tableView addHeaderWithTarget:self action:@selector(headerRefresh)];
 }
 
 - (void)initData {
@@ -155,12 +156,12 @@ using namespace std;
 #pragma mark -
 #pragma mark - response
 
-- (void)responseToRefresh {
+- (void)headerRefresh {
     [[Client sharedInstance] pullUnread];
 }
 
 - (void)notiToRetrieveUnreadMsg:(NSNotification *)noti {
-    [self.refreshControl endRefreshing];
+    [self.tableView headerEndRefreshing];
     etim::Session *sess = [[Client sharedInstance] session];
     NSMutableArray *unread = [[ReceivedManager sharedInstance] unreadMsgArr];
     

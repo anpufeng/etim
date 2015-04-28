@@ -6,11 +6,11 @@
 //  Copyright (c) 2014 Pingan. All rights reserved.
 //
 
-#import "BackTableViewController.h"
+#import "HMBackTableViewController.h"
 
 ///添加好友
 
-@interface AddBuddyViewController : BackTableViewController <UITextFieldDelegate> {
+@interface AddBuddyViewController : HMBackTableViewController <UITextFieldDelegate> {
 }
 
 @end

@@ -7,6 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0D5C83D91AEF29E4005754DE /* HMBackViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0D5C83D01AEF29E4005754DE /* HMBackViewController.mm */; };
+		0D5C83DA1AEF29E4005754DE /* HMModel.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0D5C83D21AEF29E4005754DE /* HMModel.mm */; };
+		0D5C83DB1AEF29E4005754DE /* HMNavigationController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0D5C83D41AEF29E4005754DE /* HMNavigationController.mm */; };
+		0D5C83DC1AEF29E4005754DE /* HMTabBarController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0D5C83D61AEF29E4005754DE /* HMTabBarController.mm */; };
+		0D5C83DD1AEF29E4005754DE /* HMViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0D5C83D81AEF29E4005754DE /* HMViewController.mm */; };
+		0D5C83E01AEF2C57005754DE /* HMTableViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0D5C83DF1AEF2C57005754DE /* HMTableViewController.mm */; };
+		0D5C83E31AEF2EA8005754DE /* HMBackTableViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0D5C83E21AEF2EA8005754DE /* HMBackTableViewController.mm */; };
 		0D66C8371AE9EFDF00341B9B /* SettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D66C8361AE9EFDF00341B9B /* SettingViewController.m */; };
 		0D66C83B1AE9EFF700341B9B /* AboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D66C8391AE9EFF700341B9B /* AboutViewController.m */; };
 		0D66C83C1AE9EFF700341B9B /* AboutViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0D66C83A1AE9EFF700341B9B /* AboutViewController.xib */; };
@@ -54,12 +61,6 @@
 		0D8134111AC52E2300FE28CF /* CmdParamModel.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0D8134101AC52E2300FE28CF /* CmdParamModel.mm */; };
 		0D8134161AC52E7500FE28CF /* ChatTableViewCell.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0D8134131AC52E7500FE28CF /* ChatTableViewCell.mm */; };
 		0D8134171AC52E7500FE28CF /* MsgTableViewCell.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0D8134151AC52E7500FE28CF /* MsgTableViewCell.mm */; };
-		0D81343A1AC52F2B00FE28CF /* BackTableViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0D81342F1AC52F2B00FE28CF /* BackTableViewController.mm */; };
-		0D81343B1AC52F2B00FE28CF /* BackViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0D8134311AC52F2B00FE28CF /* BackViewController.mm */; };
-		0D81343C1AC52F2B00FE28CF /* BaseNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D8134331AC52F2B00FE28CF /* BaseNavigationController.m */; };
-		0D81343D1AC52F2B00FE28CF /* BaseTabBarViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0D8134351AC52F2B00FE28CF /* BaseTabBarViewController.mm */; };
-		0D81343E1AC52F2B00FE28CF /* BaseTableViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0D8134371AC52F2B00FE28CF /* BaseTableViewController.mm */; };
-		0D81343F1AC52F2B00FE28CF /* BaseViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0D8134391AC52F2B00FE28CF /* BaseViewController.mm */; };
 		0D81344D1AC52F7300FE28CF /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D8134431AC52F7300FE28CF /* Constants.m */; };
 		0D81344E1AC52F7300FE28CF /* NSString+PJR.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D8134461AC52F7300FE28CF /* NSString+PJR.m */; };
 		0D81344F1AC52F7300FE28CF /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D8134481AC52F7300FE28CF /* Reachability.m */; };
@@ -206,6 +207,20 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0D5C83CF1AEF29E4005754DE /* HMBackViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HMBackViewController.h; sourceTree = "<group>"; };
+		0D5C83D01AEF29E4005754DE /* HMBackViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = HMBackViewController.mm; sourceTree = "<group>"; };
+		0D5C83D11AEF29E4005754DE /* HMModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HMModel.h; sourceTree = "<group>"; };
+		0D5C83D21AEF29E4005754DE /* HMModel.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = HMModel.mm; sourceTree = "<group>"; };
+		0D5C83D31AEF29E4005754DE /* HMNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HMNavigationController.h; sourceTree = "<group>"; };
+		0D5C83D41AEF29E4005754DE /* HMNavigationController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = HMNavigationController.mm; sourceTree = "<group>"; };
+		0D5C83D51AEF29E4005754DE /* HMTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HMTabBarController.h; sourceTree = "<group>"; };
+		0D5C83D61AEF29E4005754DE /* HMTabBarController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = HMTabBarController.mm; sourceTree = "<group>"; };
+		0D5C83D71AEF29E4005754DE /* HMViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HMViewController.h; sourceTree = "<group>"; };
+		0D5C83D81AEF29E4005754DE /* HMViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = HMViewController.mm; sourceTree = "<group>"; };
+		0D5C83DE1AEF2C57005754DE /* HMTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HMTableViewController.h; sourceTree = "<group>"; };
+		0D5C83DF1AEF2C57005754DE /* HMTableViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = HMTableViewController.mm; sourceTree = "<group>"; };
+		0D5C83E11AEF2EA8005754DE /* HMBackTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HMBackTableViewController.h; sourceTree = "<group>"; };
+		0D5C83E21AEF2EA8005754DE /* HMBackTableViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = HMBackTableViewController.mm; sourceTree = "<group>"; };
 		0D66C8351AE9EFDF00341B9B /* SettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingViewController.h; sourceTree = "<group>"; };
 		0D66C8361AE9EFDF00341B9B /* SettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingViewController.m; sourceTree = "<group>"; };
 		0D66C8381AE9EFF700341B9B /* AboutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutViewController.h; sourceTree = "<group>"; };
@@ -304,18 +319,6 @@
 		0D8134131AC52E7500FE28CF /* ChatTableViewCell.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ChatTableViewCell.mm; sourceTree = "<group>"; };
 		0D8134141AC52E7500FE28CF /* MsgTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MsgTableViewCell.h; sourceTree = "<group>"; };
 		0D8134151AC52E7500FE28CF /* MsgTableViewCell.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MsgTableViewCell.mm; sourceTree = "<group>"; };
-		0D81342E1AC52F2B00FE28CF /* BackTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BackTableViewController.h; sourceTree = "<group>"; };
-		0D81342F1AC52F2B00FE28CF /* BackTableViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = BackTableViewController.mm; sourceTree = "<group>"; };
-		0D8134301AC52F2B00FE28CF /* BackViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BackViewController.h; sourceTree = "<group>"; };
-		0D8134311AC52F2B00FE28CF /* BackViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = BackViewController.mm; sourceTree = "<group>"; };
-		0D8134321AC52F2B00FE28CF /* BaseNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseNavigationController.h; sourceTree = "<group>"; };
-		0D8134331AC52F2B00FE28CF /* BaseNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseNavigationController.m; sourceTree = "<group>"; };
-		0D8134341AC52F2B00FE28CF /* BaseTabBarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseTabBarViewController.h; sourceTree = "<group>"; };
-		0D8134351AC52F2B00FE28CF /* BaseTabBarViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = BaseTabBarViewController.mm; sourceTree = "<group>"; };
-		0D8134361AC52F2B00FE28CF /* BaseTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseTableViewController.h; sourceTree = "<group>"; };
-		0D8134371AC52F2B00FE28CF /* BaseTableViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = BaseTableViewController.mm; sourceTree = "<group>"; };
-		0D8134381AC52F2B00FE28CF /* BaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseViewController.h; sourceTree = "<group>"; };
-		0D8134391AC52F2B00FE28CF /* BaseViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = BaseViewController.mm; sourceTree = "<group>"; };
 		0D8134421AC52F7300FE28CF /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
 		0D8134431AC52F7300FE28CF /* Constants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Constants.m; sourceTree = "<group>"; };
 		0D8134441AC52F7300FE28CF /* Macro.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Macro.h; sourceTree = "<group>"; };
@@ -940,18 +943,20 @@
 		0D81342D1AC52F2B00FE28CF /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
-				0D81342E1AC52F2B00FE28CF /* BackTableViewController.h */,
-				0D81342F1AC52F2B00FE28CF /* BackTableViewController.mm */,
-				0D8134301AC52F2B00FE28CF /* BackViewController.h */,
-				0D8134311AC52F2B00FE28CF /* BackViewController.mm */,
-				0D8134321AC52F2B00FE28CF /* BaseNavigationController.h */,
-				0D8134331AC52F2B00FE28CF /* BaseNavigationController.m */,
-				0D8134341AC52F2B00FE28CF /* BaseTabBarViewController.h */,
-				0D8134351AC52F2B00FE28CF /* BaseTabBarViewController.mm */,
-				0D8134361AC52F2B00FE28CF /* BaseTableViewController.h */,
-				0D8134371AC52F2B00FE28CF /* BaseTableViewController.mm */,
-				0D8134381AC52F2B00FE28CF /* BaseViewController.h */,
-				0D8134391AC52F2B00FE28CF /* BaseViewController.mm */,
+				0D5C83CF1AEF29E4005754DE /* HMBackViewController.h */,
+				0D5C83D01AEF29E4005754DE /* HMBackViewController.mm */,
+				0D5C83D11AEF29E4005754DE /* HMModel.h */,
+				0D5C83D21AEF29E4005754DE /* HMModel.mm */,
+				0D5C83D31AEF29E4005754DE /* HMNavigationController.h */,
+				0D5C83D41AEF29E4005754DE /* HMNavigationController.mm */,
+				0D5C83D51AEF29E4005754DE /* HMTabBarController.h */,
+				0D5C83D61AEF29E4005754DE /* HMTabBarController.mm */,
+				0D5C83D71AEF29E4005754DE /* HMViewController.h */,
+				0D5C83D81AEF29E4005754DE /* HMViewController.mm */,
+				0D5C83DE1AEF2C57005754DE /* HMTableViewController.h */,
+				0D5C83DF1AEF2C57005754DE /* HMTableViewController.mm */,
+				0D5C83E11AEF2EA8005754DE /* HMBackTableViewController.h */,
+				0D5C83E21AEF2EA8005754DE /* HMBackTableViewController.mm */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -1514,8 +1519,10 @@
 				0D81344F1AC52F7300FE28CF /* Reachability.m in Sources */,
 				0D9EBFBC1AC24DC40071793C /* DDContextFilterLogFormatter.m in Sources */,
 				0DAC0CCA1AE8CF4F00437DEE /* HMFileLogger.m in Sources */,
+				0D5C83DD1AEF29E4005754DE /* HMViewController.mm in Sources */,
 				0DAC0CCB1AE8CF4F00437DEE /* HMLog.m in Sources */,
 				0D66C83B1AE9EFF700341B9B /* AboutViewController.m in Sources */,
+				0D5C83DC1AEF29E4005754DE /* HMTabBarController.mm in Sources */,
 				0D8133DF1AC52DF300FE28CF /* HeartBeat.mm in Sources */,
 				0DD44A311AE5E5B300BA67DF /* FMResultSet.m in Sources */,
 				0D8133E71AC52DF300FE28CF /* ActionManager.cpp in Sources */,
@@ -1532,12 +1539,12 @@
 				0D9EBFBD1AC24DC40071793C /* DDDispatchQueueLogFormatter.m in Sources */,
 				0DAC0CCC1AE8CF4F00437DEE /* HMLogFileManager.m in Sources */,
 				0DD44A091AE1243700BA67DF /* DBManager.mm in Sources */,
-				0D81343F1AC52F2B00FE28CF /* BaseViewController.mm in Sources */,
 				0D8133DD1AC52DF300FE28CF /* Action.mm in Sources */,
-				0D81343B1AC52F2B00FE28CF /* BackViewController.mm in Sources */,
 				0D8134091AC52E0600FE28CF /* LogStream.cpp in Sources */,
 				AA65387619AF6B67003B64B0 /* JSBadgeView.m in Sources */,
+				0D5C83E31AEF2EA8005754DE /* HMBackTableViewController.mm in Sources */,
 				0DA1AB761AA1C36C002DED6E /* NSTimer+WeakTarget.m in Sources */,
+				0D5C83DA1AEF29E4005754DE /* HMModel.mm in Sources */,
 				0D8134821AC5311200FE28CF /* HMTextField.m in Sources */,
 				0DD44A2F1AE5E5B300BA67DF /* FMDatabasePool.m in Sources */,
 				0D81339A1AC52D5300FE28CF /* AccountViewController.mm in Sources */,
@@ -1547,6 +1554,7 @@
 				0D8134081AC52E0600FE28CF /* Logging.cpp in Sources */,
 				0D8133A11AC52D5300FE28CF /* BuddyViewController.mm in Sources */,
 				0D8133E41AC52DF300FE28CF /* SendMsg.mm in Sources */,
+				0D5C83D91AEF29E4005754DE /* HMBackViewController.mm in Sources */,
 				0D8134811AC5311200FE28CF /* HMTableViewCell.m in Sources */,
 				0D8134171AC52E7500FE28CF /* MsgTableViewCell.mm in Sources */,
 				0D8134511AC52F7300FE28CF /* UIImage+Additions.m in Sources */,
@@ -1566,19 +1574,17 @@
 				0D8134161AC52E7500FE28CF /* ChatTableViewCell.mm in Sources */,
 				0D8133E11AC52DF300FE28CF /* RecvPush.mm in Sources */,
 				0D8134971AC5317F00FE28CF /* MJRefreshBaseView.m in Sources */,
-				0D81343E1AC52F2B00FE28CF /* BaseTableViewController.mm in Sources */,
+				0D5C83E01AEF2C57005754DE /* HMTableViewController.mm in Sources */,
 				0D81349A1AC5317F00FE28CF /* MJRefreshHeaderView.m in Sources */,
 				0D8134071AC52E0600FE28CF /* InStream.cpp in Sources */,
 				0D8133DE1AC52DF300FE28CF /* AddBuddy.mm in Sources */,
 				0D81340D1AC52E0600FE28CF /* Timestamp.cpp in Sources */,
 				0D81339E1AC52D5300FE28CF /* BuddyTableViewCell.mm in Sources */,
-				0D81343A1AC52F2B00FE28CF /* BackTableViewController.mm in Sources */,
 				0D8133E01AC52DF300FE28CF /* Login.mm in Sources */,
 				0D81340C1AC52E0600FE28CF /* Socket.cpp in Sources */,
 				0D8134051AC52E0600FE28CF /* Exception.cpp in Sources */,
 				0DAC0CCD1AE8CF4F00437DEE /* HMLogFormatter.m in Sources */,
 				0D81339B1AC52D5300FE28CF /* OnlineViewController.mm in Sources */,
-				0D81343C1AC52F2B00FE28CF /* BaseNavigationController.m in Sources */,
 				0D8133BC1AC52DB600FE28CF /* RequestModel.mm in Sources */,
 				0D8133A21AC52D5300FE28CF /* NewBuddyViewController.mm in Sources */,
 				0DA4815B1ACBCF4E00F97A7D /* ReceivedManager.mm in Sources */,
@@ -1595,7 +1601,6 @@
 				0D8134061AC52E0600FE28CF /* Idea.cpp in Sources */,
 				0D9EBFB61AC24DC40071793C /* DDAbstractDatabaseLogger.m in Sources */,
 				0D8133E81AC52DF300FE28CF /* Client.mm in Sources */,
-				0D81343D1AC52F2B00FE28CF /* BaseTabBarViewController.mm in Sources */,
 				0D81339C1AC52D5300FE28CF /* ProfileViewController.mm in Sources */,
 				0D81347D1AC5311200FE28CF /* HMScrollErrView.m in Sources */,
 				0D81347F1AC5311200FE28CF /* HMScrollView.m in Sources */,
@@ -1607,6 +1612,7 @@
 				0D9EBFB51AC24DC40071793C /* CLIColor.m in Sources */,
 				0DD44A2E1AE5E5B300BA67DF /* FMDatabaseAdditions.m in Sources */,
 				0D81349B1AC5317F00FE28CF /* UIScrollView+MJExtension.m in Sources */,
+				0D5C83DB1AEF29E4005754DE /* HMNavigationController.mm in Sources */,
 				0D8134661AC5305700FE28CF /* UtilUserDefaults.m in Sources */,
 				0D9EBFBB1AC24DC40071793C /* DDTTYLogger.m in Sources */,
 				0D9EBFBE1AC24DC40071793C /* DDMultiFormatter.m in Sources */,

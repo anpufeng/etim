@@ -31,7 +31,6 @@
 }
 
 - (void)createUI {
-    self.refreshControl = nil;
     self.title = @"设置";
 }
 

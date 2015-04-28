@@ -6,13 +6,13 @@
 //  Copyright (c) 2014年 Pingan. All rights reserved.
 //
 
-#import "BaseViewController.h"
+#import "HMViewController.h"
 
 @class LeftMarginTextField;
 
 ///用户登录
 
-@interface LoginViewController : BaseViewController <UITextFieldDelegate> {
+@interface LoginViewController : HMViewController <UITextFieldDelegate> {
     UIImageView         *_iconImgView;
     LeftMarginTextField *_nameTextField;
     LeftMarginTextField *_pwdTextField;

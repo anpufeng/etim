@@ -6,12 +6,11 @@
 //  Copyright (c) 2014年 Pingan. All rights reserved.
 //
 
-#import "BaseViewController.h"
-#import "BaseTableViewController.h"
+#import "HMTableViewController.h"
 
 ///查询在线的所有用户
 
-@interface OnlineViewController : BaseTableViewController
+@interface OnlineViewController : HMTableViewController
 
 @end
 

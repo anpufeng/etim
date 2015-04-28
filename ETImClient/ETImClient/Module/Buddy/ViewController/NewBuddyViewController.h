@@ -6,13 +6,13 @@
 //  Copyright (c) 2014年 Pingan. All rights reserved.
 //
 
-#import "BackTableViewController.h"
+#import "HMBackTableViewController.h"
 
 @class BuddyViewController;
 
 ///好友请求历史记录
 
-@interface NewBuddyViewController : BackTableViewController
+@interface NewBuddyViewController : HMBackTableViewController
 
 - (id)initWithBuddyViewController:(BuddyViewController *)vc;
 

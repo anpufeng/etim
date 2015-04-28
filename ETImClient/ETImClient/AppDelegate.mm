@@ -8,7 +8,7 @@
 
 #import "AppDelegate.h"
 #import "Client.h"
-#import "BaseNavigationController.h"
+#import "HMNavigationController.h"
 #import "LoginViewController.h"
 #import "Logging.h"
 #import "HMLog.h"
@@ -69,7 +69,7 @@
 
 - (void)jumpToLogin:(BOOL)animated {
     LoginViewController *vc = [[LoginViewController alloc] init];
-    UINavigationController *root = [[BaseNavigationController alloc] initWithRootViewController:vc];
+    UINavigationController *root = [[HMNavigationController alloc] initWithRootViewController:vc];
     if (animated) {
         [UIView transitionWithView:self.window
                           duration:0.5

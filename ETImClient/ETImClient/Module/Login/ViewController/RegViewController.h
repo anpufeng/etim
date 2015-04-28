@@ -6,13 +6,13 @@
 //  Copyright (c) 2014年 Pingan. All rights reserved.
 //
 
-#import "BackViewController.h"
+#import "HMBackViewController.h"
 
 @class LeftMarginTextField;
 
 ///用户注册
 
-@interface RegViewController : BackViewController <UITextFieldDelegate> {
+@interface RegViewController : HMBackViewController <UITextFieldDelegate> {
     LeftMarginTextField *_nameTextField;
     LeftMarginTextField *_pwdTextField;
     UIButton            *_regBtn;

@@ -6,11 +6,11 @@
 //  Copyright (c) 2014年 Pingan. All rights reserved.
 //
 
-#import "BaseTableViewController.h"
+#import "HMTableViewController.h"
 
 ///我的帐户
 
-@interface AccountViewController : BaseTableViewController {
+@interface AccountViewController : HMTableViewController {
 }
 
 @end

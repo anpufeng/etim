@@ -6,7 +6,7 @@
 //  Copyright (c) 2014 Pingan. All rights reserved.
 //
 
-#import "BackViewController.h"
+#import "HMBackViewController.h"
 
 #include "DataStruct.h"
 
@@ -14,7 +14,7 @@
 
 ///个人资料
 
-@interface ProfileViewController : BackViewController <UITableViewDataSource, UITableViewDelegate> {
+@interface ProfileViewController : HMBackViewController <UITableViewDataSource, UITableViewDelegate> {
     UITableView         *_tableView;
 }
 

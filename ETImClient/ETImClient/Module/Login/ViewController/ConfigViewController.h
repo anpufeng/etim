@@ -6,8 +6,8 @@
 //  Copyright (c) 2015年 Pingan. All rights reserved.
 //
 
-#import "BackViewController.h"
+#import "HMBackViewController.h"
 
-@interface ConfigViewController : BackViewController
+@interface ConfigViewController : HMBackViewController
 
 @end
