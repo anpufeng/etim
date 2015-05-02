@@ -14,4 +14,6 @@
 
 @interface HMTableView : UITableView <HMScrollView>
 
+- (void)showNoDataViewWithTableHeader:(UIView *)headerView;
+
 @end

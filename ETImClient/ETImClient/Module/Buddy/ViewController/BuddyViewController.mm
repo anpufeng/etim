@@ -130,7 +130,9 @@ using namespace std;
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     if (![self.buddyList count]) {
-        [self.tableView showNoDataView];
+        [self.tableView showNoDataViewWithTableHeader:self.tableView.tableHeaderView];
+    } else {
+        [self.tableView removeNoDataView];
     }
 }
 

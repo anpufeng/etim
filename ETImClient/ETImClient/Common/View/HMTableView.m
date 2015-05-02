@@ -107,6 +107,35 @@
     [self setNeedsUpdateConstraints];
 }
 
+- (void)showNoDataViewWithTableHeader:(UIView *)headerView {
+    [self noDataView];
+    [self removeConstraints:self.constraints];
+    NSDictionary *views = NSDictionaryOfVariableBindings(_noDataView, headerView);
+    
+    float vPadding = RECT_HEIGHT(headerView);
+    float height = RECT_HEIGHT(self) - RECT_HEIGHT(headerView);
+    float width = RECT_WIDTH(self);
+    NSDictionary *metrics = @{
+                              @"vPadding":[NSNumber numberWithFloat:vPadding],
+                              @"height":[NSNumber numberWithFloat:height],
+                              @"width":[NSNumber numberWithFloat:width]
+                              };
+    
+    
+    NSString *vfl = @"|[_noDataView(width)]|";
+    [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:vfl
+                                                                 options:0
+                                                                 metrics:metrics
+                                                                   views:views]];
+    
+    NSString *vfl2 = @"V:|-vPadding-[_noDataView(height)]|";
+    [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:vfl2
+                                                                 options:0
+                                                                 metrics:metrics
+                                                                   views:views]];
+    
+}
+
 - (void)removeNoDataView {
     if (_noDataView) {
         [_noDataView removeFromSuperview];

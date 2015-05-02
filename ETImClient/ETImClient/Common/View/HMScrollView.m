@@ -261,11 +261,6 @@
 - (void)showNoDataView {
     [self noDataView];
     [self setNeedsUpdateConstraints];
-    [self performSelector:@selector(delay) withObject:nil afterDelay:5];
-}
-
-- (void)delay {
-    
 }
 
 - (void)removeNoDataView {
