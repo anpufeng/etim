@@ -78,7 +78,7 @@
         [self addSubview:_noDataView];
         [UIView addAllEdgeConstraintSuperview:self subview:_noDataView];
         
-        _noDataView.backgroundColor = [UIColor grayColor];
+        _noDataView.backgroundColor = RGB_TO_UICOLOR(240, 239, 244);
     }
     
     return _noDataView;
@@ -105,11 +105,6 @@
 - (void)showNoDataView {
     [self noDataView];
     [self setNeedsUpdateConstraints];
-    [self performSelector:@selector(delay) withObject:nil afterDelay:5];
-}
-
-- (void)delay {
-    
 }
 
 - (void)removeNoDataView {

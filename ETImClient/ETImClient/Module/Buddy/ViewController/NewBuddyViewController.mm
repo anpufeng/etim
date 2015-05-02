@@ -64,7 +64,6 @@ using namespace etim::pub;
                                                object:nil];
     
     [self createUI];
-    self.refreshControl = nil;
     [[Client sharedInstance] pullWithCommand:CMD_RETRIEVE_ALL_BUDDY_REQUEST];
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
 }
@@ -113,9 +112,9 @@ using namespace etim::pub;
             //好友列表成功
             self.reqList = [[ReceivedManager sharedInstance] reqArr];
             if ([self.reqList count]) {
-                self.tableView.backgroundView = nil;
+                [self.tableView removeNoDataView];
             } else {
-                self.tableView.backgroundView = [self emptyTableView:@"暂无好友请求"];
+                [self.tableView showNoDataView];
             }
             [self.tableView reloadData];
         }

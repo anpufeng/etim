@@ -327,7 +327,7 @@ static dispatch_once_t predicate;
 }
 
 - (NSMutableArray *)allBuddys {
-    NSString *sql = [NSString stringWithFormat:@"SELECT * FROM %@ ", tableUser];
+    NSString *sql = [NSString stringWithFormat:@"SELECT * FROM %@ WHERE user_id != %d", tableUser, [Client sharedInstance].user.userId];
     NSMutableArray *buddyArr = [NSMutableArray array];
     FMResultSet *rs = [_db executeQuery:sql];
     while([rs next]){
@@ -338,6 +338,8 @@ static dispatch_once_t predicate;
          buddy.signature = [rs stringForColumn:@"signature"];
         buddy.gender = [rs intForColumn:@"gender"];
         buddy.status = kBuddyOffline;
+        
+        [buddyArr addObject:buddy];
     }
     
     return buddyArr;

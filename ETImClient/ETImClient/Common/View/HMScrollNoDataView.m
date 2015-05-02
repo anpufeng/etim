@@ -24,12 +24,15 @@
 - (id)initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:frame]) {
         self.noDataImgView = [[UIImageView alloc] init];
+        self.noDataImgView.image = [UIImage imageNamed:@"table_empty"];
         self.noDataLabel = [[HMLabel alloc] init];
-        self.noDataImgView.backgroundColor = [UIColor greenColor];
-        self.noDataLabel.backgroundColor = [UIColor yellowColor];
+        self.noDataImgView.backgroundColor = [UIColor clearColor];
+        self.noDataLabel.backgroundColor = [UIColor clearColor];
         self.noDataImgView.contentMode = UIViewContentModeCenter;
         self.noDataLabel.textAlignment = NSTextAlignmentCenter;
         self.noDataLabel.text = @"暂无数据";
+        self.noDataLabel.textColor = [UIColor grayColor];
+        self.noDataLabel.font = FONT(14);
         
         [self addSubview:self.noDataImgView];
         [self addSubview:self.noDataLabel];

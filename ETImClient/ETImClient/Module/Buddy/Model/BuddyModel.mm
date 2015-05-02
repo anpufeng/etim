@@ -40,6 +40,44 @@ using namespace etim;
     return self.gender ? @"男" : @"女";
 }
 
+- (NSString *)statusName {
+    if (_statusName) {
+        return _statusName;
+    }
+    
+    NSString *status = @"离线";
+    switch (self.status) {
+        case kBuddyOnline:
+        {
+            status = @"在线";
+        }
+            break;
+            
+        case kBuddyInvisible:
+        {
+            status = @"离线";
+        }
+            break;
+            
+        case kBuddyAway:
+        {
+            status = @"离开";
+        }
+            break;
+            
+        case kBuddyOffline:
+        {
+            status = @"离线";
+        }
+            break;
+            
+        default:
+            break;
+    }
+    
+    return status;
+}
+
 - (NSString *)buddyRelation {
     NSString *relation;
     switch (self.relation) {

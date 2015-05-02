@@ -77,10 +77,11 @@
 - (BOOL)isValidEmail;
 - (BOOL)isVAlidPhoneNumber;
 - (BOOL)isValidUrl;
-- (BOOL)isValidIPAddress;
-- (BOOL)isValidHostPort;
 
 //add by ethan
+
+- (BOOL)isValidIPAddress;
+- (BOOL)isValidHostPort;
 
 ///求字符串所占size
 - (CGSize)sizeWithFont:(UIFont *)font maxSize:(CGSize)maxSize;

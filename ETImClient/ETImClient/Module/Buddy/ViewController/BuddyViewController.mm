@@ -85,9 +85,9 @@ using namespace std;
         _fbKVO = [[FBKVOController alloc] initWithObserver:self retainObserved:NO];
         [_fbKVO observe:self keyPath:@"buddyList" options:NSKeyValueObservingOptionNew block:^(id observer, id object, NSDictionary *change) {
             if ([self.buddyList count]) {
-                self.tableView.backgroundView = nil;
+                [self.tableView removeNoDataView];
             } else {
-                self.tableView.backgroundView = [self emptyTableView:@"暂无好友"];
+                //[self.tableView showNoDataView:[UIImage imageNamed:@"table_empty"] text:@"暂无好友"];
             }
             [self.tableView reloadData];
 
@@ -122,6 +122,16 @@ using namespace std;
     self.tableView.tableHeaderView = headerView;
     [self createRightNav];
     self.buddyList = [[DBManager sharedInstance] allBuddys];
+    [self.tableView addHeaderWithTarget:self action:@selector(headerRefresh)];
+    
+    self.buddyList = [[DBManager sharedInstance] allBuddys];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    if (![self.buddyList count]) {
+        [self.tableView showNoDataView];
+    }
 }
 
 - (void)createRightNav {
@@ -290,8 +300,7 @@ using namespace std;
     }
 }
 
-- (void)responseToRefresh {
-  
+- (void)headerRefresh {
     [[Client sharedInstance] pullWithCommand:CMD_RETRIEVE_BUDDY_LIST];
 }
 

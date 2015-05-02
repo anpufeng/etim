@@ -13,6 +13,5 @@
 
 @property (nonatomic, strong) HMTableView *tableView;
 
-- (UIView *)emptyTableView:(NSString *)info;
 
 @end

@@ -94,6 +94,9 @@ using namespace std;
     
     [self initData];
     [self.tableView reloadData];
+    if (![self.peerIdArr count]) {
+        [self.tableView showNoDataView];
+    }
 }
 
 - (void)createUI {
