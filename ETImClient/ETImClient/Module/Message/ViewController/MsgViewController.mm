@@ -92,15 +92,23 @@ using namespace std;
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
-    [self initData];
-    [self.tableView reloadData];
-    if (![self.peerIdArr count]) {
-        [self.tableView showNoDataView];
-    }
+    [self reloadMsgUI];
 }
 
 - (void)createUI {
         [self.tableView addHeaderWithTarget:self action:@selector(headerRefresh)];
+}
+
+- (void)reloadMsgUI {
+    [self initData];
+    [self.tableView reloadData];
+    if (![self.msgDic.allKeys count]) {
+        [self.tableView showNoDataView];
+    } else {
+        [self.tableView removeNoDataView];
+    }
+    
+    [self.tableView reloadData];
 }
 
 - (void)initData {
@@ -175,8 +183,7 @@ using namespace std;
     }
     
     [[DBManager sharedInstance] insertMsgs:unread];
-    
-    [self.tableView reloadData];
+    [self reloadMsgUI];
 }
 
 

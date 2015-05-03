@@ -335,8 +335,9 @@ static dispatch_once_t predicate;
         buddy.userId = [rs intForColumn:@"user_id"];
         buddy.username = [rs stringForColumn:@"username"];
         buddy.regTime = [rs stringForColumn:@"reg_time"];
-         buddy.signature = [rs stringForColumn:@"signature"];
+        buddy.signature = [rs stringForColumn:@"signature"];
         buddy.gender = [rs intForColumn:@"gender"];
+        buddy.relation = kBuddyRelationFriend;
         buddy.status = kBuddyOffline;
         
         [buddyArr addObject:buddy];

@@ -7,7 +7,6 @@
 //
 
 #import "ProfileViewController.h"
-#import "FBKVOController.h"
 #import "BuddyModel.h"
 
 #include "Client.h"
@@ -18,11 +17,12 @@
 using namespace etim;
 using namespace etim::pub;
 
+static void *kBuddyRelationKVOKey = &kBuddyRelationKVOKey;
+
 @interface ProfileViewController ()
 
 @property (nonatomic, strong) BuddyModel *user;
 @property (nonatomic, strong) NSArray *profileKeyList;
-@property (nonatomic, strong) FBKVOController *fbKVO;
 
 @end
 
@@ -45,11 +45,7 @@ using namespace etim::pub;
                                                        object:nil];
         }
         
-        
-        _fbKVO = [[FBKVOController alloc] initWithObserver:self retainObserved:NO];
-        [_fbKVO observe:self.user keyPath:@"relation" options:NSKeyValueObservingOptionNew block:^(id observer, id object, NSDictionary *change) {
-            DDLogInfo(@"observer *********");
-        }];
+        [self addObserver:self forKeyPath:@"relation" options:NSKeyValueObservingOptionNew context:kBuddyRelationKVOKey];
     }
     
     return self;
@@ -88,6 +84,14 @@ using namespace etim::pub;
     [self.view addSubview:footView];
 }
 
+#pragma mark -
+#pragma mark observer 
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
+    if (context == kBuddyRelationKVOKey) {
+        
+    }
+}
 
 #pragma mark -
 #pragma mark tableview datasource & delegate

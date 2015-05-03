@@ -83,6 +83,7 @@ using namespace etim::pub;
     _nameTextField.returnKeyType = UIReturnKeyNext;
     _nameTextField.clearButtonMode = UITextFieldViewModeWhileEditing;
     _nameTextField.delegate = self;
+    _nameTextField.placeholder = @"用户名";
     [scrollView addSubview:_nameTextField];
     
     _pwdTextField = [[LeftMarginTextField alloc] initWithFrame:CGRectMake(RECT_ORIGIN_X(_nameTextField), RECT_MAX_Y(_nameTextField), RECT_WIDTH(_nameTextField), RECT_HEIGHT(_nameTextField))];
@@ -91,7 +92,12 @@ using namespace etim::pub;
     _pwdTextField.returnKeyType = UIReturnKeyGo;
     _pwdTextField.clearButtonMode = UITextFieldViewModeWhileEditing;
     _pwdTextField.delegate = self;
+    _pwdTextField.placeholder = @"密码";
+    _pwdTextField.secureTextEntry = YES;
     [scrollView addSubview:_pwdTextField];
+
+
+
     
     _loginBtn = [[UIButton alloc] initWithFrame:CGRectMake((RECT_WIDTH(self.view) - 290)/2.0f, RECT_MAX_Y(_pwdTextField) + 20, 290, kCommonBtnHeight44)];
     [_loginBtn setBackgroundImage:IMAGE_PNG(@"login_btn_blue_nor") forState:UIControlStateNormal];
@@ -113,8 +119,7 @@ using namespace etim::pub;
 
     [scrollView addSubview:_regBtn];
     
-    _nameTextField.text = @"admin";
-    _pwdTextField.text = @"admin";
+   
 }
 
 

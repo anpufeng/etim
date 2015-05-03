@@ -63,6 +63,7 @@ using namespace etim::pub;
     _pwdTextField.backgroundColor = [UIColor clearColor];
     _pwdTextField.returnKeyType = UIReturnKeyGo;
     _pwdTextField.delegate = self;
+    _pwdTextField.secureTextEntry = YES;
     [self.view addSubview:_pwdTextField];
     
     _regBtn = [[UIButton alloc] initWithFrame:CGRectMake((RECT_WIDTH(self.view) - 290)/2.0f, RECT_MAX_Y(_pwdTextField) + 20, 290, kCommonBtnHeight44)];

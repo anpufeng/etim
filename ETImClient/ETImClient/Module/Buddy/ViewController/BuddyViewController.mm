@@ -14,7 +14,6 @@
 #import "ProfileViewController.h"
 #import "BuddyModel.h"
 #import "ReceivedManager.h"
-#import "FBKVOController.h"
 #import "BadgeButton.h"
 #import "MBProgressHUD.h"
 #import "DBManager.h"
@@ -25,13 +24,15 @@
 #include "ActionManager.h"
 
 
+static void *kBuddyListKVOKey = &kBuddyListKVOKey;
+static void *kReqBuddyListKVOKey = &kReqBuddyListKVOKey;
 
 using namespace etim;
 using namespace etim::pub;
 using namespace std;
 
 @interface BuddyViewController () {
-    FBKVOController *_fbKVO;
+
 }
 
 @property (nonatomic, strong) NSMutableArray *buddyList;
@@ -43,6 +44,8 @@ using namespace std;
 @implementation BuddyViewController
 
 - (void)dealloc {
+    [self removeObserver:self forKeyPath:@"buddyList"];
+    [self removeObserver:self forKeyPath:@"reqBuddyList"];
     [[NSNotificationCenter defaultCenter] removeObserver:self
                                                     name:notiNameFromCmd(CMD_RETRIEVE_BUDDY_LIST)
                                                   object:nil];
@@ -82,27 +85,8 @@ using namespace std;
                                                  selector:@selector(notiToPushRequestAddBuddy:)
                                                      name:notiNameFromCmd(PUSH_REQUEST_ADD_BUDDY)
                                                    object:nil];
-        _fbKVO = [[FBKVOController alloc] initWithObserver:self retainObserved:NO];
-        [_fbKVO observe:self keyPath:@"buddyList" options:NSKeyValueObservingOptionNew block:^(id observer, id object, NSDictionary *change) {
-            if ([self.buddyList count]) {
-                [self.tableView removeNoDataView];
-            } else {
-                //[self.tableView showNoDataView:[UIImage imageNamed:@"table_empty"] text:@"暂无好友"];
-            }
-            [self.tableView reloadData];
-
-        }];
-        
-        [_fbKVO observe:self keyPath:@"reqBuddyList" options:NSKeyValueObservingOptionNew block:^(id observer, id object, NSDictionary *change) {
-            BuddyTableHeaderView *headerView = (BuddyTableHeaderView *)self.tableView.tableHeaderView;
-            BadgeButton *badgeBtn = (BadgeButton *)[headerView viewWithTag:BuddyViewMenuNewFriend];
-            if ([self.reqBuddyList count]) {
-                [badgeBtn setBadge:[NSString stringWithFormat:@"%lu", (unsigned long)self.reqBuddyList.count]];
-            } else {
-                [badgeBtn setBadge:@"0"];
-            }
-
-        }];
+        [self addObserver:self forKeyPath:@"buddyList" options:NSKeyValueObservingOptionNew context:kBuddyListKVOKey];
+        [self addObserver:self forKeyPath:@"reqBuddyList" options:NSKeyValueObservingOptionNew context:kReqBuddyListKVOKey];
     }
     return self;
 }
@@ -129,10 +113,13 @@ using namespace std;
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    if (![self.buddyList count]) {
-        [self.tableView showNoDataViewWithTableHeader:self.tableView.tableHeaderView];
+    BuddyTableHeaderView *headerView = (BuddyTableHeaderView *)self.tableView.tableHeaderView;
+    BadgeButton *badgeBtn = (BadgeButton *)[headerView viewWithTag:BuddyViewMenuNewFriend];
+
+    if ([self.reqBuddyList count]) {
+        [badgeBtn setBadge:[NSString stringWithFormat:@"%lu", (unsigned long)self.reqBuddyList.count]];
     } else {
-        [self.tableView removeNoDataView];
+        [badgeBtn setBadge:@""];
     }
 }
 
@@ -168,6 +155,28 @@ using namespace std;
         [self willChangeValueForKey:@"buddyList"];
         [self.buddyList addObjectsFromArray:tmp];
         [self didChangeValueForKey:@"buddyList"];
+    }
+}
+
+#pragma mark observer
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
+    if (context == kBuddyListKVOKey) {
+        if ([self.buddyList count]) {
+            [self.tableView removeNoDataView];
+        } else {
+            [self.tableView showNoDataViewWithTableHeader:self.tableView.tableHeaderView];
+        }
+        [self.tableView reloadData];
+        
+    } else if (context == kReqBuddyListKVOKey) {
+        BuddyTableHeaderView *headerView = (BuddyTableHeaderView *)self.tableView.tableHeaderView;
+        BadgeButton *badgeBtn = (BadgeButton *)[headerView viewWithTag:BuddyViewMenuNewFriend];
+        if ([self.reqBuddyList count]) {
+            [badgeBtn setBadge:[NSString stringWithFormat:@"%lu", (unsigned long)self.reqBuddyList.count]];
+        } else {
+            [badgeBtn setBadge:@""];
+        }
     }
 }
 

@@ -101,7 +101,6 @@
 		0D9EBFBC1AC24DC40071793C /* DDContextFilterLogFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D9EBFB01AC24DC40071793C /* DDContextFilterLogFormatter.m */; };
 		0D9EBFBD1AC24DC40071793C /* DDDispatchQueueLogFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D9EBFB21AC24DC40071793C /* DDDispatchQueueLogFormatter.m */; };
 		0D9EBFBE1AC24DC40071793C /* DDMultiFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D9EBFB41AC24DC40071793C /* DDMultiFormatter.m */; };
-		0D9EBFC41AC250500071793C /* FBKVOController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D9EBFC31AC250500071793C /* FBKVOController.m */; };
 		0DA1AB761AA1C36C002DED6E /* NSTimer+WeakTarget.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DA1AB711AA1C36C002DED6E /* NSTimer+WeakTarget.m */; };
 		0DA1AB771AA1C36C002DED6E /* WUNSTimerProxyTarget.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DA1AB731AA1C36C002DED6E /* WUNSTimerProxyTarget.m */; };
 		0DA1AB781AA1C36C002DED6E /* WUNSTimerTargetLifecycleTracker.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DA1AB751AA1C36C002DED6E /* WUNSTimerTargetLifecycleTracker.m */; };
@@ -405,8 +404,6 @@
 		0D9EBFB21AC24DC40071793C /* DDDispatchQueueLogFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDDispatchQueueLogFormatter.m; sourceTree = "<group>"; };
 		0D9EBFB31AC24DC40071793C /* DDMultiFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDMultiFormatter.h; sourceTree = "<group>"; };
 		0D9EBFB41AC24DC40071793C /* DDMultiFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDMultiFormatter.m; sourceTree = "<group>"; };
-		0D9EBFC21AC250500071793C /* FBKVOController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBKVOController.h; sourceTree = "<group>"; };
-		0D9EBFC31AC250500071793C /* FBKVOController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBKVOController.m; sourceTree = "<group>"; };
 		0DA1AB701AA1C36C002DED6E /* NSTimer+WeakTarget.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSTimer+WeakTarget.h"; sourceTree = "<group>"; };
 		0DA1AB711AA1C36C002DED6E /* NSTimer+WeakTarget.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSTimer+WeakTarget.m"; sourceTree = "<group>"; };
 		0DA1AB721AA1C36C002DED6E /* WUNSTimerProxyTarget.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WUNSTimerProxyTarget.h; sourceTree = "<group>"; };
@@ -1068,15 +1065,6 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
-		0D9EBFC11AC2504B0071793C /* FBObserver */ = {
-			isa = PBXGroup;
-			children = (
-				0D9EBFC21AC250500071793C /* FBKVOController.h */,
-				0D9EBFC31AC250500071793C /* FBKVOController.m */,
-			);
-			path = FBObserver;
-			sourceTree = "<group>";
-		};
 		0DA1AB6F1AA1C36C002DED6E /* WeakTimer */ = {
 			isa = PBXGroup;
 			children = (
@@ -1201,7 +1189,6 @@
 			children = (
 				0DD44A211AE5E5B300BA67DF /* Fmdb */,
 				0D8134851AC5317F00FE28CF /* MJRefresh */,
-				0D9EBFC11AC2504B0071793C /* FBObserver */,
 				0D9EBF991AC24DC40071793C /* CocoaLumberjack */,
 				0DA1AB6F1AA1C36C002DED6E /* WeakTimer */,
 				AA65387319AF6B66003B64B0 /* JSBadgeView */,
@@ -1620,7 +1607,6 @@
 				0D8133B91AC52DA000FE28CF /* MsgModel.mm in Sources */,
 				0D8133B31AC52D6F00FE28CF /* MomentsViewController.mm in Sources */,
 				0D9EBFB81AC24DC40071793C /* DDASLLogger.m in Sources */,
-				0D9EBFC41AC250500071793C /* FBKVOController.m in Sources */,
 				0D8134501AC52F7300FE28CF /* UIColor+Additions.m in Sources */,
 				0D8134A01AC531CF00FE28CF /* UIView+Additions.m in Sources */,
 				0D8134691AC5305D00FE28CF /* UtilFileManager.m in Sources */,
@@ -1746,7 +1732,7 @@
 				INFOPLIST_FILE = "ETImClient/ETImClient-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "efdef8ff-02f3-49e8-ba58-517a273beff0";
+				PROVISIONING_PROFILE = "e3fdd5ab-64b8-4e4f-9e8f-b46c36ffc993";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
