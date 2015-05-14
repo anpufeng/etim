@@ -15,3 +15,7 @@ etim.mwb 是mysql workbench的数据库模型  etim.sql是初始数据库脚本,
 
 
 启动 mysql  10.10   sudo /usr/local/mysql/bin/mysqld_safe
+
+mark 2015-05-14
+目前服务端及客户端的地址已做成可配置的。 服务端需要将.conf放在与可执行文件同一目录 
+客户端在服务器设置页面
