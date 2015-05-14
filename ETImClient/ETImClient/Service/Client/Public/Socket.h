@@ -9,10 +9,7 @@
 #ifndef __ETImServer__Socket__
 #define __ETImServer__Socket__
 
-//#define HOST_SERVER                "192.168.31.208"
-#define HOST_SERVER                "104.131.147.16"
-//#define HOST_SERVER                "127.0.0.1"
-//#define HOST_SERVER                "121.40.180.147"
+
 #define HOST_PORT                   8888
 
 #include <iostream>
