@@ -22,6 +22,6 @@ mark 2015-05-14
  服务端编译正确方法：
  1：安装mysql， 确保编译符合mysql.h及mysql库文件的条件
  2：创建自己的数据库， 将etim.sql文件导入此数据库中 初始化一些表结构
- 3：修改etim.conf文件   修改对应的服务器地址  [SERVER]下为服务器配置  默认localhost 8888端口，[DB]下为数据库配置
- PORT:数据库端口 USER:数据库用户 PASS:数据库pned NAME:数据库名   注意此文件要和编译成功后的可执行文件放同一目录下，
+ 3：修改etim.conf文件   修改对应的服务器地址  [SERVER]下为服务器配置  默认localhost 8888端口，
+ [DB]下为数据库配置 PORT:数据库端口 USER:数据库用户 PASS:数据库密码 NAME:数据库名   注意此文件要和编译成功后的可执行文件放同一目录下，
  MAC下可在Products->Show in Finder找到对应生成的可执行文件
