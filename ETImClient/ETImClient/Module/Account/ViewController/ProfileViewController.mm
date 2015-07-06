@@ -28,10 +28,9 @@ static void *kBuddyRelationKVOKey = &kBuddyRelationKVOKey;
 
 @implementation ProfileViewController
 
-- (void)dealloc {
-    if (self.user.relation == kBuddyRelationStranger) {
-        [[NSNotificationCenter defaultCenter] removeObserver:self];
-    }
+- (void)dealloc {    
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    [self removeObserver:self forKeyPath:@"relation"];
 }
 
 
