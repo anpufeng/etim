@@ -1,0 +1,36 @@
+PODS:
+  - CocoaLumberjack (2.0.1):
+    - CocoaLumberjack/Default (= 2.0.1)
+    - CocoaLumberjack/Extensions (= 2.0.1)
+  - CocoaLumberjack/Core (2.0.1)
+  - CocoaLumberjack/Default (2.0.1):
+    - CocoaLumberjack/Core
+  - CocoaLumberjack/Extensions (2.0.1):
+    - CocoaLumberjack/Default
+  - FMDB (2.5):
+    - FMDB/standard (= 2.5)
+  - FMDB/common (2.5)
+  - FMDB/standard (2.5):
+    - FMDB/common
+  - JSBadgeView (1.4.1)
+  - MBProgressHUD (0.9.1)
+  - MJRefresh (2.2.0)
+  - TWMessageBarManager (1.7.2)
+
+DEPENDENCIES:
+  - CocoaLumberjack (~> 2.0.1)
+  - FMDB (~> 2.5)
+  - JSBadgeView (~> 1.4.1)
+  - MBProgressHUD (~> 0.9.1)
+  - MJRefresh (~> 2.2.0)
+  - TWMessageBarManager (~> 1.7.2)
+
+SPEC CHECKSUMS:
+  CocoaLumberjack: 019d1361244274a6138c788c6cb80baabc13fb8f
+  FMDB: 96e8f1bcc1329e269330f99770ad4285d9003e52
+  JSBadgeView: 3861ddee41094284d9468e6d0af5107f703aaac5
+  MBProgressHUD: c47f2c166c126cf2ce36498d80f33e754d4e93ad
+  MJRefresh: 65a2bf14abb6feeaed8696aa1551f70e15ab0a08
+  TWMessageBarManager: e7adc066ee425174f5dee79473fce913b1cd1662
+
+COCOAPODS: 0.35.0

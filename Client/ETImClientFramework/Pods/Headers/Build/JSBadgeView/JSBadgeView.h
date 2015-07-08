@@ -1,0 +1,1 @@
+../../../JSBadgeView/Pod/Classes/JSBadgeView.h
