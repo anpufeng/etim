@@ -15,6 +15,7 @@
 
 + (id)imageWithMainBundle:(NSString *)imgName;
 + (id)imageWithMainBundle:(NSString *)imgName type:(NSString *)type;
+
 + (id)imageWithBundle:(NSString *)aBundle imageName:(NSString *)imgName;
 + (id)imageWithBundle:(NSString *)aBundle imageName:(NSString *)imgName type:(NSString *)type;
 

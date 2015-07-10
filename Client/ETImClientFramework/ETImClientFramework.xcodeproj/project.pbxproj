@@ -44,6 +44,8 @@
 		0D9E03A71B4FB66B00AF9BFF /* NSString+App.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D9E03A61B4FB66B00AF9BFF /* NSString+App.m */; };
 		0D9E03AA1B4FB67700AF9BFF /* NSString+Valid.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D9E03A91B4FB67700AF9BFF /* NSString+Valid.m */; };
 		0D9E03AD1B4FB87000AF9BFF /* UIImage+Bundle.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D9E03AC1B4FB87000AF9BFF /* UIImage+Bundle.m */; };
+		0D9E03B01B4FC61400AF9BFF /* HMScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D9E03AF1B4FC61400AF9BFF /* HMScrollView.m */; };
+		0D9E03B31B4FC76C00AF9BFF /* HMAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D9E03B21B4FC76C00AF9BFF /* HMAppDelegate.m */; };
 		0DD111641B4CF269006AEDA5 /* libETImClientFramework.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0DD111581B4CF269006AEDA5 /* libETImClientFramework.a */; };
 		F91A8C76A3FE5403DF30C465 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 95C7C509C07D1EAF0040084A /* libPods.a */; };
 /* End PBXBuildFile section */
@@ -141,6 +143,10 @@
 		0D9E03A91B4FB67700AF9BFF /* NSString+Valid.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Valid.m"; sourceTree = "<group>"; };
 		0D9E03AB1B4FB87000AF9BFF /* UIImage+Bundle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Bundle.h"; sourceTree = "<group>"; };
 		0D9E03AC1B4FB87000AF9BFF /* UIImage+Bundle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Bundle.m"; sourceTree = "<group>"; };
+		0D9E03AE1B4FC61400AF9BFF /* HMScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HMScrollView.h; sourceTree = "<group>"; };
+		0D9E03AF1B4FC61400AF9BFF /* HMScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HMScrollView.m; sourceTree = "<group>"; };
+		0D9E03B11B4FC76C00AF9BFF /* HMAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HMAppDelegate.h; sourceTree = "<group>"; };
+		0D9E03B21B4FC76C00AF9BFF /* HMAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HMAppDelegate.m; sourceTree = "<group>"; };
 		0DD111581B4CF269006AEDA5 /* libETImClientFramework.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libETImClientFramework.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		0DD111631B4CF269006AEDA5 /* ETImClientFrameworkTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ETImClientFrameworkTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0DD111691B4CF269006AEDA5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -217,6 +223,8 @@
 			children = (
 				0D98ABFC1B4F5A7B00800A34 /* BaseViewController */,
 				0D98ABFB1B4F5A6C00800A34 /* BaseView */,
+				0D9E03B11B4FC76C00AF9BFF /* HMAppDelegate.h */,
+				0D9E03B21B4FC76C00AF9BFF /* HMAppDelegate.m */,
 			);
 			path = BaseClass;
 			sourceTree = "<group>";
@@ -277,6 +285,8 @@
 				0D98AC191B4F5E1000800A34 /* HMWebView.m */,
 				0D98AC1B1B4F5E5000800A34 /* HMAlertView.h */,
 				0D98AC1C1B4F5E5000800A34 /* HMAlertView.m */,
+				0D9E03AE1B4FC61400AF9BFF /* HMScrollView.h */,
+				0D9E03AF1B4FC61400AF9BFF /* HMScrollView.m */,
 			);
 			path = BaseView;
 			sourceTree = "<group>";
@@ -589,6 +599,8 @@
 				0D98AC5C1B4FA6A500800A34 /* NSMutableArray+Safe.m in Sources */,
 				0D98ABF31B4D0D4F00800A34 /* ETImClientFramework.m in Sources */,
 				0D98AC081B4F5B0200800A34 /* HMTableViewController.m in Sources */,
+				0D9E03B01B4FC61400AF9BFF /* HMScrollView.m in Sources */,
+				0D9E03B31B4FC76C00AF9BFF /* HMAppDelegate.m in Sources */,
 				0D98AC5B1B4FA6A500800A34 /* NSDictionary+Safe.m in Sources */,
 				0D98AC1A1B4F5E1000800A34 /* HMWebView.m in Sources */,
 				0D9E03AD1B4FB87000AF9BFF /* UIImage+Bundle.m in Sources */,
