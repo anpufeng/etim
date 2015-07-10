@@ -18,9 +18,9 @@
         [dateFormatter setDateFormat:@"HH:mm"];
     } else if (type == DateFormatTypeNoDashLong) {
         [dateFormatter setDateFormat:@"yyyyMMddHHmmss"];
-    }else if(type == DateFormatTypeSimple){
+    } else if(type == DateFormatTypeSimple){
         [dateFormatter setDateFormat:@"MM-dd HH:mm"];
-    }else {
+    } else {
         [dateFormatter setDateFormat:@"yyyy-MM-dd"];
     }
     return [dateFormatter stringFromDate:date];

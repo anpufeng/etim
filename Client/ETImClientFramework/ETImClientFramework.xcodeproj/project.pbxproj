@@ -7,13 +7,43 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0D98ABDA1B4D027400800A34 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 0D98ABD91B4D027400800A34 /* libsqlite3.dylib */; };
 		0D98ABDC1B4D029500800A34 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0D98ABDB1B4D029500800A34 /* CFNetwork.framework */; };
 		0D98ABDE1B4D029C00800A34 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0D98ABDD1B4D029C00800A34 /* SystemConfiguration.framework */; };
 		0D98ABE01B4D02AA00800A34 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0D98ABDF1B4D02AA00800A34 /* UIKit.framework */; };
 		0D98ABE21B4D02B400800A34 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0D98ABE11B4D02B400800A34 /* CoreGraphics.framework */; };
 		0D98ABE41B4D02BE00800A34 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0D98ABE31B4D02BE00800A34 /* Foundation.framework */; };
 		0D98ABF31B4D0D4F00800A34 /* ETImClientFramework.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D98ABF21B4D0D4F00800A34 /* ETImClientFramework.m */; };
+		0D98ABFF1B4F5AAF00800A34 /* HMViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D98ABFE1B4F5AAF00800A34 /* HMViewController.m */; };
+		0D98AC021B4F5ACE00800A34 /* HMNavController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D98AC011B4F5ACE00800A34 /* HMNavController.m */; };
+		0D98AC051B4F5AF000800A34 /* HMTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D98AC041B4F5AF000800A34 /* HMTabBarController.m */; };
+		0D98AC081B4F5B0200800A34 /* HMTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D98AC071B4F5B0200800A34 /* HMTableViewController.m */; };
+		0D98AC0B1B4F5B7500800A34 /* HMView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D98AC0A1B4F5B7500800A34 /* HMView.m */; };
+		0D98AC0E1B4F5B8400800A34 /* HMTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D98AC0D1B4F5B8400800A34 /* HMTableView.m */; };
+		0D98AC111B4F5B9200800A34 /* HMTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D98AC101B4F5B9200800A34 /* HMTableViewCell.m */; };
+		0D98AC171B4F5E0400800A34 /* HMWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D98AC161B4F5E0400800A34 /* HMWindow.m */; };
+		0D98AC1A1B4F5E1000800A34 /* HMWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D98AC191B4F5E1000800A34 /* HMWebView.m */; };
+		0D98AC1D1B4F5E5000800A34 /* HMAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D98AC1C1B4F5E5000800A34 /* HMAlertView.m */; };
+		0D98AC261B4F60E500800A34 /* UIViewController+Loading.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D98AC201B4F60E500800A34 /* UIViewController+Loading.m */; };
+		0D98AC291B4F638D00800A34 /* NSObject+Class.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D98AC281B4F638D00800A34 /* NSObject+Class.m */; };
+		0D98AC2C1B4F66F500800A34 /* UIView+Loading.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D98AC2B1B4F66F500800A34 /* UIView+Loading.m */; };
+		0D98AC3A1B4F74E900800A34 /* HMFileLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D98AC331B4F74E900800A34 /* HMFileLogger.m */; };
+		0D98AC3B1B4F74E900800A34 /* HMLog.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D98AC351B4F74E900800A34 /* HMLog.m */; };
+		0D98AC3C1B4F74E900800A34 /* HMLogFileManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D98AC371B4F74E900800A34 /* HMLogFileManager.m */; };
+		0D98AC3D1B4F74E900800A34 /* HMLogFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D98AC391B4F74E900800A34 /* HMLogFormatter.m */; };
+		0D98AC431B4F851B00800A34 /* NSDate+Formatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D98AC421B4F851B00800A34 /* NSDate+Formatter.m */; };
+		0D98AC441B4F881600800A34 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 0D98ABD91B4D027400800A34 /* libsqlite3.dylib */; };
+		0D98AC471B4F976000800A34 /* HMFileManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D98AC461B4F976000800A34 /* HMFileManager.m */; };
+		0D98AC4B1B4FA64B00800A34 /* NSObject+Swizzle.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D98AC4A1B4FA64B00800A34 /* NSObject+Swizzle.m */; };
+		0D98AC5A1B4FA6A500800A34 /* NSArray+Safe.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D98AC4D1B4FA6A500800A34 /* NSArray+Safe.m */; };
+		0D98AC5B1B4FA6A500800A34 /* NSDictionary+Safe.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D98AC4F1B4FA6A500800A34 /* NSDictionary+Safe.m */; };
+		0D98AC5C1B4FA6A500800A34 /* NSMutableArray+Safe.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D98AC511B4FA6A500800A34 /* NSMutableArray+Safe.m */; };
+		0D98AC5D1B4FA6A500800A34 /* NSMutableDictionary+Safe.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D98AC531B4FA6A500800A34 /* NSMutableDictionary+Safe.m */; };
+		0D98AC5E1B4FA6A500800A34 /* NSNumber+Safe.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D98AC551B4FA6A500800A34 /* NSNumber+Safe.m */; };
+		0D98AC5F1B4FA6A500800A34 /* NSString+Safe.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D98AC571B4FA6A500800A34 /* NSString+Safe.m */; };
+		0D98AC601B4FA6A500800A34 /* UITableView+Safe.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D98AC591B4FA6A500800A34 /* UITableView+Safe.m */; };
+		0D9E03A71B4FB66B00AF9BFF /* NSString+App.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D9E03A61B4FB66B00AF9BFF /* NSString+App.m */; };
+		0D9E03AA1B4FB67700AF9BFF /* NSString+Valid.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D9E03A91B4FB67700AF9BFF /* NSString+Valid.m */; };
+		0D9E03AD1B4FB87000AF9BFF /* UIImage+Bundle.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D9E03AC1B4FB87000AF9BFF /* UIImage+Bundle.m */; };
 		0DD111641B4CF269006AEDA5 /* libETImClientFramework.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0DD111581B4CF269006AEDA5 /* libETImClientFramework.a */; };
 		F91A8C76A3FE5403DF30C465 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 95C7C509C07D1EAF0040084A /* libPods.a */; };
 /* End PBXBuildFile section */
@@ -50,6 +80,67 @@
 		0D98ABEB1B4D04BA00800A34 /* ETImClientFramework-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "ETImClientFramework-Prefix.pch"; path = "Framework/ETImClientFramework-Prefix.pch"; sourceTree = "<group>"; };
 		0D98ABF11B4D0D4F00800A34 /* ETImClientFramework.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ETImClientFramework.h; path = Framework/ETImClientFramework.h; sourceTree = "<group>"; };
 		0D98ABF21B4D0D4F00800A34 /* ETImClientFramework.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ETImClientFramework.m; path = Framework/ETImClientFramework.m; sourceTree = "<group>"; };
+		0D98ABFD1B4F5AAF00800A34 /* HMViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HMViewController.h; sourceTree = "<group>"; };
+		0D98ABFE1B4F5AAF00800A34 /* HMViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HMViewController.m; sourceTree = "<group>"; };
+		0D98AC001B4F5ACE00800A34 /* HMNavController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HMNavController.h; sourceTree = "<group>"; };
+		0D98AC011B4F5ACE00800A34 /* HMNavController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HMNavController.m; sourceTree = "<group>"; };
+		0D98AC031B4F5AF000800A34 /* HMTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HMTabBarController.h; sourceTree = "<group>"; };
+		0D98AC041B4F5AF000800A34 /* HMTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HMTabBarController.m; sourceTree = "<group>"; };
+		0D98AC061B4F5B0200800A34 /* HMTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HMTableViewController.h; sourceTree = "<group>"; };
+		0D98AC071B4F5B0200800A34 /* HMTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HMTableViewController.m; sourceTree = "<group>"; };
+		0D98AC091B4F5B7500800A34 /* HMView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HMView.h; sourceTree = "<group>"; };
+		0D98AC0A1B4F5B7500800A34 /* HMView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HMView.m; sourceTree = "<group>"; };
+		0D98AC0C1B4F5B8400800A34 /* HMTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HMTableView.h; sourceTree = "<group>"; };
+		0D98AC0D1B4F5B8400800A34 /* HMTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HMTableView.m; sourceTree = "<group>"; };
+		0D98AC0F1B4F5B9200800A34 /* HMTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HMTableViewCell.h; sourceTree = "<group>"; };
+		0D98AC101B4F5B9200800A34 /* HMTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HMTableViewCell.m; sourceTree = "<group>"; };
+		0D98AC151B4F5E0400800A34 /* HMWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HMWindow.h; sourceTree = "<group>"; };
+		0D98AC161B4F5E0400800A34 /* HMWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HMWindow.m; sourceTree = "<group>"; };
+		0D98AC181B4F5E1000800A34 /* HMWebView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HMWebView.h; sourceTree = "<group>"; };
+		0D98AC191B4F5E1000800A34 /* HMWebView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HMWebView.m; sourceTree = "<group>"; };
+		0D98AC1B1B4F5E5000800A34 /* HMAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HMAlertView.h; sourceTree = "<group>"; };
+		0D98AC1C1B4F5E5000800A34 /* HMAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HMAlertView.m; sourceTree = "<group>"; };
+		0D98AC1F1B4F60E500800A34 /* UIViewController+Loading.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+Loading.h"; sourceTree = "<group>"; };
+		0D98AC201B4F60E500800A34 /* UIViewController+Loading.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+Loading.m"; sourceTree = "<group>"; };
+		0D98AC271B4F638D00800A34 /* NSObject+Class.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+Class.h"; sourceTree = "<group>"; };
+		0D98AC281B4F638D00800A34 /* NSObject+Class.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+Class.m"; sourceTree = "<group>"; };
+		0D98AC2A1B4F66F500800A34 /* UIView+Loading.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Loading.h"; sourceTree = "<group>"; };
+		0D98AC2B1B4F66F500800A34 /* UIView+Loading.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Loading.m"; sourceTree = "<group>"; };
+		0D98AC301B4F6B0700800A34 /* HMMacro.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HMMacro.h; sourceTree = "<group>"; };
+		0D98AC321B4F74E900800A34 /* HMFileLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HMFileLogger.h; sourceTree = "<group>"; };
+		0D98AC331B4F74E900800A34 /* HMFileLogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HMFileLogger.m; sourceTree = "<group>"; };
+		0D98AC341B4F74E900800A34 /* HMLog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HMLog.h; sourceTree = "<group>"; };
+		0D98AC351B4F74E900800A34 /* HMLog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HMLog.m; sourceTree = "<group>"; };
+		0D98AC361B4F74E900800A34 /* HMLogFileManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HMLogFileManager.h; sourceTree = "<group>"; };
+		0D98AC371B4F74E900800A34 /* HMLogFileManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HMLogFileManager.m; sourceTree = "<group>"; };
+		0D98AC381B4F74E900800A34 /* HMLogFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HMLogFormatter.h; sourceTree = "<group>"; };
+		0D98AC391B4F74E900800A34 /* HMLogFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HMLogFormatter.m; sourceTree = "<group>"; };
+		0D98AC411B4F851B00800A34 /* NSDate+Formatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+Formatter.h"; sourceTree = "<group>"; };
+		0D98AC421B4F851B00800A34 /* NSDate+Formatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+Formatter.m"; sourceTree = "<group>"; };
+		0D98AC451B4F976000800A34 /* HMFileManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HMFileManager.h; sourceTree = "<group>"; };
+		0D98AC461B4F976000800A34 /* HMFileManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HMFileManager.m; sourceTree = "<group>"; };
+		0D98AC491B4FA64B00800A34 /* NSObject+Swizzle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+Swizzle.h"; sourceTree = "<group>"; };
+		0D98AC4A1B4FA64B00800A34 /* NSObject+Swizzle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+Swizzle.m"; sourceTree = "<group>"; };
+		0D98AC4C1B4FA6A500800A34 /* NSArray+Safe.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+Safe.h"; sourceTree = "<group>"; };
+		0D98AC4D1B4FA6A500800A34 /* NSArray+Safe.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+Safe.m"; sourceTree = "<group>"; };
+		0D98AC4E1B4FA6A500800A34 /* NSDictionary+Safe.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+Safe.h"; sourceTree = "<group>"; };
+		0D98AC4F1B4FA6A500800A34 /* NSDictionary+Safe.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+Safe.m"; sourceTree = "<group>"; };
+		0D98AC501B4FA6A500800A34 /* NSMutableArray+Safe.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableArray+Safe.h"; sourceTree = "<group>"; };
+		0D98AC511B4FA6A500800A34 /* NSMutableArray+Safe.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableArray+Safe.m"; sourceTree = "<group>"; };
+		0D98AC521B4FA6A500800A34 /* NSMutableDictionary+Safe.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableDictionary+Safe.h"; sourceTree = "<group>"; };
+		0D98AC531B4FA6A500800A34 /* NSMutableDictionary+Safe.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableDictionary+Safe.m"; sourceTree = "<group>"; };
+		0D98AC541B4FA6A500800A34 /* NSNumber+Safe.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSNumber+Safe.h"; sourceTree = "<group>"; };
+		0D98AC551B4FA6A500800A34 /* NSNumber+Safe.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSNumber+Safe.m"; sourceTree = "<group>"; };
+		0D98AC561B4FA6A500800A34 /* NSString+Safe.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Safe.h"; sourceTree = "<group>"; };
+		0D98AC571B4FA6A500800A34 /* NSString+Safe.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Safe.m"; sourceTree = "<group>"; };
+		0D98AC581B4FA6A500800A34 /* UITableView+Safe.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITableView+Safe.h"; sourceTree = "<group>"; };
+		0D98AC591B4FA6A500800A34 /* UITableView+Safe.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITableView+Safe.m"; sourceTree = "<group>"; };
+		0D9E03A51B4FB66B00AF9BFF /* NSString+App.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+App.h"; sourceTree = "<group>"; };
+		0D9E03A61B4FB66B00AF9BFF /* NSString+App.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+App.m"; sourceTree = "<group>"; };
+		0D9E03A81B4FB67700AF9BFF /* NSString+Valid.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Valid.h"; sourceTree = "<group>"; };
+		0D9E03A91B4FB67700AF9BFF /* NSString+Valid.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Valid.m"; sourceTree = "<group>"; };
+		0D9E03AB1B4FB87000AF9BFF /* UIImage+Bundle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Bundle.h"; sourceTree = "<group>"; };
+		0D9E03AC1B4FB87000AF9BFF /* UIImage+Bundle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Bundle.m"; sourceTree = "<group>"; };
 		0DD111581B4CF269006AEDA5 /* libETImClientFramework.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libETImClientFramework.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		0DD111631B4CF269006AEDA5 /* ETImClientFrameworkTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ETImClientFrameworkTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0DD111691B4CF269006AEDA5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -63,12 +154,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0D98AC441B4F881600800A34 /* libsqlite3.dylib in Frameworks */,
 				0D98ABE41B4D02BE00800A34 /* Foundation.framework in Frameworks */,
 				0D98ABE21B4D02B400800A34 /* CoreGraphics.framework in Frameworks */,
 				0D98ABE01B4D02AA00800A34 /* UIKit.framework in Frameworks */,
 				0D98ABDE1B4D029C00800A34 /* SystemConfiguration.framework in Frameworks */,
 				0D98ABDC1B4D029500800A34 /* CFNetwork.framework in Frameworks */,
-				0D98ABDA1B4D027400800A34 /* libsqlite3.dylib in Frameworks */,
 				F91A8C76A3FE5403DF30C465 /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -103,11 +194,13 @@
 		0D98ABD31B4CFE7400800A34 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				0D98AC2F1B4F6AFC00800A34 /* Constants */,
 				0D98ABD81B4CFEEF00800A34 /* Util */,
 				0D98ABD71B4CFED800800A34 /* Data */,
 				0D98ABD61B4CFEC900800A34 /* Category */,
 				0D98ABD51B4CFEA000800A34 /* BaseClass */,
 				0D98ABD41B4CFE9300800A34 /* Views */,
+				0D98AC301B4F6B0700800A34 /* HMMacro.h */,
 			);
 			path = Modules;
 			sourceTree = "<group>";
@@ -122,6 +215,8 @@
 		0D98ABD51B4CFEA000800A34 /* BaseClass */ = {
 			isa = PBXGroup;
 			children = (
+				0D98ABFC1B4F5A7B00800A34 /* BaseViewController */,
+				0D98ABFB1B4F5A6C00800A34 /* BaseView */,
 			);
 			path = BaseClass;
 			sourceTree = "<group>";
@@ -129,6 +224,13 @@
 		0D98ABD61B4CFEC900800A34 /* Category */ = {
 			isa = PBXGroup;
 			children = (
+				0D9E03A41B4FB66000AF9BFF /* NSString */,
+				0D98AC481B4F9A3A00800A34 /* UIImage */,
+				0D98AC1E1B4F60E500800A34 /* ViewController */,
+				0D98AC211B4F60E500800A34 /* Safe */,
+				0D98AC221B4F60E500800A34 /* NSObject */,
+				0D98AC231B4F60E500800A34 /* NSDate */,
+				0D98AC251B4F60E500800A34 /* UIView */,
 			);
 			path = Category;
 			sourceTree = "<group>";
@@ -136,6 +238,8 @@
 		0D98ABD71B4CFED800800A34 /* Data */ = {
 			isa = PBXGroup;
 			children = (
+				0D98AC451B4F976000800A34 /* HMFileManager.h */,
+				0D98AC461B4F976000800A34 /* HMFileManager.m */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -143,6 +247,7 @@
 		0D98ABD81B4CFEEF00800A34 /* Util */ = {
 			isa = PBXGroup;
 			children = (
+				0D98AC311B4F718500800A34 /* Log */,
 			);
 			path = Util;
 			sourceTree = "<group>";
@@ -155,6 +260,142 @@
 				0D98ABEB1B4D04BA00800A34 /* ETImClientFramework-Prefix.pch */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		0D98ABFB1B4F5A6C00800A34 /* BaseView */ = {
+			isa = PBXGroup;
+			children = (
+				0D98AC091B4F5B7500800A34 /* HMView.h */,
+				0D98AC0A1B4F5B7500800A34 /* HMView.m */,
+				0D98AC0C1B4F5B8400800A34 /* HMTableView.h */,
+				0D98AC0D1B4F5B8400800A34 /* HMTableView.m */,
+				0D98AC0F1B4F5B9200800A34 /* HMTableViewCell.h */,
+				0D98AC101B4F5B9200800A34 /* HMTableViewCell.m */,
+				0D98AC151B4F5E0400800A34 /* HMWindow.h */,
+				0D98AC161B4F5E0400800A34 /* HMWindow.m */,
+				0D98AC181B4F5E1000800A34 /* HMWebView.h */,
+				0D98AC191B4F5E1000800A34 /* HMWebView.m */,
+				0D98AC1B1B4F5E5000800A34 /* HMAlertView.h */,
+				0D98AC1C1B4F5E5000800A34 /* HMAlertView.m */,
+			);
+			path = BaseView;
+			sourceTree = "<group>";
+		};
+		0D98ABFC1B4F5A7B00800A34 /* BaseViewController */ = {
+			isa = PBXGroup;
+			children = (
+				0D98ABFD1B4F5AAF00800A34 /* HMViewController.h */,
+				0D98ABFE1B4F5AAF00800A34 /* HMViewController.m */,
+				0D98AC001B4F5ACE00800A34 /* HMNavController.h */,
+				0D98AC011B4F5ACE00800A34 /* HMNavController.m */,
+				0D98AC031B4F5AF000800A34 /* HMTabBarController.h */,
+				0D98AC041B4F5AF000800A34 /* HMTabBarController.m */,
+				0D98AC061B4F5B0200800A34 /* HMTableViewController.h */,
+				0D98AC071B4F5B0200800A34 /* HMTableViewController.m */,
+			);
+			path = BaseViewController;
+			sourceTree = "<group>";
+		};
+		0D98AC1E1B4F60E500800A34 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				0D98AC1F1B4F60E500800A34 /* UIViewController+Loading.h */,
+				0D98AC201B4F60E500800A34 /* UIViewController+Loading.m */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		0D98AC211B4F60E500800A34 /* Safe */ = {
+			isa = PBXGroup;
+			children = (
+				0D98AC4C1B4FA6A500800A34 /* NSArray+Safe.h */,
+				0D98AC4D1B4FA6A500800A34 /* NSArray+Safe.m */,
+				0D98AC4E1B4FA6A500800A34 /* NSDictionary+Safe.h */,
+				0D98AC4F1B4FA6A500800A34 /* NSDictionary+Safe.m */,
+				0D98AC501B4FA6A500800A34 /* NSMutableArray+Safe.h */,
+				0D98AC511B4FA6A500800A34 /* NSMutableArray+Safe.m */,
+				0D98AC521B4FA6A500800A34 /* NSMutableDictionary+Safe.h */,
+				0D98AC531B4FA6A500800A34 /* NSMutableDictionary+Safe.m */,
+				0D98AC541B4FA6A500800A34 /* NSNumber+Safe.h */,
+				0D98AC551B4FA6A500800A34 /* NSNumber+Safe.m */,
+				0D98AC561B4FA6A500800A34 /* NSString+Safe.h */,
+				0D98AC571B4FA6A500800A34 /* NSString+Safe.m */,
+				0D98AC581B4FA6A500800A34 /* UITableView+Safe.h */,
+				0D98AC591B4FA6A500800A34 /* UITableView+Safe.m */,
+			);
+			path = Safe;
+			sourceTree = "<group>";
+		};
+		0D98AC221B4F60E500800A34 /* NSObject */ = {
+			isa = PBXGroup;
+			children = (
+				0D98AC491B4FA64B00800A34 /* NSObject+Swizzle.h */,
+				0D98AC4A1B4FA64B00800A34 /* NSObject+Swizzle.m */,
+				0D98AC271B4F638D00800A34 /* NSObject+Class.h */,
+				0D98AC281B4F638D00800A34 /* NSObject+Class.m */,
+			);
+			path = NSObject;
+			sourceTree = "<group>";
+		};
+		0D98AC231B4F60E500800A34 /* NSDate */ = {
+			isa = PBXGroup;
+			children = (
+				0D98AC411B4F851B00800A34 /* NSDate+Formatter.h */,
+				0D98AC421B4F851B00800A34 /* NSDate+Formatter.m */,
+			);
+			path = NSDate;
+			sourceTree = "<group>";
+		};
+		0D98AC251B4F60E500800A34 /* UIView */ = {
+			isa = PBXGroup;
+			children = (
+				0D98AC2A1B4F66F500800A34 /* UIView+Loading.h */,
+				0D98AC2B1B4F66F500800A34 /* UIView+Loading.m */,
+			);
+			path = UIView;
+			sourceTree = "<group>";
+		};
+		0D98AC2F1B4F6AFC00800A34 /* Constants */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Constants;
+			sourceTree = "<group>";
+		};
+		0D98AC311B4F718500800A34 /* Log */ = {
+			isa = PBXGroup;
+			children = (
+				0D98AC321B4F74E900800A34 /* HMFileLogger.h */,
+				0D98AC331B4F74E900800A34 /* HMFileLogger.m */,
+				0D98AC341B4F74E900800A34 /* HMLog.h */,
+				0D98AC351B4F74E900800A34 /* HMLog.m */,
+				0D98AC361B4F74E900800A34 /* HMLogFileManager.h */,
+				0D98AC371B4F74E900800A34 /* HMLogFileManager.m */,
+				0D98AC381B4F74E900800A34 /* HMLogFormatter.h */,
+				0D98AC391B4F74E900800A34 /* HMLogFormatter.m */,
+			);
+			path = Log;
+			sourceTree = "<group>";
+		};
+		0D98AC481B4F9A3A00800A34 /* UIImage */ = {
+			isa = PBXGroup;
+			children = (
+				0D9E03AB1B4FB87000AF9BFF /* UIImage+Bundle.h */,
+				0D9E03AC1B4FB87000AF9BFF /* UIImage+Bundle.m */,
+			);
+			path = UIImage;
+			sourceTree = "<group>";
+		};
+		0D9E03A41B4FB66000AF9BFF /* NSString */ = {
+			isa = PBXGroup;
+			children = (
+				0D9E03A51B4FB66B00AF9BFF /* NSString+App.h */,
+				0D9E03A61B4FB66B00AF9BFF /* NSString+App.m */,
+				0D9E03A81B4FB67700AF9BFF /* NSString+Valid.h */,
+				0D9E03A91B4FB67700AF9BFF /* NSString+Valid.m */,
+			);
+			name = NSString;
+			path = Safe/NSString;
 			sourceTree = "<group>";
 		};
 		0DD1114F1B4CF269006AEDA5 = {
@@ -340,7 +581,37 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0D98AC431B4F851B00800A34 /* NSDate+Formatter.m in Sources */,
+				0D98AC5A1B4FA6A500800A34 /* NSArray+Safe.m in Sources */,
+				0D98AC051B4F5AF000800A34 /* HMTabBarController.m in Sources */,
+				0D98AC2C1B4F66F500800A34 /* UIView+Loading.m in Sources */,
+				0D9E03AA1B4FB67700AF9BFF /* NSString+Valid.m in Sources */,
+				0D98AC5C1B4FA6A500800A34 /* NSMutableArray+Safe.m in Sources */,
 				0D98ABF31B4D0D4F00800A34 /* ETImClientFramework.m in Sources */,
+				0D98AC081B4F5B0200800A34 /* HMTableViewController.m in Sources */,
+				0D98AC5B1B4FA6A500800A34 /* NSDictionary+Safe.m in Sources */,
+				0D98AC1A1B4F5E1000800A34 /* HMWebView.m in Sources */,
+				0D9E03AD1B4FB87000AF9BFF /* UIImage+Bundle.m in Sources */,
+				0D98AC471B4F976000800A34 /* HMFileManager.m in Sources */,
+				0D98ABFF1B4F5AAF00800A34 /* HMViewController.m in Sources */,
+				0D98AC171B4F5E0400800A34 /* HMWindow.m in Sources */,
+				0D98AC111B4F5B9200800A34 /* HMTableViewCell.m in Sources */,
+				0D98AC021B4F5ACE00800A34 /* HMNavController.m in Sources */,
+				0D98AC5E1B4FA6A500800A34 /* NSNumber+Safe.m in Sources */,
+				0D98AC3B1B4F74E900800A34 /* HMLog.m in Sources */,
+				0D98AC601B4FA6A500800A34 /* UITableView+Safe.m in Sources */,
+				0D98AC3C1B4F74E900800A34 /* HMLogFileManager.m in Sources */,
+				0D98AC1D1B4F5E5000800A34 /* HMAlertView.m in Sources */,
+				0D98AC4B1B4FA64B00800A34 /* NSObject+Swizzle.m in Sources */,
+				0D98AC291B4F638D00800A34 /* NSObject+Class.m in Sources */,
+				0D9E03A71B4FB66B00AF9BFF /* NSString+App.m in Sources */,
+				0D98AC0B1B4F5B7500800A34 /* HMView.m in Sources */,
+				0D98AC3D1B4F74E900800A34 /* HMLogFormatter.m in Sources */,
+				0D98AC5F1B4FA6A500800A34 /* NSString+Safe.m in Sources */,
+				0D98AC0E1B4F5B8400800A34 /* HMTableView.m in Sources */,
+				0D98AC261B4F60E500800A34 /* UIViewController+Loading.m in Sources */,
+				0D98AC3A1B4F74E900800A34 /* HMFileLogger.m in Sources */,
+				0D98AC5D1B4FA6A500800A34 /* NSMutableDictionary+Safe.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -452,7 +723,7 @@
 			buildSettings = {
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Framework/ETImClientFramework-Prefix.pch";
-				OTHER_LDFLAGS = "-ObjC";
+				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 			};
@@ -464,7 +735,7 @@
 			buildSettings = {
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Framework/ETImClientFramework-Prefix.pch";
-				OTHER_LDFLAGS = "-ObjC";
+				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 			};

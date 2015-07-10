@@ -8,6 +8,10 @@
 
 #import <Foundation/Foundation.h>
 
+#import "HMLog.h"
+
+#import "HMFileManager.h"
+
 @interface ETImClientFramework : NSObject
 
 @end

@@ -15,9 +15,6 @@
 
 @interface HMLogFormatter : NSObject <DDLogFormatter>
 
-- (NSDictionary *)formatLogMessageDic:(DDLogMessage *)logMessage;
-///根据logbody返回info
-- (NSDictionary *)logInfo:(id)logBody;
 
 @end
 

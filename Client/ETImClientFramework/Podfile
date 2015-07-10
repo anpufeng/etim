@@ -6,8 +6,14 @@ pod 'FMDB', '~> 2.5'
 #log
 pod 'CocoaLumberjack', '~> 2.0.1'
 
+#network
+pod 'AFNetworking', '~> 2.5.4'
+
 #ui stuff 
 pod 'MBProgressHUD', '~> 0.9.1'
 pod 'JSBadgeView', '~> 1.4.1'
 pod 'TWMessageBarManager', '~> 1.7.2'
 pod 'MJRefresh', '~> 2.2.0'
+
+#autolayout
+pod 'Masonry', '~> 0.6.2'

@@ -9,6 +9,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>Pods-AFNetworking.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Pods-CocoaLumberjack.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -34,6 +39,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>Pods-Masonry.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Pods-TWMessageBarManager.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -47,42 +57,52 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>33F2FDC63A7F9086E14631CC</key>
+		<key>19F2F6ED4A56B9E74432AF65</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>5CB526AF6F5BD2CAD1CF4C71</key>
+		<key>24630A3CDC52C9048E4A5133</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>5F4FDDDD235D5BE93B7AC8F0</key>
+		<key>58ECEF38D85CDAEBA32D364B</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>6B1E4D5B0DBAC460A553ABC9</key>
+		<key>5B14C692650BB928C2031122</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>B72A640A4F1AB9AB1BD476A1</key>
+		<key>64736BE132F4EA7AF13AD491</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>C74F3C91E644F804CCF8197F</key>
+		<key>6A1711EF30984B350BC49B6C</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>EABE7A9D2BD489282F82EF74</key>
+		<key>8E45755DEFC811160E6889B5</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>EFEF3B7FD8A22887190C47CA</key>
+		<key>C672DA167AC679DEDE36CE73</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>DC1187EF9BF3BD1160CC4C9B</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>E20789F50FF8FFBA97CF34CF</key>
 		<dict>
 			<key>primary</key>
 			<true/>
