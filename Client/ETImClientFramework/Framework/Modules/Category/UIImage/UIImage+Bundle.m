@@ -10,23 +10,33 @@
 
 @implementation UIImage (Bundle)
 
-+ (id)imageWithBundleImageName:(NSString *)strImageName {
-    NSString *strPath = [[NSBundle mainBundle] pathForResource:strImageName ofType:nil];
-    
-    NSAssert(strPath, @"image not exist in main bundle: %@", strImageName);
-    
-    return [UIImage imageWithContentsOfFile:strPath];
++ (id)imageWithMainBundle:(NSString *)name {
+    return [[self class] imageWithBundle:@"Main" imageName:name extension:@"png"];
+}
++ (id)imageWithMainBundle:(NSString *)name extension:(NSString *)extension {
+    return [[self class] imageWithBundle:@"Main" imageName:name extension:extension];
 }
 
-+ (id)imageWithBundleImageName:(NSString *)strImageName ofType:(NSString *)ext {
-    NSString *strPath = [[NSBundle mainBundle] pathForResource:strImageName ofType:ext];
-    if (!strPath) {
-        strPath = [[NSBundle mainBundle] pathForResource:[strImageName stringByAppendingString:@"@2x"] ofType:ext];
-    }
-    
-    NSAssert(strPath, @"image not exist in main bundle: %@", strImageName);
-    
-    return [UIImage imageWithContentsOfFile:strPath];
++ (id)imageWithBundle:(NSString *)aBundle imageName:(NSString *)name {
+    return [[self class] imageWithBundle:aBundle imageName:name extension:@"png"];
 }
++ (id)imageWithBundle:(NSString *)aBundle imageName:(NSString *)name extension:(NSString *)extension {
+    NSBundle *bundle;
+    if ([aBundle isEqualToString:@"Main"]) {
+        bundle = [NSBundle mainBundle];
+    } else {
+        bundle = [NSBundle bundleWithURL:[[NSBundle mainBundle] URLForResource:aBundle withExtension:@"bundle"]];
+    }
+    NSString *strPath = [bundle pathForResource:name ofType:extension];
+    if (!strPath) {
+        strPath = [bundle pathForResource:[name stringByAppendingString:@"@2x"] ofType:extension];
+    }
+
+    
+    NSAssert(strPath, @"image not exist in main bundle: %@", strPath);
+    
+     return [UIImage imageWithContentsOfFile:strPath];
+}
+
 
 @end

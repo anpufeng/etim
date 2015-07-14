@@ -1,75 +1,76 @@
 //
 //  NSMutableArray+Safe.m
-//  Juanpi
+//  ETImClientFramework
 //
-//  Created by xuexiang on 13-8-21.
-//  Copyright (c) 2013年 Juanpi. All rights reserved.
+//  Created by xuqing on 15/7/14.
+//  Copyright (c) 2015年 ethan. All rights reserved.
 //
 
 #import "NSMutableArray+Safe.h"
-#import "NSObject+Swizzle.h"
+#import "JRSwizzle.h"
 
 @implementation NSMutableArray (Safe)
 
-+ (void)load
-{
-    [self overrideMethod:@selector(setObject:atIndexedSubscript:) withMethod:@selector(safeSetObject:atIndexedSubscript:)];
++ (void)load {
+    NSError *err1;
+    NSError *err2;
+    NSError *err3;
+    BOOL result = ([[[NSMutableArray array] class] jr_swizzleMethod:@selector(addObject:)
+                                                            withMethod:@selector(hm_addObject:)
+                                                                 error:&err1]
+                   && [[[NSMutableArray array] class] jr_swizzleMethod:@selector(insertObject:atIndex:)
+                                                                      withMethod:@selector(hm_insertObject:atIndex:)
+                                                                           error:&err2]
+                   && [[[NSMutableArray array] class] jr_swizzleMethod:@selector(insertObjects:atIndexes:)
+                                                            withMethod:@selector(hm_insertObjects:atIndexes:)
+                                                                 error:&err2]
+                   && [[[NSMutableArray array] class] jr_swizzleMethod:@selector(removeObjectAtIndex:)
+                                                            withMethod:@selector(hm_removeObjectAtIndex:)
+                                                                 error:&err3]);
+    
+#ifdef DEBUG
+    NSAssert(result, ([NSString stringWithFormat:@"err1 : %@, err2: %@", err1, err2]));
+#endif
 }
 
-- (void)safeSetObject:(id)obj atIndexedSubscript:(NSUInteger)idx
-{
-    if (obj == nil) {
-        return ;
-    }
 
-    if (self.count < idx) {
-        return ;
-    }
-
-    if (idx == self.count) {
-        [self addObject:obj];
-    } else {
-        [self replaceObjectAtIndex:idx withObject:obj];
-    }
-}
-
-- (void)safeAddObject:(id)object
+- (void)hm_addObject:(id)object
 {
 	if (object == nil) {
 		return;
 	} else {
-        [self addObject:object];
+        [self hm_addObject:object];
     }
 }
 
-- (void)safeInsertObject:(id)object atIndex:(NSUInteger)index
+- (void)hm_insertObject:(id)object atIndex:(NSUInteger)index
 {
 	if (object == nil) {
 		return;
 	} else if (index > self.count) {
 		return;
 	} else {
-        [self insertObject:object atIndex:index];
+        [self hm_insertObject:object atIndex:index];
     }
 }
 
-- (void)safeInsertObjects:(NSArray *)objects atIndexes:(NSIndexSet *)indexs
+- (void)hm_insertObjects:(NSArray *)objects atIndexes:(NSIndexSet *)indexs
 {
     if (indexs == nil) {
         return;
     } else if (indexs.count!=objects.count || indexs.firstIndex>=objects.count || indexs.lastIndex>=objects.count) {
         return;
     } else {
-        [self insertObjects:objects atIndexes:indexs];
+        [self hm_insertObjects:objects atIndexes:indexs];
     }
 }
 
-- (void)safeRemoveObjectAtIndex:(NSUInteger)index
+- (void)hm_removeObjectAtIndex:(NSUInteger)index
 {
 	if (index >= self.count) {
 		return;
 	} else {
-        [self removeObjectAtIndex:index];
+        [self hm_removeObjectAtIndex:index];
     }
 }
 

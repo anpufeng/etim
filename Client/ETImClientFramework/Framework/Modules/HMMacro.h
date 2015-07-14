@@ -9,6 +9,8 @@
 #ifndef ETImClientFramework_HMMacro_h
 #define ETImClientFramework_HMMacro_h
 
+#import "UIImage+Bundle.h"
+
 ///版本及屏幕类
 #define IOS7                                    ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7.0)
 #define IOS8                                    ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0)
@@ -72,13 +74,17 @@
 
 
 ///普通图片获取
-#define IMAGE(name)                                 ([UIImage imageWithBundleImageName:name])
+#define IMAGE(name)                                 ([UIImage imageWithMainBundle:name])
 ///2x类png
-#define IMAGE_PNG(name)                             ([UIImage imageWithBundleImageName:name ofType:@"png"])
+#define IMAGE_PNG(name)                             ([UIImage imageWithMainBundle:name ofType:@"png"])
 ///2x类jpg
-#define IMAGE_JPG(name)                             ([UIImage imageWithBundleImageName:name ofType:@"jpg"])
+#define IMAGE_JPG(name)                             ([UIImage imageWithMainBundle:name ofType:@"jpg"])
 ///2x类type类的图片
-#define IMAGE_TYPE(name, type)                      ([UIImage imageWithBundleImageName:name ofType:type])
+#define IMAGE_TYPE(name, type)                      ([UIImage imageWithMainBundle:name ofType:type])
+
+#define BUNDLE_IMAGE_PNG(bundle, name)              ([UIImage imageWithBundle:bundle imageName:name])
+#define BUNDLE_IMAGE_JPG(bundle, name, type)        ([UIImage imageWithBundle:bundle imageName:name extension:@"jpg"])
+#define BUNDLE_IMAGE_TYPE(bundle, name, type)       ([UIImage imageWithBundle:bundle imageName:name extension:type])
 
 ///一些快捷类的
 #define CAARRAY_LENGTH(arr)                         (sizeof(arr) / sizeof(*(arr)))

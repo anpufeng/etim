@@ -33,16 +33,18 @@ PODS:
   - FMDB/common (2.5)
   - FMDB/standard (2.5):
     - FMDB/common
+  - JRSwizzle (1.0)
   - JSBadgeView (1.4.1)
   - Masonry (0.6.2)
   - MBProgressHUD (0.9.1)
-  - MJRefresh (2.2.0)
+  - MJRefresh (2.2.1)
   - TWMessageBarManager (1.7.2)
 
 DEPENDENCIES:
   - AFNetworking (~> 2.5.4)
   - CocoaLumberjack (~> 2.0.1)
   - FMDB (~> 2.5)
+  - JRSwizzle (~> 1.0)
   - JSBadgeView (~> 1.4.1)
   - Masonry (~> 0.6.2)
   - MBProgressHUD (~> 0.9.1)
@@ -53,10 +55,11 @@ SPEC CHECKSUMS:
   AFNetworking: 05edc0ac4c4c8cf57bcf4b84be5b0744b6d8e71e
   CocoaLumberjack: 019d1361244274a6138c788c6cb80baabc13fb8f
   FMDB: 96e8f1bcc1329e269330f99770ad4285d9003e52
+  JRSwizzle: dd5ead5d913a0f29e7f558200165849f006bb1e3
   JSBadgeView: 3861ddee41094284d9468e6d0af5107f703aaac5
   Masonry: 362e8a1cc0beada4a4c4832d5e863da2a51533be
   MBProgressHUD: c47f2c166c126cf2ce36498d80f33e754d4e93ad
-  MJRefresh: 65a2bf14abb6feeaed8696aa1551f70e15ab0a08
+  MJRefresh: c3fa0387e8e97a11a9666639d2f815607edd1c2f
   TWMessageBarManager: e7adc066ee425174f5dee79473fce913b1cd1662
 
 COCOAPODS: 0.35.0

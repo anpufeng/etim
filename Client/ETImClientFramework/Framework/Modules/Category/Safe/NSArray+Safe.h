@@ -1,17 +1,19 @@
 //
 //  NSArray+Safe.h
-//  Juanpi
+//  ETImClientFramework
 //
-//  Created by huang jiming on 13-1-17.
-//  Copyright (c) 2013年 Juanpi. All rights reserved.//ii
+//  Created by xuqing on 15/7/14.
+//  Copyright (c) 2015年 ethan. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
 
 @interface NSArray (Safe)
 
-- (id)safeObjectAtIndex:(NSUInteger)index;
+- (id)hm_objectAtIndex:(NSUInteger)index;
+//mutable array
+- (id)hm_objectAtIndexMutable:(NSUInteger)index;
 
-+ (instancetype)safeArrayWithObject:(id)object;
++ (instancetype)hm_ArrayWithObject:(id)object;
 
 @end

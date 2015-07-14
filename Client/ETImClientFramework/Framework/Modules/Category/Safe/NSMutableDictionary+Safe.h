@@ -1,17 +1,16 @@
 //
 //  NSMutableDictionary+Safe.h
-//  Juanpi
+//  ETImClientFramework
 //
-//  Created by airspuer on 13-5-8.
-//  Copyright (c) 2013年 Juanpi. All rights reserved.
+//  Created by xuqing on 15/7/14.
+//  Copyright (c) 2015年 ethan. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
 
 @interface NSMutableDictionary(Safe)
 
-- (void)safeSetObject:(id)aObj forKey:(id<NSCopying>)aKey;
+- (void)hm_setObject:(id)aObj forKey:(id<NSCopying>)aKey;
 
-- (id)safeObjectForKey:(id<NSCopying>)aKey;
 
 @end

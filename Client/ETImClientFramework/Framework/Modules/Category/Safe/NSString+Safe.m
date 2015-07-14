@@ -1,84 +1,89 @@
 //
 //  NSString+Safe.m
-//  Juanpi
+//  ETImClientFramework
 //
-//  Created by huang jiming on 14-1-8.
-//  Copyright (c) 2014年 Juanpi. All rights reserved.
+//  Created by xuqing on 15/7/14.
+//  Copyright (c) 2015年 ethan. All rights reserved.
 //
 
 #import "NSString+Safe.h"
+#import "JRSwizzle.h"
 
 @implementation NSString (Safe)
 
-- (NSString *)safeSubstringFromIndex:(NSUInteger)from
++ (void)load {
+
+}
+
+- (NSString *)hm_substringFromIndex:(NSUInteger)from
 {
     if (from > self.length) {
         return nil;
     } else {
-        return [self substringFromIndex:from];
+        return [self hm_substringFromIndex:from];
     }
 }
 
-- (NSString *)safeSubstringToIndex:(NSUInteger)to
+- (NSString *)hm_substringToIndex:(NSUInteger)to
 {
     if (to > self.length) {
         return nil;
     } else {
-        return [self substringToIndex:to];
+        return [self hm_substringToIndex:to];
     }
 }
 
-- (NSString *)safeSubstringWithRange:(NSRange)range
+- (NSString *)hm_substringWithRange:(NSRange)range
 {
     if (range.location + range.length > self.length) {
         return nil;
     } else {
-        return [self substringWithRange:range];
+        return [self hm_substringWithRange:range];
     }
 }
 
-- (NSRange)safeRangeOfString:(NSString *)aString
+- (NSRange)hm_rangeOfString:(NSString *)aString
 {
     if (aString == nil) {
         return NSMakeRange(NSNotFound, 0);
     } else {
-        return [self rangeOfString:aString];
+        return [self hm_rangeOfString:aString];
     }
 }
 
-- (NSRange)safeRangeOfString:(NSString *)aString options:(NSStringCompareOptions)mask
+- (NSRange)hm_rangeOfString:(NSString *)aString options:(NSStringCompareOptions)mask
 {
     if (aString == nil) {
         return NSMakeRange(NSNotFound, 0);
     } else {
-        return [self rangeOfString:aString options:mask];
+        return [self hm_rangeOfString:aString options:mask];
     }
 }
 
-- (NSString *)safeStringByAppendingString:(NSString *)aString
+- (NSString *)hm_stringByAppendingString:(NSString *)aString
 {
     if (aString == nil) {
-        return [self stringByAppendingString:@""];
+        return [self hm_stringByAppendingString:@""];
     } else {
-        return [self stringByAppendingString:aString];
+        return [self hm_stringByAppendingString:aString];
     }
 }
 
-- (id)safeInitWithString:(NSString *)aString
+- (id)hm_initWithString:(NSString *)aString
 {
     if (aString == nil) {
-        return [self initWithString:@""];
+        return [self hm_initWithString:@""];
     } else {
-        return [self initWithString:aString];
+        return [self hm_initWithString:aString];
     }
 }
 
-+ (id)safeStringWithString:(NSString *)string
++ (id)hm_stringWithString:(NSString *)string
 {
     if (string == nil) {
-        return [self stringWithString:@""];
+        return [self hm_stringWithString:@""];
     } else {
-        return [self stringWithString:string];
+        return [self hm_stringWithString:string];
     }
 }
 

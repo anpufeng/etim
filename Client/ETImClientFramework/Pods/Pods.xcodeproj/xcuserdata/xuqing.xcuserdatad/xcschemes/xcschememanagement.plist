@@ -24,6 +24,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>Pods-JRSwizzle.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Pods-JSBadgeView.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -57,52 +62,57 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>19F2F6ED4A56B9E74432AF65</key>
+		<key>2C8063288ABF90A73C03625B</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>24630A3CDC52C9048E4A5133</key>
+		<key>4FCCEACDB92D70516458AA13</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>58ECEF38D85CDAEBA32D364B</key>
+		<key>5EC24C5D60F361AC6C7B8BAE</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>5B14C692650BB928C2031122</key>
+		<key>616B756CA8A043153ED91526</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>64736BE132F4EA7AF13AD491</key>
+		<key>72D5E3544F09D81639856C9E</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>6A1711EF30984B350BC49B6C</key>
+		<key>79EF5AF5C12A97AE25C26F44</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>8E45755DEFC811160E6889B5</key>
+		<key>979E1DE12B19016F819ABA08</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>C672DA167AC679DEDE36CE73</key>
+		<key>BCA3A5B57483213F7AD129B9</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>DC1187EF9BF3BD1160CC4C9B</key>
+		<key>C21A11A010181FA3B7536F40</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>E20789F50FF8FFBA97CF34CF</key>
+		<key>D34CB6B008D80074FC993250</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>F930B6BE173769147E24CF47</key>
 		<dict>
 			<key>primary</key>
 			<true/>

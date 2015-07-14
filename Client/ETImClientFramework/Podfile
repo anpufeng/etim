@@ -17,3 +17,6 @@ pod 'MJRefresh', '~> 2.2.0'
 
 #autolayout
 pod 'Masonry', '~> 0.6.2'
+
+#swizzle 
+pod 'JRSwizzle', '~> 1.0'

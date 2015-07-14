@@ -9,20 +9,15 @@
 #import <UIKit/UIKit.h>
 
 /**
- 无缓存
+ 无缓存 从对应的bundle获取图片
  **/
 @interface UIImage (Bundle)
 
-+ (id)imageWithMainBundle:(NSString *)imgName;
-+ (id)imageWithMainBundle:(NSString *)imgName type:(NSString *)type;
++ (id)imageWithMainBundle:(NSString *)name;
++ (id)imageWithMainBundle:(NSString *)name extension:(NSString *)extension;
 
-+ (id)imageWithBundle:(NSString *)aBundle imageName:(NSString *)imgName;
-+ (id)imageWithBundle:(NSString *)aBundle imageName:(NSString *)imgName type:(NSString *)type;
++ (id)imageWithBundle:(NSString *)aBundle imageName:(NSString *)name;
++ (id)imageWithBundle:(NSString *)aBundle imageName:(NSString *)name extension:(NSString *)extension;
 
-///获取在main bundle中的图片
-+ (id)imageWithBundleImageName:(NSString *)strImageName;
-
-///获取在main bundle中的图片, 用于2x类图片
-+ (id)imageWithBundleImageName:(NSString *)strImageName ofType:(NSString *)ext;
 
 @end

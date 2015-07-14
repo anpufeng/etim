@@ -1,29 +1,25 @@
 //
-//  Prefix header
+//  ETImClient-Prefix.pch
+//  ETImClient
 //
-//  The contents of this file are implicitly included at the beginning of every source file.
+//  Created by xuqing on 15/7/13.
+//  Copyright (c) 2015年 ethan. All rights reserved.
 //
 
-#import <Availability.h>
+#ifndef ETImClient_ETImClient_Prefix_pch
+#define ETImClient_ETImClient_Prefix_pch
 
-#ifndef __IPHONE_3_0
-#warning "This project uses features only available in iOS SDK 3.0 and later."
-#endif
+// Include any system framework and library headers here that should be included in all compilation units.
+// You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
 
 #ifdef __OBJC__
-    #import <UIKit/UIKit.h>
-    #import <Foundation/Foundation.h>
-#import "Macro.h"
-#import "Constants.h"
-#import "CocoaLumberjack.h" 
-#import "UtilFileManager.h"
-#import "UtilForUI.h"
-#import "UtilUserDefaults.h" 
+#import <UIKit/UIKit.h>
+#import <Foundation/Foundation.h>
+#import <QuartzCore/QuartzCore.h>
+#import <CoreData/CoreData.h>
+#import "ETImClientFramework.h"
 
-#ifdef DEBUG
-static const DDLogLevel ddLogLevel = DDLogLevelDebug;
-#else
-static const DDLogLevel ddLogLevel = DDLogLevelInfo;
 #endif
+
 
 #endif

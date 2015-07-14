@@ -1,50 +1,35 @@
 //
 //  NSMutableDictionary+Safe.m
-//  Juanpi
+//  ETImClientFramework
 //
-//  Created by airspuer on 13-5-8.
-//  Copyright (c) 2013年 Juanpi. All rights reserved.
+//  Created by xuqing on 15/7/14.
+//  Copyright (c) 2015年 ethan. All rights reserved.
 //
 
 #import "NSMutableDictionary+Safe.h"
-#import "NSObject+Swizzle.h"
+#import "JRSwizzle.h"
 
-@implementation NSMutableDictionary(Safe)
+@implementation NSMutableDictionary (Safe)
 
-+ (void)load
-{
-    [self overrideMethod:@selector(setObject:forKeyedSubscript:) withMethod:@selector(safeSetObject:forKeyedSubscript:)];
++ (void)load {
+    NSError *err1;
+    BOOL result = ([[[NSMutableDictionary dictionary] class] jr_swizzleMethod:@selector(setObject:forKey:)
+                                                            withMethod:@selector(hm_setObject:forKey:)
+                                                                 error:&err1]);
+    
+#ifdef DEBUG
+    NSAssert(result, ([NSString stringWithFormat:@"err1 : %@", err1]));
+#endif
 }
 
-- (void)safeSetObject:(id)obj forKeyedSubscript:(id<NSCopying>)key
-{
-    if (!key) {
-        return ;
-    }
-
-    if (!obj || [obj isKindOfClass:[NSNull class]]) {
-        return ;
-    }
-
-    [self setObject:obj forKey:key];
-}
-
-- (void)safeSetObject:(id)aObj forKey:(id<NSCopying>)aKey
+- (void)hm_setObject:(id)aObj forKey:(id<NSCopying>)aKey
 {
     if (aObj && ![aObj isKindOfClass:[NSNull class]] && aKey) {
-        [self setObject:aObj forKey:aKey];
+        [self hm_setObject:aObj forKey:aKey];
     } else {
         return;
     }
 }
 
-- (id)safeObjectForKey:(id<NSCopying>)aKey
-{
-    if (aKey != nil) {
-        return [self objectForKey:aKey];
-    } else {
-        return nil;
-    }
-}
 
 @end

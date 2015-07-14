@@ -1,21 +1,43 @@
 //
 //  NSDictionary+Safe.m
-//  Juanpi
+//  ETImClientFramework
 //
-//  Created by huang jiming on 14-1-8.
-//  Copyright (c) 2014年 Juanpi. All rights reserved.
+//  Created by xuqing on 15/7/14.
+//  Copyright (c) 2015年 ethan. All rights reserved.
 //
 
 #import "NSDictionary+Safe.h"
+#import "JRSwizzle.h"
 
 @implementation NSDictionary (Safe)
 
-+ (id)safeDictionaryWithObject:(id)object forKey:(id <NSCopying>)key
-{
-    if (object==nil || key==nil) {
-        return [self dictionary];
++ (void)load {
+    NSError *err1;
+    NSError *err2;
+    BOOL result = ([[[NSDictionary dictionary] class] jr_swizzleMethod:@selector(objectForKey:)
+                                                  withMethod:@selector(hm_objectForKey:)
+                                                       error:&err1]
+                   && [[[NSMutableDictionary dictionary] class] jr_swizzleMethod:@selector(objectForKey:)
+                                                            withMethod:@selector(hm_objectForKeyMutable:)
+                                                                 error:&err2]);
+    
+#ifdef DEBUG
+    NSAssert(result, ([NSString stringWithFormat:@"err1 : %@, err2: %@", err1, err2]));
+#endif
+}
+
+- (id)hm_objectForKey:(id<NSCopying>)aKey {
+    if (aKey != nil) {
+        return [self hm_objectForKey:aKey];
     } else {
-        return [self dictionaryWithObject:object forKey:key];
+        return nil;
+    }
+}
+- (id)hm_objectForKeyMutable:(id<NSCopying>)aKey {
+    if (aKey != nil) {
+        return [self hm_objectForKeyMutable:aKey];
+    } else {
+        return nil;
     }
 }
 

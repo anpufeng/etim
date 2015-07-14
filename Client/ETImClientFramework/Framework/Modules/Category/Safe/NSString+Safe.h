@@ -1,29 +1,29 @@
 //
 //  NSString+Safe.h
-//  Juanpi
+//  ETImClientFramework
 //
-//  Created by huang jiming on 14-1-8.
-//  Copyright (c) 2014年 Juanpi. All rights reserved.
+//  Created by xuqing on 15/7/14.
+//  Copyright (c) 2015年 ethan. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
 
 @interface NSString (Safe)
 
-- (NSString *)safeSubstringFromIndex:(NSUInteger)from;
+- (NSString *)hm_substringFromIndex:(NSUInteger)from;
 
-- (NSString *)safeSubstringToIndex:(NSUInteger)to;
+- (NSString *)hm_substringToIndex:(NSUInteger)to;
 
-- (NSString *)safeSubstringWithRange:(NSRange)range;
+- (NSString *)hm_substringWithRange:(NSRange)range;
 
-- (NSRange)safeRangeOfString:(NSString *)aString;
+- (NSRange)hm_rangeOfString:(NSString *)aString;
 
-- (NSRange)safeRangeOfString:(NSString *)aString options:(NSStringCompareOptions)mask;
+- (NSRange)hm_rangeOfString:(NSString *)aString options:(NSStringCompareOptions)mask;
 
-- (NSString *)safeStringByAppendingString:(NSString *)aString;
+- (NSString *)hm_stringByAppendingString:(NSString *)aString;
 
-- (id)safeInitWithString:(NSString *)aString;
+- (id)hm_initWithString:(NSString *)aString;
 
-+ (id)safeStringWithString:(NSString *)string;
++ (id)hm_stringWithString:(NSString *)string;
 
 @end

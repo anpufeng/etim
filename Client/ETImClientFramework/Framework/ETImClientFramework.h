@@ -11,6 +11,10 @@
 #import "HMLog.h"
 
 #import "HMFileManager.h"
+#import "HMAppDelegate.h"
+
+//safe
+#import "FoundationSafeHeader.h"
 
 @interface ETImClientFramework : NSObject
 

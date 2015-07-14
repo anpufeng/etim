@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>38F6D990-0D9B-44B9-AEF3-159107ACB801</string>
+	<key>IDESourceControlProjectName</key>
+	<string>ETImClientFramework</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>8C56FC0C9CBFDAD69D4BEBB2F8147514B62548FB</key>
+		<string>https://github.com/anpufeng/etim.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>Client/ETImClientFramework/ETImClientFramework.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>8C56FC0C9CBFDAD69D4BEBB2F8147514B62548FB</key>
+		<string>../../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/anpufeng/etim.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>8C56FC0C9CBFDAD69D4BEBB2F8147514B62548FB</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>8C56FC0C9CBFDAD69D4BEBB2F8147514B62548FB</string>
+			<key>IDESourceControlWCCName</key>
+			<string>etinstantmessage</string>
+		</dict>
+	</array>
+</dict>
+</plist>
